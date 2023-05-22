@@ -24,6 +24,6 @@ public static class Logger
     [Conditional("EnableLogger")]
     public static void Error(object message, Object context)
     {
-        UnityEngine.Debug.LogError(message, context);        
-    }
+        UnityEngine.Debug.LogError(message, context);               
+    }    
 }
