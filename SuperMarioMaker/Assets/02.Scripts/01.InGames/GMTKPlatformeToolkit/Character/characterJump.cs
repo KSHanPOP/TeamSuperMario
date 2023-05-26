@@ -48,7 +48,7 @@ namespace GMTK.PlatformerToolkit {
             ground = GetComponent<characterGround>();
             //juice = GetComponentInChildren<characterJuice>();
             defaultGravityScale = 1f;
-        }
+        } 
 
         public void OnJump(InputAction.CallbackContext context) {
             //This function is called when one of the jump buttons (like space or the A button) is pressed.
@@ -68,8 +68,8 @@ namespace GMTK.PlatformerToolkit {
         }
 
         void Update() {
-            setPhysics();
 
+            setPhysics();
             //Check if we're on ground, using Kit's Ground script
             onGround = ground.GetOnGround();
 
@@ -102,7 +102,7 @@ namespace GMTK.PlatformerToolkit {
         private void setPhysics() {
             //Determine the character's gravity scale, using the stats provided. Multiply it by a gravMultiplier, used later
             Vector2 newGravity = new Vector2(0, (-2 * jumpHeight) / (timeToJumpApex * timeToJumpApex));
-            body.gravityScale = (newGravity.y / Physics2D.gravity.y) * gravMultiplier;
+            body.gravityScale = (newGravity.y / Physics2D.gravity.y) * gravMultiplier;            
         }
 
         private void FixedUpdate() {
