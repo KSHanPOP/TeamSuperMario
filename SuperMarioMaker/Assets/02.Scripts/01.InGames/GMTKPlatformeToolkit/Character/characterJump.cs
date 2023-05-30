@@ -39,7 +39,7 @@ namespace GMTK.PlatformerToolkit {
         private float coyoteTimeCounter = 0;
         private bool pressingJump;
         public bool onGround;
-        private bool currentlyJumping;
+        private bool currentlyJumping;        
 
         void Awake() {
             //Find the character's Rigidbody and ground detection and juice scripts
@@ -48,10 +48,15 @@ namespace GMTK.PlatformerToolkit {
             ground = GetComponent<characterGround>();
             //juice = GetComponentInChildren<characterJuice>();
             defaultGravityScale = 1f;
-        } 
+        }
+
+        private void Start()
+        {
+            
+        }
 
         public void OnJump(InputAction.CallbackContext context) {
-            //This function is called when one of the jump buttons (like space or the A button) is pressed.
+            //This function is called when one of the jump buttons (like space or the A button) is pressed.            
 
             if (movementLimiter.instance.CharacterCanMove) {
                 //When we press the jump button, tell the script that we desire a jump.
@@ -61,7 +66,7 @@ namespace GMTK.PlatformerToolkit {
                     pressingJump = true;
                 }
 
-                if (context.canceled) {
+                if (context.canceled) {                    
                     pressingJump = false;
                 }
             }
@@ -102,7 +107,8 @@ namespace GMTK.PlatformerToolkit {
         private void setPhysics() {
             //Determine the character's gravity scale, using the stats provided. Multiply it by a gravMultiplier, used later
             Vector2 newGravity = new Vector2(0, (-2 * jumpHeight) / (timeToJumpApex * timeToJumpApex));
-            body.gravityScale = (newGravity.y / Physics2D.gravity.y) * gravMultiplier;            
+            
+            body.gravityScale = (newGravity.y / Physics2D.gravity.y) * gravMultiplier;
         }
 
         private void FixedUpdate() {
@@ -159,17 +165,17 @@ namespace GMTK.PlatformerToolkit {
                 }
                 else {
                     //Otherwise, apply the downward gravity multiplier as Kit comes back to Earth
-                    gravMultiplier = downwardMovementMultiplier;
+                    gravMultiplier = downwardMovementMultiplier;                    
                 }
 
             }
             //Else not moving vertically at all
             else {
                 if (onGround) {
-                    currentlyJumping = false;
+                    currentlyJumping = false;                    
                 }
 
-                gravMultiplier = defaultGravityScale;
+                gravMultiplier = defaultGravityScale;                
             }
 
             //Set the character's Rigidbody's velocity
@@ -180,7 +186,8 @@ namespace GMTK.PlatformerToolkit {
         private void DoAJump() {
 
             //Create the jump, provided we are on the ground, in coyote time, or have a double jump available
-            if (onGround || (coyoteTimeCounter > 0.03f && coyoteTimeCounter < coyoteTime) || canJumpAgain) {
+            if (onGround || (coyoteTimeCounter > 0.03f && coyoteTimeCounter < coyoteTime) || canJumpAgain) 
+            {
                 desiredJump = false;
                 jumpBufferCounter = 0;
                 coyoteTimeCounter = 0;
@@ -189,18 +196,19 @@ namespace GMTK.PlatformerToolkit {
                 canJumpAgain = (maxAirJumps == 1 && canJumpAgain == false);
 
                 //Determine the power of the jump, based on our gravity and stats
-                jumpSpeed = Mathf.Sqrt(-2f * Physics2D.gravity.y * body.gravityScale * jumpHeight);
+                jumpSpeed = Mathf.Sqrt(-2f * Physics2D.gravity.y * body.gravityScale * jumpHeight);                
 
                 //If Kit is moving up or down when she jumps (such as when doing a double jump), change the jumpSpeed;
                 //This will ensure the jump is the exact same strength, no matter your velocity.
                 if (velocity.y > 0f) {
-                    jumpSpeed = Mathf.Max(jumpSpeed - velocity.y, 0f);
+                    jumpSpeed = Mathf.Max(jumpSpeed - velocity.y, 0f);                    
                 }
                 else if (velocity.y < 0f) {
-                    jumpSpeed += Mathf.Abs(body.velocity.y);
+                    jumpSpeed += Mathf.Abs(body.velocity.y);                    
                 }
 
                 //Apply the new jumpSpeed to the velocity. It will be sent to the Rigidbody in FixedUpdate;
+
                 velocity.y += jumpSpeed;
                 currentlyJumping = true;
 
