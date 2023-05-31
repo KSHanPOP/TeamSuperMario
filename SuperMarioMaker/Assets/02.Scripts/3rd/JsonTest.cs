@@ -60,7 +60,6 @@ public class JsonTest : MonoBehaviour
             }
         }
         SaveMapData(mapData);
-
     }
 
     public void SaveMapData(MapData mapData)
@@ -98,8 +97,10 @@ public class JsonTest : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            MakeADefaultMapData();
-            Logger.Debug("세이브 완");
+            LoadMapData("DefaltMapData.jon", true);
+            Logger.Debug("로드 완");
+            // MakeADefaultMapData();
+            //Logger.Debug("세이브 완");
         }
     }
 }
