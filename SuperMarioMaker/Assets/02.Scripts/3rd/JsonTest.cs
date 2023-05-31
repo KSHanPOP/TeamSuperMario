@@ -68,7 +68,32 @@ public class JsonTest : MonoBehaviour
         string json = JsonConvert.SerializeObject(mapData);
         System.IO.File.WriteAllText("DefaltMapData.jon", json);
     }
+    public MapData LoadMapData(string fileName, bool isDefalt = false)
+    {
+        string filePath;
 
+        if (isDefalt)
+        {
+            filePath = Path.Combine(Path.GetFullPath(fileName));
+        }
+        else
+        {
+            filePath = Path.Combine(Application.persistentDataPath, fileName);
+        }
+
+        if (File.Exists(filePath))
+        {
+            
+            string dataAsJson = File.ReadAllText(filePath);
+            MapData loadedData = JsonUtility.FromJson<MapData>(dataAsJson);
+            return loadedData;
+        }
+        else
+        {
+            Debug.LogError("Cannot load game data!");
+        }
+        return null;
+    }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
