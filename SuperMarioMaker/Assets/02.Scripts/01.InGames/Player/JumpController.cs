@@ -26,25 +26,18 @@ public class JumpController : MonoBehaviour
     private float jumpBuffer;    
     private float lastJumpBufferInputTime;
 
-    private bool cancleBuffer;
+    private bool jumCutBuffer;
 
     [SerializeField]
-    private float jumpVelocity;
-
+    private float jumpVelocity;   
 
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
-        ground = GetComponent<characterGround>();
+        ground = GetComponent<characterGround>();         
         body.gravityScale = gravityScale;
         InitSetting();
     }
-
-    void Start()
-    {
-
-    }
-
     private void InitSetting()
     {
         //v2JumpForce = Vector2.up * jumpForce;
@@ -57,14 +50,24 @@ public class JumpController : MonoBehaviour
     {
         if (context.started)
         {
-            lastJumpBufferInputTime = Time.time;            
+            lastJumpBufferInputTime = Time.time;
+            jumCutBuffer = false;
         }
 
-        if (context.canceled && body.velocity.y > 0f)
+        if (context.canceled)
         {
-            cancleBuffer = true;            
-            //body.velocity = new Vector2(body.velocity.x, body.velocity.y / jumpCutForce);
+            jumCutBuffer = true;
         }
+    }
+
+    private void FixedUpdate()
+    {
+        if (ground.GetOnGround() && (Time.time - lastJumpBufferInputTime) < jumpBuffer)
+        {
+            DoJump();
+        }
+
+        TryCutJump();
     }
     private void DoJump()
     {
@@ -72,28 +75,18 @@ public class JumpController : MonoBehaviour
         //body.AddForce(v2JumpForce, ForceMode2D.Force);
 
         body.velocity = new Vector2(body.velocity.x, jumpVelocity);
-        lastJumpBufferInputTime = - jumpBuffer;
+        lastJumpBufferInputTime = -jumpBuffer;
     }
-
-    private void FixedUpdate()
+    private void TryCutJump()
     {
-        if (ground.GetOnGround() && (Time.time - lastJumpBufferInputTime) < jumpBuffer)
-        {            
-            DoJump();
-        }
-
-        CutJump();
-    }
-    private void CutJump()
-    {
-        if (body.velocity.y < 0f)
+        if (!jumCutBuffer)
             return;
 
-        if (!cancleBuffer)
+        if (body.velocity.y <= 0)
             return;
-
+        
         body.velocity = new Vector2(body.velocity.x, body.velocity.y * divJumpCutForce);
-        cancleBuffer = false;
+        jumCutBuffer = false;
     }
 
     void Update()

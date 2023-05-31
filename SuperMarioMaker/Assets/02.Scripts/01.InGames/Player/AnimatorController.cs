@@ -27,9 +27,9 @@ public class AnimatorController : MonoBehaviour
     {
         animator.SetBool(hashIsGround, characterGround.GetOnGround());
         animator.SetBool(hashIsMoing, characterMovement.directionX != 0);
-        //SetScaleForDir();
+        SetSpriteDir();
     }
-    private void SetScaleForDir()
+    private void SetSpriteDir()
     {
         float velocityX = rigidbody2.velocity.x;
 
