@@ -61,7 +61,8 @@ namespace GMTK.PlatformerToolkit {
 
             //Used to flip the character's sprite when she changes direction
             //Also tells us that we are currently pressing a direction button
-            if (directionX != 0) {                
+            if (directionX != 0) {
+                transform.localScale = new Vector3(directionX > 0 ? 1 : -1, 1, 1);
                 pressingKey = true;
             }
             else {

@@ -25,14 +25,14 @@ namespace GMTK.PlatformerToolkit {
             _moveScript.maxSpeed = _preset.TopSpeed;
             _moveScript.maxDecceleration = _preset.Deceleration;
             _moveScript.maxTurnSpeed = _preset.TurnSpeed;
+            _moveScript.maxAirAcceleration = _preset.AirControl;
+            _moveScript.maxAirDeceleration = _preset.AirBrake;
         }
         private void SetJumpData()
         {
             if ( _jumpScript == null) 
                 return;
 
-            _moveScript.maxAirAcceleration = _preset.AirControl;
-            _moveScript.maxAirDeceleration = _preset.AirBrake;
             _jumpScript.jumpHeight = _preset.JumpHeight;
             _jumpScript.timeToJumpApex = _preset.TimeToApex;
             _jumpScript.downwardMovementMultiplier = _preset.DownwardMovementMultiplier;
