@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
 using static UnityEditor.PlayerSettings;
 
@@ -14,7 +15,15 @@ public class ClickChangeTile : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0)) // 0 : left click, 1 : right click
         {
-            ChangeTileUnderMouse();
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                Debug.Log("Clicked on the UI");
+            }
+            else
+            {
+                ChangeTileUnderMouse();
+                Debug.Log("Clicked on the game object");
+            }
         }
     }
 
