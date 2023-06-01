@@ -5,8 +5,11 @@ public class AnimatorController : MonoBehaviour
 {
     [SerializeField] Animator animator;
 
+    private int hashIsIdle = Animator.StringToHash("IsIdle");
     private int hashIsGround = Animator.StringToHash("IsGround");
-    private int hashIsMoing = Animator.StringToHash("IsMoving");
+    //private int hashIsMoving = Animator.StringToHash("IsMoving");
+    private int hashTryStop = Animator.StringToHash("TryStop");
+    private int hashSpeed = Animator.StringToHash("Speed");
 
     private characterGround characterGround;
     private characterMovement characterMovement;
@@ -14,7 +17,10 @@ public class AnimatorController : MonoBehaviour
 
     [SerializeField]
     private float minVelocity = 0.1f;
-    // Start is called before the first frame update
+
+    [SerializeField]
+    private SpriteRenderer spriteRenderer;    
+    
     void Start()
     {
         characterGround = GetComponent<characterGround>();
@@ -22,25 +28,31 @@ public class AnimatorController : MonoBehaviour
         rigidbody2 = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         animator.SetBool(hashIsGround, characterGround.GetOnGround());
-        animator.SetBool(hashIsMoing, characterMovement.directionX != 0);
-        SetSpriteDir();
+        animator.SetBool(hashTryStop, rigidbody2.velocity.x * characterMovement.directionX < 0);
+        animator.SetFloat(hashSpeed, rigidbody2.velocity.x * 0.2f);
+        SetMoveAnimation();
+        //float currVelocityAndInput = rigidbody2.velocity.x * characterMovement.directionX;
+        //animator.SetBool(hashIsMoving, currVelocityAndInput > 0);
     }
-    private void SetSpriteDir()
+    private void SetMoveAnimation()
     {
-        float velocityX = rigidbody2.velocity.x;
+        float velocityX = rigidbody2.velocity.x;        
 
-        if (minVelocity > velocityX && velocityX > -minVelocity)
-            velocityX = 0;
+        bool isIdle = minVelocity > Mathf.Abs(velocityX);
 
-        float dir = 1;        
+        //animator.SetBool(hashIsMoving, !isIdle);
+        animator.SetBool(hashIsIdle, isIdle); 
 
-        if (velocityX > 0) dir = 1;
-        if (velocityX < 0) dir = -1;
+        if (isIdle)
+            return;
 
-        transform.localScale = new Vector3(dir, 1, 1); 
+        if (!characterGround.GetOnGround())
+            return;
+
+        spriteRenderer.flipX = velocityX < 0;
     }
 }

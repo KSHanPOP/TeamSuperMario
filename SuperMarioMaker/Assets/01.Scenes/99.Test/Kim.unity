@@ -1248,7 +1248,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundLength: 0.52
-  colliderOffset: {x: 0.37, y: 0, z: 0}
+  colliderOffset: {x: 0.34, y: 0, z: 0}
   groundLayer:
     serializedVersion: 2
     m_Bits: 1024
@@ -1309,6 +1309,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 2411f5c4-d26e-4a20-b596-9996c462a438
     m_ActionName: IngameControl/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1394496385}
+        m_TargetAssemblyTypeName: GMTK.PlatformerToolkit.characterMovement, Assembly-CSharp
+        m_MethodName: TryRun
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 67d992fe-ae83-4182-ac0a-b6e11da7c509
+    m_ActionName: IngameControl/Run[/Keyboard/leftShift]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: IngameControl
@@ -1328,6 +1344,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 1437993644}
   minVelocity: 0.01
+  spriteRenderer: {fileID: 1437993645}
 --- !u!114 &1394496390
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1558,6 +1575,7 @@ GameObject:
   - component: {fileID: 1813905980}
   - component: {fileID: 1813905979}
   - component: {fileID: 1813905978}
+  - component: {fileID: 1813905983}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -1687,3 +1705,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1813905983
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1813905977}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d88e02192c7980242a85e94592e10477, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

@@ -26,7 +26,7 @@ public class JumpController : MonoBehaviour
     private float jumpBuffer;    
     private float lastJumpBufferInputTime;
 
-    private bool jumCutBuffer;
+    private bool jumpCutBuffer;
 
     [SerializeField]
     private float jumpVelocity;   
@@ -51,12 +51,12 @@ public class JumpController : MonoBehaviour
         if (context.started)
         {
             lastJumpBufferInputTime = Time.time;
-            jumCutBuffer = false;
+            jumpCutBuffer = false;
         }
 
         if (context.canceled)
         {
-            jumCutBuffer = true;
+            jumpCutBuffer = true;
         }
     }
 
@@ -79,14 +79,14 @@ public class JumpController : MonoBehaviour
     }
     private void TryCutJump()
     {
-        if (!jumCutBuffer)
+        if (!jumpCutBuffer)
             return;
 
         if (body.velocity.y <= 0)
             return;
         
         body.velocity = new Vector2(body.velocity.x, body.velocity.y * divJumpCutForce);
-        jumCutBuffer = false;
+        jumpCutBuffer = false;
     }
 
     void Update()
