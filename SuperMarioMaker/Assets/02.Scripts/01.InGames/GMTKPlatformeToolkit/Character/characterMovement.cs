@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Interactions;
 
 namespace GMTK.PlatformerToolkit {
     //This script handles moving the character on the X axis, both on the ground and in the air.
@@ -38,6 +37,8 @@ namespace GMTK.PlatformerToolkit {
         public bool onGround;
         public bool pressingKey;
 
+        private bool isTryRun;
+
         private void Awake() {
             //Find the character's Rigidbody and ground detection script
             body = GetComponent<Rigidbody2D>();
@@ -53,6 +54,11 @@ namespace GMTK.PlatformerToolkit {
             }
         }
 
+        public void TryRun(InputAction.CallbackContext context)
+        {
+            isTryRun = context.ReadValue<float>() == 1;            
+        }
+
         private void Update() {
             //Used to stop movement when the character is playing her death animation
             if (!movementLimiter.instance.CharacterCanMove) {
@@ -62,7 +68,7 @@ namespace GMTK.PlatformerToolkit {
             //Used to flip the character's sprite when she changes direction
             //Also tells us that we are currently pressing a direction button
             if (directionX != 0) {
-                transform.localScale = new Vector3(directionX > 0 ? 1 : -1, 1, 1);
+                //transform.localScale = new Vector3(directionX > 0 ? 1 : -1, 1, 1);
                 pressingKey = true;
             }
             else {
@@ -73,6 +79,8 @@ namespace GMTK.PlatformerToolkit {
             //Friction is not used in this game
             desiredVelocity = new Vector2(directionX, 0f) * Mathf.Max(maxSpeed - friction, 0f);
 
+            if (isTryRun)
+                desiredVelocity *= 1.5f;
         }
 
         private void FixedUpdate() {
