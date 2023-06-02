@@ -2,36 +2,39 @@ using UnityEngine;
 
 public class MonsterColliderDetect : MonoBehaviour
 {
-    protected bool onCollisionEnter;
-    protected bool OnCollisionEnter { get { return onCollisionEnter; } }
-    
     [SerializeField]
-    private LayerMask groundLayer;
+    protected float searchLength;
 
     [SerializeField]
-    protected float layLength;
-
     Rigidbody2D rb;
     Vector2 dir = Vector2.left;
 
+    private MonsterMove move;
+
+    RaycastHit2D[] results = new RaycastHit2D[1];
+
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
-    }    
-    private void Update()
-    {
-        RaycastHit2D[] results = null;
-        
-
+        move = GetComponent<MonsterMove>(); 
     }
 
+    private void Update()
+    {
+        Logger.Debug(rb.Cast(dir, results, 1f));
+
+        if (rb.Cast(dir, results, 1f) > 0)
+        {
+            var collider = results[0].collider;
+            if (collider.CompareTag("Platform") ||
+                collider.CompareTag("Monster"))
+            {
+                Logger.Debug("hit");
+            }
+        }
+    }
     private void OnDrawGizmos()
     {
-        if(onCollisionEnter)
-            Gizmos.color = Color.green;
-        else
-            Gizmos.color = Color.red;
-
-        Gizmos.DrawLine(transform.position, (Vector2)transform.position + dir * layLength);
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(rb.position, rb.position + Vector2.left);
     }
 }
