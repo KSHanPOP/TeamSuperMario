@@ -20,13 +20,9 @@ public class MonsterColliderDetect : MonoBehaviour
 
     private void Update()
     {
-        Logger.Debug(rb.Cast(dir, results, searchLength));
-
         if (rb.Cast(dir, results, searchLength) > 0)
-        {
-            var collider = results[0].collider;
-            if (collider.CompareTag("Platform") ||
-                collider.CompareTag("Monster"))
+        {   
+            if (!results[0].collider.CompareTag("Player"))
             {
                 Logger.Debug("hit");
             }
