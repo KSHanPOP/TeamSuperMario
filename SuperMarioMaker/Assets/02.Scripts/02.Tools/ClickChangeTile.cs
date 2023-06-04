@@ -83,7 +83,7 @@ public class ClickChangeTile : MonoBehaviour
         CustomTile customTile = tileBase as CustomTile;
         if (customTile != null)
         {
-            return customTile.tileName;
+            return customTile.TileName;
         }
 
         return null;
