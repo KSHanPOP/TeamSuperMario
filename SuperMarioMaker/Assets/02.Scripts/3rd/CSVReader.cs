@@ -1,72 +1,34 @@
-using System.Collections.Generic;
-using System.IO;
-using System.Text.RegularExpressions;
 using UnityEngine;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 public class CSVReader
 {
-    static readonly string SPLIT_RE = @",(?=(?:[^""]*""[^""]*"")*(?![^""]*""))";
-    static readonly string SPLIT_SEMICOLON = @";(?=(?:[^""]*""[^""]*"")*(?![^""]*""))";
-    static readonly string LINE_SPLIT_RE = @"\r\n|\n\r|\n|\r";
-    static readonly char[] TRIM_CHARS = { '\"' };
+    static string SPLIT_RE = @",(?=(?:[^""]*""[^""]*"")*(?![^""]*""))";
+    static string LINE_SPLIT_RE = @"\r\n|\n\r|\n|\r";
+    static char[] TRIM_CHARS = { '\"' };
 
-    // New2. Split Text Asset
-    public static List<Dictionary<string, object>> SplitTextAsset(TextAsset asset, bool splitComma = true, bool tryParse = true)
+    public static List<Dictionary<string, string>> Read(string file)
     {
-        return SplitTokens(asset.text, splitComma, tryParse);
-    }
+        var list = new List<Dictionary<string, string>>();
+        TextAsset data = Resources.Load<TextAsset>(file);
+        var lines = Regex.Split(data.text, LINE_SPLIT_RE);
+        if (lines.Length <= 1)
+            return list;
 
-    // New1. Use File Path
-    public static List<Dictionary<string, object>> ReadByPath(string path, bool splitComma = true)
-    {
-        string str = File.ReadAllText(path);
-        return SplitTokens(str, splitComma);
-    }
-    public static List<Dictionary<string, object>> ReadByStreamReaderPath(string path, bool splitComma = true, bool tryParse = true)
-    {
-        using var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-        using var reader = new StreamReader(stream);
-        string str = reader.ReadToEnd();
-        return SplitTokens(str, splitComma, tryParse);
-    }
-
-    // Legacy. Use Resource folder
-    public static List<Dictionary<string, object>> Read(string file, bool splitComma = true)
-    {
-        TextAsset data = Resources.Load(file) as TextAsset;
-        return SplitTokens(data.text, splitComma);
-    }
-
-    private static List<Dictionary<string, object>> SplitTokens(string data, bool splitComma = true, bool tryParse = true)
-    {
-        var list = new List<Dictionary<string, object>>();
-        var lines = Regex.Split(data, LINE_SPLIT_RE);
-        if (lines.Length <= 1) return list;
-
-        var header = Regex.Split(lines[0], splitComma ? SPLIT_RE : SPLIT_SEMICOLON);
+        var header = Regex.Split(lines[0], SPLIT_RE);
         for (var i = 1; i < lines.Length; i++)
         {
-            var values = Regex.Split(lines[i], splitComma ? SPLIT_RE : SPLIT_SEMICOLON);
+            var values = Regex.Split(lines[i], SPLIT_RE);
             if (values.Length == 0 || values[0] == "") continue;
 
-            var entry = new Dictionary<string, object>();
+            var entry = new Dictionary<string, string>();
             for (var j = 0; j < header.Length && j < values.Length; j++)
             {
                 string value = values[j];
-                value = value.TrimStart(TRIM_CHARS).TrimEnd(TRIM_CHARS).Replace("\\", "");
-                object finalvalue = value;
-                if (tryParse)
-                {
-                    if (int.TryParse(value, out int n))
-                    {
-                        finalvalue = n;
-                    }
-                    else if (float.TryParse(value, out float f))
-                    {
-                        finalvalue = f;
-                    }
-                }
-                entry[header[j]] = finalvalue;
+                value = value.TrimStart(TRIM_CHARS).TrimEnd(TRIM_CHARS).Replace("\\n", "\n");
+                //value = value.TrimStart(TRIM_CHARS).TrimEnd(TRIM_CHARS);
+                entry[header[j]] = value;
             }
             list.Add(entry);
         }
