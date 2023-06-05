@@ -13,7 +13,10 @@ public class MonsterMove : MonoBehaviour
     protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        enabled = false;
+        //enabled = false;
+
+
+        DoMove();
     }
 
     public virtual void DoMove()
@@ -26,9 +29,8 @@ public class MonsterMove : MonoBehaviour
         dir = - dir;
         DoMove();
     }
-
-    private void OnBecameInvisible()
-    {
+    private void OnBecameVisible()
+    {        
         enabled = true;
         DoMove();
     }
