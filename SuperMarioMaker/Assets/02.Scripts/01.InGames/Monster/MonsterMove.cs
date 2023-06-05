@@ -18,7 +18,13 @@ public class MonsterMove : MonoBehaviour
 
     public virtual void DoMove()
     {
-        rb.velocity = dir * speed;
+        rb.velocity = speed * dir;
+    }
+
+    public virtual void ChangeMoveDir()
+    {
+        dir = - dir;
+        DoMove();
     }
 
     private void OnBecameInvisible()
