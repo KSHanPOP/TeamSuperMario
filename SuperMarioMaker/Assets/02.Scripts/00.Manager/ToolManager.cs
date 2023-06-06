@@ -4,6 +4,23 @@ using UnityEngine;
 
 public class ToolManager : MonoBehaviour
 {
+    public static ToolManager Instance { get; private set; }
+
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public IconManager iconManager;
+
     [SerializeField]
     private float playTime = 500f;
     [SerializeField]
@@ -40,7 +57,7 @@ public class ToolManager : MonoBehaviour
 
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
@@ -51,9 +68,6 @@ public class ToolManager : MonoBehaviour
 
 
     public void SetPlayTime(float time) => playTime = time;
-    //{
-    //    playTime = time;
-    //}
     public void SetLife(int life) => playerLife = life;
 
 
