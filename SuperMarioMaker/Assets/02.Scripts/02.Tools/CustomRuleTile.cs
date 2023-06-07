@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "CustomTiles/CustomRuleTile", fileName = "CustomRuleTile")]
 public class CustomRuleTile : RuleTile<CustomRuleTile.Neighbor> {
     public bool customField;
 

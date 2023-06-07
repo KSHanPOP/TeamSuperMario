@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "CustomTiles/CustomTile", fileName = "CustomTile")]
 public class CustomTile : Tile
 {
     [SerializeField]
