@@ -5,10 +5,10 @@ using UnityEngine.Tilemaps;
 public class CustomTile : Tile
 {
     [SerializeField]
-    private string tileType;
-    public string TileType
+    private TileSetType tileType;
+    public TileSetType TileType
     {
-        get { return tileName; }
+        get;
     }
 
     [SerializeField]
@@ -17,4 +17,15 @@ public class CustomTile : Tile
     {
         get { return tileName; }
     }
+}
+
+public enum TileSetType
+{
+    Grid,
+    StaticTile,
+    DynamicTile,
+    Gimmick,
+    Monster,
+    Item,
+    Player,
 }
