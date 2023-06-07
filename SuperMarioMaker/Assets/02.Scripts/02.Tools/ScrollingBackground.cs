@@ -1,29 +1,88 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class ScrollingBackground : MonoBehaviour
 {
-    public float backgroundSize;
-    public float speed;
+    public float backgroundSpeed = 0.1f;
+    public Tilemap levelTilemap; // 레벨의 Tilemap
+    public GameObject backgroundPrefab; // 배경 이미지의 프리팹
+    public Transform backgroundParent; // 배경 이미지들의 부모 객체
 
-    private Vector3 startPos;
-    private float newPosition;
+    private Transform[] backgrounds;
+    private Coroutine backgroundCoroutine;
+    private Dictionary<Transform, Vector2> initialPositions = new Dictionary<Transform, Vector2>();
 
+    private void Init()
+    {
+        foreach (Transform background in backgrounds)
+        {
+            initialPositions[background] = background.position;
+        }
+    }
+    void InitializeBackgrounds()
+    {
+        float worldWidth = levelTilemap.cellBounds.max.x - levelTilemap.cellBounds.min.x;
+        float backgroundWidth = backgroundPrefab.GetComponent<SpriteRenderer>().bounds.size.x;
+
+        int backgroundCount = Mathf.CeilToInt(worldWidth / backgroundWidth) + 1;
+
+        backgrounds = new Transform[backgroundCount];
+
+        for (int i = 0; i < backgroundCount; i++)
+        {
+            GameObject newBackground = Instantiate(backgroundPrefab, backgroundParent);
+            newBackground.transform.position = new Vector2(levelTilemap.cellBounds.min.x + i * backgroundWidth, 0);
+            backgrounds[i] = newBackground.transform;
+        }
+        Init();
+    }
     void Start()
     {
-        startPos = transform.position; // 처음 위치 저장
+        InitializeBackgrounds();
     }
 
-    void Update()
+    public void MoveBackground()
     {
-        newPosition += speed * Time.deltaTime; // 새 위치 계산
-        transform.position = startPos + Vector3.left * newPosition; // 새 위치 설정
-
-        if (newPosition > backgroundSize) // 배경이 화면 밖으로 나가면
+        if (backgroundCoroutine == null)
         {
-            startPos += Vector3.right * backgroundSize; // 처음 위치를 배경 크기만큼 오른쪽으로 이동
-            newPosition -= backgroundSize; // 새 위치를 배경 크기만큼 줄임
+            backgroundCoroutine = StartCoroutine(ScrollBackground());
+        }
+    }
+    public void StopBackground()
+    {
+        if (backgroundCoroutine != null)
+        {
+            StopCoroutine(backgroundCoroutine);
+            backgroundCoroutine = null;
+
+            ResetBackgroundPositions();
+        }
+    }
+    private void ResetBackgroundPositions()
+    {
+        foreach (Transform background in backgrounds)
+        {
+            if (initialPositions.ContainsKey(background))
+            {
+                background.position = initialPositions[background];
+            }
+        }
+    }
+    IEnumerator ScrollBackground()
+    {
+        while (true)
+        {
+            foreach (Transform background in backgrounds)
+            {
+                background.position = new Vector2(background.position.x - backgroundSpeed, background.position.y);
+                if (background.position.x <= -background.localScale.x)
+                {
+                    background.position = new Vector2(background.position.x + background.localScale.x * 2, background.position.y);
+                }
+            }
+            yield return new WaitForSeconds(0.02f);
         }
     }
 }
