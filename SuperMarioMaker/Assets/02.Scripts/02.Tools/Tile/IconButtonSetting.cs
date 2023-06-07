@@ -47,6 +47,7 @@ public class IconButtonSetting : MonoBehaviour
     private void OnChooseButtonClick()
     {
         Logger.Debug("Selected button clicked!" + tag);
+        ToolManager.Instance.iconManager.NowTag = tag;
         ToolManager.Instance.iconManager.SetIconPopup(tag);
     }
 

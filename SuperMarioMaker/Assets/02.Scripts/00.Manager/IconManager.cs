@@ -18,6 +18,8 @@ public class IconManager : MonoBehaviour
 
     [SerializeField]
     private GameObject iconPopup;
+    [SerializeField]
+    private Button popupExitButton;
 
     private string nowTag;
 
@@ -86,6 +88,7 @@ public class IconManager : MonoBehaviour
             var newButton = Instantiate(buttonPrefab, scrollViewContent);
             newButton.name = "Button" + (i + 1); // 각 버튼의 이름을 설정합니다.
         }
+        popupExitButton.onClick.AddListener(() => ExitPopup());
         iconPopup.SetActive(false);
     }
 
@@ -180,7 +183,7 @@ public class IconManager : MonoBehaviour
     {
         // Do something when a Popupbutton is clicked
         Debug.Log(button.name + " was clicked!");
-        
+
         var buttonImage = button.GetComponent<Image>().sprite;
 
         if (nowTag == "StaticTileIcon")
@@ -204,6 +207,11 @@ public class IconManager : MonoBehaviour
             Gimmik.ChangeImage(buttonImage);
         }
 
+        iconPopup.SetActive(false);
+    }
+
+    public void ExitPopup()
+    {
         iconPopup.SetActive(false);
     }
 }

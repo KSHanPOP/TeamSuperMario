@@ -50,6 +50,7 @@ public class ToolManager : MonoBehaviour
 
     private bool[,] isDefalt;
 
+    private Vector3 playerPos;
     public struct DefaultInfo
     {
         public Vector3Int pos;
