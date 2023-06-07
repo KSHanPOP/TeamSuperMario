@@ -4,10 +4,27 @@ using UnityEngine;
 
 public class ToolManager : MonoBehaviour
 {
+    public static ToolManager Instance { get; private set; }
+
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public IconManager iconManager;
+
     [SerializeField]
     private float playTime = 500f;
     [SerializeField]
-    private int life = 3;
+    private int playerLife = 3;
     [SerializeField]
     private string background = "Ground";
 
@@ -17,6 +34,7 @@ public class ToolManager : MonoBehaviour
 
     [SerializeField]
     [Range(1, 10)]
+
     private int mapColLength = 1;
 
     [SerializeField]
@@ -26,11 +44,13 @@ public class ToolManager : MonoBehaviour
 
     [SerializeField]
     private int tilemapStartline = 7;
+
     [SerializeField]
     private int tilemapEndline = 10;
 
     private bool[,] isDefalt;
 
+    private Vector3 playerPos;
     public struct DefaultInfo
     {
         public Vector3Int pos;
@@ -38,7 +58,7 @@ public class ToolManager : MonoBehaviour
 
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
@@ -46,4 +66,10 @@ public class ToolManager : MonoBehaviour
     {
 
     }
+
+
+    public void SetPlayTime(float time) => playTime = time;
+    public void SetLife(int life) => playerLife = life;
+
+
 }

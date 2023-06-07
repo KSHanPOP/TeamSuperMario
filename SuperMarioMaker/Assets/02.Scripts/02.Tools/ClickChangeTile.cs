@@ -14,18 +14,18 @@ public class ClickChangeTile : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)) // 0 : left click, 1 : right click
-        {
-            if (EventSystem.current.IsPointerOverGameObject())
-            {
-                Debug.Log("Clicked on the UI");
-            }
-            else
-            {
-                ChangeTileUnderMouse();
-                Debug.Log("Clicked on the game object");
-            }
-        }
+        //if (Input.GetMouseButtonDown(0)) // 0 : left click, 1 : right click
+        //{
+        //    if (EventSystem.current.IsPointerOverGameObject())
+        //    {
+        //        Debug.Log("Clicked on the UI");
+        //    }
+        //    else
+        //    {
+        //        ChangeTileUnderMouse();
+        //        Debug.Log("Clicked on the game object");
+        //    }
+        //}
     }
 
     public void TestFunc(InputAction.CallbackContext context)
@@ -83,7 +83,7 @@ public class ClickChangeTile : MonoBehaviour
         CustomTile customTile = tileBase as CustomTile;
         if (customTile != null)
         {
-            return customTile.TileName;
+            return customTile.TileName; 
         }
 
         return null;
