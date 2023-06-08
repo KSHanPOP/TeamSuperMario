@@ -20,13 +20,20 @@ public class ToolManager : MonoBehaviour
     }
 
     public IconManager iconManager;
+    public ScrollingBackground Background;
 
     [SerializeField]
     private float playTime = 500f;
     [SerializeField]
     private int playerLife = 3;
     [SerializeField]
-    private string background = "Ground";
+    private string background = "Background Ground";
+
+    public string BackgroundName
+    {
+        get { return background; }
+        set { background = value; }
+    }
 
     [SerializeField]
     [Range(1, 10)]
@@ -62,7 +69,7 @@ public class ToolManager : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame

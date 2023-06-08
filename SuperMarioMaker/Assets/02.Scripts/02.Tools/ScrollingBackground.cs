@@ -5,10 +5,12 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 
 public class ScrollingBackground : MonoBehaviour
 {
-    public float backgroundSpeed = 0.05f;
+    [SerializeField]
+    private float backgroundSpeed;
     public Tilemap levelTilemap; // 레벨의 Tilemap
     public GameObject backgroundPrefab; // 배경 이미지의 프리팹
     public Transform backgroundParent; // 배경 이미지들의 부모 객체
@@ -17,12 +19,20 @@ public class ScrollingBackground : MonoBehaviour
     private Coroutine backgroundCoroutine;
     private Dictionary<Transform, Vector2> initialPositions = new Dictionary<Transform, Vector2>();
 
+    [SerializeField]
+    private Button upButton;
+    [SerializeField]
+    private Button downButton;
+
     private void Init()
     {
         foreach (Transform background in backgrounds)
         {
             initialPositions[background] = background.position;
         }
+
+        upButton.onClick.AddListener(BackgroundImageUp);
+        downButton.onClick.AddListener(BackgroundImageDown);
     }
     void InitializeBackgrounds()
     {
@@ -40,14 +50,39 @@ public class ScrollingBackground : MonoBehaviour
             newBackground.transform.position = new Vector2(i * backgroundWidth, 0);
             backgrounds[i] = newBackground.transform;
         }
-        Init();
+        
     }
+
+    private List<Sprite> backgroundSprites;
+    private void LoadBackgroundSprites()
+    {
+        backgroundSprites = new List<Sprite>();
+
+        // Resources/Background 폴더에서 모든 스프라이트를 로드합니다.
+        object[] loadedSprites = Resources.LoadAll("Background", typeof(Sprite));
+
+        foreach (Sprite sprite in loadedSprites)
+        {
+            backgroundSprites.Add(sprite);
+        }
+    }
+
     void Start()
     {
         InitializeBackgrounds();
+        Init();
+        LoadBackgroundSprites();
         MoveBackground();
+        ChangeBackgroundImage();
+
+
     }
 
+    private void Update()
+    {
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //    BackgroundImageUp();
+    }
     public void MoveBackground()
     {
         if (backgroundCoroutine == null)
@@ -81,9 +116,6 @@ public class ScrollingBackground : MonoBehaviour
         {
             foreach (Transform background in backgrounds)
             {
-                // 배경 이미지를 왼쪽으로 이동시킵니다.
-                background.position = new Vector2(background.position.x - backgroundSpeed, background.position.y);
-
                 // 배경 이미지의 오른쪽 경계를 계산합니다.
                 float backgroundRightBoundary = background.position.x + background.localScale.x / 2;
                 float backgroundWidth = background.GetComponent<SpriteRenderer>().bounds.size.x;
@@ -92,11 +124,50 @@ public class ScrollingBackground : MonoBehaviour
                 {
                     float maxBackgroundPosX = Mathf.Max(Array.ConvertAll(backgrounds, b => b.position.x));
                     background.position = new Vector2(maxBackgroundPosX + backgroundWidth, background.position.y);
-                    //background.position = new Vector2(maxBackgroundPosX + backgroundPrefab.GetComponent<SpriteRenderer>().bounds.size.x, background.position.y);
                 }
+
+                // 배경 이미지를 왼쪽으로 이동시킵니다.
+                background.position = new Vector2(background.position.x - backgroundSpeed, background.position.y);
             }
-            //yield return new WaitForSeconds(0.02f);
             yield return null;
         }
+    }
+
+    private int currentBackgroundIndex = 0;
+    private void ChangeBackgroundImage()
+    {
+        if (backgroundSprites == null || backgroundSprites.Count == 0)
+        {
+            Debug.LogError("Background sprites are not loaded.");
+            return;
+        }
+
+        // 각 배경 오브젝트의 스프라이트를 변경합니다.
+        foreach (Transform background in backgrounds)
+        {
+            background.GetComponent<SpriteRenderer>().sprite = backgroundSprites[currentBackgroundIndex];
+        }
+
+        ToolManager.Instance.BackgroundName = backgroundSprites[currentBackgroundIndex].name;
+    }
+
+    public void BackgroundImageUp()
+    {
+        currentBackgroundIndex++;
+        if (currentBackgroundIndex >= backgroundSprites.Count)
+        {
+            currentBackgroundIndex = 0; // 리스트의 처음으로 롤오버합니다.
+        }
+        ChangeBackgroundImage();
+    }
+
+    public void BackgroundImageDown()
+    {
+        currentBackgroundIndex--;
+        if (currentBackgroundIndex < 0)
+        {
+            currentBackgroundIndex = backgroundSprites.Count - 1; // 리스트의 마지막으로 롤오버합니다.
+        }
+        ChangeBackgroundImage();
     }
 }

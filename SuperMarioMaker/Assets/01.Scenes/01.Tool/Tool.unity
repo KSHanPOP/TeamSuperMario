@@ -7043,10 +7043,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28345fae303329b4e96674ba589c71dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backgroundSpeed: 0.1
+  backgroundSpeed: 0.02
   levelTilemap: {fileID: 442647680}
   backgroundPrefab: {fileID: 8584874382772022061, guid: 08336e7bf21846443a93fddf1fd4f88b, type: 3}
   backgroundParent: {fileID: 1746608103}
+  upButton: {fileID: 508076031}
+  downButton: {fileID: 1507995680}
 --- !u!224 &1746608103
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7973,9 +7975,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   iconManager: {fileID: 1235723532}
+  Background: {fileID: 1746608102}
   playTime: 500
   playerLife: 3
-  background: Ground
+  background: Background Ground
   mapRowLength: 1
   mapColLength: 1
   tilemapRow: 24
