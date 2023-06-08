@@ -39,8 +39,12 @@ public class ToolManager : MonoBehaviour
 
     [SerializeField]
     private int tilemapRow = 24;
+    public int TilemapX
+    { get { return tilemapRow; } }
     [SerializeField]
     private int tilemapCol = 14;
+    public int TilemapY
+    { get { return tilemapCol; } }
 
     [SerializeField]
     private int tilemapStartline = 7;

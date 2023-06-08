@@ -1,11 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class ScrollingBackground : MonoBehaviour
 {
-    public float backgroundSpeed = 0.1f;
+    public float backgroundSpeed = 0.05f;
     public Tilemap levelTilemap; // 레벨의 Tilemap
     public GameObject backgroundPrefab; // 배경 이미지의 프리팹
     public Transform backgroundParent; // 배경 이미지들의 부모 객체
@@ -23,17 +26,18 @@ public class ScrollingBackground : MonoBehaviour
     }
     void InitializeBackgrounds()
     {
-        float worldWidth = levelTilemap.cellBounds.max.x - levelTilemap.cellBounds.min.x;
+        //float worldWidth = levelTilemap.cellBounds.max.x - levelTilemap.cellBounds.min.x;
+        float worldWidth = ToolManager.Instance.TilemapX - 1;
         float backgroundWidth = backgroundPrefab.GetComponent<SpriteRenderer>().bounds.size.x;
 
-        int backgroundCount = Mathf.CeilToInt(worldWidth / backgroundWidth) + 1;
+        int backgroundCount = Mathf.CeilToInt(worldWidth / backgroundWidth) + 2;
 
         backgrounds = new Transform[backgroundCount];
 
         for (int i = 0; i < backgroundCount; i++)
         {
             GameObject newBackground = Instantiate(backgroundPrefab, backgroundParent);
-            newBackground.transform.position = new Vector2(levelTilemap.cellBounds.min.x + i * backgroundWidth, 0);
+            newBackground.transform.position = new Vector2(i * backgroundWidth, 0);
             backgrounds[i] = newBackground.transform;
         }
         Init();
@@ -41,6 +45,7 @@ public class ScrollingBackground : MonoBehaviour
     void Start()
     {
         InitializeBackgrounds();
+        MoveBackground();
     }
 
     public void MoveBackground()
@@ -76,13 +81,22 @@ public class ScrollingBackground : MonoBehaviour
         {
             foreach (Transform background in backgrounds)
             {
+                // 배경 이미지를 왼쪽으로 이동시킵니다.
                 background.position = new Vector2(background.position.x - backgroundSpeed, background.position.y);
-                if (background.position.x <= -background.localScale.x)
+
+                // 배경 이미지의 오른쪽 경계를 계산합니다.
+                float backgroundRightBoundary = background.position.x + background.localScale.x / 2;
+                float backgroundWidth = background.GetComponent<SpriteRenderer>().bounds.size.x;
+                // 배경 이미지의 오른쪽 경계가 타일맵의 왼쪽 경계를 넘어갔다면,
+                if (backgroundRightBoundary <= -backgroundWidth)
                 {
-                    background.position = new Vector2(background.position.x + background.localScale.x * 2, background.position.y);
+                    float maxBackgroundPosX = Mathf.Max(Array.ConvertAll(backgrounds, b => b.position.x));
+                    background.position = new Vector2(maxBackgroundPosX + backgroundWidth, background.position.y);
+                    //background.position = new Vector2(maxBackgroundPosX + backgroundPrefab.GetComponent<SpriteRenderer>().bounds.size.x, background.position.y);
                 }
             }
-            yield return new WaitForSeconds(0.02f);
+            //yield return new WaitForSeconds(0.02f);
+            yield return null;
         }
     }
 }
