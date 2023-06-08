@@ -10,6 +10,7 @@ namespace GMTK.PlatformerToolkit {
 
         private Rigidbody2D body;
         characterGround ground;
+        GroundCheck groundCheck;
 
         [Header("Movement Stats")]
         [SerializeField, Range(0f, 20f)][Tooltip("Maximum movement speed")] public float maxSpeed = 10f;
@@ -43,6 +44,7 @@ namespace GMTK.PlatformerToolkit {
             //Find the character's Rigidbody and ground detection script
             body = GetComponent<Rigidbody2D>();
             ground = GetComponent<characterGround>();
+            groundCheck = GetComponent<GroundCheck>();
         }
 
         public void OnMovement(InputAction.CallbackContext context) {

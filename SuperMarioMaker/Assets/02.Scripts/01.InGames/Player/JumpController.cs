@@ -29,7 +29,9 @@ public class JumpController : MonoBehaviour
     private bool jumpCutBuffer;
 
     [SerializeField]
-    private float jumpVelocity;   
+    private float jumpVelocity;
+
+    private float jumpKeyValue;
 
     private void Awake()
     {
@@ -48,16 +50,12 @@ public class JumpController : MonoBehaviour
 
     public void TryJump(InputAction.CallbackContext context)
     {
-        if (context.started)
-        {
-            lastJumpBufferInputTime = Time.time;
-            jumpCutBuffer = false;
-        }
+        jumpKeyValue = context.ReadValue<float>();
 
-        if (context.canceled)
+        if(jumpKeyValue == 1)
         {
-            jumpCutBuffer = true;
-        }
+            lastJumpBufferInputTime = Time.time;            
+        }   
     }
 
     private void FixedUpdate()
@@ -69,24 +67,29 @@ public class JumpController : MonoBehaviour
 
         TryCutJump();
     }
-    private void DoJump()
+    public void DoJump()
     {
         //body.velocity = new Vector2(body.velocity.x, 0);
         //body.AddForce(v2JumpForce, ForceMode2D.Force);
 
         body.velocity = new Vector2(body.velocity.x, jumpVelocity);
+
         lastJumpBufferInputTime = -jumpBuffer;
+        jumpCutBuffer = true;
     }
     private void TryCutJump()
     {
         if (!jumpCutBuffer)
             return;
 
+        if (jumpKeyValue != 0)
+            return;
+
         if (body.velocity.y <= 0)
             return;
         
         body.velocity = new Vector2(body.velocity.x, body.velocity.y * divJumpCutForce);
-        jumpCutBuffer = false;
+        jumpCutBuffer = false;        
     }
 
     void Update()
