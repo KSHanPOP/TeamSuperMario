@@ -9,6 +9,7 @@ using UnityEngine.UI;
 
 public class ScrollingBackground : MonoBehaviour
 {
+    [SerializeField] private GameObject icon;
     [SerializeField]
     private float backgroundSpeed;
     public Tilemap levelTilemap; // ·¹º§ÀÇ Tilemap
@@ -148,6 +149,7 @@ public class ScrollingBackground : MonoBehaviour
             background.GetComponent<SpriteRenderer>().sprite = backgroundSprites[currentBackgroundIndex];
         }
 
+        icon.GetComponent<Image>().sprite = backgroundSprites[currentBackgroundIndex];
         ToolManager.Instance.BackgroundName = backgroundSprites[currentBackgroundIndex].name;
     }
 
