@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 4930648494648828081}
   - component: {fileID: 4930648494648828087}
   - component: {fileID: 4930648494648828086}
-  - component: {fileID: 9222854255012519947}
+  - component: {fileID: -6965527511568072592}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -279,7 +279,7 @@ MonoBehaviour:
   m_DefaultActionMap: IngameControl
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &9222854255012519947
+--- !u!114 &-6965527511568072592
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -288,10 +288,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4930648494648827982}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df3bece462a314f4e8ac172431a88f13, type: 3}
+  m_Script: {fileID: 11500000, guid: 43f9490c7a8be8e4a84e468cf499325d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  needHeightDistanceToPress: 0.5
+  minDistanceToPress: 0.5
 --- !u!1 &4930648494675589528
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,7 +387,7 @@ Animator:
   m_GameObject: {fileID: 4930648494675589528}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1aee9651d02b73c40be31452702cb571, type: 2}
+  m_Controller: {fileID: 22100000, guid: b5d7e9029ce132b42b4d0bad1a038aee, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
