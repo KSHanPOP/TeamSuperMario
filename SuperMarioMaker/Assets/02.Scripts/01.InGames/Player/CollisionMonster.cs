@@ -5,10 +5,12 @@ public class CollisionMonster : MonoBehaviour
     [SerializeField]
     private float minDistanceToPress = 0.5f;
 
-    JumpController jumpController;
+    private JumpController jumpController;
+    private PlayerAnimation playerAnimation;
     private void Awake()
     {
         jumpController = GetComponent<JumpController>();
+        playerAnimation = GetComponent<PlayerAnimation>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -33,6 +35,6 @@ public class CollisionMonster : MonoBehaviour
     }
     private void Hit()
     {
-        Logger.Debug("hit");        
+        playerAnimation.Hit();
     }
 }

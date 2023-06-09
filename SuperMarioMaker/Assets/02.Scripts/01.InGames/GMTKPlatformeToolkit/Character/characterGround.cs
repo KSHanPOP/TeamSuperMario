@@ -1,7 +1,5 @@
 using UnityEngine;
 
-
-
 namespace GMTK.PlatformerToolkit {
     //This script is used by both movement and jump to detect when the character is touching the ground
 
@@ -10,7 +8,7 @@ namespace GMTK.PlatformerToolkit {
 
         private void OnTriggerStay2D(Collider2D collision)
         {
-            onGround = collision.CompareTag("Platform");
+            onGround = collision.CompareTag("Platform");            
         }
         private void OnTriggerExit2D(Collider2D collision)
         {
