@@ -24,8 +24,14 @@ public class ToolManager : MonoBehaviour
 
     [SerializeField]
     private float playTime = 500f;
+    public float PlayTime
+    { get { return playTime; } set { playTime = value; } }
+
     [SerializeField]
     private int playerLife = 3;
+    public int PlayerLife
+    { get { return playerLife; } set { playerLife = value; } }
+
     [SerializeField]
     private string background = "Background Ground";
 
