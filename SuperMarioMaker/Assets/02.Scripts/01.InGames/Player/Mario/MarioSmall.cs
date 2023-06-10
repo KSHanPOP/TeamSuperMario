@@ -10,6 +10,11 @@ public class MarioSmall : PlayerBase
         marioBig = GetComponent<MarioBig>();
         marioFire = GetComponent<MarioFire>();
     }
+    public override void Enter()
+    {
+        base.Enter();
+        playerState.Animator.transform.localPosition = Vector3.zero;
+    }
     public override void EatMushroom()
     {
         playerState.nextState = marioBig;

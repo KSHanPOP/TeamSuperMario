@@ -86,14 +86,17 @@ public class PlayerAnimation : MonoBehaviour
     }
     public void EatFireFlower()
     {
-
+        animator.SetTrigger(hashEatFireFlower);
+        playerState.CurrState.EatFireFlower();
     }
     public void Hit()
     {
         animator.SetTrigger(hashHit);
+        playerState.CurrState.Hit();
     }
     public void OnTransformationComplete()
-    {   
+    {
+        Logger.Debug("OnTransformationComplete");
         animator.SetTrigger(hashIsTransformationCompleted);
         playerState.nextState.Enter();
     }

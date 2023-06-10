@@ -28,22 +28,22 @@ public class PlayerBase : MonoBehaviour
     {
 
     }
-    public virtual void PlayerUpdate()
-    {
+    //public virtual void PlayerUpdate()
+    //{
 
-    }
-    public virtual void PlayerOnTriggerEnter()
-    {
+    //}
+    //public virtual void PlayerOnTriggerEnter()
+    //{
 
-    }
+    //}
 
-    public virtual void PlayerOnTriggerStay()
-    {
+    //public virtual void PlayerOnTriggerStay()
+    //{
 
-    }
+    //}
 
-    public virtual void PlayerOnTriggerExit()
-    {
+    //public virtual void PlayerOnTriggerExit()
+    //{
 
-    }
+    //}
 }

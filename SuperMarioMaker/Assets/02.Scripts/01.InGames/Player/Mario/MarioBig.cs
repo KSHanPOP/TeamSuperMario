@@ -11,8 +11,7 @@ public class MarioBig : PlayerBase
         marioFire = GetComponent<MarioFire>();
     }
     public override void Hit()
-    {
-        playerState.nextState = marioSmall;
-        playerState.Animator.transform.localPosition = Vector3.zero;
+    {   
+        playerState.nextState = marioSmall;        
     }
 }
