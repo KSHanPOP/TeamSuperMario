@@ -20,13 +20,26 @@ public class ToolManager : MonoBehaviour
     }
 
     public IconManager iconManager;
+    public ScrollingBackground Background;
 
     [SerializeField]
     private float playTime = 500f;
+    public float PlayTime
+    { get { return playTime; } set { playTime = value; } }
+
     [SerializeField]
     private int playerLife = 3;
+    public int PlayerLife
+    { get { return playerLife; } set { playerLife = value; } }
+
     [SerializeField]
-    private string background = "Ground";
+    private string background = "Background Ground";
+
+    public string BackgroundName
+    {
+        get { return background; }
+        set { background = value; }
+    }
 
     [SerializeField]
     [Range(1, 10)]
@@ -39,8 +52,12 @@ public class ToolManager : MonoBehaviour
 
     [SerializeField]
     private int tilemapRow = 24;
+    public int TilemapX
+    { get { return tilemapRow; } }
     [SerializeField]
     private int tilemapCol = 14;
+    public int TilemapY
+    { get { return tilemapCol; } }
 
     [SerializeField]
     private int tilemapStartline = 7;
@@ -58,7 +75,7 @@ public class ToolManager : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame

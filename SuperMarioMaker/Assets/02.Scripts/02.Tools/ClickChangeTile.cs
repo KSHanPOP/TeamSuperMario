@@ -64,7 +64,6 @@ public class ClickChangeTile : MonoBehaviour
             else if(context.ReadValue<float>() < 0)
             {
                 Logger.Debug("аб");
-
             }
         }
     }
