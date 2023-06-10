@@ -2,16 +2,19 @@ using UnityEngine;
 
 public class PlayerBase : MonoBehaviour
 {
+    protected PlayerState playerState;
+
     [SerializeField]
     protected RuntimeAnimatorController controller;    
-    private void Awake()
-    {
-                       
+    protected virtual void Awake()
+    {        
+        playerState = GetComponent<PlayerState>();                       
     }
 
     public virtual void Enter()
     {
-
+        playerState.CurrState = this;
+        playerState.Animator.runtimeAnimatorController = controller;
     }
     public virtual void EatMushroom()
     {

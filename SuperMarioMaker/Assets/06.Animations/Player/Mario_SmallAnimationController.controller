@@ -295,7 +295,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PlayerAnimationController
+  m_Name: Mario_SmallAnimationController
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: IsIdle
@@ -340,7 +340,7 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: IsChangeMotionEnded
+  - m_Name: IsTransformationCompleted
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -522,7 +522,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: IsChangeMotionEnded
+    m_ConditionEvent: IsTransformationCompleted
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6761712221829411383}
@@ -547,7 +547,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: IsChangeMotionEnded
+    m_ConditionEvent: IsTransformationCompleted
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6761712221829411383}
@@ -572,7 +572,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: IsChangeMotionEnded
+    m_ConditionEvent: IsTransformationCompleted
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6761712221829411383}
