@@ -5,33 +5,23 @@ public class PlayerAnimation : MonoBehaviour
 {
     [SerializeField] Animator animator;
 
-    private int hashIsIdle = Animator.StringToHash("IsIdle");
-    private int hashIsGround = Animator.StringToHash("IsGround");    
-    private int hashTryStop = Animator.StringToHash("TryStop");
-    private int hashSpeed = Animator.StringToHash("Speed");
-    private int hashHit = Animator.StringToHash("Hit");
-    private int hashEatMushroom = Animator.StringToHash("EatMushroom");
-    private int hahsEatFireFlower = Animator.StringToHash("EatFireFlower");
+    private readonly int hashIsIdle = Animator.StringToHash("IsIdle");
+    private readonly int hashIsGround = Animator.StringToHash("IsGround");    
+    private readonly int hashTryStop = Animator.StringToHash("TryStop");
+    private readonly int hashSpeed = Animator.StringToHash("Speed");
+    private readonly int hashHit = Animator.StringToHash("Hit");
+    private readonly int hashEatMushroom = Animator.StringToHash("EatMushroom");
+    private readonly int hashEatFireFlower = Animator.StringToHash("EatFireFlower");
 
     private characterGround characterGround;
     private characterMovement characterMovement;
     private Rigidbody2D rigidbody2;
 
     [SerializeField]
-    private float minVelocity = 0.1f;
+    private float minVelocityToMove = 0.01f;
 
     [SerializeField]
     private SpriteRenderer spriteRenderer;
-
-    [SerializeField]
-    private RuntimeAnimatorController marioSmall;
-
-    [SerializeField]
-    private RuntimeAnimatorController marioBigOverride;
-
-    [SerializeField]
-    private RuntimeAnimatorController marioFireOverride;
-
 
     void Start()
     {
@@ -48,21 +38,13 @@ public class PlayerAnimation : MonoBehaviour
         animator.SetFloat(hashSpeed, rigidbody2.velocity.x * 0.2f);
         SetMoveAnimation();
 
-        if(Input.GetKeyDown(KeyCode.V))
-        {
-            animator.SetTrigger(hashEatMushroom);
-        }
-
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            animator.SetTrigger(hashHit);
-        }
+        TestCodes();
     }
     private void SetMoveAnimation()
     {
         float velocityX = rigidbody2.velocity.x;
 
-        bool isIdle = minVelocity > Mathf.Abs(velocityX);
+        bool isIdle = minVelocityToMove > Mathf.Abs(velocityX);
         
         animator.SetBool(hashIsIdle, isIdle);
 
@@ -73,6 +55,19 @@ public class PlayerAnimation : MonoBehaviour
             return;
 
         spriteRenderer.flipX = velocityX < 0;
+    }
+
+    private void TestCodes()
+    {
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            animator.SetTrigger(hashEatMushroom);
+        }
+
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            animator.SetTrigger(hashHit);
+        }
     }
 
     public void Hit()
