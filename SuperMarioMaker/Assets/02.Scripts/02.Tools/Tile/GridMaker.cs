@@ -2,14 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 
 public class GridMaker : MonoBehaviour
 {
-    [SerializeField]
-    private Tilemap tilemap;
+    [SerializeField] private Tilemap tilemap;
+    [SerializeField] private Camera miniMapCamera;
+
+    [SerializeField] private Button rightButton;
+    [SerializeField] private Button leftButton;
+    [SerializeField] private Button upButton;
+    [SerializeField] private Button downButton;
 
     private Vector3Int flagPos;// = new Vector3Int(-1, -1, 0);
-    private List<Vector3Int> endLinePos;
+    private List<Vector3Int> endLinePos = new List<Vector3Int>();
     public void SetDefaultTile()
     {
         int x = ToolManager.Instance.TilemapX;
@@ -30,7 +36,7 @@ public class GridMaker : MonoBehaviour
 
         SetStartlineTile();
         SetEndlineTile();
-        tilemap.CompressBounds();
+        SetMinimapPosition();
     }
     public void SetStartlineTile()
     {
@@ -51,12 +57,13 @@ public class GridMaker : MonoBehaviour
 
     public void SetEndlineTile()
     {
-        int tilemapEndline = ToolManager.Instance.TilemapX * ToolManager.Instance.MapColLength;
+        int tilemapEndline = ToolManager.Instance.TilemapX * ToolManager.Instance.MapRowLength;
         int startEndLine = tilemapEndline - ToolManager.Instance.Endline;
 
+        //CustomTile customTile = new CustomTile();
         Vector3Int cellPos = new Vector3Int(startEndLine, 0, 0);
 
-        CustomTile customTile = new CustomTile();
+        CustomTile customTile = ScriptableObject.CreateInstance<CustomTile>();
         customTile = Resources.Load<CustomTile>("Sprite/TileSet/StaticTile/StaticTile_00");
 
         endLinePos.Clear();
@@ -71,7 +78,7 @@ public class GridMaker : MonoBehaviour
         // ±ê¹ß
         customTile = Resources.Load<CustomTile>("Sprite/TileSet/Grid");
 
-        if (flagPos != null)
+        if (flagPos != Vector3Int.zero)
             tilemap.SetTile(flagPos, customTile);
 
         customTile = Resources.Load<CustomTile>("Sprite/TileSet/StaticTile/StaticTile_11");
@@ -84,12 +91,18 @@ public class GridMaker : MonoBehaviour
         flagPos = cellPos;
     }
 
-    public void AddRow(int beforeRow, int nowkRow, int col)
+    public void RightGrid()
     {
+        if (!ToolManager.Instance.SetIncreaseMapRowLength())
+            return;
+
+        int beforeRow = ToolManager.Instance.MapRowLength - 1;
+        int nowkRow = ToolManager.Instance.MapRowLength;
+
         int startPosX = ToolManager.Instance.TilemapX * beforeRow;
         int endPosX = ToolManager.Instance.TilemapX * nowkRow;
 
-        int y = ToolManager.Instance.TilemapY * col;
+        int y = ToolManager.Instance.TilemapY * ToolManager.Instance.MapColLength;
         Vector3Int cellPos = new Vector3Int(0, 0, 0);
 
         CustomTile customTile = Resources.Load<CustomTile>("Sprite/TileSet/Grid");
@@ -112,11 +125,56 @@ public class GridMaker : MonoBehaviour
         }
 
         SetEndlineTile();
-        tilemap.CompressBounds();
+        SetMinimapPosition();
     }
 
+    public void UpGrid()
+    {
+        if (!ToolManager.Instance.SetIncreaseMapColLength())
+            return;
+
+        int beforeCol = ToolManager.Instance.MapColLength -1;
+        int nowkCol = ToolManager.Instance.MapColLength;
+
+        int startPosY = ToolManager.Instance.TilemapY * beforeCol;
+        int endPosY = ToolManager.Instance.TilemapY * nowkCol;
+
+        int x = ToolManager.Instance.TilemapX * ToolManager.Instance.MapRowLength;
+
+        Vector3Int cellPos = new Vector3Int(0, 0, 0);
+
+        CustomTile customTile = Resources.Load<CustomTile>("Sprite/TileSet/Grid");
+
+        for (int i = 0; i < x; i++)
+        {
+            for (int j = startPosY; j < endPosY; j++)
+            {
+                cellPos.x = i;
+                cellPos.y = j;
+                tilemap.SetTile(cellPos, customTile);
+            }
+        }
+
+        SetMinimapPosition();
+    }
+
+    public void SetMinimapPosition()
+    {
+        tilemap.CompressBounds();
+        Vector3 tilemapCenter = tilemap.cellBounds.center;
+        miniMapCamera.transform.position = new Vector3(tilemapCenter.x, tilemapCenter.y, miniMapCamera.transform.position.z);
+
+        float sizeX = tilemap.cellBounds.size.x / (2.0f * Mathf.Abs(miniMapCamera.aspect));
+        float sizeY = tilemap.cellBounds.size.y / 2.0f;
+
+        miniMapCamera.orthographicSize = Mathf.Max(sizeX, sizeY);
+    }
     public void Init()
     {
+        rightButton.onClick.AddListener(() => RightGrid()); ;
+        //leftButton;
+        upButton.onClick.AddListener(()=> UpGrid());
+        //downButton;
         SetDefaultTile();
     }
     void Start()
