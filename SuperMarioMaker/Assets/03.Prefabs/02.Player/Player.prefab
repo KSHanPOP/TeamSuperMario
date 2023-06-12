@@ -466,6 +466,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5531624047663584022, guid: 2df3c89c22af3cb46929812318c4026e, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 4930648494648827982}
+    - target: {fileID: 5531624047663584022, guid: 2df3c89c22af3cb46929812318c4026e, type: 3}
+      propertyPath: normalLayer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5531624047663584022, guid: 2df3c89c22af3cb46929812318c4026e, type: 3}
+      propertyPath: normal.m_Bits
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 5531624047663584022, guid: 2df3c89c22af3cb46929812318c4026e, type: 3}
+      propertyPath: invincibleLayer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5531624047663584022, guid: 2df3c89c22af3cb46929812318c4026e, type: 3}
+      propertyPath: invincible.m_Bits
+      value: 4096
+      objectReference: {fileID: 0}
     - target: {fileID: 5531624047663584489, guid: 2df3c89c22af3cb46929812318c4026e, type: 3}
       propertyPath: m_Name
       value: PlayerState

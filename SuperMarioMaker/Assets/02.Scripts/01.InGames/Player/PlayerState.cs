@@ -3,6 +3,15 @@ using UnityEngine;
 [RequireComponent(typeof(MarioSmall), typeof(MarioBig), typeof(MarioFire))]
 public class PlayerState : MonoBehaviour
 {
+    [SerializeField]
+    GameObject player;
+
+    [SerializeField]
+    int normalLayer;
+
+    [SerializeField]
+    int invincibleLayer;
+
     public PlayerBase CurrState { get; set; }
     public PlayerBase nextState { get; set; }
     public Animator Animator { get; set; }   
@@ -13,7 +22,7 @@ public class PlayerState : MonoBehaviour
     
     private MarioFire marioFire;
     public void Awake()
-    {
+    {   
         marioSmall = GetComponent<MarioSmall>();
         marioBig = GetComponent<MarioBig>();
         marioFire = GetComponent<MarioFire>();
@@ -33,6 +42,15 @@ public class PlayerState : MonoBehaviour
                 marioFire.Enter();
                 break;
         }
+    }
+    public void SetNormalLayer()
+    {
+        player.layer = normalLayer;        
+    }
+
+    public void SetInvincibleLayer()
+    {
+        player.layer = invincibleLayer;        
     }
 }
 

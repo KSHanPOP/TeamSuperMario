@@ -95,8 +95,7 @@ public class PlayerAnimation : MonoBehaviour
         playerState.CurrState.Hit();
     }
     public void OnTransformationComplete()
-    {
-        Logger.Debug("OnTransformationComplete");
+    {   
         animator.SetTrigger(hashIsTransformationCompleted);
         playerState.nextState.Enter();
     }

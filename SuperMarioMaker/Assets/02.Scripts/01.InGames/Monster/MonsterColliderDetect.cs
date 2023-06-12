@@ -2,15 +2,6 @@ using UnityEngine;
 
 public class MonsterColliderDetect : MonoBehaviour
 {
-    //[SerializeField]
-    //protected float searchLength = 0.51f;
-
-    //[SerializeField]
-    //Rigidbody2D rb;
-    //Vector2 dir = Vector2.left;    
-
-    //RaycastHit2D[] results = new RaycastHit2D[1];
-
     private MonsterMove move;
     private Collider2D collisionTrigger;
 
@@ -32,24 +23,4 @@ public class MonsterColliderDetect : MonoBehaviour
             move.ChangeMoveDir();
         }
     }
-
-    //private void Update()
-    //{
-    //    if (rb.Cast(dir, results, searchLength) == 0)
-    //        return;
-
-    //    if (!results[0].collider.CompareTag("Player"))
-    //    {
-    //        var result = results[0];
-
-    //        dir = - dir;
-    //        move.ChangeMoveDir();
-    //    }
-    //}
-
-    //private void OnDrawGizmos()
-    //{
-    //    Gizmos.color = Color.red;
-    //    Gizmos.DrawLine(rb.position, rb.position + searchLength * dir);
-    //}
 }

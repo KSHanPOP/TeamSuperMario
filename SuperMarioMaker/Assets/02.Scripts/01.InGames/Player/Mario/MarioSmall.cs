@@ -20,4 +20,9 @@ public class MarioSmall : PlayerBase
         playerState.nextState = marioBig;
         playerState.Animator.transform.localPosition = Vector3.up * 0.5f;
     }
+
+    public override void Hit()
+    {
+        playerState.SetInvincibleLayer();
+    }
 }
