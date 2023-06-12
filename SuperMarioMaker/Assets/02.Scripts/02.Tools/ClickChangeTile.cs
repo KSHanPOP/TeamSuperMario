@@ -26,6 +26,18 @@ public class ClickChangeTile : MonoBehaviour
         //        Debug.Log("Clicked on the game object");
         //    }
         //}
+        if (Input.GetMouseButtonDown(0))
+        {
+            Logger.Debug(tilemap.cellBounds.min);
+            Logger.Debug(tilemap.cellBounds.max);
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3Int cellPos = tilemap.WorldToCell(worldPos);
+            Logger.Debug(cellPos);
+        }
+
     }
 
     public void TestFunc(InputAction.CallbackContext context)
@@ -61,7 +73,7 @@ public class ClickChangeTile : MonoBehaviour
             {
                 Logger.Debug("©Л");
             }
-            else if(context.ReadValue<float>() < 0)
+            else if (context.ReadValue<float>() < 0)
             {
                 Logger.Debug("аб");
             }
@@ -82,7 +94,7 @@ public class ClickChangeTile : MonoBehaviour
         CustomTile customTile = tileBase as CustomTile;
         if (customTile != null)
         {
-            return customTile.TileName; 
+            return customTile.TileName;
         }
 
         return null;
