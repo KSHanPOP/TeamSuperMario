@@ -9,6 +9,11 @@ public class GridMaker : MonoBehaviour
     [SerializeField] private Tilemap tilemap;
     [SerializeField] private Camera miniMapCamera;
 
+    [SerializeField] private Button onButton;
+    [SerializeField] private Button offButton;
+
+    [SerializeField] private GameObject popUp;
+
     [SerializeField] private Button rightButton;
     [SerializeField] private Button leftButton;
     [SerializeField] private Button upButton;
@@ -16,6 +21,17 @@ public class GridMaker : MonoBehaviour
 
     private Vector3Int flagPos;// = new Vector3Int(-1, -1, 0);
     private List<Vector3Int> endLinePos = new List<Vector3Int>();
+
+    public void PopupOn()
+    {
+        popUp.SetActive(true);
+        onButton.gameObject.SetActive(false);
+    }
+    public void PopupOff()
+    {
+        onButton.gameObject.SetActive(true);
+        popUp.SetActive(false);
+    }
     public void SetDefaultTile()
     {
         int x = ToolManager.Instance.TilemapX;
@@ -127,13 +143,54 @@ public class GridMaker : MonoBehaviour
         SetEndlineTile();
         SetMinimapPosition();
     }
+    public void LeftGrid()
+    {
+        if (ToolManager.Instance.MapRowLength == 1)
+            return;
 
+        if (!ToolManager.Instance.SetDecreaseMapRowLength())
+            return;
+
+
+        SetEndlineTile();
+
+
+        int beforeRow = ToolManager.Instance.MapRowLength;
+        int nowkRow = ToolManager.Instance.MapRowLength + 1;
+
+        int startPosX = ToolManager.Instance.TilemapX * beforeRow;
+        int endPosX = ToolManager.Instance.TilemapX * nowkRow;
+
+        int y = ToolManager.Instance.TilemapY * ToolManager.Instance.MapColLength;
+        Vector3Int cellPos = new Vector3Int(0, 0, 0);
+
+        //CustomTile customTile = Resources.Load<CustomTile>("Sprite/TileSet/Grid");
+
+        //기존 엔드라인 삭제
+        //foreach (Vector3Int EndLinePos in endLinePos)
+        //{
+        //    tilemap.SetTile(EndLinePos, null);
+        //}
+
+
+        for (int i = startPosX; i < endPosX; i++)
+        {
+            for (int j = 0; j < y; j++)
+            {
+                cellPos.x = i;
+                cellPos.y = j;
+                tilemap.SetTile(cellPos, null);
+            }
+        }
+
+        SetMinimapPosition();
+    }
     public void UpGrid()
     {
         if (!ToolManager.Instance.SetIncreaseMapColLength())
             return;
 
-        int beforeCol = ToolManager.Instance.MapColLength -1;
+        int beforeCol = ToolManager.Instance.MapColLength - 1;
         int nowkCol = ToolManager.Instance.MapColLength;
 
         int startPosY = ToolManager.Instance.TilemapY * beforeCol;
@@ -158,6 +215,37 @@ public class GridMaker : MonoBehaviour
         SetMinimapPosition();
     }
 
+    public void DownGrid()
+    {
+        if (ToolManager.Instance.MapColLength == 1)
+            return;
+
+        if (!ToolManager.Instance.SetDecreaseMapColLength())
+            return;
+
+        int beforeCol = ToolManager.Instance.MapColLength;
+        int nowkCol = ToolManager.Instance.MapColLength + 1;
+
+        int startPosY = ToolManager.Instance.TilemapY * beforeCol;
+        int endPosY = ToolManager.Instance.TilemapY * nowkCol;
+
+        int x = ToolManager.Instance.TilemapX * ToolManager.Instance.MapRowLength;
+
+        Vector3Int cellPos = new Vector3Int(0, 0, 0);
+
+        for (int i = 0; i < x; i++)
+        {
+            for (int j = startPosY; j < endPosY; j++)
+            {
+                cellPos.x = i;
+                cellPos.y = j;
+                tilemap.SetTile(cellPos, null);
+            }
+        }
+
+        SetMinimapPosition();
+    }
+
     public void SetMinimapPosition()
     {
         tilemap.CompressBounds();
@@ -171,11 +259,17 @@ public class GridMaker : MonoBehaviour
     }
     public void Init()
     {
-        rightButton.onClick.AddListener(() => RightGrid()); ;
-        //leftButton;
-        upButton.onClick.AddListener(()=> UpGrid());
-        //downButton;
+
+        rightButton.onClick.AddListener(() => RightGrid());
+        leftButton.onClick.AddListener(() => LeftGrid());
+        upButton.onClick.AddListener(() => UpGrid());
+        downButton.onClick.AddListener(() => DownGrid());
+
         SetDefaultTile();
+
+        onButton.onClick.AddListener(() => PopupOn());
+        offButton.onClick.AddListener(() => PopupOff());
+        popUp.SetActive(false);
     }
     void Start()
     {
