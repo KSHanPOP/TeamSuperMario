@@ -85,33 +85,39 @@ public class ToolManager : MonoBehaviour
     public bool CheckMaxMapLength() => MapRowLength + mapColLength + 1 <= maxMapLength;
     public bool CheckMinMapLength() => MapRowLength + mapColLength - 1 >= 2;
 
-    public void SetIncreaseMapRowLength()
+    public bool SetIncreaseMapRowLength()
     {
         if (!CheckMaxMapLength())
-            return;
+            return false;
 
         ++mapRowLength;
+
+        return true;
     }
-    public void SetDecreaseMapRowLength()
+    public bool SetDecreaseMapRowLength()
     {
         if (!CheckMinMapLength())
-            return;
+            return false;
 
         --mapRowLength;
+        return true;
     }
-    public void SetIncreaseMapColLength()
+    public bool SetIncreaseMapColLength()
     {
         if (!CheckMaxMapLength())
-            return;
+            return false;
 
         ++mapColLength;
+
+        return true;
     }
-    public void SetDecreaseMapColLength()
+    public bool SetDecreaseMapColLength()
     {
         if (!CheckMinMapLength())
-            return;
+            return false;
 
         --mapColLength;
+        return true;
     }
 
 
