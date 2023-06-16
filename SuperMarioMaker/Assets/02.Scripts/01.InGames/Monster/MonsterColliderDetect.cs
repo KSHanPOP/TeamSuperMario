@@ -6,7 +6,7 @@ public class MonsterColliderDetect : MonoBehaviour
     private Collider2D collisionTrigger;
 
     private void Awake()
-    {
+    {        
         move = GetComponent<MonsterMove>(); 
         var colilders = GetComponents<Collider2D>();
         foreach (var collider in colilders )

@@ -8,4 +8,8 @@ public class AnimationEventReceiver : MonoBehaviour
     {
         playerAnimation.OnTransformationComplete();
     }
+    public void BackJump()
+    {        
+        playerAnimation.BackJump();
+    }
 }

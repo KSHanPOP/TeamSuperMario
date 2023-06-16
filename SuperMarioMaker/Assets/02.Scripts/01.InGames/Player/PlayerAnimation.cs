@@ -64,7 +64,11 @@ public class PlayerAnimation : MonoBehaviour
         if (!characterGround.GetOnGround())
             return;
 
-        spriteRenderer.flipX = velocityX < 0;
+        spriteRenderer.flipX = velocityX < 0;        
+    }
+    public void BackJump()
+    {        
+        spriteRenderer.flipX = !spriteRenderer.flipX;
     }
 
     private void TestCodes()

@@ -31,13 +31,13 @@ public class JumpController : MonoBehaviour
     [SerializeField]
     private float jumpVelocity;
 
-    private float jumpKeyValue;
+    private float jumpKeyValue;    
 
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
         ground = GetComponent<characterGround>();         
-        body.gravityScale = gravityScale;
+        body.gravityScale = gravityScale;        
         InitSetting();
     }
     private void InitSetting()

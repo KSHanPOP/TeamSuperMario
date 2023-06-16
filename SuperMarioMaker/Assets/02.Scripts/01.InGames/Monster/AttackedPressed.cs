@@ -24,7 +24,7 @@ public class AttackedPressed : MonoBehaviour, IAttackable
         }
 
         rb.gravityScale = 0;
-        rb.velocity = Vector3.zero;
+        GetComponent<MonsterMove>().Stop();
         Invoke(nameof(Attacked), lifeTime);
     }       
     protected virtual void Attacked()

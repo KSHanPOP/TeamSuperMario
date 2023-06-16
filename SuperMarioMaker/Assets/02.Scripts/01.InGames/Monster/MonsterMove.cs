@@ -17,6 +17,11 @@ public class MonsterMove : MonoBehaviour
         DoMove();
     }
 
+    private void Update()
+    {
+        DoMove();
+    }
+
     public virtual void DoMove()
     {
         rb.velocity = speed * dir;
@@ -24,8 +29,12 @@ public class MonsterMove : MonoBehaviour
 
     public virtual void ChangeMoveDir()
     {
-        dir = - dir;
-        DoMove();
+        dir = - dir;        
+    }
+
+    public virtual void Stop()
+    {
+        dir = Vector2.zero;
     }
 }
 
