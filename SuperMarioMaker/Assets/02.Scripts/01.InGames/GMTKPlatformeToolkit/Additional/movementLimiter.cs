@@ -9,8 +9,8 @@ namespace GMTK.PlatformerToolkit {
 
         [SerializeField] bool _initialCharacterCanMove = true;
         public bool CharacterCanMove;
-
-        private void OnEnable() {
+        private void Awake()
+        {
             instance = this;
         }
 

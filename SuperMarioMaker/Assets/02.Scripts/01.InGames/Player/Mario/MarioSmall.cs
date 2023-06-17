@@ -11,9 +11,6 @@ public class MarioSmall : PlayerBase
     { 
         get { return invincibleTime; }         
     }
-
-    public readonly int blinkCount = 12;
-
     protected override void Awake()
     {
         base.Awake();
@@ -34,7 +31,7 @@ public class MarioSmall : PlayerBase
     }
     public override void Hit()
     {
-        StartTransformation();        
+        playerState.SetFallingLayer();
     }
     public override void OnTransformationComplete()
     {

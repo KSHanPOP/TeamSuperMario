@@ -37,16 +37,13 @@ public class MarioBig : PlayerBase
     protected virtual IEnumerator CoBlinkCoroutine()
     {
         bool isBlink = true;
-
-        //float changePeriod = marioSmall.InvincibleTime / (marioSmall.blinkCount *2 + 1);
-        //WaitForSeconds waitTime = new WaitForSeconds(changePeriod);
-        //Logger.Debug(changePeriod);
+        WaitForSeconds changePeriod = new WaitForSeconds(0.1f);
 
         while(true)
         {
             isBlink = !isBlink;
             sprite.color = isBlink ? Color.clear : Color.white;
-            yield return null;
+            yield return changePeriod;
         }
     }
 }

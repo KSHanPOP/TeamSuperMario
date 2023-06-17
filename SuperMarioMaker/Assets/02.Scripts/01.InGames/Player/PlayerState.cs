@@ -12,6 +12,9 @@ public class PlayerState : MonoBehaviour
     [SerializeField]
     int invincibleLayer;
 
+    [SerializeField]
+    int fallingLayer;
+
     public PlayerBase CurrState { get; set; }
     public PlayerBase nextState { get; set; }
     public Animator Animator { get; set; }
@@ -51,6 +54,11 @@ public class PlayerState : MonoBehaviour
     public void SetInvincibleLayer()
     {
         player.layer = invincibleLayer;        
+    }
+
+    public void SetFallingLayer()
+    {
+        player.layer = fallingLayer;
     }
 }
 
