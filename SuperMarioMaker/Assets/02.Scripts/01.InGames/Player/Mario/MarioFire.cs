@@ -1,16 +1,10 @@
 using UnityEngine;
-public class MarioFire : PlayerBase
-{
-    MarioSmall marioSmall;
-    MarioBig marioBig;
+public class MarioFire : MarioBig
+{   
+    private MarioBig marioBig;
     protected override void Awake()
     {
-        base.Awake();
-        marioSmall = GetComponent<MarioSmall>();
+        base.Awake();        
         marioBig = GetComponent<MarioBig>();
-    }
-    public override void Hit()
-    {
-        marioBig.Hit();
     }
 }

@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class MarioBig : PlayerBase
 {
-    private MarioSmall marioSmall;
-    private MarioFire marioFire;
+    protected MarioSmall marioSmall;
+    protected MarioFire marioFire;
     protected override void Awake()
     {
         base.Awake();
@@ -16,7 +16,14 @@ public class MarioBig : PlayerBase
         SetBigCollider();
     }
     public override void Hit()
-    {   
-        playerState.nextState = marioSmall;        
+    {
+        StartTransformation();
+        playerState.nextState = marioSmall;
+
+        Invoke(nameof(StopInvincible), marioSmall.InvincibleTime);
+    }
+    protected virtual void StopInvincible()
+    {
+        playerState.SetNormalLayer();
     }
 }

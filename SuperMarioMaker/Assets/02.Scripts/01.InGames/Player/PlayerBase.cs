@@ -1,10 +1,17 @@
+using GMTK.PlatformerToolkit;
 using UnityEngine;
 
 public class PlayerBase : MonoBehaviour
 {
     protected PlayerState playerState;
 
+    protected Transform spriteTransform;
+
     protected Rigidbody2D rb;
+
+    protected Vector2 saveVelocity;
+
+    protected float saveGravityScale;
 
     protected BoxCollider2D playerCollider;
 
@@ -23,11 +30,14 @@ public class PlayerBase : MonoBehaviour
     protected Vector2 bigTriggerSize = new Vector2(0.97f, 0.05f);
 
     [SerializeField]
-    protected RuntimeAnimatorController controller;    
+    protected RuntimeAnimatorController controller; 
+
     protected virtual void Awake()
     {        
         playerState = GetComponent<PlayerState>();
         rb = GetComponentInParent<Rigidbody2D>();
+        spriteTransform = transform.parent.GetComponentInChildren<SpriteRenderer>().transform;
+
         SetColliders();
     }
     private void SetColliders()
@@ -60,6 +70,26 @@ public class PlayerBase : MonoBehaviour
     {
 
     }
+    public virtual void StartTransformation()
+    {
+        movementLimiter.instance.CharacterCanMove = false;
+
+        saveVelocity = rb.velocity;
+        saveGravityScale = rb.gravityScale;        
+
+        rb.velocity = Vector2.zero;
+        rb.gravityScale = 0f;
+
+        playerState.SetInvincibleLayer();
+    }
+    public virtual void OnTransformationComplete()
+    {
+        movementLimiter.instance.CharacterCanMove = true;
+
+        rb.velocity = saveVelocity;
+        rb.gravityScale = saveGravityScale;
+    }
+
     protected virtual void SetSmallCollider()
     {
         playerCollider.size = smallColliderSize;

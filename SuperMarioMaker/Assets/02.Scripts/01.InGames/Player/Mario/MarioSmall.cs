@@ -2,8 +2,15 @@ using UnityEngine;
 
 public class MarioSmall : PlayerBase
 {
-    MarioBig marioBig;
-    MarioFire marioFire;
+    protected MarioBig marioBig;
+    protected MarioFire marioFire;
+
+    [SerializeField]
+    private float invincibleTime = 1f;
+    public float InvincibleTime 
+    { 
+        get { return invincibleTime; }         
+    }
     protected override void Awake()
     {
         base.Awake();
@@ -14,16 +21,21 @@ public class MarioSmall : PlayerBase
     {
         base.Enter();
         SetSmallCollider();
-        playerState.Animator.transform.localPosition = Vector3.zero;        
+        spriteTransform.localPosition = Vector3.zero;        
     }
     public override void EatMushroom()
     {
+        StartTransformation();
         playerState.nextState = marioBig;
-        playerState.Animator.transform.localPosition = Vector3.up * 0.5f;
+        spriteTransform.localPosition = Vector3.up * 0.5f;        
     }
-
     public override void Hit()
     {
-        playerState.SetInvincibleLayer();
+        StartTransformation();        
+    }
+    public override void OnTransformationComplete()
+    {
+        base.OnTransformationComplete();        
+        playerState.SetNormalLayer();
     }
 }

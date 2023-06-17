@@ -1,5 +1,6 @@
 using UnityEngine;
 using GMTK.PlatformerToolkit;
+using UnityEngine.Playables;
 
 public class PlayerAnimation : MonoBehaviour
 {
@@ -101,6 +102,7 @@ public class PlayerAnimation : MonoBehaviour
     public void OnTransformationComplete()
     {   
         animator.SetTrigger(hashIsTransformationCompleted);
+        playerState.CurrState.OnTransformationComplete();
         playerState.nextState.Enter();
     }
 }

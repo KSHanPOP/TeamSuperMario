@@ -31,7 +31,9 @@ public class JumpController : MonoBehaviour
     [SerializeField]
     private float jumpVelocity;
 
-    private float jumpKeyValue;    
+    private float jumpKeyValue;
+
+    private movementLimiter limmter;
 
     private void Awake()
     {
@@ -39,6 +41,10 @@ public class JumpController : MonoBehaviour
         ground = GetComponent<characterGround>();         
         body.gravityScale = gravityScale;        
         InitSetting();
+    }
+    private void Start()
+    {
+        limmter = movementLimiter.instance;
     }
     private void InitSetting()
     {
@@ -60,6 +66,9 @@ public class JumpController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!limmter.CharacterCanMove)
+            return;
+
         if (ground.GetOnGround() && (Time.time - lastJumpBufferInputTime) < jumpBuffer)
         {
             DoJump();
