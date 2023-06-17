@@ -14,7 +14,7 @@ public class PlayerState : MonoBehaviour
 
     public PlayerBase CurrState { get; set; }
     public PlayerBase nextState { get; set; }
-    public Animator Animator { get; set; }   
+    public Animator Animator { get; set; }
     
     private MarioSmall marioSmall;
     

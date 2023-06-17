@@ -13,7 +13,8 @@ public class MarioSmall : PlayerBase
     public override void Enter()
     {
         base.Enter();
-        playerState.Animator.transform.localPosition = Vector3.zero;
+        SetSmallCollider();
+        playerState.Animator.transform.localPosition = Vector3.zero;        
     }
     public override void EatMushroom()
     {

@@ -10,6 +10,11 @@ public class MarioBig : PlayerBase
         marioSmall = GetComponent<MarioSmall>();
         marioFire = GetComponent<MarioFire>();
     }
+    public override void Enter()
+    {
+        base.Enter();
+        SetBigCollider();
+    }
     public override void Hit()
     {   
         playerState.nextState = marioSmall;        
