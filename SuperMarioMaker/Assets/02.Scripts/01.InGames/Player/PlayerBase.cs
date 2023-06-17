@@ -5,6 +5,8 @@ public class PlayerBase : MonoBehaviour
 {
     protected PlayerState playerState;
 
+    protected SpriteRenderer sprite;
+
     protected Transform spriteTransform;
 
     protected Rigidbody2D rb;
@@ -36,7 +38,8 @@ public class PlayerBase : MonoBehaviour
     {        
         playerState = GetComponent<PlayerState>();
         rb = GetComponentInParent<Rigidbody2D>();
-        spriteTransform = transform.parent.GetComponentInChildren<SpriteRenderer>().transform;
+        sprite = transform.parent.GetComponentInChildren<SpriteRenderer>();        
+        spriteTransform = sprite.transform;
 
         SetColliders();
     }

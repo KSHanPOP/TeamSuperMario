@@ -6,11 +6,14 @@ public class MarioSmall : PlayerBase
     protected MarioFire marioFire;
 
     [SerializeField]
-    private float invincibleTime = 1f;
+    private float invincibleTime = 2.6f;
     public float InvincibleTime 
     { 
         get { return invincibleTime; }         
     }
+
+    public readonly int blinkCount = 12;
+
     protected override void Awake()
     {
         base.Awake();

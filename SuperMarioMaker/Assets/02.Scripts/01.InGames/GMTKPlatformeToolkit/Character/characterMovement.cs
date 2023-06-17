@@ -33,6 +33,9 @@ namespace GMTK.PlatformerToolkit {
         private float deceleration;
         private float turnSpeed;
 
+        private movementLimiter limiter;
+        private float moveKeyValue;
+
         [Header("Current State")]
         public bool onGround;
         public bool pressingKey;
@@ -45,13 +48,14 @@ namespace GMTK.PlatformerToolkit {
             ground = GetComponent<characterGround>();            
         }
 
-        public void OnMovement(InputAction.CallbackContext context) {
-            //This is called when you input a direction on a valid input type, such as arrow keys or analogue stick
-            //The value will read -1 when pressing left, 0 when idle, and 1 when pressing right.
+        private void Start()
+        {
+            limiter = movementLimiter.instance;
+        }
 
-            if (movementLimiter.instance.CharacterCanMove) {
-                directionX = context.ReadValue<float>();
-            }
+        public void OnMovement(InputAction.CallbackContext context) {
+
+            moveKeyValue = context.ReadValue<float>();
         }
 
         public void TryRun(InputAction.CallbackContext context)
@@ -60,20 +64,10 @@ namespace GMTK.PlatformerToolkit {
         }
 
         private void Update() {
-            //Used to stop movement when the character is playing her death animation
-            if (!movementLimiter.instance.CharacterCanMove) {
-                directionX = 0;
-            }
 
-            //Used to flip the character's sprite when she changes direction
-            //Also tells us that we are currently pressing a direction button
-            if (directionX != 0) {
-                //transform.localScale = new Vector3(directionX > 0 ? 1 : -1, 1, 1);
-                pressingKey = true;
-            }
-            else {
-                pressingKey = false;
-            }
+            directionX = limiter.CharacterCanMove ? moveKeyValue : 0f;
+
+            pressingKey = directionX != 0;
 
             //Calculate's the character's desired velocity - which is the direction you are facing, multiplied by the character's maximum speed
             //Friction is not used in this game
