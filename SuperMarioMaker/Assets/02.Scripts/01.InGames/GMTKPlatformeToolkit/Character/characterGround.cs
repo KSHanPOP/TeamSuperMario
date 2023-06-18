@@ -3,18 +3,25 @@ using UnityEngine;
 namespace GMTK.PlatformerToolkit {
     //This script is used by both movement and jump to detect when the character is touching the ground
 
-    public class characterGround : MonoBehaviour {
-        private bool onGround;
-
-        private void OnTriggerStay2D(Collider2D collision)
+    public class characterGround : MonoBehaviour 
+    {
+        private int groundCounter = 0;
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            onGround = collision.CompareTag("Platform");            
+            if (collision.CompareTag("Platform"))
+            {
+                ++groundCounter;
+            }
         }
         private void OnTriggerExit2D(Collider2D collision)
         {
-            onGround = false;
+            //onGround = false;
+            if(collision.CompareTag("Platform"))
+            {
+                --groundCounter;
+            }
         }
-        public bool GetOnGround() { return onGround; }
+        public bool GetOnGround() { return groundCounter > 0; }
     }
 }
 

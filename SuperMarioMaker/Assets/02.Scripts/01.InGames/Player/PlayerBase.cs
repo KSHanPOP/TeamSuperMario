@@ -19,9 +19,9 @@ public class PlayerBase : MonoBehaviour
 
     protected BoxCollider2D playerTrigger;
 
-    protected Vector2 smallColliderSize = new Vector2(0.75f, 1);
+    protected Vector2 smallColliderSize = new Vector2(0.75f, 0.95f);
 
-    protected Vector2 smallColliderOffset = new Vector2(0f, 0f);
+    protected Vector2 smallColliderOffset = new Vector2(0f, 0);
 
     protected Vector2 smallTriggerSize = new Vector2(0.73f, 0.05f);
 
