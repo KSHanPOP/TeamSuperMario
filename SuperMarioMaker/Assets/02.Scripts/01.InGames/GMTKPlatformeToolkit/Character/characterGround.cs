@@ -1,14 +1,16 @@
 using UnityEngine;
 
-namespace GMTK.PlatformerToolkit {
+namespace GMTK.PlatformerToolkit
+{
     //This script is used by both movement and jump to detect when the character is touching the ground
 
-    public class characterGround : MonoBehaviour 
+    public class characterGround : MonoBehaviour
     {
         private int groundCounter = 0;
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.CompareTag("Platform"))
+            if (collision.CompareTag("Platform") ||
+                collision.CompareTag("Block"))
             {
                 ++groundCounter;
             }
@@ -16,7 +18,8 @@ namespace GMTK.PlatformerToolkit {
         private void OnTriggerExit2D(Collider2D collision)
         {
             //onGround = false;
-            if(collision.CompareTag("Platform"))
+            if (collision.CompareTag("Platform") ||
+                collision.CompareTag("Block"))
             {
                 --groundCounter;
             }

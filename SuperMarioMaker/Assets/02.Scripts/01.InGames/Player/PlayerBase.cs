@@ -11,9 +11,9 @@ public class PlayerBase : MonoBehaviour
 
     protected Rigidbody2D rb;
 
-    protected Vector2 saveVelocity;
+    protected Vector2 velocityBeforeTransformation;
 
-    protected float saveGravityScale;
+    protected float gravityScaleBeforeTransformation;
 
     protected BoxCollider2D playerCollider;
 
@@ -25,14 +25,18 @@ public class PlayerBase : MonoBehaviour
 
     protected Vector2 smallTriggerSize = new Vector2(0.73f, 0.05f);
 
-    protected Vector2 bigColliderSize = new Vector2(1f, 2f);
+    protected float smallBlockDetectLength = 0.5f;
+
+    protected Vector2 bigColliderSize = new Vector2(1f, 1.95f);
 
     protected Vector2 bigColliderOffset = new Vector2(0f, 0.5f);
 
     protected Vector2 bigTriggerSize = new Vector2(0.97f, 0.05f);
 
+    protected float bigBlockDetectLength = 1.5f;
+
     [SerializeField]
-    protected RuntimeAnimatorController controller; 
+    protected RuntimeAnimatorController controller;
 
     protected virtual void Awake()
     {        
@@ -73,12 +77,15 @@ public class PlayerBase : MonoBehaviour
     {
 
     }
+
     public virtual void StartTransformation()
     {
+        playerState.IsAttckable = false;
+
         movementLimiter.instance.CharacterCanMove = false;
 
-        saveVelocity = rb.velocity;
-        saveGravityScale = rb.gravityScale;        
+        velocityBeforeTransformation = rb.velocity;
+        gravityScaleBeforeTransformation = rb.gravityScale;        
 
         rb.velocity = Vector2.zero;
         rb.gravityScale = 0f;
@@ -87,10 +94,12 @@ public class PlayerBase : MonoBehaviour
     }
     public virtual void OnTransformationComplete()
     {
+        playerState.IsAttckable = true;
+
         movementLimiter.instance.CharacterCanMove = true;
 
-        rb.velocity = saveVelocity;
-        rb.gravityScale = saveGravityScale;
+        rb.velocity = velocityBeforeTransformation;
+        rb.gravityScale = gravityScaleBeforeTransformation;
     }
 
     protected virtual void SetSmallCollider()
@@ -98,12 +107,14 @@ public class PlayerBase : MonoBehaviour
         playerCollider.size = smallColliderSize;
         playerCollider.offset = smallColliderOffset;
         playerTrigger.size = smallTriggerSize;
+        playerState.BlockDetectLength = smallBlockDetectLength;
     }
     protected virtual void SetBigCollider()
     {
         playerCollider.size = bigColliderSize;
         playerCollider.offset = bigColliderOffset;
         playerTrigger.size = bigTriggerSize;
+        playerState.BlockDetectLength = bigBlockDetectLength;
     }
 
     //public virtual void PlayerUpdate()

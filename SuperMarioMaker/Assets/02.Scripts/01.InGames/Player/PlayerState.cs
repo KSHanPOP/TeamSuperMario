@@ -15,6 +15,16 @@ public class PlayerState : MonoBehaviour
     [SerializeField]
     int fallingLayer;
 
+    [SerializeField]
+    LayerMask platformLayer;
+
+    private bool isAttackable = true;
+    public bool IsAttckable { set { isAttackable= value; } }
+
+    private float blockDetectLength;
+    public float BlockDetectLength { set { blockDetectLength=value; } }
+
+
     public PlayerBase CurrState { get; set; }
     public PlayerBase nextState { get; set; }
     public Animator Animator { get; set; }
@@ -59,6 +69,34 @@ public class PlayerState : MonoBehaviour
     public void SetFallingLayer()
     {
         player.layer = fallingLayer;
+    }
+
+    private void Update()
+    {
+        if (!isAttackable)
+            return;
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, blockDetectLength, platformLayer);
+
+        if (hit.collider == null)
+            return;
+
+        if(hit.collider.CompareTag("Block"))
+        {
+            HitBlock(hit.collider);
+        }
+    }
+
+    public void HitBlock(Collider2D collider)
+    {
+        var block = collider.GetComponent<Block>();
+
+        if(CurrState == marioSmall)
+        {
+            block.SmallHit();            
+        }
+        else
+            block.BigHit();
     }
 }
 

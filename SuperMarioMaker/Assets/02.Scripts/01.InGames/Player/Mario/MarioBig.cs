@@ -36,13 +36,13 @@ public class MarioBig : PlayerBase
     }
     protected virtual IEnumerator CoBlinkCoroutine()
     {
-        bool isBlink = true;
+        bool isTransparent = true;
         WaitForSeconds changePeriod = new WaitForSeconds(0.1f);
 
         while(true)
         {
-            isBlink = !isBlink;
-            sprite.color = isBlink ? Color.clear : Color.white;
+            isTransparent = !isTransparent;
+            sprite.color = isTransparent ? Color.clear : Color.white;
             yield return changePeriod;
         }
     }

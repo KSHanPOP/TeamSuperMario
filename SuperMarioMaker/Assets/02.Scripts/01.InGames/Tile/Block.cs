@@ -11,7 +11,7 @@ public class Block : MonoBehaviour
     private EnumItems itemType;
 
     [SerializeField]
-    private int coinCount;
+    private int coinCount;    
 
     private SpriteRenderer spriteRenderer;
 
@@ -24,5 +24,13 @@ public class Block : MonoBehaviour
     {
         if (isTransparent)
             spriteRenderer.sprite = null;
+    }
+    public void SmallHit()
+    {
+        Logger.Debug("smallHIt");
+    }
+    public void BigHit()
+    {
+        Logger.Debug("bigHIt");
     }
 }

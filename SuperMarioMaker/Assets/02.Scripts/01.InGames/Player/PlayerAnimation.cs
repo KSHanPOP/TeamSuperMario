@@ -1,6 +1,5 @@
 using UnityEngine;
 using GMTK.PlatformerToolkit;
-using UnityEngine.Playables;
 
 public class PlayerAnimation : MonoBehaviour
 {
