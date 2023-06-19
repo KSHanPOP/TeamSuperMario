@@ -1,11 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
 public class GridMaker : MonoBehaviour
 {
+    [SerializeField] private Camera mainCamera;
+    [SerializeField] private RectTransform cameraFrameRect;
+    [SerializeField] private GameObject miniMapCanvas;
+
+
     [SerializeField] private Tilemap tilemap;
     [SerializeField] private Camera miniMapCamera;
 
@@ -256,6 +262,39 @@ public class GridMaker : MonoBehaviour
         float sizeY = tilemap.cellBounds.size.y / 2.0f;
 
         miniMapCamera.orthographicSize = Mathf.Max(sizeX, sizeY);
+        SetFrame();
+    }
+
+    public void SetFrame()
+    {
+        // 메인 카메라의 뷰포트 좌표 기준 하단 좌측과 우측 상단을 가져옵니다.
+        Vector3 bottomLeft = mainCamera.ViewportToWorldPoint(new Vector3(0, 0, mainCamera.nearClipPlane));
+        Vector3 topRight = mainCamera.ViewportToWorldPoint(new Vector3(1, 1, mainCamera.farClipPlane));
+
+        // 미니맵 카메라가 볼 수 있는 전체 월드 좌표 영역을 계산합니다.
+        float worldWidth = 2f * miniMapCamera.orthographicSize * miniMapCamera.aspect;
+        float worldHeight = 2f * miniMapCamera.orthographicSize;
+
+        // 미니맵 UI 요소의 픽셀 크기를 가져옵니다.
+        RectTransform miniMapRect = miniMapCanvas.GetComponent<RectTransform>();
+        float pixelWidth = miniMapRect.rect.width;
+        float pixelHeight = miniMapRect.rect.height;
+
+        // 월드 좌표와 픽셀 좌표 사이의 비율을 계산합니다.
+        float pixelPerUnitX = pixelWidth / worldWidth;
+        float pixelPerUnitY = pixelHeight / worldHeight;
+
+        // 메인 카메라의 월드 좌표 영역을 미니맵의 픽셀 좌표로 변환합니다.
+        Vector2 bottomLeftPixel = new Vector2(bottomLeft.x * pixelPerUnitX, bottomLeft.y * pixelPerUnitY);
+        Vector2 topRightPixel = new Vector2(topRight.x * pixelPerUnitX, topRight.y * pixelPerUnitY);
+
+        // 이제 이 좌표를 사용하여 UI 요소의 위치와 크기를 설정할 수 있습니다.
+        Vector2 position = bottomLeftPixel;
+        Vector2 size = topRightPixel - bottomLeftPixel;
+
+        // UI 요소의 위치와 크기를 업데이트합니다.
+        cameraFrameRect.anchoredPosition = position;
+        cameraFrameRect.sizeDelta = size;
     }
     public void Init()
     {
