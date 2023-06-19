@@ -1,14 +1,13 @@
 using UnityEngine;
-
-public class MonsterMove : MonoBehaviour
+public class ObjectMove : MonoBehaviour
 {
     [SerializeField]
     protected float speed;
 
     protected float dir = -1;
 
-    protected Rigidbody2D rb;    
-    
+    protected Rigidbody2D rb;
+
     protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -24,7 +23,7 @@ public class MonsterMove : MonoBehaviour
     }
 
     public virtual void DoMove()
-    {        
+    {
         rb.velocity = new Vector2(dir, rb.velocity.y);
     }
 
@@ -35,7 +34,7 @@ public class MonsterMove : MonoBehaviour
 
     public virtual void Stop()
     {
-        rb.velocity = Vector2.zero; 
+        rb.velocity = Vector2.zero;
     }
 }
 

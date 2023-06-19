@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public class MonsterColliderDetect : MonoBehaviour
+public class MoveColliderDetect : MonoBehaviour
 {
-    private MonsterMove move;
+    private ObjectMove move;
     private Collider2D collisionTrigger;
 
     private void Awake()
     {        
-        move = GetComponent<MonsterMove>(); 
+        move = GetComponent<ObjectMove>(); 
         var colilders = GetComponents<Collider2D>();
         foreach (var collider in colilders )
         {
@@ -17,12 +17,7 @@ public class MonsterColliderDetect : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
-        {
-            collision.GetComponent<PlayerAnimation>().EatMushroom();
-            Destroy(gameObject);
-        }
-        else
+        if (!collision.CompareTag("Player"))
         {
             collisionTrigger.offset = -collisionTrigger.offset;
             move.ChangeMoveDir();
