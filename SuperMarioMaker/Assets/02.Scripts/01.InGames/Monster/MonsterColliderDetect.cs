@@ -17,9 +17,14 @@ public class MonsterColliderDetect : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.CompareTag("Player"))
-        {   
-            collisionTrigger.offset = - collisionTrigger.offset;
+        if (collision.CompareTag("Player"))
+        {
+            collision.GetComponent<PlayerAnimation>().EatMushroom();
+            Destroy(gameObject);
+        }
+        else
+        {
+            collisionTrigger.offset = -collisionTrigger.offset;
             move.ChangeMoveDir();
         }
     }

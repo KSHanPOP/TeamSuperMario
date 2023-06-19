@@ -5,14 +5,15 @@ public class MonsterMove : MonoBehaviour
     [SerializeField]
     protected float speed;
 
-    protected Vector2 dir = Vector2.left;
-    public Vector2 Dir { get { return dir; } set { dir = value; } }
+    protected float dir = -1;
 
     protected Rigidbody2D rb;    
     
     protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        dir *= speed;
 
         DoMove();
     }
@@ -23,18 +24,18 @@ public class MonsterMove : MonoBehaviour
     }
 
     public virtual void DoMove()
-    {
-        rb.velocity = speed * dir;
+    {        
+        rb.velocity = new Vector2(dir, rb.velocity.y);
     }
 
     public virtual void ChangeMoveDir()
     {
-        dir = - dir;        
+        dir = -dir;
     }
 
     public virtual void Stop()
     {
-        dir = Vector2.zero;
+        rb.velocity = Vector2.zero; 
     }
 }
 

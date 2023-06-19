@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 public class Block : MonoBehaviour
@@ -7,7 +6,7 @@ public class Block : MonoBehaviour
     private bool isTransparent;
 
     [SerializeField]
-    private Sprite usedSprite;
+    private Sprite spriteAfterUseItem;
 
     [SerializeField]
     private EnumItems itemType;

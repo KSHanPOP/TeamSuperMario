@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isTransparent: 0
-  usedSprite: {fileID: 21300000, guid: 94d6def1799639f49adde55b13cedc12, type: 3}
+  spriteAfterUseItem: {fileID: 21300000, guid: 94d6def1799639f49adde55b13cedc12, type: 3}
   itemType: 0
   coinCount: 0
   shakeTime: 0.25
