@@ -85,7 +85,7 @@ public class PlayerBase : MonoBehaviour
         movementLimiter.instance.CharacterCanMove = false;
 
         velocityBeforeTransformation = rb.velocity;
-        gravityScaleBeforeTransformation = rb.gravityScale;        
+        gravityScaleBeforeTransformation = rb.gravityScale;
 
         rb.velocity = Vector2.zero;
         rb.gravityScale = 0f;

@@ -3,23 +3,39 @@ using UnityEngine;
 
 public abstract class ItemBase : MonoBehaviour
 {
-    private bool isInstanced = false;
-
-    private ObjectMove objectMove;
-
-    private void Awake()
+    [SerializeField]
+    protected float instanceSequnceTime;
+    protected virtual void StartAction()
     {
-        
+        var colliders = GetComponents<Collider2D>();
+        foreach (var collider in colliders)
+        {
+            collider.enabled = true;
+        }
     }
 
-
-    public virtual void StartInstance()
+    public virtual void StartInstance(Vector2 destPos)
     {
-        StartCoroutine(InstanceCoroutine());
+        StartCoroutine(InstanceCoroutine(destPos));
     }
 
-    public virtual IEnumerator InstanceCoroutine()
+    public virtual IEnumerator InstanceCoroutine(Vector2 destPos)
     {
+        float timer = 0f;
+        float divInstanceTime = 1 / instanceSequnceTime;
+        Vector3 startPos = transform.position;
+
+        while (timer < instanceSequnceTime)
+        {
+            timer += Time.deltaTime;
+
+            transform.position = Vector3.Lerp(startPos, destPos, timer * divInstanceTime);
+
+            yield return null;
+        }
+
+        transform.position = destPos;
+        StartAction();
         yield break;
     }
 

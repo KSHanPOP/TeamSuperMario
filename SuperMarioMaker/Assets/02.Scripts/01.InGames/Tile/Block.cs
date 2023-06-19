@@ -14,6 +14,8 @@ public class Block : MonoBehaviour
     [SerializeField]
     private int coinCount;
 
+    private int itemCount;
+
     [SerializeField]
     private float shakeTime;
 
@@ -26,13 +28,20 @@ public class Block : MonoBehaviour
 
     private Transform spriteTransform;
 
+    private ItemSpawnManagers spawnManagers;
 
     private void Awake()
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         spriteTransform = spriteRenderer.transform;
+
+        itemCount = itemType == EnumItems.Coin ? coinCount : 1;
         SetStartSprite();
     }
+    private void Start()
+    {
+        spawnManagers = ItemSpawnManagers.Instance;
+    }    
     private void SetStartSprite()
     {
         if (isTransparent)
@@ -53,24 +62,49 @@ public class Block : MonoBehaviour
         Logger.Debug("bigHIt");
     }
 
+    public void StartInstanceItem(Vector2 startPos, Vector2 destPos)
+    {
+        if (itemType == EnumItems.None)
+            return;
+
+        var item = Instantiate(spawnManagers.prefabs[(int)itemType], startPos, Quaternion.identity);
+        item.GetComponent<ItemBase>().StartInstance(destPos);
+
+        --itemCount;
+
+        if (itemCount == 0)
+            spriteRenderer.sprite = spriteAfterUseItem;
+    }
+
     IEnumerator ShakeCoroutine()
     {
         isHitable = false;
 
         float timer = 0f;
-        float height;
         float divShakeTime = 1 / shakeTime;        
+        float nomalizedTime;
+        float height;
 
-        Vector3 newPos = Vector3.zero;
+        bool instanceStarted = false;
 
-        while(timer < shakeTime)
+        Vector3 newPos = Vector3.zero;        
+
+        while (timer < shakeTime)
         {
-            timer += Time.deltaTime;                       
-            height = Mathf.Lerp(0f, maxShakeHeight, Mathf.Sin(timer * divShakeTime * Mathf.PI));
+            timer += Time.deltaTime;
+
+            nomalizedTime = timer * divShakeTime;
+            height = Mathf.Lerp(0f, maxShakeHeight, Mathf.Sin(nomalizedTime * Mathf.PI));
             
             newPos.y = height;
 
-            spriteTransform.localPosition = newPos;           
+            spriteTransform.localPosition = newPos;
+
+            if (nomalizedTime > 0.5f && !instanceStarted)
+            {
+                instanceStarted = true;
+                StartInstanceItem(spriteTransform.position, transform.position + Vector3.up);
+            }
 
             yield return null;
         }
