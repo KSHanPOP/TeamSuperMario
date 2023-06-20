@@ -47,7 +47,7 @@ public class Block : MonoBehaviour
         if (isTransparent)
             spriteRenderer.sprite = null;
     }
-    public void SmallHit()
+    public void NormalHit()
     {
         if (!isHitable)
             return;
@@ -59,7 +59,13 @@ public class Block : MonoBehaviour
         if (!isHitable)
             return;
 
-        Logger.Debug("bigHIt");
+        if(itemType == EnumItems.None)
+        {
+            Logger.Debug("crash");
+            return;
+        }
+
+        NormalHit();
     }
 
     public void StartInstanceItem(Vector2 startPos, Vector2 destPos)

@@ -94,7 +94,7 @@ public class PlayerState : MonoBehaviour
 
         if(CurrState == marioSmall)
         {
-            block.SmallHit();            
+            block.NormalHit();            
         }
         else
             block.BigHit();

@@ -6,10 +6,10 @@ public class MarioBig : PlayerBase
     protected MarioSmall marioSmall;
     protected MarioFire marioFire;
 
-    private RuntimeAnimatorController fireController;
+    protected RuntimeAnimatorController targetController;
 
     protected Coroutine blinkCoroutine;
-
+    
     protected bool isFire = false;
     protected override void Awake()
     {
@@ -17,7 +17,7 @@ public class MarioBig : PlayerBase
         marioSmall = GetComponent<MarioSmall>();
         marioFire = GetComponent<MarioFire>();
 
-        fireController = marioFire.Controller;
+        targetController = marioFire.Controller;
     }
     public override void Enter()
     {
@@ -41,8 +41,9 @@ public class MarioBig : PlayerBase
 
     public override void EatFireFlower()
     {
+        StartTransformation();
         playerState.nextState = marioFire;
-        playerState.nextState.Enter();
+        isFire = false;
         StartCoroutine(BigToFireTransformationCoroutine());
     }
     protected virtual void StopInvincible()
@@ -54,7 +55,7 @@ public class MarioBig : PlayerBase
     }
     protected virtual IEnumerator BlinkCoroutine()
     {
-        bool isTransparent = true;
+        bool isTransparent = false;
         WaitForSeconds changePeriod = new(0.1f);
 
         while(true)
@@ -79,13 +80,22 @@ public class MarioBig : PlayerBase
     }
     protected IEnumerator ToSmallTransformationCoroutine()
     {
-        SetTransformationScale(out WaitForSeconds changePeriod, out int count, out float[] scales);
+        WaitForSeconds changePeriod = new(0.1f);
+
+        int count = 5;
+        float[]  scales = new float[count];
+
+        scales[0] = 0.8f;
+        scales[1] = 0.9f;
+        scales[2] = 0.7f;
+        scales[3] = 0.8f;
+        scales[4] = 0.6f;
 
         for (int i = 0; i < count; i++)
         {
             spritePivotTransform.localScale = new Vector3(1, scales[i], i);
 
-            if(i == 3)
+            if (i == 3)
                 blinkCoroutine = StartCoroutine(BlinkCoroutine());
 
             yield return changePeriod;
@@ -98,19 +108,27 @@ public class MarioBig : PlayerBase
         yield break;
     }
 
-    protected IEnumerator BigToFireTransformationCoroutine()
+    protected virtual IEnumerator BigToFireTransformationCoroutine()
     {
         WaitForSeconds changePeriod = new(0.1f);        
 
         for(int i = 0; i < 5; i++)
         {
             isFire = !isFire;
-            playerState.Animator.runtimeAnimatorController = isFire ? fireController : controller;
+            ChangeControllder();
+            yield return changePeriod;
         }
         
         OnTransformationComplete();
-        playerState.nextState.Enter();
-
-        yield break;
+        ActionAfterChange();
+        playerState.nextState.Enter();        
+    }
+    protected virtual void ChangeControllder()
+    {
+        playerState.Animator.runtimeAnimatorController = isFire ? targetController : controller;
+    }    
+    protected virtual void ActionAfterChange()
+    {
+        playerState.SetNormalLayer();
     }
 }
