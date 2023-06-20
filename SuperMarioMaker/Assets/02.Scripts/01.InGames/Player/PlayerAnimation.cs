@@ -26,7 +26,10 @@ public class PlayerAnimation : MonoBehaviour
     [SerializeField]
     MarioState startState = MarioState.Small;
 
-    private bool isTryStop;
+    [SerializeField]
+    private float runAnimationSpeed = 1f;
+
+    private bool isTryStop;  
 
     void Awake()
     {
@@ -43,8 +46,8 @@ public class PlayerAnimation : MonoBehaviour
     {
         animator.SetBool(hashIsGround, characterGround.GetOnGround());
         animator.SetBool(hashTryStop, isTryStop = rigidbody2.velocity.x * characterMovement.directionX < 0);
-        animator.SetFloat(hashSpeed, rigidbody2.velocity.x * 0.2f);
-        SetMoveAnimation();
+        animator.SetFloat(hashSpeed, rigidbody2.velocity.x * runAnimationSpeed);
+        SetMoveAnimation();        
 
         TestCodes();
     }

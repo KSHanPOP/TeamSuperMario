@@ -33,6 +33,7 @@ public class ObjectMove : MonoBehaviour
     public virtual void Stop()
     {
         rb.velocity = Vector2.zero;
+        dir = 0f;
     }
 }
 

@@ -23,16 +23,26 @@ public class MarioSmall : PlayerBase
     {
         base.Enter();
         SetSmallCollider();
-        spriteTransform.localPosition = Vector3.zero;        
+        spriteTransform.localPosition = Vector3.up * 0.5f;        
     }
     public override void EatMushroom()
     {
         StartTransformation();
         playerState.nextState = marioBig;
-        spriteTransform.localPosition = Vector3.up * 0.5f;
+        spriteTransform.localPosition = Vector3.up;
 
         playerState.Animator.SetTrigger(hashTransformation);
     }
+
+    public override void EatFireFlower()
+    {
+        StartTransformation();
+        playerState.nextState = marioFire;
+        spriteTransform.localPosition = Vector3.up;
+
+        playerState.Animator.SetTrigger(hashTransformation);
+    }
+
     public override void Hit()
     {
         playerState.SetFallingLayer();

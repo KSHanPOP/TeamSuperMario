@@ -7,4 +7,9 @@ public class MarioFire : MarioBig
         base.Awake();        
         marioBig = GetComponent<MarioBig>();
     }
+
+    public override void EatFireFlower()
+    {
+        Logger.Debug("get score");
+    }
 }

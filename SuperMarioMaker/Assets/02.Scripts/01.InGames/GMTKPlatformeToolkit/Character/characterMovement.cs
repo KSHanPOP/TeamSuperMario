@@ -1,15 +1,17 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace GMTK.PlatformerToolkit {
+namespace GMTK.PlatformerToolkit
+{
     //This script handles moving the character on the X axis, both on the ground and in the air.
 
-    public class characterMovement : MonoBehaviour {
+    public class characterMovement : MonoBehaviour
+    {
 
         [Header("Components")]
 
         private Rigidbody2D body;
-        characterGround ground;        
+        characterGround ground;
 
         [Header("Movement Stats")]
         [SerializeField, Range(0f, 20f)][Tooltip("Maximum movement speed")] public float maxSpeed = 10f;
@@ -42,10 +44,15 @@ namespace GMTK.PlatformerToolkit {
 
         private bool isTryRun;
 
-        private void Awake() {
+        [SerializeField] private float runSpeed = 2f;
+
+        [SerializeField] private float accelAdjust = 2f;
+
+        private void Awake()
+        {
             //Find the character's Rigidbody and ground detection script
             body = GetComponent<Rigidbody2D>();
-            ground = GetComponent<characterGround>();            
+            ground = GetComponent<characterGround>();
         }
 
         private void Start()
@@ -53,17 +60,19 @@ namespace GMTK.PlatformerToolkit {
             limiter = movementLimiter.instance;
         }
 
-        public void OnMovement(InputAction.CallbackContext context) {
+        public void OnMovement(InputAction.CallbackContext context)
+        {
 
             moveKeyValue = context.ReadValue<float>();
         }
 
         public void TryRun(InputAction.CallbackContext context)
         {
-            isTryRun = context.ReadValue<float>() == 1;            
+            isTryRun = context.ReadValue<float>() == 1;
         }
 
-        private void Update() {
+        private void Update()
+        {
 
             directionX = limiter.CharacterCanMove ? moveKeyValue : 0f;
 
@@ -71,13 +80,14 @@ namespace GMTK.PlatformerToolkit {
 
             //Calculate's the character's desired velocity - which is the direction you are facing, multiplied by the character's maximum speed
             //Friction is not used in this game
-            desiredVelocity = new Vector2(directionX, 0f) * Mathf.Max(maxSpeed - friction, 0f);
+            desiredVelocity = new Vector2(directionX, 0f) * maxSpeed;
 
             if (isTryRun)
-                desiredVelocity *= 1.5f;
+                desiredVelocity *= runSpeed;
         }
 
-        private void FixedUpdate() {
+        private void FixedUpdate()
+        {
             //Fixed update runs in sync with Unity's physics engine
 
             //Get Kit's current ground status from her ground script
@@ -87,50 +97,60 @@ namespace GMTK.PlatformerToolkit {
             velocity = body.velocity;
 
             //Calculate movement, depending on whether "Instant Movement" has been checked
-            if (useAcceleration) {
+            if (useAcceleration)
+            {
                 runWithAcceleration();
             }
-            else {
-                if (onGround) {
+            else
+            {
+                if (onGround)
+                {
                     runWithoutAcceleration();
                 }
-                else {
+                else
+                {
                     runWithAcceleration();
                 }
             }
         }
 
-        private void runWithAcceleration() {
+        private void runWithAcceleration()
+        {
             //Set our acceleration, deceleration, and turn speed stats, based on whether we're on the ground on in the air
 
             acceleration = onGround ? maxAcceleration : maxAirAcceleration;
             deceleration = onGround ? maxDecceleration : maxAirDeceleration;
             turnSpeed = onGround ? maxTurnSpeed : maxAirTurnSpeed;
 
-            if (pressingKey) {
+            if (pressingKey)
+            {
                 //If the sign (i.e. positive or negative) of our input direction doesn't match our movement, it means we're turning around and so should use the turn speed stat.
-                if (Mathf.Sign(directionX) != Mathf.Sign(velocity.x)) {
+                if (Mathf.Sign(directionX) != Mathf.Sign(velocity.x))
+                {
                     maxSpeedChange = turnSpeed * Time.deltaTime;
                 }
-                else {
+                else
+                {
                     //If they match, it means we're simply running along and so should use the acceleration stat
-                    maxSpeedChange = acceleration * Time.deltaTime;
+                    maxSpeedChange = acceleration * Time.deltaTime;                    
+                    maxSpeedChange *= Mathf.Lerp(1f, accelAdjust, 1 - (body.velocity.x / desiredVelocity.x));
                 }
             }
-            else {
+            else
+            {
                 //And if we're not pressing a direction at all, use the deceleration stat
                 maxSpeedChange = deceleration * Time.deltaTime;
-            }
+            }            
 
             //Move our velocity towards the desired velocity, at the rate of the number calculated above
             velocity.x = Mathf.MoveTowards(velocity.x, desiredVelocity.x, maxSpeedChange);
 
             //Update the Rigidbody with this new velocity
             body.velocity = velocity;
-
         }
 
-        private void runWithoutAcceleration() {
+        private void runWithoutAcceleration()
+        {
             //If we're not using acceleration and deceleration, just send our desired velocity (direction * max speed) to the Rigidbody
             velocity.x = desiredVelocity.x;
 

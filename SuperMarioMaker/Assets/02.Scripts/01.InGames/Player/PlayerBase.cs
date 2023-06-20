@@ -20,21 +20,21 @@ public class PlayerBase : MonoBehaviour
 
     protected BoxCollider2D playerCollider;
 
-    protected BoxCollider2D playerTrigger;
+    //protected BoxCollider2D playerTrigger;
 
     protected Vector2 smallColliderSize = new Vector2(0.75f, 0.95f);
 
     protected Vector2 smallColliderOffset = new Vector2(0f, 0);
 
-    protected Vector2 smallTriggerSize = new Vector2(0.73f, 0.05f);
+    //protected Vector2 smallTriggerSize = new Vector2(0.73f, 0.05f);
 
     protected float smallBlockDetectLength = 0.5f;
 
-    protected Vector2 bigColliderSize = new Vector2(1f, 1.95f);
+    protected Vector2 bigColliderSize = new Vector2(0.75f, 1.95f);
 
     protected Vector2 bigColliderOffset = new Vector2(0f, 0.5f);
 
-    protected Vector2 bigTriggerSize = new Vector2(0.97f, 0.05f);
+    //protected Vector2 bigTriggerSize = new Vector2(0.95f, 0.05f);
 
     protected float bigBlockDetectLength = 1.5f;
 
@@ -52,9 +52,13 @@ public class PlayerBase : MonoBehaviour
     }
     private void SetColliders()
     {
-        playerCollider = playerState.playerCollider;
+        var colliders = GetComponentsInParent<BoxCollider2D>();
 
-        playerTrigger = playerState.playerTrigger;
+        foreach(var collider in colliders)
+        {
+            if (!collider.isTrigger)
+                playerCollider = collider;
+        }
     }
 
     public virtual void Enter()
@@ -107,14 +111,14 @@ public class PlayerBase : MonoBehaviour
     {
         playerCollider.size = smallColliderSize;
         playerCollider.offset = smallColliderOffset;
-        playerTrigger.size = smallTriggerSize;
+        //playerTrigger.size = smallTriggerSize;
         playerState.BlockDetectLength = smallBlockDetectLength;
     }
     protected virtual void SetBigCollider()
     {
         playerCollider.size = bigColliderSize;
         playerCollider.offset = bigColliderOffset;
-        playerTrigger.size = bigTriggerSize;
+        //playerTrigger.size = bigTriggerSize;
         playerState.BlockDetectLength = bigBlockDetectLength;
     }
 

@@ -29,6 +29,11 @@ public class MarioBig : PlayerBase
 
         playerState.Animator.SetTrigger(hashTransformation);
     }
+    public override void EatFireFlower()
+    {
+        playerState.nextState = marioFire;
+        playerState.nextState.Enter();
+    }
     protected virtual void StopInvincible()
     {
         playerState.SetNormalLayer();

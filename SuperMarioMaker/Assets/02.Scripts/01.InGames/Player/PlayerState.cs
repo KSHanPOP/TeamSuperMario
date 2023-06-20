@@ -5,20 +5,16 @@ public class PlayerState : MonoBehaviour
 {
     [SerializeField]
     GameObject player;
-    
-    public BoxCollider2D playerCollider;
-    
-    public BoxCollider2D playerTrigger;
 
-    //[SerializeField]
-    //int normalLayer;
+    [SerializeField]
+    int normalLayer;
 
-    //[SerializeField]
-    //int invincibleLayer;
+    [SerializeField]
+    int invincibleLayer;
 
-    //[SerializeField]
-    //int fallingLayer;
-    
+    [SerializeField]
+    int fallingLayer;
+
     private LayerMask platformLayer;
 
     private bool isAttackable = true;
@@ -63,17 +59,17 @@ public class PlayerState : MonoBehaviour
     }
     public void SetNormalLayer()
     {
-        player.layer = 9;        
+        player.layer = normalLayer;        
     }
 
     public void SetInvincibleLayer()
     {
-        player.layer = 12;        
+        player.layer = invincibleLayer;        
     }
 
     public void SetFallingLayer()
     {
-        player.layer = 13;
+        player.layer = fallingLayer;
     }
 
     private void Update()

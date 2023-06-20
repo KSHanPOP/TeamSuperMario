@@ -1,6 +1,8 @@
 using UnityEngine;
 public class Mushroom : ItemBase
 {
+    private bool isAte;
+
     private Rigidbody2D rb;
 
     [SerializeField]
@@ -21,10 +23,13 @@ public class Mushroom : ItemBase
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (isAte)
+            return;
+
         if (collision.CompareTag("Player"))
         {
-            collision.GetComponent<PlayerAnimation>().EatMushroom();            
-            Logger.Debug("eat");
+            isAte = true;
+            collision.GetComponent<PlayerAnimation>().EatMushroom();                        
             Destroy(gameObject);
         }
     }
