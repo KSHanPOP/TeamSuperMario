@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class MarioSmall : PlayerBase
 {
@@ -6,6 +7,9 @@ public class MarioSmall : PlayerBase
 
     protected MarioBig marioBig;
     protected MarioFire marioFire;
+
+    private RuntimeAnimatorController bigController;
+    private RuntimeAnimatorController fireController;
 
     [SerializeField]
     private float invincibleTime = 2.6f;
@@ -18,6 +22,9 @@ public class MarioSmall : PlayerBase
         base.Awake();
         marioBig = GetComponent<MarioBig>();
         marioFire = GetComponent<MarioFire>();
+
+        bigController = marioBig.Controller;
+        fireController = marioFire.Controller;
     }
     public override void Enter()
     {
@@ -29,18 +36,20 @@ public class MarioSmall : PlayerBase
     {
         StartTransformation();
         playerState.nextState = marioBig;
+        playerState.nextState.Enter();
         spriteTransform.localPosition = Vector3.up;
 
-        playerState.Animator.SetTrigger(hashTransformation);
+        StartCoroutine(SmallToBigTransformationCoroutine());
     }
 
     public override void EatFireFlower()
     {
         StartTransformation();
         playerState.nextState = marioFire;
+        playerState.nextState.Enter();
         spriteTransform.localPosition = Vector3.up;
 
-        playerState.Animator.SetTrigger(hashTransformation);
+        StartCoroutine(SmallToFireTransformationCoroutine());
     }
 
     public override void Hit()
@@ -53,5 +62,55 @@ public class MarioSmall : PlayerBase
     {
         base.OnTransformationComplete();        
         playerState.SetNormalLayer();
+    }   
+
+    private void SetTransformationScale(out WaitForSeconds changePeriod, out int count, out float[] scales)
+    {
+        changePeriod = new(0.1f);
+
+        count = 5;
+        scales = new float[count];
+
+        scales[0] = 0.8f;
+        scales[1] = 0.7f;
+        scales[2] = 1.0f;
+        scales[3] = 0.8f;
+        scales[4] = 1.0f;
+    }
+    IEnumerator SmallToBigTransformationCoroutine()
+    {
+        SetTransformationScale(out WaitForSeconds changePeriod, out int count, out float[] scales);
+
+        for (int i = 0; i < count; i++)
+        {            
+            spritePivotTransform.localScale = new Vector3(1, scales[i], i);
+            yield return changePeriod;
+        }
+
+        OnTransformationComplete();
+        yield break;
+    }
+
+    IEnumerator SmallToFireTransformationCoroutine()
+    {
+        SetTransformationScale(out WaitForSeconds changePeriod, out int count, out float[] scales);
+
+        bool isFire = false;
+
+        for (int i = 0; i < count; i++)
+        {
+            isFire = !isFire;
+
+            playerState.Animator.runtimeAnimatorController = isFire ? fireController : bigController;
+
+            spritePivotTransform.localScale = new Vector3(1, scales[i], i);
+
+            yield return changePeriod;
+        }
+
+        playerState.Animator.runtimeAnimatorController = fireController;
+
+        OnTransformationComplete();
+        yield break;
     }
 }

@@ -3,14 +3,15 @@ using UnityEngine;
 
 public class PlayerBase : MonoBehaviour
 {
-    protected readonly int hashTransformation = Animator.StringToHash("Transformation");
-    protected readonly int hashIsTransformationCompleted = Animator.StringToHash("IsTransformationCompleted");
-
     protected PlayerState playerState;
 
     protected SpriteRenderer sprite;
 
     protected Transform spriteTransform;
+
+    protected Transform spritePivotTransform;
+
+    protected PlayerAnimation playerAnimation;
 
     protected Rigidbody2D rb;
 
@@ -41,16 +42,20 @@ public class PlayerBase : MonoBehaviour
     [SerializeField]
     protected RuntimeAnimatorController controller;
 
+    public RuntimeAnimatorController Controller { get { return controller; } }
+
     protected virtual void Awake()
     {        
         playerState = GetComponent<PlayerState>();
         rb = GetComponentInParent<Rigidbody2D>();
         sprite = transform.parent.GetComponentInChildren<SpriteRenderer>();        
         spriteTransform = sprite.transform;
+        spritePivotTransform = spriteTransform.parent;
+        playerAnimation = transform.parent.GetComponent<PlayerAnimation>();
 
-        SetColliders();
+        SetCollider();
     }
-    private void SetColliders()
+    private void SetCollider()
     {
         var colliders = GetComponentsInParent<BoxCollider2D>();
 
@@ -91,6 +96,9 @@ public class PlayerBase : MonoBehaviour
         rb.velocity = Vector2.zero;
         rb.gravityScale = 0f;
 
+        playerAnimation.enabled = false;
+        playerState.Animator.speed = 0f;
+
         playerState.SetInvincibleLayer();
     }
     public virtual void OnTransformationComplete()
@@ -102,9 +110,8 @@ public class PlayerBase : MonoBehaviour
         rb.velocity = velocityBeforeTransformation;
         rb.gravityScale = gravityScaleBeforeTransformation;
 
-        playerState.Animator.SetTrigger(hashIsTransformationCompleted);
-
-        playerState.nextState.Enter();
+        playerAnimation.enabled = true;
+        playerState.Animator.speed = 1f;
     }
 
     protected virtual void SetSmallCollider()
@@ -120,7 +127,7 @@ public class PlayerBase : MonoBehaviour
         playerCollider.offset = bigColliderOffset;
         //playerTrigger.size = bigTriggerSize;
         playerState.BlockDetectLength = bigBlockDetectLength;
-    }
+    }    
 
     //public virtual void PlayerUpdate()
     //{

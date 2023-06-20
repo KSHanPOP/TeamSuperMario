@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 9100000, guid: 1aee9651d02b73c40be31452702cb571, type: 2}
+  invincibleTime: 3
 --- !u!114 &5531624047663584020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86,3 +87,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 285e3842a77614f439456d07bd2b2563, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  normalLayer: 9
+  invincibleLayer: 12
+  fallingLayer: 13
