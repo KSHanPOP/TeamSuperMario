@@ -23,9 +23,11 @@ public class MarioBig : PlayerBase
         StartTransformation();
         playerState.nextState = marioSmall;
 
-        blinkCoroutine = StartCoroutine(CoBlinkCoroutine());
+        blinkCoroutine = StartCoroutine(BlinkCoroutine());
 
         Invoke(nameof(StopInvincible), marioSmall.InvincibleTime);
+
+        playerState.Animator.SetTrigger(hashTransformation);
     }
     protected virtual void StopInvincible()
     {
@@ -34,10 +36,10 @@ public class MarioBig : PlayerBase
         StopCoroutine(blinkCoroutine);
         sprite.color = Color.white;
     }
-    protected virtual IEnumerator CoBlinkCoroutine()
+    protected virtual IEnumerator BlinkCoroutine()
     {
         bool isTransparent = true;
-        WaitForSeconds changePeriod = new WaitForSeconds(0.1f);
+        WaitForSeconds changePeriod = new(0.1f);
 
         while(true)
         {

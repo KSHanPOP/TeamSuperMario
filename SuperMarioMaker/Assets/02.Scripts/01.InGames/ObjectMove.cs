@@ -13,8 +13,6 @@ public class ObjectMove : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 
         dir *= speed;
-
-        DoMove();
     }
 
     private void Update()

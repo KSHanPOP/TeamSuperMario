@@ -8,11 +8,7 @@ public class PlayerAnimation : MonoBehaviour
     private readonly int hashIsIdle = Animator.StringToHash("IsIdle");
     private readonly int hashIsGround = Animator.StringToHash("IsGround");
     private readonly int hashTryStop = Animator.StringToHash("TryStop");
-    private readonly int hashSpeed = Animator.StringToHash("Speed");
-    private readonly int hashHit = Animator.StringToHash("Hit");
-    private readonly int hashEatMushroom = Animator.StringToHash("EatMushroom");
-    private readonly int hashEatFireFlower = Animator.StringToHash("EatFireFlower");
-    private readonly int hashIsTransformationCompleted = Animator.StringToHash("IsTransformationCompleted");
+    private readonly int hashSpeed = Animator.StringToHash("Speed");        
 
     private characterGround characterGround;
     private characterMovement characterMovement;
@@ -30,6 +26,8 @@ public class PlayerAnimation : MonoBehaviour
     [SerializeField]
     MarioState startState = MarioState.Small;
 
+    private bool isTryStop;
+
     void Awake()
     {
         characterGround = GetComponent<characterGround>();
@@ -44,7 +42,7 @@ public class PlayerAnimation : MonoBehaviour
     void Update()
     {
         animator.SetBool(hashIsGround, characterGround.GetOnGround());
-        animator.SetBool(hashTryStop, rigidbody2.velocity.x * characterMovement.directionX < 0);
+        animator.SetBool(hashTryStop, isTryStop = rigidbody2.velocity.x * characterMovement.directionX < 0);
         animator.SetFloat(hashSpeed, rigidbody2.velocity.x * 0.2f);
         SetMoveAnimation();
 
@@ -66,9 +64,10 @@ public class PlayerAnimation : MonoBehaviour
 
         spriteRenderer.flipX = velocityX < 0;        
     }
-    public void BackJump()
+    public void TryBackJump()
     {        
-        spriteRenderer.flipX = !spriteRenderer.flipX;
+        if(isTryStop)
+            spriteRenderer.flipX = !spriteRenderer.flipX;
     }
 
     private void TestCodes()
@@ -85,24 +84,19 @@ public class PlayerAnimation : MonoBehaviour
     }
     public void EatMushroom()
     {
-        animator.SetTrigger(hashEatMushroom);
         playerState.CurrState.EatMushroom();
     }
     public void EatFireFlower()
-    {
-        animator.SetTrigger(hashEatFireFlower);
+    {   
         playerState.CurrState.EatFireFlower();
     }
     public void Hit()
-    {
-        animator.SetTrigger(hashHit);
+    {   
         playerState.CurrState.Hit();
     }
     public void OnTransformationComplete()
     {   
-        animator.SetTrigger(hashIsTransformationCompleted);
-        playerState.CurrState.OnTransformationComplete();
-        playerState.nextState.Enter();
+        playerState.CurrState.OnTransformationComplete();        
     }
 }
 

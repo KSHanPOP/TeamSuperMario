@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class MarioSmall : PlayerBase
 {
+    private int hashDie = Animator.StringToHash("Die");
+
     protected MarioBig marioBig;
     protected MarioFire marioFire;
 
@@ -27,11 +29,15 @@ public class MarioSmall : PlayerBase
     {
         StartTransformation();
         playerState.nextState = marioBig;
-        spriteTransform.localPosition = Vector3.up * 0.5f;        
+        spriteTransform.localPosition = Vector3.up * 0.5f;
+
+        playerState.Animator.SetTrigger(hashTransformation);
     }
     public override void Hit()
     {
         playerState.SetFallingLayer();
+
+        playerState.Animator.SetTrigger(hashDie);
     }
     public override void OnTransformationComplete()
     {

@@ -5,18 +5,21 @@ public class PlayerState : MonoBehaviour
 {
     [SerializeField]
     GameObject player;
+    
+    public BoxCollider2D playerCollider;
+    
+    public BoxCollider2D playerTrigger;
 
-    [SerializeField]
-    int normalLayer;
+    //[SerializeField]
+    //int normalLayer;
 
-    [SerializeField]
-    int invincibleLayer;
+    //[SerializeField]
+    //int invincibleLayer;
 
-    [SerializeField]
-    int fallingLayer;
-
-    [SerializeField]
-    LayerMask platformLayer;
+    //[SerializeField]
+    //int fallingLayer;
+    
+    private LayerMask platformLayer;
 
     private bool isAttackable = true;
     public bool IsAttckable { set { isAttackable= value; } }
@@ -39,6 +42,8 @@ public class PlayerState : MonoBehaviour
         marioSmall = GetComponent<MarioSmall>();
         marioBig = GetComponent<MarioBig>();
         marioFire = GetComponent<MarioFire>();
+
+        platformLayer = LayerMask.GetMask("Platform");
     }
 
     public void SetStartState(MarioState state)
@@ -58,17 +63,17 @@ public class PlayerState : MonoBehaviour
     }
     public void SetNormalLayer()
     {
-        player.layer = normalLayer;        
+        player.layer = 9;        
     }
 
     public void SetInvincibleLayer()
     {
-        player.layer = invincibleLayer;        
+        player.layer = 12;        
     }
 
     public void SetFallingLayer()
     {
-        player.layer = fallingLayer;
+        player.layer = 13;
     }
 
     private void Update()

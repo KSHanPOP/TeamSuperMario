@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class PlayerBase : MonoBehaviour
 {
+    protected readonly int hashTransformation = Animator.StringToHash("Transformation");
+    protected readonly int hashIsTransformationCompleted = Animator.StringToHash("IsTransformationCompleted");
+
     protected PlayerState playerState;
 
     protected SpriteRenderer sprite;
@@ -49,15 +52,9 @@ public class PlayerBase : MonoBehaviour
     }
     private void SetColliders()
     {
-        var colliders = GetComponentsInParent<BoxCollider2D>();
+        playerCollider = playerState.playerCollider;
 
-        foreach(var collider in colliders)
-        {
-            if (collider.isTrigger)
-                playerTrigger = collider;
-            else
-                playerCollider = collider;
-        }
+        playerTrigger = playerState.playerTrigger;
     }
 
     public virtual void Enter()
@@ -100,6 +97,10 @@ public class PlayerBase : MonoBehaviour
 
         rb.velocity = velocityBeforeTransformation;
         rb.gravityScale = gravityScaleBeforeTransformation;
+
+        playerState.Animator.SetTrigger(hashIsTransformationCompleted);
+
+        playerState.nextState.Enter();
     }
 
     protected virtual void SetSmallCollider()
