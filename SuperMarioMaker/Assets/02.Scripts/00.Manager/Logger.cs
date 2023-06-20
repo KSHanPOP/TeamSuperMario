@@ -25,5 +25,14 @@ public static class Logger
     public static void Error(object message, Object context)
     {
         UnityEngine.Debug.LogError(message, context);               
-    }    
+    }
+
+    [Conditional("EnableLogger")]
+    public static void CheckNullObject(object obj) 
+    {
+        if (obj == null)
+        {
+            UnityEngine.Debug.LogError("The object is null!");
+        }
+    }
 }

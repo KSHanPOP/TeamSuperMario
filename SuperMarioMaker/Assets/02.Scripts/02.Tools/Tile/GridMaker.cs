@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -25,17 +26,24 @@ public class GridMaker : MonoBehaviour
     [SerializeField] private Button upButton;
     [SerializeField] private Button downButton;
 
+    [SerializeField] private TextMeshProUGUI upText;
+    [SerializeField] private TextMeshProUGUI downText;
+
     private Vector3Int flagPos;// = new Vector3Int(-1, -1, 0);
     private List<Vector3Int> endLinePos = new List<Vector3Int>();
 
+    private void CheckedNull()
+    {
+
+    }
     public void PopupOn()
     {
         popUp.SetActive(true);
-        onButton.gameObject.SetActive(false);
+        //onButton.gameObject.SetActive(false);
     }
     public void PopupOff()
     {
-        onButton.gameObject.SetActive(true);
+        //onButton.gameObject.SetActive(true);
         popUp.SetActive(false);
     }
     public void SetDefaultTile()
@@ -148,6 +156,7 @@ public class GridMaker : MonoBehaviour
 
         SetEndlineTile();
         SetMinimapPosition();
+        SetTextVelue(nowkRow, false);
     }
     public void LeftGrid()
     {
@@ -190,6 +199,7 @@ public class GridMaker : MonoBehaviour
         }
 
         SetMinimapPosition();
+        SetTextVelue(beforeRow, false);
     }
     public void UpGrid()
     {
@@ -219,6 +229,7 @@ public class GridMaker : MonoBehaviour
         }
 
         SetMinimapPosition();
+        SetTextVelue(nowkCol, true);
     }
 
     public void DownGrid()
@@ -250,6 +261,8 @@ public class GridMaker : MonoBehaviour
         }
 
         SetMinimapPosition();
+        SetTextVelue(beforeCol, true);
+
     }
 
     public void SetMinimapPosition()
@@ -296,6 +309,19 @@ public class GridMaker : MonoBehaviour
         cameraFrameRect.anchoredPosition = position;
         cameraFrameRect.sizeDelta = size;
     }
+
+    public void SetTextVelue(int value, bool up)
+    {
+        if (up)
+        {
+            upText.text = value.ToString();
+        }
+        else
+        {
+            downText.text = value.ToString();
+        }
+    }
+
     public void Init()
     {
 
@@ -310,6 +336,8 @@ public class GridMaker : MonoBehaviour
         offButton.onClick.AddListener(() => PopupOff());
         popUp.SetActive(false);
     }
+
+
     void Start()
     {
         Init();
