@@ -49,9 +49,7 @@ public class PlayerAnimation : MonoBehaviour
         animator.SetBool(hashIsGround, characterGround.GetOnGround());
         animator.SetBool(hashTryStop, isTryStop = rigidbody2.velocity.x * characterMovement.directionX < 0);
         animator.SetFloat(hashSpeed, rigidbody2.velocity.x * runAnimationSpeed);
-        SetMoveAnimation();        
-
-        TestCodes();
+        SetMoveAnimation();     
     }
     private void SetMoveAnimation()
     {
@@ -75,18 +73,6 @@ public class PlayerAnimation : MonoBehaviour
             spriteRenderer.flipX = !spriteRenderer.flipX;
     }
 
-    private void TestCodes()
-    {
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            EatMushroom();            
-        }
-
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            Hit();            
-        }
-    }
     public void EatMushroom()
     {
         playerState.CurrState.EatMushroom();

@@ -582,6 +582,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4930648494648828086, guid: 3d11d6f41af12bc46ae61e088eae3d6f, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4930648494648828086, guid: 3d11d6f41af12bc46ae61e088eae3d6f, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4930648494648828086, guid: 3d11d6f41af12bc46ae61e088eae3d6f, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4930648494648828086, guid: 3d11d6f41af12bc46ae61e088eae3d6f, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: GMTK.PlatformerToolkit.characterMovement, Assembly-CSharp
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d11d6f41af12bc46ae61e088eae3d6f, type: 3}
 --- !u!1001 &595181019
@@ -683,9 +699,9 @@ Transform:
   m_Children:
   - {fileID: 1005855254}
   - {fileID: 457331154}
-  - {fileID: 1716793914}
   - {fileID: 2054241423}
   - {fileID: 269679890}
+  - {fileID: 1716793914}
   - {fileID: 595181020}
   - {fileID: 1365231306}
   - {fileID: 354415320}
