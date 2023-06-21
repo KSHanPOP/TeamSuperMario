@@ -6,18 +6,19 @@ public class MoveColliderDetect : MonoBehaviour
     private Collider2D collisionTrigger;
 
     private void Awake()
-    {        
-        move = GetComponent<ObjectMove>(); 
+    {
+        move = GetComponent<ObjectMove>();
         var colilders = GetComponents<Collider2D>();
-        foreach (var collider in colilders )
+        foreach (var collider in colilders)
         {
-            if(collider.isTrigger)
+            if (collider.isTrigger)
                 collisionTrigger = collider;
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.CompareTag("Player"))
+        if (collision.CompareTag("Platform") ||
+            collision.CompareTag("Monster"))
         {
             collisionTrigger.offset = -collisionTrigger.offset;
             move.ChangeMoveDir();

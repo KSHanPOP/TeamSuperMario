@@ -33,6 +33,7 @@ public class Block : MonoBehaviour
     private void Awake()
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        spriteRenderer.sortingOrder = (int)EnumSpriteLayerOder.Block;
         spriteTransform = spriteRenderer.transform;
 
         itemCount = itemType == EnumItems.Coin ? coinCount : 1;

@@ -36,6 +36,8 @@ public class PlayerAnimation : MonoBehaviour
         characterGround = GetComponent<characterGround>();
         characterMovement = GetComponent<characterMovement>();
         rigidbody2 = GetComponent<Rigidbody2D>();
+
+        spriteRenderer.sortingOrder = (int)EnumSpriteLayerOder.Player;
     }
     private void Start()
     {        

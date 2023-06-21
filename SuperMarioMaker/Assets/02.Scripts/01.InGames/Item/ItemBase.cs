@@ -5,6 +5,14 @@ public abstract class ItemBase : MonoBehaviour
 {
     [SerializeField]
     protected float instanceSequnceTime;
+
+    protected SpriteRenderer spriteRenderer;
+
+    protected virtual void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.sortingOrder = (int)EnumSpriteLayerOder.Item;
+    }
     protected virtual void StartAction()
     {
         var colliders = GetComponents<Collider2D>();

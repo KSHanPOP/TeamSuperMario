@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4930648494648827983}
   - component: {fileID: 4930648494648827981}
   - component: {fileID: 4930648494648827980}
-  - component: {fileID: 5318230888159189682}
   - component: {fileID: 4930648494648828083}
   - component: {fileID: 4930648494648828084}
   - component: {fileID: 4930648494648828081}
@@ -89,32 +88,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.75, y: 0.95}
   m_EdgeRadius: 0
---- !u!61 &5318230888159189682
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4930648494648827982}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.5}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.73, y: 0.05}
-  m_EdgeRadius: 0
 --- !u!114 &4930648494648828083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,6 +146,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4696f7206d0ef6542ba7c76ae60e0267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  groundDetectLength: 0.51
+  colliderOffset: {x: 0.375, y: 0, z: 0}
+  platformLayer:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!114 &4930648494648828086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,6 +242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minDistanceToPress: 0.7
+  invincibleLayer: 12
 --- !u!114 &6417868108031928266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -356,7 +335,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 600570249
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 4
   m_Sprite: {fileID: -2026890114, guid: c0d31d895faabf64d9df1c68132c6dc0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -489,6 +468,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 4930648494648827982}
+    - target: {fileID: 5531624047663584022, guid: 2df3c89c22af3cb46929812318c4026e, type: 3}
+      propertyPath: playerCollider
+      value: 
+      objectReference: {fileID: 4930648494648827980}
     - target: {fileID: 5531624047663584489, guid: 2df3c89c22af3cb46929812318c4026e, type: 3}
       propertyPath: m_Name
       value: PlayerState

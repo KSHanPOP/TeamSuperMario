@@ -7,9 +7,14 @@ public abstract class MonsterBase : MonoBehaviour
     [SerializeField]
     protected bool isPressable;
 
+    [SerializeField]
+    protected SpriteRenderer spriteRenderer;
+
     private void Awake()
     {   
-        monsterHeight = GetComponentInChildren<SpriteRenderer>().size.y;        
+        monsterHeight = GetComponentInChildren<SpriteRenderer>().size.y;
+
+        spriteRenderer.sortingOrder = (int)EnumSpriteLayerOder.Monster;
     }
 
     public bool IsPressable(float posY, float minDistanceToPress)

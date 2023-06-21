@@ -15,31 +15,28 @@ public class PlayerState : MonoBehaviour
     [SerializeField]
     int fallingLayer;
 
-    private LayerMask platformLayer;
+    public BoxCollider2D playerCollider;
+
+    public BoxCollider2D playerTrigger;
 
     private bool isAttackable = true;
-    public bool IsAttckable { set { isAttackable= value; } }
-
-    private float blockDetectLength;
-    public float BlockDetectLength { set { blockDetectLength=value; } }
+    public bool IsAttckable { set { isAttackable = value; } get { return isAttackable; } }
 
 
     public PlayerBase CurrState { get; set; }
     public PlayerBase nextState { get; set; }
     public Animator Animator { get; set; }
-    
+
     private MarioSmall marioSmall;
-    
+
     private MarioBig marioBig;
-    
+
     private MarioFire marioFire;
     public void Awake()
-    {   
+    {
         marioSmall = GetComponent<MarioSmall>();
         marioBig = GetComponent<MarioBig>();
         marioFire = GetComponent<MarioFire>();
-
-        platformLayer = LayerMask.GetMask("Platform");
     }
 
     public void SetStartState(MarioState state)
@@ -59,12 +56,12 @@ public class PlayerState : MonoBehaviour
     }
     public void SetNormalLayer()
     {
-        player.layer = normalLayer;        
+        player.layer = normalLayer;
     }
 
     public void SetInvincibleLayer()
     {
-        player.layer = invincibleLayer;        
+        player.layer = invincibleLayer;
     }
 
     public void SetFallingLayer()
@@ -72,32 +69,9 @@ public class PlayerState : MonoBehaviour
         player.layer = fallingLayer;
     }
 
-    private void Update()
+    public bool IsSmallState()
     {
-        if (!isAttackable)
-            return;
-
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, blockDetectLength, platformLayer);
-
-        if (hit.collider == null)
-            return;
-
-        if(hit.collider.CompareTag("Block"))
-        {
-            HitBlock(hit.collider);
-        }
-    }
-
-    public void HitBlock(Collider2D collider)
-    {
-        var block = collider.GetComponent<Block>();
-
-        if(CurrState == marioSmall)
-        {
-            block.NormalHit();            
-        }
-        else
-            block.BigHit();
+        return CurrState == marioSmall;
     }
 }
 
