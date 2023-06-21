@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 public class Block : MonoBehaviour
 {
@@ -24,17 +25,22 @@ public class Block : MonoBehaviour
 
     protected bool isHitable = true;
 
+    private BoxCollider2D detectorWhenShaking;
+
     protected SpriteRenderer spriteRenderer;
 
     protected Transform spriteTransform;
 
     protected ItemSpawnManagers spawnManagers;
 
+    private HashSet<IShakeable> shakenObjects = new HashSet<IShakeable>();
+
     protected virtual void Awake()
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         spriteRenderer.sortingOrder = (int)EnumSpriteLayerOder.Block;
         spriteTransform = spriteRenderer.transform;
+        detectorWhenShaking = GetComponent<BoxCollider2D>();
 
         itemCount = itemType == EnumItems.Coin ? (coinCount > 0 ? coinCount : 1) : 1;
 
@@ -42,7 +48,7 @@ public class Block : MonoBehaviour
     }
     protected virtual void Start()
     {
-        spawnManagers = ItemSpawnManagers.Instance;
+        spawnManagers = ItemSpawnManagers.Instance;        
     }
     protected virtual void SetStartSprite()
     {
@@ -103,6 +109,7 @@ public class Block : MonoBehaviour
     protected virtual IEnumerator ShakeCoroutine()
     {
         isHitable = false;
+        detectorWhenShaking.enabled = true;
 
         float timer = 0f;
         float inverseShakeTime = 1 / shakeTime;        
@@ -137,6 +144,17 @@ public class Block : MonoBehaviour
 
         spriteTransform.localPosition = Vector3.zero;
         CheckHitable();
+        detectorWhenShaking.enabled = false;
+        shakenObjects.Clear();
         yield break;
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {  
+        if(collision.TryGetComponent<IShakeable>(out IShakeable shakeable) &&
+            !shakenObjects.Contains(shakeable))
+        {
+            shakenObjects.Add(shakeable);
+            shakeable.Shake();
+        }
     }
 }

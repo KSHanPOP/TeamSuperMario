@@ -249,6 +249,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
+  upForceWhenCollisonShakingBlock: 70
 --- !u!114 &-1684249574632827597
 MonoBehaviour:
   m_ObjectHideFlags: 0

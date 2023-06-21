@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AttackedPressed : MonoBehaviour, IAttackable
+public class AttackedPressed : MonoBehaviour
 {
     private Animator animator;
     private readonly int hashPressed = Animator.StringToHash("Pressed");

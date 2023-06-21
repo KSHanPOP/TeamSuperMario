@@ -15,14 +15,20 @@ public class MoveColliderDetect : MonoBehaviour
                 collisionTrigger = collider;
         }
     }
+
+    public void ChangeMoveDir()
+    {
+        collisionTrigger.offset = -collisionTrigger.offset;
+        move.ChangeMoveDir();
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Platform") ||
             collision.CompareTag("Monster"))
             
-        {
-            collisionTrigger.offset = -collisionTrigger.offset;
-            move.ChangeMoveDir();
+        {            
+            ChangeMoveDir();
         }
     }
 }

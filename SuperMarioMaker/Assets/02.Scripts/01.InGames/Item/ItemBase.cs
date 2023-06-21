@@ -30,14 +30,14 @@ public abstract class ItemBase : MonoBehaviour
     public virtual IEnumerator InstanceCoroutine(Vector2 destPos)
     {
         float timer = 0f;
-        float divInstanceTime = 1 / instanceSequnceTime;
+        float inverseInstanceTime = 1 / instanceSequnceTime;
         Vector3 startPos = transform.position;
 
         while (timer < instanceSequnceTime)
         {
             timer += Time.deltaTime;
 
-            transform.position = Vector3.Lerp(startPos, destPos, timer * divInstanceTime);
+            transform.position = Vector3.Lerp(startPos, destPos, timer * inverseInstanceTime);
 
             yield return null;
         }

@@ -122,6 +122,7 @@ GameObject:
   - component: {fileID: 3921372779306366981}
   - component: {fileID: -597807476348010541}
   - component: {fileID: 1168094562097666693}
+  - component: {fileID: 8733133591393717662}
   m_Layer: 11
   m_Name: Goomba
   m_TagString: Monster
@@ -270,3 +271,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isPressable: 1
   spriteRenderer: {fileID: 3921372778784510967}
+--- !u!114 &8733133591393717662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3921372779306366980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae8d0c75d79688d409626f87c4c38d7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 5585351408380230596}
+  spriteRenderer: {fileID: 3921372778784510967}
+  speedMultiplier: 1.5
+  shakeForce: 5
+  fallingLayer: 13

@@ -17,7 +17,7 @@ public class ObjectMove : MonoBehaviour
 
     private void Update()
     {
-        DoMove();
+        DoMove();        
     }
 
     public virtual void DoMove()
@@ -26,7 +26,7 @@ public class ObjectMove : MonoBehaviour
     }
 
     public virtual void ChangeMoveDir()
-    {  
+    {   
         dir = -dir;
     }
 
