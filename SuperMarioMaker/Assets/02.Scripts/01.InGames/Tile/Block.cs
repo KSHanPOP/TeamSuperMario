@@ -6,56 +6,57 @@ public class Block : MonoBehaviour
     private bool isTransparent;
 
     [SerializeField]
-    private Sprite spriteAfterUseItem;
+    protected Sprite spriteAfterUseItem;
 
     [SerializeField]
-    private EnumItems itemType;
+    protected EnumItems itemType;
 
     [SerializeField]
-    private int coinCount;
+    protected int coinCount;
 
-    private int itemCount;
-
-    [SerializeField]
-    private float shakeTime;
+    protected int itemCount;
 
     [SerializeField]
-    private float maxShakeHeight;
+    protected float shakeTime;
 
-    private bool isHitable = true;
-    
-    private SpriteRenderer spriteRenderer;
+    [SerializeField]
+    protected float maxShakeHeight;
 
-    private Transform spriteTransform;
+    protected bool isHitable = true;
 
-    private ItemSpawnManagers spawnManagers;
+    protected SpriteRenderer spriteRenderer;
 
-    private void Awake()
+    protected Transform spriteTransform;
+
+    protected ItemSpawnManagers spawnManagers;
+
+    protected virtual void Awake()
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         spriteRenderer.sortingOrder = (int)EnumSpriteLayerOder.Block;
         spriteTransform = spriteRenderer.transform;
 
-        itemCount = itemType == EnumItems.Coin ? (coinCount == 0 ? 1 : coinCount) : 1;
+        itemCount = itemType == EnumItems.Coin ? (coinCount > 0 ? coinCount : 1) : 1;
+
         SetStartSprite();
     }
-    private void Start()
+    protected virtual void Start()
     {
         spawnManagers = ItemSpawnManagers.Instance;
-    }    
-    private void SetStartSprite()
+    }
+    protected virtual void SetStartSprite()
     {
         if (isTransparent)
             spriteRenderer.sprite = null;
     }
-    public void NormalHit()
+    public virtual void NormalHit()
     {
         if (!isHitable)
             return;
         
         StartCoroutine(ShakeCoroutine());
     }
-    public void BigHit()
+    public virtual void BigHit()
     {
         if (!isHitable)
             return;
@@ -69,7 +70,7 @@ public class Block : MonoBehaviour
         NormalHit();
     }
 
-    public void StartInstanceItem(Vector2 startPos, Vector2 destPos)
+    protected virtual void StartInstanceItem(Vector2 startPos, Vector2 destPos)
     {
         if (itemType == EnumItems.None)
             return;        
@@ -78,7 +79,7 @@ public class Block : MonoBehaviour
         item.GetComponent<ItemBase>().StartInstance(destPos);
     }
 
-    private void CheckItemRemainCount()
+    protected virtual void CheckItemRemainCount()
     {
         if (itemType == EnumItems.None)
             return;
@@ -88,7 +89,7 @@ public class Block : MonoBehaviour
         if (itemCount == 0)
             spriteRenderer.sprite = spriteAfterUseItem;
     }
-    private void CheckHitable()
+    protected virtual void CheckHitable()
     {
         if (itemType == EnumItems.None)
         {
@@ -99,7 +100,7 @@ public class Block : MonoBehaviour
         isHitable = itemCount > 0;
     }
 
-    IEnumerator ShakeCoroutine()
+    protected virtual IEnumerator ShakeCoroutine()
     {
         isHitable = false;
 
