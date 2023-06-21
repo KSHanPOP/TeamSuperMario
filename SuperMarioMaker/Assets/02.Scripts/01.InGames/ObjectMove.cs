@@ -26,7 +26,7 @@ public class ObjectMove : MonoBehaviour
     }
 
     public virtual void ChangeMoveDir()
-    {
+    {  
         dir = -dir;
     }
 

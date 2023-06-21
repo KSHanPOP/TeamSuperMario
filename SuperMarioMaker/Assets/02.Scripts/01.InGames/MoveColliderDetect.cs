@@ -19,6 +19,7 @@ public class MoveColliderDetect : MonoBehaviour
     {
         if (collision.CompareTag("Platform") ||
             collision.CompareTag("Monster"))
+            
         {
             collisionTrigger.offset = -collisionTrigger.offset;
             move.ChangeMoveDir();

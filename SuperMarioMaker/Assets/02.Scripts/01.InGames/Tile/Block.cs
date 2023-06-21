@@ -36,7 +36,7 @@ public class Block : MonoBehaviour
         spriteRenderer.sortingOrder = (int)EnumSpriteLayerOder.Block;
         spriteTransform = spriteRenderer.transform;
 
-        itemCount = itemType == EnumItems.Coin ? coinCount : 1;
+        itemCount = itemType == EnumItems.Coin ? (coinCount == 0 ? 1 : coinCount) : 1;
         SetStartSprite();
     }
     private void Start()
@@ -78,7 +78,7 @@ public class Block : MonoBehaviour
         item.GetComponent<ItemBase>().StartInstance(destPos);
     }
 
-    private void CheckItem()
+    private void CheckItemRemainCount()
     {
         if (itemType == EnumItems.None)
             return;
@@ -104,28 +104,28 @@ public class Block : MonoBehaviour
         isHitable = false;
 
         float timer = 0f;
-        float divShakeTime = 1 / shakeTime;        
-        float nomalizedTime;
+        float inverseShakeTime = 1 / shakeTime;        
+        float normalizedTime;
         float height;
 
         bool instanceStarted = false;
 
         Vector3 newPos = Vector3.zero;        
 
-        CheckItem();
+        CheckItemRemainCount();
 
         while (timer < shakeTime)
         {
             timer += Time.deltaTime;
 
-            nomalizedTime = timer * divShakeTime;
-            height = Mathf.Lerp(0f, maxShakeHeight, Mathf.Sin(nomalizedTime * Mathf.PI));
+            normalizedTime = timer * inverseShakeTime;
+            height = Mathf.Lerp(0f, maxShakeHeight, Mathf.Sin(normalizedTime * Mathf.PI));
             
             newPos.y = height;
 
             spriteTransform.localPosition = newPos;
 
-            if (nomalizedTime > 0.5f && !instanceStarted)
+            if (normalizedTime > 0.5f && !instanceStarted)
             {
                 instanceStarted = true;
                 StartInstanceItem(spriteTransform.position, transform.position + Vector3.up);

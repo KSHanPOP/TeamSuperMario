@@ -54,7 +54,8 @@ public class BlockDetector : MonoBehaviour
 
     public void HitBlock(Transform transform)
     {
-        var block = transform.GetComponent<Block>();
+        if (!transform.TryGetComponent<Block>(out Block block))
+            return;
 
         if (playerState.IsSmallState())
         {

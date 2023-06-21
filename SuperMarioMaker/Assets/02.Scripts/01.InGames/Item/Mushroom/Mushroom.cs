@@ -7,7 +7,7 @@ public class Mushroom : ItemBase
 
     [SerializeField]
     private float gravityScale;
-    private void Awake()
+    protected override void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         rb.isKinematic = true;

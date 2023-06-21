@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8207630526947874916}
   - component: {fileID: 7533006883855636532}
   - component: {fileID: 191467154917068554}
+  - component: {fileID: -673502299898678562}
   m_Layer: 0
   m_Name: SpinCoin
   m_TagString: Untagged
@@ -106,3 +107,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-673502299898678562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19077419110035749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a76e0d2fd87a83449b7493fc7c10766, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  instanceSequnceTime: 0.6
+  destHeightAdjust: 3

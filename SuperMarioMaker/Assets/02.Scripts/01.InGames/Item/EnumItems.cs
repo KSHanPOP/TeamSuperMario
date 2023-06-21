@@ -4,5 +4,6 @@ public enum EnumItems
     Coin,
     Mushroom,
     FireFlower,
+    Count,
 }
 
