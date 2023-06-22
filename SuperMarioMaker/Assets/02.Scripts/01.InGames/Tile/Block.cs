@@ -5,6 +5,7 @@ public class Block : MonoBehaviour
 {
     [SerializeField]
     private bool isTransparent;
+    public bool IsTransparent { set { isTransparent = value; } }
 
     [SerializeField]
     protected Sprite spriteAfterUseItem;
@@ -12,10 +13,17 @@ public class Block : MonoBehaviour
     [SerializeField]
     protected EnumItems itemType;
 
-    [SerializeField]
-    protected int coinCount;
+    public EnumItems ItemType { set { itemType = value; } }
 
+    //[SerializeField]
+    //protected int coinCount;
+
+    //public int CoinCount { set { coinCount = value; } }
+
+    [SerializeField]
     protected int itemCount;
+
+    public int ItemCount { set { itemCount = value; } }
 
     [SerializeField]
     protected float shakeTime;
@@ -33,19 +41,24 @@ public class Block : MonoBehaviour
 
     private HashSet<IShakeable> shakenObjects = new HashSet<IShakeable>();
 
+    protected GameObject instanced;
+
     protected virtual void Awake()
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         spriteRenderer.sortingOrder = (int)EnumSpriteLayerOder.Block;
         spriteTransform = spriteRenderer.transform;        
-
-        itemCount = itemType == EnumItems.Coin ? (coinCount > 0 ? coinCount : 1) : 1;
-
-        SetStartSprite();
     }
     protected virtual void Start()
     {
         spawnManagers = ItemSpawnManagers.Instance;        
+    }
+
+    public virtual void InitSetting()
+    {
+        itemCount = itemCount > 0 ? itemCount : 0;
+        
+        SetStartSprite();
     }
     protected virtual void SetStartSprite()
     {
@@ -66,11 +79,12 @@ public class Block : MonoBehaviour
 
         if(itemType == EnumItems.Blank)
         {
-            var go = Instantiate(ItemSpawnManagers.Instance.prefabs[(int)EnumItems.Blank], transform.position, Quaternion.identity);
+            instanced = Instantiate(ItemSpawnManagers.Instance.prefabs[(int)EnumItems.Blank], transform.position, Quaternion.identity);
 
-            go.GetComponent<BlockCrashAnimation>().OnCrash();
+            instanced.GetComponent<BlockCrashAnimation>().OnCrash();
 
-            Destroy(gameObject);
+            spriteRenderer.color = Color.clear;            
+            Destroy(gameObject, 3f);
         }
 
         NormalHit();
@@ -79,10 +93,10 @@ public class Block : MonoBehaviour
     protected virtual void StartInstanceItem(Vector2 startPos, Vector2 destPos)
     {
         if (itemType == EnumItems.Blank)
-            return;        
+            return;
 
-        var item = Instantiate(spawnManagers.prefabs[(int)itemType], startPos, Quaternion.identity);
-        item.GetComponent<ItemBase>().StartInstance(destPos);
+        instanced = Instantiate(spawnManagers.prefabs[(int)itemType], startPos, Quaternion.identity);
+        instanced.GetComponent<ItemBase>().StartInstance(destPos);
     }
 
     protected virtual void CheckItemRemainCount()
@@ -163,5 +177,11 @@ public class Block : MonoBehaviour
                 shakenObjects.Add(shakeable);
             }
         }
+    }
+
+    protected void OnDestroy()
+    {   
+        if (instanced != null)
+            Destroy(instanced);
     }
 }

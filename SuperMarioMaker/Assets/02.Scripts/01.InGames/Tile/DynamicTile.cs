@@ -5,26 +5,26 @@ using UnityEngine;
 public class DynamicTile : MonoBehaviour
 {
     [SerializeField]
-    GameObject dynamicObject;
+    protected GameObject dynamicObject;
 
-    private GameObject objectHolder;
+    protected GameObject objectHolder;
 
-    IngameManagerTest testManager;
+    protected IngameManagerTest testManager;
 
-    private void Start()
+    protected virtual void Start()
     {
         testManager = IngameManagerTest.Instance;
         testManager.DynamicTiles.AddLast(this);
     }
 
-    public void StartTest()
+    public virtual void StartTest()
     {
         objectHolder = Instantiate(dynamicObject, transform.position, Quaternion.identity);
 
         gameObject.SetActive(false);
     }
 
-    public void StopTest()
+    public virtual void StopTest()
     {
         if(objectHolder != null)
             Destroy(objectHolder);

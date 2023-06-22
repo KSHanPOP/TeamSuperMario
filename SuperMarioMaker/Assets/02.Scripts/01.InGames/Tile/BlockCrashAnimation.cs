@@ -42,15 +42,5 @@ public class BlockCrashAnimation : MonoBehaviour
         force2.x *= -1;
         fragments[3].AddForce(force2, ForceMode2D.Impulse);
         fragments[3].AddTorque(-torque, ForceMode2D.Impulse);
-
-        Destroy(gameObject, 5f);
-    }
-
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            OnCrash();
-        }
     }
 }
