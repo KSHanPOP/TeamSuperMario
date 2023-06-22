@@ -10,8 +10,7 @@ using UnityEngine.UI;
 public class ScrollingBackground : MonoBehaviour
 {
     [SerializeField] private GameObject icon;
-    [SerializeField]
-    private float backgroundSpeed;
+    [SerializeField] public float backgroundSpeed;
     public Tilemap levelTilemap; // 레벨의 Tilemap
     public GameObject backgroundPrefab; // 배경 이미지의 프리팹
     public Transform backgroundParent; // 배경 이미지들의 부모 객체
@@ -51,7 +50,7 @@ public class ScrollingBackground : MonoBehaviour
             newBackground.transform.position = new Vector2(i * backgroundWidth, 0);
             backgrounds[i] = newBackground.transform;
         }
-        
+
     }
 
     private List<Sprite> backgroundSprites;
@@ -70,6 +69,8 @@ public class ScrollingBackground : MonoBehaviour
 
     void Start()
     {
+        Logger.CheckNullObject(this);
+
         InitializeBackgrounds();
         Init();
         LoadBackgroundSprites();
