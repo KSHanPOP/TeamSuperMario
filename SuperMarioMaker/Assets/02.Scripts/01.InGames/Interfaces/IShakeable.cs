@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IShakeable
 {
-    public void Shake();
+    public void Shake(Vector2 pos);
 }

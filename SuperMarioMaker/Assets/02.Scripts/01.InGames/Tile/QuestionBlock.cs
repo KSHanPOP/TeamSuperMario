@@ -9,7 +9,7 @@ public class QuestionBlock : Block
     {
         animator = GetComponentInChildren<Animator>();
 
-        if (itemType == EnumItems.None)
+        if (itemType == EnumItems.Blank)
             itemType = EnumItems.Coin;
 
         base.Awake();

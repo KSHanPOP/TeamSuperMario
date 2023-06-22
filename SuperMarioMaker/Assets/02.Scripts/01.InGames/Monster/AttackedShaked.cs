@@ -26,7 +26,7 @@ public class AttackedShaked : MonoBehaviour, IShakeable
         rb = GetComponent<Rigidbody2D>();
     }
 
-    public void Shake()
+    public void Shake(Vector2 _)
     {
         Logger.Debug("shaked!");
 

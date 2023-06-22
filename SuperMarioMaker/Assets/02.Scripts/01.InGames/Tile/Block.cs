@@ -23,9 +23,7 @@ public class Block : MonoBehaviour
     [SerializeField]
     protected float maxShakeHeight;
 
-    protected bool isHitable = true;
-
-    private BoxCollider2D detectorWhenShaking;
+    protected bool isHitable = true;    
 
     protected SpriteRenderer spriteRenderer;
 
@@ -39,8 +37,7 @@ public class Block : MonoBehaviour
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         spriteRenderer.sortingOrder = (int)EnumSpriteLayerOder.Block;
-        spriteTransform = spriteRenderer.transform;
-        detectorWhenShaking = GetComponent<BoxCollider2D>();
+        spriteTransform = spriteRenderer.transform;        
 
         itemCount = itemType == EnumItems.Coin ? (coinCount > 0 ? coinCount : 1) : 1;
 
@@ -67,10 +64,13 @@ public class Block : MonoBehaviour
         if (!isHitable)
             return;
 
-        if(itemType == EnumItems.None)
+        if(itemType == EnumItems.Blank)
         {
-            Logger.Debug("crash");
-            return;
+            var go = Instantiate(ItemSpawnManagers.Instance.prefabs[(int)EnumItems.Blank], transform.position, Quaternion.identity);
+
+            go.GetComponent<BlockCrashAnimation>().OnCrash();
+
+            Destroy(gameObject);
         }
 
         NormalHit();
@@ -78,7 +78,7 @@ public class Block : MonoBehaviour
 
     protected virtual void StartInstanceItem(Vector2 startPos, Vector2 destPos)
     {
-        if (itemType == EnumItems.None)
+        if (itemType == EnumItems.Blank)
             return;        
 
         var item = Instantiate(spawnManagers.prefabs[(int)itemType], startPos, Quaternion.identity);
@@ -87,7 +87,7 @@ public class Block : MonoBehaviour
 
     protected virtual void CheckItemRemainCount()
     {
-        if (itemType == EnumItems.None)
+        if (itemType == EnumItems.Blank)
             return;
 
         --itemCount;
@@ -97,7 +97,7 @@ public class Block : MonoBehaviour
     }
     protected virtual void CheckHitable()
     {
-        if (itemType == EnumItems.None)
+        if (itemType == EnumItems.Blank)
         {
             isHitable = true;
             return;
@@ -108,8 +108,7 @@ public class Block : MonoBehaviour
 
     protected virtual IEnumerator ShakeCoroutine()
     {
-        isHitable = false;
-        detectorWhenShaking.enabled = true;
+        isHitable = false;       
 
         float timer = 0f;
         float inverseShakeTime = 1 / shakeTime;        
@@ -118,7 +117,9 @@ public class Block : MonoBehaviour
 
         bool instanceStarted = false;
 
-        Vector3 newPos = Vector3.zero;        
+        Vector3 newPos = Vector3.zero;
+
+        int layerMask = LayerMask.GetMask("Invincible", "Monster");
 
         CheckItemRemainCount();
 
@@ -139,22 +140,28 @@ public class Block : MonoBehaviour
                 StartInstanceItem(spriteTransform.position, transform.position + Vector3.up);
             }
 
+            ShakeColliders(layerMask);
+
             yield return null;
         }
 
         spriteTransform.localPosition = Vector3.zero;
-        CheckHitable();
-        detectorWhenShaking.enabled = false;
+        CheckHitable();        
         shakenObjects.Clear();
         yield break;
     }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {  
-        if(collision.TryGetComponent<IShakeable>(out IShakeable shakeable) &&
-            !shakenObjects.Contains(shakeable))
+    private void ShakeColliders(int layerMask)
+    {
+        var hits = Physics2D.RaycastAll((Vector2)transform.position + Vector2.one * 0.55f, Vector2.left, 1.1f, layerMask);
+
+        foreach(var hit in hits)
         {
-            shakenObjects.Add(shakeable);
-            shakeable.Shake();
+            if(hit.transform.TryGetComponent<IShakeable>(out IShakeable shakeable) &&
+                !shakenObjects.Contains(shakeable))
+            {
+                shakeable.Shake(transform.position);
+                shakenObjects.Add(shakeable);
+            }
         }
     }
 }
