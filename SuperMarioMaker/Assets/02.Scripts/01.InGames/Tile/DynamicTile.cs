@@ -1,16 +1,34 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "CustomTiles/DynamicTile", fileName = "DynamicTile")]
-public class DynamicTile : CustomTile
+public class DynamicTile : MonoBehaviour
 {
     [SerializeField]
-    private GameObject prefab;
-    
+    GameObject dynamicObject;
 
+    private GameObject objectHolder;
 
-    public virtual void InstancePrefab()
+    IngameManagerTest testManager;
+
+    private void Start()
     {
-        Instantiate(prefab, transform.GetPosition(), Quaternion.identity);
-        gameObject.SetActive(false);        
+        testManager = IngameManagerTest.Instance;
+        testManager.DynamicTiles.AddLast(this);
+    }
+
+    public void StartTest()
+    {
+        objectHolder = Instantiate(dynamicObject, transform.position, Quaternion.identity);
+
+        gameObject.SetActive(false);
+    }
+
+    public void StopTest()
+    {
+        if(objectHolder != null)
+            Destroy(objectHolder);
+
+        gameObject.SetActive(true);
     }
 }
