@@ -6,6 +6,8 @@ public class ToolManager : MonoBehaviour
 {
     public static ToolManager Instance { get; private set; }
 
+
+
     void Awake()
     {
         if (Instance == null)
@@ -16,6 +18,47 @@ public class ToolManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+        }
+    }
+
+    public enum ToolModeType
+    {
+        None,
+        Tool,
+        Test,
+        Save,
+    }
+
+    private ToolModeType modeState = ToolModeType.None;
+    public ToolModeType ToolMode
+    {
+        get { return modeState; }
+        protected set
+        {
+            var prevState = modeState;
+
+            modeState = value;
+
+            if (prevState == modeState)
+                return;
+            switch (value)
+            {
+                case ToolModeType.None:
+                    
+                    break;
+
+                    case ToolModeType.Tool:
+                    modeState = ToolModeType.Tool; 
+                    break;
+
+                    case ToolModeType.Test: 
+                    modeState = ToolModeType.Test;
+                    break;
+
+                    case ToolModeType.Save:
+                    modeState = ToolModeType.Save;
+                    break;
+            }
         }
     }
 
@@ -123,10 +166,8 @@ public class ToolManager : MonoBehaviour
 
     void Start()
     {
-
     }
 
-    // Update is called once per frame
     void Update()
     {
 
