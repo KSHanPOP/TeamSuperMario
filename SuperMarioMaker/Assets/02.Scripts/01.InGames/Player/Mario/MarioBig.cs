@@ -41,6 +41,9 @@ public class MarioBig : PlayerBase
 
     public override void EatFireFlower()
     {
+        if (isTransformingSequence)
+            return;
+
         StartTransformation();
         playerState.nextState = marioFire;
         isFire = false;

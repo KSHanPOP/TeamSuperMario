@@ -29,13 +29,13 @@ public class PlayerBase : MonoBehaviour
 
     protected Vector2 smallColliderOffset = new Vector2(0f, 0);
 
-    protected float smallBlockDetectLength = 0.5f;
+    protected float smallBlockDetectLength = 0.55f;
 
     protected Vector2 bigColliderSize = new Vector2(0.75f, 1.75f);
 
     protected Vector2 bigColliderOffset = new Vector2(0f, 0.4f);
 
-    protected float bigBlockDetectLength = 1.5f;
+    protected float bigBlockDetectLength = 1.35f;
 
     protected bool isTransformingSequence = false;
 

@@ -33,7 +33,13 @@ public class JumpController : MonoBehaviour
 
     private float jumpKeyValue;
 
-    private movementLimiter limmter;
+    private movementLimiter limmiter;
+
+    [SerializeField]
+    private float minimumJumpTime = 0.1f;
+    [SerializeField]
+    private float minimumJumpAdjust = 0.7f;
+    private float jumpTime = 0f;
 
     private void Awake()
     {
@@ -44,7 +50,7 @@ public class JumpController : MonoBehaviour
     }
     private void Start()
     {
-        limmter = movementLimiter.instance;
+        limmiter = movementLimiter.instance;
     }
     private void InitSetting()
     {
@@ -66,7 +72,7 @@ public class JumpController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!limmter.CharacterCanMove)
+        if (!limmiter.CharacterCanMove)
             return;
 
         if (ground.GetOnGround() && (Time.time - lastJumpBufferInputTime) < jumpBuffer)
@@ -96,13 +102,18 @@ public class JumpController : MonoBehaviour
 
         if (body.velocity.y <= 0)
             return;
-        
-        body.velocity = new Vector2(body.velocity.x, body.velocity.y * divJumpCutForce);
+
+        var adjust = jumpTime > minimumJumpTime ? 1 : minimumJumpAdjust;
+
+        Logger.Debug("jumpTime : " +  jumpTime);
+        body.velocity = new Vector2(body.velocity.x, body.velocity.y * divJumpCutForce * adjust);
         jumpCutBuffer = false;        
     }
 
     void Update()
     {
+        jumpTime = ground.GetOnGround() ? 0 : jumpTime + Time.deltaTime;
+
         body.velocity = new Vector2(body.velocity.x, Mathf.Clamp(body.velocity.y, maxFallSpeed, maxJumpSpeed));        
     }
 }

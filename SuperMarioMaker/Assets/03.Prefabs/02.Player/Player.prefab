@@ -134,6 +134,8 @@ MonoBehaviour:
   jumpCutForce: 2
   jumpBuffer: 0.1
   jumpVelocity: 15.5
+  minimumJumpTime: 0.07
+  minimumJumpAdjust: 0.7
 --- !u!114 &4930648494648828081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -420,6 +422,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4930648494648827983}
     m_Modifications:
+    - target: {fileID: 865434821143397461, guid: 2df3c89c22af3cb46929812318c4026e, type: 3}
+      propertyPath: blockDetectLength
+      value: 0.55
+      objectReference: {fileID: 0}
     - target: {fileID: 5531624047663584018, guid: 2df3c89c22af3cb46929812318c4026e, type: 3}
       propertyPath: m_RootOrder
       value: 1

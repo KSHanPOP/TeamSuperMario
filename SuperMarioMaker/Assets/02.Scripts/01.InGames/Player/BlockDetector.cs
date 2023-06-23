@@ -8,8 +8,16 @@ public class BlockDetector : MonoBehaviour
     [SerializeField]
     private Vector3 offset;
 
+    [SerializeField]
+    private Rigidbody2D rb;
+
+    [SerializeField]
     private float blockDetectLength;
     public float BlockDetectLength { set { blockDetectLength = value; } }
+
+    [SerializeField]
+    private float attackPeriod = 0.1f;
+    private float lastAttackTime;
 
     private LayerMask platformLayer;
 
@@ -24,7 +32,10 @@ public class BlockDetector : MonoBehaviour
     private void Update()
     {
         if (!playerState.IsAttckable)
-            return;  
+            return;
+
+        if (Time.time - lastAttackTime < attackPeriod)
+            return;
 
         RaycastHit2D hit1 = Physics2D.Raycast(transform.position - offset, Vector2.up, blockDetectLength, platformLayer);
         RaycastHit2D hit2 = Physics2D.Raycast(transform.position + offset, Vector2.up, blockDetectLength, platformLayer);
@@ -63,6 +74,8 @@ public class BlockDetector : MonoBehaviour
         }
         else
             block.BigHit();
+
+        lastAttackTime = Time.time;
     }
 
     private void OnDrawGizmos()
