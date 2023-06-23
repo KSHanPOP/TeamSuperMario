@@ -131,6 +131,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 126560647475009931}
     m_Modifications:
+    - target: {fileID: 5112631253609709769, guid: 1dd5a89648dc0ba4abafd92ff7394ef7, type: 3}
+      propertyPath: sprites.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5112631253609709769, guid: 1dd5a89648dc0ba4abafd92ff7394ef7, type: 3}
+      propertyPath: sprites.Array.data[0]
+      value: 
+      objectReference: {fileID: -1791974377, guid: be65949be9c45bc44ae760220aa6e46d, type: 3}
+    - target: {fileID: 5112631253609709769, guid: 1dd5a89648dc0ba4abafd92ff7394ef7, type: 3}
+      propertyPath: sprites.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 568c17f863e4df34199b23d4599942e6, type: 3}
+    - target: {fileID: 5112631253609709769, guid: 1dd5a89648dc0ba4abafd92ff7394ef7, type: 3}
+      propertyPath: sprites.Array.data[2]
+      value: 
+      objectReference: {fileID: 412319774, guid: 65b06bc10253e1b46823d3d73cd1e482, type: 3}
     - target: {fileID: 5112631253609709770, guid: 1dd5a89648dc0ba4abafd92ff7394ef7, type: 3}
       propertyPath: m_RootOrder
       value: 1

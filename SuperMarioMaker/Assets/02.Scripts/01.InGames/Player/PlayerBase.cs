@@ -31,9 +31,9 @@ public class PlayerBase : MonoBehaviour
 
     protected float smallBlockDetectLength = 0.5f;
 
-    protected Vector2 bigColliderSize = new Vector2(0.75f, 1.95f);
+    protected Vector2 bigColliderSize = new Vector2(0.75f, 1.75f);
 
-    protected Vector2 bigColliderOffset = new Vector2(0f, 0.5f);
+    protected Vector2 bigColliderOffset = new Vector2(0f, 0.4f);
 
     protected float bigBlockDetectLength = 1.5f;
 
