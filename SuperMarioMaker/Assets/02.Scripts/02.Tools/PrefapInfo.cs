@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class PrefapInfo : MonoBehaviour
 {
-    [SerializeField] String iconSpritePath;
+    [SerializeField] private String iconSpritePath;
     public String IconSpritePath
     {
         get { return iconSpritePath; }
     }
 
-    [SerializeField] String iconPath;
+   // [SerializeField] String iconPath;
 
 }

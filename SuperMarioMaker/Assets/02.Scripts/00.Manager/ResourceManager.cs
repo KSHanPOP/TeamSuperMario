@@ -53,6 +53,34 @@ public class ResourceManager : MonoBehaviour
             Debug.LogError("No prefab of name: " + name);
         }
     }
+
+    public List<GameObject> GetAllPrefabsWithTag(string tag)
+    {
+        List<GameObject> prefabsWithTag = new List<GameObject>();
+
+        foreach (KeyValuePair<string, GameObject> entry in prefabDict)
+        {
+            if (entry.Value.tag == tag)
+            {
+                prefabsWithTag.Add(entry.Value);
+            }
+        }
+
+        return prefabsWithTag;
+    }
+
+    public GameObject GetPrefabWithTag(string tag)
+    {
+        foreach (KeyValuePair<string, GameObject> entry in prefabDict)
+        {
+            if (entry.Value.tag == tag)
+            {
+                return entry.Value;
+            }
+        }
+
+        return null;
+    }
     void Start()
     {
 

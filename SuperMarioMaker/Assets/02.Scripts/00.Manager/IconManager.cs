@@ -40,23 +40,23 @@ public class IconManager : MonoBehaviour
             {
                 return;
             }
-            else if (nowTag == "StaticTileIcon")
+            else if (nowTag == "Platfrom")
             {
                 tiles.SetOutline(true);
             }
-            else if (nowTag == "DynamicTileIcon")
+            else if (nowTag == "DynamicTile")
             {
                 activeTiles.SetOutline(true);
             }
-            else if (nowTag == "ItemIcon")
+            else if (nowTag == "Item")
             {
                 item.SetOutline(true);
             }
-            else if (nowTag == "MonsterIcon")
+            else if (nowTag == "Monster")
             {
                 Monster.SetOutline(true);
             }
-            else if (nowTag == "GimmikIcon")
+            else if (nowTag == "Gimmik")
             {
                 Gimmik.SetOutline(true);
             }
@@ -119,8 +119,6 @@ public class IconManager : MonoBehaviour
     {
         iconPopup.SetActive(true);
 
-        //Object[] sprites = Resources.LoadAll("Sprite/Icon/" + iconTag, typeof(Sprite));
-        //var length = sprites.Length;
         SetActivePopupButtons(iconTag);
 
         if (nowTag == "StaticTileIcon")
@@ -164,17 +162,10 @@ public class IconManager : MonoBehaviour
                 button.onClick.AddListener(() => OnPopupButtonClicked(button));
 
                 buttonObj.SetActive(true);
-
-                //Sprite sprite = sprites[i] as Sprite;
-                //button.GetComponent<Image>().sprite = sprite;
-                //button.SetActive(true);
-
-                //scrollViewContent.GetChild(i).gameObject.SetActive(true);
             }
             else
             {
                 buttonObj.SetActive(false);
-                //scrollViewContent.GetChild(i).gameObject.SetActive(false);
             }
         }
     }

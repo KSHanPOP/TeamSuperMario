@@ -1476,7 +1476,8 @@ MonoBehaviour:
   selectedButton: {fileID: 1581069408}
   defaltIconFilePath: Sprite/Icon/DynamicTileIcon/TileIcon_09
   outLine: {fileID: 310550050}
-  tag: 
+  tag: DynamicTile
+  name: 
 --- !u!114 &310550048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1724,7 +1725,8 @@ MonoBehaviour:
   selectedButton: {fileID: 154807915}
   defaltIconFilePath: Sprite/Icon/StaticTileIcon/TileIcon_00
   outLine: {fileID: 324556760}
-  tag: 
+  tag: Platform
+  name: 
 --- !u!114 &324556758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3222,7 +3224,8 @@ MonoBehaviour:
   selectedButton: {fileID: 2076535337}
   defaltIconFilePath: Sprite/Icon/GimmikIcon/GimmikIcon05
   outLine: {fileID: 643561440}
-  tag: 
+  tag: Gimmik
+  name: 
 --- !u!114 &643561438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5906,7 +5909,8 @@ MonoBehaviour:
   selectedButton: {fileID: 1832151373}
   defaltIconFilePath: Sprite/Icon/MonsterIcon/Monster01
   outLine: {fileID: 1104817066}
-  tag: 
+  tag: Monster
+  name: 
 --- !u!114 &1104817064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6532,7 +6536,7 @@ MonoBehaviour:
   - Player
   - Item
   - DynamicTile
-  - Platfrom
+  - Platform
   - Monster
   - Gimmik
 --- !u!4 &1304238617
@@ -6712,7 +6716,8 @@ MonoBehaviour:
   selectedButton: {fileID: 944169316}
   defaltIconFilePath: Sprite/Icon/ItemIcon/ItemIcon02
   outLine: {fileID: 1311420730}
-  tag: 
+  tag: Item
+  name: 
 --- !u!114 &1311420728
 MonoBehaviour:
   m_ObjectHideFlags: 0
