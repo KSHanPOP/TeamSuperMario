@@ -15,11 +15,6 @@ public class Block : MonoBehaviour
 
     public EnumItems ItemType { set { itemType = value; } }
 
-    //[SerializeField]
-    //protected int coinCount;
-
-    //public int CoinCount { set { coinCount = value; } }
-
     [SerializeField]
     protected int itemCount;
 
@@ -41,7 +36,11 @@ public class Block : MonoBehaviour
 
     private HashSet<IShakeable> shakenObjects = new HashSet<IShakeable>();
 
-    protected GameObject instanced;
+    protected Transform dynamicObjHolder;
+
+    private bool isCrahsed = false;
+
+    private Coroutine shakeCoroutine;
 
     protected virtual void Awake()
     {
@@ -51,12 +50,13 @@ public class Block : MonoBehaviour
     }
     protected virtual void Start()
     {
-        spawnManagers = ItemSpawnManagers.Instance;        
+        spawnManagers = ItemSpawnManagers.Instance;
+        dynamicObjHolder = DynamicTileManager.Instance.DynamicObjHolder;
     }
 
     public virtual void InitSetting()
     {
-        itemCount = itemCount > 0 ? itemCount : 0;
+        itemCount = itemCount > 0 ? itemCount : 1;
         
         SetStartSprite();
     }
@@ -69,8 +69,8 @@ public class Block : MonoBehaviour
     {
         if (!isHitable)
             return;
-        
-        StartCoroutine(ShakeCoroutine());
+
+        shakeCoroutine = StartCoroutine(ShakeCoroutine());
     }
     public virtual void BigHit()
     {
@@ -79,12 +79,13 @@ public class Block : MonoBehaviour
 
         if(itemType == EnumItems.Blank)
         {
-            instanced = Instantiate(ItemSpawnManagers.Instance.prefabs[(int)EnumItems.Blank], transform.position, Quaternion.identity);
+            var instanced = Instantiate(ItemSpawnManagers.Instance.prefabs[(int)EnumItems.Blank], transform.position, Quaternion.identity, dynamicObjHolder);
 
             instanced.GetComponent<BlockCrashAnimation>().OnCrash();
 
             spriteRenderer.color = Color.clear;            
-            Destroy(gameObject, 3f);
+            GetComponent<Collider2D>().isTrigger = true;
+            isCrahsed = true;
         }
 
         NormalHit();
@@ -95,7 +96,7 @@ public class Block : MonoBehaviour
         if (itemType == EnumItems.Blank)
             return;
 
-        instanced = Instantiate(spawnManagers.prefabs[(int)itemType], startPos, Quaternion.identity);
+        var instanced = Instantiate(spawnManagers.prefabs[(int)itemType], startPos, Quaternion.identity, dynamicObjHolder);
         instanced.GetComponent<ItemBase>().StartInstance(destPos);
     }
 
@@ -106,11 +107,17 @@ public class Block : MonoBehaviour
 
         --itemCount;
 
-        if (itemCount == 0)
+        if (itemCount <= 0)
             spriteRenderer.sprite = spriteAfterUseItem;
     }
     protected virtual void CheckHitable()
     {
+        if(isCrahsed)
+        {
+            StopCoroutine(shakeCoroutine);
+            Destroy(gameObject);
+        }
+
         if (itemType == EnumItems.Blank)
         {
             isHitable = true;
@@ -160,8 +167,8 @@ public class Block : MonoBehaviour
         }
 
         spriteTransform.localPosition = Vector3.zero;
-        CheckHitable();        
         shakenObjects.Clear();
+        CheckHitable();        
         yield break;
     }
     private void ShakeColliders(int layerMask)
@@ -177,11 +184,5 @@ public class Block : MonoBehaviour
                 shakenObjects.Add(shakeable);
             }
         }
-    }
-
-    protected void OnDestroy()
-    {   
-        if (instanced != null)
-            Destroy(instanced);
     }
 }

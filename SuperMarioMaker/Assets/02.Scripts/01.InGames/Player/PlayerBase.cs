@@ -37,6 +37,8 @@ public class PlayerBase : MonoBehaviour
 
     protected float bigBlockDetectLength = 1.5f;
 
+    protected bool isTransformingSequence = false;
+
     [SerializeField]
     protected RuntimeAnimatorController controller;
 
@@ -80,6 +82,11 @@ public class PlayerBase : MonoBehaviour
 
     public virtual void StartTransformation()
     {
+        if (isTransformingSequence)
+            return;
+
+        isTransformingSequence = true;
+
         playerState.IsAttckable = false;
 
         movementLimiter.instance.CharacterCanMove = false;
@@ -97,6 +104,8 @@ public class PlayerBase : MonoBehaviour
     }
     public virtual void OnTransformationComplete()
     {
+        isTransformingSequence = false;
+
         playerState.IsAttckable = true;
 
         movementLimiter.instance.CharacterCanMove = true;

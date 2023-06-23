@@ -5,9 +5,6 @@ using UnityEngine;
 public class DynamicTile_Block : DynamicTile
 {
     [SerializeField]
-    private Sprite[] sprites;
-
-    [SerializeField]
     protected EnumItems itemType;
 
     [SerializeField]
@@ -18,21 +15,15 @@ public class DynamicTile_Block : DynamicTile
 
     protected Block block;
 
-    protected override void Start()
-    {
-        base.Start();        
-    }
-
     private void SetBlockValue()
-    {
-        block = objectHolder.GetComponent<Block>();
+    {   
         block.ItemType = itemType;
         block.ItemCount = itemCount;
     }
 
     public override void StartTest()
     {
-        objectHolder = Instantiate(dynamicObject, transform.position, Quaternion.identity);
+        block = Instantiate(dynamicObject, transform.position, Quaternion.identity, dynamicTileManager.DynamicObjHolder).GetComponent<Block>();
         SetBlockValue();
         block.InitSetting();
         gameObject.SetActive(false);
@@ -40,15 +31,14 @@ public class DynamicTile_Block : DynamicTile
 
     public Sprite[] GetSprites()
     {
-        return sprites;
+        return ItemSpawnManagers.Instance.Sprites;
     }
     public void SetItemType(int index)
     {
         itemType = (EnumItems)index;
     }
-    public void SetCoinCount(int count)
+    public void SetItemCount(int count)
     {
         itemCount = count;
     }
-
 }

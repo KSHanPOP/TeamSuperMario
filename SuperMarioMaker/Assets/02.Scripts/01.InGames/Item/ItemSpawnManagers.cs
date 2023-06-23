@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class ItemSpawnManagers : MonoBehaviour
 {
+    [SerializeField]
+    private Sprite[] sprites;
+    public Sprite[] Sprites { get { return sprites; } }
+
     private static ItemSpawnManagers instance;
     public static ItemSpawnManagers Instance { get { return instance; } }
 

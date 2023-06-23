@@ -7,28 +7,23 @@ public class DynamicTile : MonoBehaviour
     [SerializeField]
     protected GameObject dynamicObject;
 
-    protected GameObject objectHolder;
-
-    protected IngameManagerTest testManager;
+    protected DynamicTileManager dynamicTileManager;
 
     protected virtual void Start()
     {
-        testManager = IngameManagerTest.Instance;
-        testManager.DynamicTiles.AddLast(this);
+        dynamicTileManager = DynamicTileManager.Instance;
+        dynamicTileManager.DynamicTiles.AddLast(this);
     }
 
     public virtual void StartTest()
     {
-        objectHolder = Instantiate(dynamicObject, transform.position, Quaternion.identity);
+        Instantiate(dynamicObject, transform.position, Quaternion.identity, dynamicTileManager.DynamicObjHolder);
 
         gameObject.SetActive(false);
     }
 
     public virtual void StopTest()
     {
-        if(objectHolder != null)
-            Destroy(objectHolder);
-
         gameObject.SetActive(true);
     }
 }

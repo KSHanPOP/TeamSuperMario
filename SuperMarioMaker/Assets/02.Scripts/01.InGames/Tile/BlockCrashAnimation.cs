@@ -17,6 +17,9 @@ public class BlockCrashAnimation : MonoBehaviour
     [SerializeField]
     private float torque;
 
+    [SerializeField]
+    private float lifeTime = 4f;
+
     private void Awake()
     {
         foreach (var fragment in fragments)
@@ -42,5 +45,7 @@ public class BlockCrashAnimation : MonoBehaviour
         force2.x *= -1;
         fragments[3].AddForce(force2, ForceMode2D.Impulse);
         fragments[3].AddTorque(-torque, ForceMode2D.Impulse);
+
+        Destroy(gameObject, lifeTime);
     }
 }

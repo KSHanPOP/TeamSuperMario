@@ -46,11 +46,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dynamicObject: {fileID: 6089242038705633981, guid: d438db25b5418a74b8cb0cadb6c7451d, type: 3}
-  coinSprite: {fileID: -1791974377, guid: be65949be9c45bc44ae760220aa6e46d, type: 3}
-  mushroomSprite: {fileID: 21300000, guid: 568c17f863e4df34199b23d4599942e6, type: 3}
-  fireflowerSprite: {fileID: 412319774, guid: 65b06bc10253e1b46823d3d73cd1e482, type: 3}
+  sprites:
+  - {fileID: -1791974377, guid: be65949be9c45bc44ae760220aa6e46d, type: 3}
+  - {fileID: 21300000, guid: 568c17f863e4df34199b23d4599942e6, type: 3}
+  - {fileID: 412319774, guid: 65b06bc10253e1b46823d3d73cd1e482, type: 3}
   itemType: 0
-  coinCount: 0
+  itemCount: 0
+  isTransparent: 0
 --- !u!212 &-4559463465165624254
 SpriteRenderer:
   m_ObjectHideFlags: 0
