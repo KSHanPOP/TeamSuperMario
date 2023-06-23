@@ -11,4 +11,6 @@ public class PrefapInfo : MonoBehaviour
         get { return iconSpritePath; }
     }
 
+    [SerializeField] String iconPath;
+
 }
