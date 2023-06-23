@@ -12,13 +12,11 @@ public class BarOnOffButton : MonoBehaviour
         if (!isOnOff)
         {
             buttonAnimator.SetTrigger("Off");
-            //buttonAnimator.Play("YourAnimationName");
             isOnOff = true;
         }
         else
         {
             buttonAnimator.SetTrigger("On");
-            //buttonAnimator.Play("YourAnimationName");
             isOnOff = false;
         }
 
