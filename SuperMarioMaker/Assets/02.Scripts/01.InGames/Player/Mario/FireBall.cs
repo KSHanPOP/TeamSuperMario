@@ -1,4 +1,5 @@
 using UnityEngine;
+using GMTK.PlatformerToolkit;
 
 public class FireBall : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class FireBall : MonoBehaviour
     private float dir = 1;
 
     private Vector2 velocity = Vector2.right;
+
+    private characterGround characterGround;
 
     [SerializeField]
     private float speed;
@@ -26,15 +29,20 @@ public class FireBall : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        characterGround = GetComponent<characterGround>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         velocity.x = dir * speed;
         velocity.y = rb.velocity.y < maxFallSpeed ? rb.velocity.y : maxFallSpeed;
 
         rb.velocity = velocity;
+
+        if (characterGround.GetOnGround())
+            Bounce();
     }
+  
     public void SetDirRight()
     {
         dir = 1;
