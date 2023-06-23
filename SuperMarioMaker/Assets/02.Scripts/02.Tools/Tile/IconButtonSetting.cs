@@ -18,7 +18,7 @@ public class IconButtonSetting : MonoBehaviour
 
     public void SetOutline(bool onOff) => outLine.enabled = onOff;
 
-    private string tag;
+    [SerializeField] private string tag;
     public string Tag { get { return tag; } }
     private void Init()
     {

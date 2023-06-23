@@ -1476,6 +1476,7 @@ MonoBehaviour:
   selectedButton: {fileID: 1581069408}
   defaltIconFilePath: Sprite/Icon/DynamicTileIcon/TileIcon_09
   outLine: {fileID: 310550050}
+  tag: 
 --- !u!114 &310550048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1723,6 +1724,7 @@ MonoBehaviour:
   selectedButton: {fileID: 154807915}
   defaltIconFilePath: Sprite/Icon/StaticTileIcon/TileIcon_00
   outLine: {fileID: 324556760}
+  tag: 
 --- !u!114 &324556758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3220,6 +3222,7 @@ MonoBehaviour:
   selectedButton: {fileID: 2076535337}
   defaltIconFilePath: Sprite/Icon/GimmikIcon/GimmikIcon05
   outLine: {fileID: 643561440}
+  tag: 
 --- !u!114 &643561438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5903,6 +5906,7 @@ MonoBehaviour:
   selectedButton: {fileID: 1832151373}
   defaltIconFilePath: Sprite/Icon/MonsterIcon/Monster01
   outLine: {fileID: 1104817066}
+  tag: 
 --- !u!114 &1104817064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6495,6 +6499,57 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1271356150}
   m_CullTransparentMesh: 1
+--- !u!1 &1304238615
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1304238617}
+  - component: {fileID: 1304238616}
+  m_Layer: 0
+  m_Name: ResourceManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1304238616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1304238615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b440d651c968ef4c919cb60456ed1c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetTags:
+  - Player
+  - Item
+  - DynamicTile
+  - Platfrom
+  - Monster
+  - Gimmik
+--- !u!4 &1304238617
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1304238615}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 495.90317, y: 483.4458, z: -19.425377}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1310671479
 GameObject:
   m_ObjectHideFlags: 0
@@ -6657,6 +6712,7 @@ MonoBehaviour:
   selectedButton: {fileID: 944169316}
   defaltIconFilePath: Sprite/Icon/ItemIcon/ItemIcon02
   outLine: {fileID: 1311420730}
+  tag: 
 --- !u!114 &1311420728
 MonoBehaviour:
   m_ObjectHideFlags: 0

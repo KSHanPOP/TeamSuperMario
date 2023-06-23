@@ -8,6 +8,8 @@ TagManager:
   - Monster
   - Block
   - Item
+  - DynamicTile
+  - Gimmik
   layers:
   - Default
   - TransparentFX
