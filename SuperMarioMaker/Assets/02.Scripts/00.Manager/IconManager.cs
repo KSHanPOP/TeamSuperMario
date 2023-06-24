@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -40,7 +41,7 @@ public class IconManager : MonoBehaviour
             {
                 return;
             }
-            else if (nowTag == "Platfrom")
+            else if (nowTag == "Platform")
             {
                 tiles.SetOutline(true);
             }
@@ -121,23 +122,23 @@ public class IconManager : MonoBehaviour
 
         SetActivePopupButtons(iconTag);
 
-        if (nowTag == "StaticTileIcon")
+        if (nowTag == "Platform")
         {
             tiles.SetOutline(true);
         }
-        else if (nowTag == "DynamicTileIcon")
+        else if (nowTag == "DynamicTile")
         {
             activeTiles.SetOutline(true);
         }
-        else if (nowTag == "ItemIcon")
+        else if (nowTag == "Item")
         {
             item.SetOutline(true);
         }
-        else if (nowTag == "MonsterIcon")
+        else if (nowTag == "Monster")
         {
             Monster.SetOutline(true);
         }
-        else if (nowTag == "GimmikIcon")
+        else if (nowTag == "Gimmik")
         {
             Gimmik.SetOutline(true);
         }
@@ -145,9 +146,44 @@ public class IconManager : MonoBehaviour
 
     public void SetActivePopupButtons(string iconTag)
     {
-        Object[] sprites = Resources.LoadAll("Sprite/Icon/" + iconTag, typeof(Sprite));
-        var length = sprites.Length;
+        // Object[] sprites = Resources.LoadAll("Sprite/Icon/" + iconTag, typeof(Sprite));
+        //Object[] sprites = Resources.LoadAll("Sprite/Icon/" + iconTag, typeof(Sprite));
 
+       
+
+
+        //var length = sprites.Length;
+
+        //for (int i = 0; i < scrollViewContent.childCount; i++)
+        //{
+        //    GameObject buttonObj = scrollViewContent.GetChild(i).gameObject;
+
+        //    if (i < length)
+        //    {
+        //        Sprite sprite = sprites[i] as Sprite;
+        //        buttonObj.GetComponent<Image>().sprite = sprite;
+
+        //        // Get Button component and add listener
+        //        Button button = buttonObj.GetComponent<Button>();
+        //        button.onClick.AddListener(() => OnPopupButtonClicked(button));
+
+        //        buttonObj.SetActive(true);
+        //    }
+        //    else
+        //    {
+        //        buttonObj.SetActive(false);
+        //    }
+        //}
+
+        var prefaps = ResourceManager.instance.GetAllPrefabsWithTag(nowTag);
+        List<Sprite> sprites = new List<Sprite>();
+        foreach (var prefap in prefaps)
+        {
+            sprites.Add(Resources.Load<Sprite>(prefap.GetComponent<PrefapInfo>().IconSpritePath));
+        }
+
+        var length = sprites.Count;
+            
         for (int i = 0; i < scrollViewContent.childCount; i++)
         {
             GameObject buttonObj = scrollViewContent.GetChild(i).gameObject;
@@ -177,7 +213,7 @@ public class IconManager : MonoBehaviour
 
         var buttonImage = button.GetComponent<Image>().sprite;
 
-        if (nowTag == "StaticTileIcon")
+        if (nowTag == "Platform")
         {
             tiles.ChangeImage(buttonImage);
         }
@@ -185,15 +221,15 @@ public class IconManager : MonoBehaviour
         {
             activeTiles.ChangeImage(buttonImage);
         }
-        else if (nowTag == "ItemIcon")
+        else if (nowTag == "Item")
         {
             item.ChangeImage(buttonImage);
         }
-        else if (nowTag == "MonsterIcon")
+        else if (nowTag == "Monster")
         {
             Monster.ChangeImage(buttonImage);
         }
-        else if (nowTag == "GimmikIcon")
+        else if (nowTag == "Gimmik")
         {
             Gimmik.ChangeImage(buttonImage);
         }
