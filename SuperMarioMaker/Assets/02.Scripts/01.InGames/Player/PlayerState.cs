@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(MarioSmall), typeof(MarioBig), typeof(MarioFire))]
 public class PlayerState : MonoBehaviour
@@ -22,6 +23,14 @@ public class PlayerState : MonoBehaviour
     private bool isAttackable = true;
     public bool IsAttckable { set { isAttackable = value; } get { return isAttackable; } }
 
+    [SerializeField]
+    private float actionBuffer = 0.1f;
+    private float lastActionBufferInputTime;
+
+    [SerializeField]
+    private float actionCooltime = 0.5f;
+    private float lastActionTime;
+
 
     public PlayerBase CurrState { get; set; }
     public PlayerBase nextState { get; set; }
@@ -37,6 +46,9 @@ public class PlayerState : MonoBehaviour
         marioSmall = GetComponent<MarioSmall>();
         marioBig = GetComponent<MarioBig>();
         marioFire = GetComponent<MarioFire>();
+
+        lastActionBufferInputTime = -actionBuffer;
+        lastActionTime = -actionCooltime;
     }
 
     public void SetStartState(MarioState state)
@@ -67,6 +79,25 @@ public class PlayerState : MonoBehaviour
     public void SetFallingLayer()
     {
         player.layer = fallingLayer;
+    }
+
+    public void TryAction(InputAction.CallbackContext context)
+    {        
+        if (context.ReadValue<float>() == 1)
+        {
+            lastActionBufferInputTime = Time.time;
+        }
+    }
+
+    private void Update()
+    {
+        if((Time.time - lastActionBufferInputTime) < actionBuffer &&
+            Time.time - lastActionTime > actionCooltime)
+        {
+            CurrState.DoAction();
+            lastActionBufferInputTime = -actionBuffer;
+            lastActionTime = Time.time;
+        }
     }
 
     public bool IsSmallState()

@@ -107,6 +107,7 @@ MonoBehaviour:
   maxAirAcceleration: 3.7
   maxAirDeceleration: 10
   maxAirTurnSpeed: 10.2
+  directionX: 0
   runSpeedMultiplier: 2
   rapidAcceleraton: 2
 --- !u!114 &4930648494648828084
@@ -220,6 +221,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 67d992fe-ae83-4182-ac0a-b6e11da7c509
     m_ActionName: IngameControl/Run[/Keyboard/leftShift]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2082444697104009540}
+        m_TargetAssemblyTypeName: PlayerState, Assembly-CSharp
+        m_MethodName: TryAction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 5dc37e28-5efd-42ca-8f59-c8d8ac94e9ff
+    m_ActionName: IngameControl/Fire[/Keyboard/leftShift]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: IngameControl
@@ -377,6 +394,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerAnimation: {fileID: 6417868108031928266}
+  marioFire: {fileID: 2082444697104009541}
 --- !u!1 &8265235639872222781
 GameObject:
   m_ObjectHideFlags: 0
@@ -416,6 +434,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4930648494648827983}
     m_Modifications:
+    - target: {fileID: 865434821143397461, guid: 2df3c89c22af3cb46929812318c4026e, type: 3}
+      propertyPath: rb
+      value: 
+      objectReference: {fileID: 4930648494648827981}
     - target: {fileID: 865434821143397461, guid: 2df3c89c22af3cb46929812318c4026e, type: 3}
       propertyPath: jumpController
       value: 
@@ -476,6 +498,10 @@ PrefabInstance:
       propertyPath: playerCollider
       value: 
       objectReference: {fileID: 4930648494648827980}
+    - target: {fileID: 5531624047663584023, guid: 2df3c89c22af3cb46929812318c4026e, type: 3}
+      propertyPath: fireball
+      value: 
+      objectReference: {fileID: 4109691825134609897, guid: d121863391686f54ca63bd12235f718f, type: 3}
     - target: {fileID: 5531624047663584489, guid: 2df3c89c22af3cb46929812318c4026e, type: 3}
       propertyPath: m_Name
       value: PlayerState
@@ -496,5 +522,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 285e3842a77614f439456d07bd2b2563, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2082444697104009541 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5531624047663584023, guid: 2df3c89c22af3cb46929812318c4026e, type: 3}
+  m_PrefabInstance: {fileID: 5774198186159168082}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 404deb422313f044e868302b2136fe49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

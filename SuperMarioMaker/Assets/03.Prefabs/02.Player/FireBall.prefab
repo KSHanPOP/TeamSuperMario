@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 4522912395793747556}
   - component: {fileID: 4522912395793747555}
   - component: {fileID: 581393334}
-  - component: {fileID: 3729440548706477795}
   - component: {fileID: 4109691825134609897}
   - component: {fileID: 6485849340662536776}
   m_Layer: 15
@@ -30,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4522912395793747554}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.4, y: 1.87, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -131,23 +130,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &3729440548706477795
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4522912395793747554}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4696f7206d0ef6542ba7c76ae60e0267, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  groundDetectLength: 0.25
-  colliderOffset: {x: 0.25, y: 0, z: 0}
-  platformLayer:
-    serializedVersion: 2
-    m_Bits: 1024
 --- !u!114 &4109691825134609897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,6 +147,11 @@ MonoBehaviour:
   maxFallSpeed: 8
   animator: {fileID: 4522912395793747555}
   spriteRenderer: {fileID: 4522912395793747556}
+  boxCollider: {fileID: 6485849340662536776}
+  lifeTime: 5
+  platformLayer:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!61 &6485849340662536776
 BoxCollider2D:
   m_ObjectHideFlags: 0

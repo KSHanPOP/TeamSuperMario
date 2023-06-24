@@ -3,7 +3,6 @@ using UnityEngine;
 public class FireBall : MonoBehaviour
 {
     private readonly int hashHit = Animator.StringToHash("Hit");
-    private readonly int hashSpeed = Animator.StringToHash("Speed");
 
     private Rigidbody2D rb;
 
@@ -26,16 +25,28 @@ public class FireBall : MonoBehaviour
     [SerializeField]
     private SpriteRenderer spriteRenderer;
 
+    [SerializeField]
+    private BoxCollider2D boxCollider;
+
+    [SerializeField]
+    private float lifeTime = 5f;
+
     private bool isFire = false;
 
+    [SerializeField]
+    private LayerMask platformLayer;
 
     private Vector2 startPosForTest;
+
+    private bool isHit = false;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
 
         startPosForTest = transform.position;
+
+        Destroy(gameObject, lifeTime);
     }
 
     private void FixedUpdate()
@@ -43,10 +54,25 @@ public class FireBall : MonoBehaviour
         if (!isFire)
             return;
 
+        if (isHit)
+            return;
+
         velocity.x = dir * speed;        
         velocity.y = Mathf.Clamp(rb.velocity.y, -maxFallSpeed, float.MaxValue);
 
         rb.velocity = velocity;
+    }
+
+    private void Update()
+    {
+        if (isHit)
+            return;        
+
+        if (Physics2D.Raycast(transform.position, Vector2.right * dir, 0.3f, platformLayer))
+        {
+            Hit();
+            transform.position += dir * 0.2f * Vector3.right;
+        }
     }
     public void Fire()
     {
@@ -62,14 +88,24 @@ public class FireBall : MonoBehaviour
     public void SetDirRight()
     {
         dir = 1;
-        spriteRenderer.flipX = true;
-        animator.SetFloat(hashSpeed, -1.5f);
+        spriteRenderer.flipX = true;        
     }
     public void SetDirLeft()
     {
         dir = -1;
-        spriteRenderer.flipX = false;
-        animator.SetFloat(hashSpeed, 1.5f);
+        spriteRenderer.flipX = false;        
+    }
+
+    public void FireWithDirection(bool left)
+    {
+        if (left)
+        {
+            SetDirLeft();
+        }
+        else
+            SetDirRight();
+
+        Fire();
     }
 
     public void Stop()
@@ -78,18 +114,12 @@ public class FireBall : MonoBehaviour
         rb.velocity = Vector2.zero;
         rb.gravityScale = 0f;
     }
-
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            SetDirRight();
-            Fire();
-        }
-    }
-
     private void Hit()
     {
+        boxCollider.enabled = false;
+
+        isHit = true;
+
         animator.SetTrigger(hashHit);
 
         Stop();
@@ -97,6 +127,7 @@ public class FireBall : MonoBehaviour
 
     private void Bounce()
     {   
+        rb.velocity = Vector2.zero;
         rb.AddForce(Vector2.up * bounceForce, ForceMode2D.Impulse);
     }
     public void DestroyFireball()
@@ -106,6 +137,9 @@ public class FireBall : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (isHit)
+            return;
+
         var go = collision.gameObject;
 
         if (go.CompareTag("Platform"))

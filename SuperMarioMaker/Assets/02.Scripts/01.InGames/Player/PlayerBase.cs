@@ -78,6 +78,10 @@ public class PlayerBase : MonoBehaviour
     {
 
     }
+    public virtual void DoAction()
+    {
+
+    }
 
     public virtual void StartTransformation()
     {

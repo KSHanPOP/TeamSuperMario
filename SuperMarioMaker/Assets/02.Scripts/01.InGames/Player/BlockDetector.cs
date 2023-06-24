@@ -9,9 +9,6 @@ public class BlockDetector : MonoBehaviour
     private Vector3 offset;
 
     [SerializeField]
-    private Rigidbody2D rb;
-
-    [SerializeField]
     private float blockDetectLength;
     public float BlockDetectLength { set { blockDetectLength = value; } }
 
