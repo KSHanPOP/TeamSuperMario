@@ -1,4 +1,3 @@
-using GMTK.PlatformerToolkit;
 using UnityEngine;
 
 public class PlayerBase : MonoBehaviour
@@ -89,7 +88,7 @@ public class PlayerBase : MonoBehaviour
 
         playerState.IsAttckable = false;
 
-        movementLimiter.instance.CharacterCanMove = false;
+        MovementLimmiter.instance.CharacterCanMove = false;
 
         velocityBeforeTransformation = rb.velocity;
         gravityScaleBeforeTransformation = rb.gravityScale;
@@ -108,7 +107,7 @@ public class PlayerBase : MonoBehaviour
 
         playerState.IsAttckable = true;
 
-        movementLimiter.instance.CharacterCanMove = true;
+        MovementLimmiter.instance.CharacterCanMove = true;
 
         rb.velocity = velocityBeforeTransformation;
         rb.gravityScale = gravityScaleBeforeTransformation;

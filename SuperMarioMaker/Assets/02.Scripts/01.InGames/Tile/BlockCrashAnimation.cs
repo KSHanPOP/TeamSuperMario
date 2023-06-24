@@ -24,7 +24,7 @@ public class BlockCrashAnimation : MonoBehaviour
     {
         foreach (var fragment in fragments)
         {
-            fragment.GetComponent<SpriteRenderer>().sortingOrder = (int)EnumSpriteLayerOder.MonsterDie;
+            fragment.GetComponent<SpriteRenderer>().sortingOrder = (int)EnumSpriteLayerOrder.MonsterDie;
         }
     }
     public void OnCrash()

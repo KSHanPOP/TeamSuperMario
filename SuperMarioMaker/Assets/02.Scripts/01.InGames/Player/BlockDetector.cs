@@ -16,8 +16,7 @@ public class BlockDetector : MonoBehaviour
     public float BlockDetectLength { set { blockDetectLength = value; } }
 
     [SerializeField]
-    private float attackPeriod = 0.1f;
-    private float lastAttackTime;
+    private JumpController jumpController;
 
     private LayerMask platformLayer;
 
@@ -34,7 +33,7 @@ public class BlockDetector : MonoBehaviour
         if (!playerState.IsAttckable)
             return;
 
-        if (Time.time - lastAttackTime < attackPeriod)
+        if (!jumpController.IsAttackableBlock)
             return;
 
         RaycastHit2D hit1 = Physics2D.Raycast(transform.position - offset, Vector2.up, blockDetectLength, platformLayer);
@@ -75,7 +74,7 @@ public class BlockDetector : MonoBehaviour
         else
             block.BigHit();
 
-        lastAttackTime = Time.time;
+        jumpController.IsAttackableBlock = false;
     }
 
     private void OnDrawGizmos()

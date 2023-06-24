@@ -14,7 +14,7 @@ public abstract class MonsterBase : MonoBehaviour
     {   
         monsterHeight = GetComponentInChildren<SpriteRenderer>().size.y;
 
-        spriteRenderer.sortingOrder = (int)EnumSpriteLayerOder.Monster;
+        spriteRenderer.sortingOrder = (int)EnumSpriteLayerOrder.Monster;
     }
 
     public bool IsPressable(float posY, float minDistanceToPress)

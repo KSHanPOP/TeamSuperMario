@@ -1,11 +1,10 @@
-using GMTK.PlatformerToolkit;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class JumpController : MonoBehaviour
 {
     [HideInInspector] public Rigidbody2D body;
-    private characterGround ground;
+    private GroundChecker ground;
 
     //[SerializeField] private float jumpForce;
     //private Vector2 v2JumpForce;
@@ -18,9 +17,18 @@ public class JumpController : MonoBehaviour
     [SerializeField]
     private float maxJumpSpeed;
 
+    [SerializeField, Range(0f, 1f)]
+    private float minJumpPowerReduction;
+
+    [SerializeField, Range(0f, 1f)]
+    private float maxJumpPowerReduction;
+
     [SerializeField]
-    private float jumpCutForce;
-    private float divJumpCutForce;
+    private float maxJumpkeyHoldTime = 0.5f;
+
+    private float inversMaxJumpkeyHoldTime;
+
+    private float jumpTime = 0f;
 
     [SerializeField]
     private float jumpBuffer;    
@@ -33,29 +41,29 @@ public class JumpController : MonoBehaviour
 
     private float jumpKeyValue;
 
-    private movementLimiter limmiter;
+    private MovementLimmiter limmiter;
 
-    [SerializeField]
-    private float minimumJumpTime = 0.1f;
-    [SerializeField]
-    private float minimumJumpAdjust = 0.7f;
-    private float jumpTime = 0f;
+    
+    private bool isAttackableBlock;   
+    public bool IsAttackableBlock { get { return isAttackableBlock; } set { isAttackableBlock = value; } }
 
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
-        ground = GetComponent<characterGround>();         
-        body.gravityScale = gravityScale;        
+        ground = GetComponent<GroundChecker>();         
+        body.gravityScale = gravityScale;
+
+        inversMaxJumpkeyHoldTime = 1 / maxJumpkeyHoldTime;
+
         InitSetting();
     }
     private void Start()
     {
-        limmiter = movementLimiter.instance;
+        limmiter = MovementLimmiter.instance;
     }
     private void InitSetting()
     {
-        //v2JumpForce = Vector2.up * jumpForce;
-        divJumpCutForce = 1 / jumpCutForce;
+        //v2JumpForce = Vector2.up * jumpForce;        
         maxFallSpeed *= -1;
         lastJumpBufferInputTime = -jumpBuffer;
     }
@@ -75,7 +83,7 @@ public class JumpController : MonoBehaviour
         if (!limmiter.CharacterCanMove)
             return;
 
-        if (ground.GetOnGround() && (Time.time - lastJumpBufferInputTime) < jumpBuffer)
+        if (ground.IsGround() && (Time.time - lastJumpBufferInputTime) < jumpBuffer)
         {
             DoJump();
         }
@@ -84,8 +92,7 @@ public class JumpController : MonoBehaviour
     }
     public void DoJump()
     {
-        //body.velocity = new Vector2(body.velocity.x, 0);
-        //body.AddForce(v2JumpForce, ForceMode2D.Force);
+        isAttackableBlock = true;
 
         body.velocity = new Vector2(body.velocity.x, jumpVelocity);
 
@@ -103,17 +110,16 @@ public class JumpController : MonoBehaviour
         if (body.velocity.y <= 0)
             return;
 
-        var adjust = jumpTime > minimumJumpTime ? 1 : minimumJumpAdjust;
-
-        Logger.Debug("jumpTime : " +  jumpTime);
-        body.velocity = new Vector2(body.velocity.x, body.velocity.y * divJumpCutForce * adjust);
+        var jumpPowerReduction = Mathf.Lerp(minJumpPowerReduction, maxJumpPowerReduction, jumpTime * inversMaxJumpkeyHoldTime);
+        
+        body.velocity = new Vector2(body.velocity.x, body.velocity.y * jumpPowerReduction);
         jumpCutBuffer = false;        
     }
 
     void Update()
     {
-        jumpTime = ground.GetOnGround() ? 0 : jumpTime + Time.deltaTime;
+        jumpTime = ground.IsGround() ? 0 : jumpTime + Time.deltaTime;
 
-        body.velocity = new Vector2(body.velocity.x, Mathf.Clamp(body.velocity.y, maxFallSpeed, maxJumpSpeed));        
+        body.velocity = new Vector2(body.velocity.x, Mathf.Clamp(body.velocity.y, maxFallSpeed, maxJumpSpeed));
     }
 }

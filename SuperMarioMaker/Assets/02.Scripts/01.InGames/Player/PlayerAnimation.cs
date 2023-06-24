@@ -1,5 +1,4 @@
 using UnityEngine;
-using GMTK.PlatformerToolkit;
 
 public class PlayerAnimation : MonoBehaviour
 {
@@ -10,8 +9,8 @@ public class PlayerAnimation : MonoBehaviour
     private readonly int hashTryStop = Animator.StringToHash("TryStop");
     private readonly int hashSpeed = Animator.StringToHash("Speed");        
 
-    private characterGround characterGround;
-    private characterMovement characterMovement;
+    private GroundChecker groundChecker;
+    private MoveController movement;
     private Rigidbody2D rigidbody2;
 
     [SerializeField]
@@ -33,11 +32,11 @@ public class PlayerAnimation : MonoBehaviour
 
     void Awake()
     {
-        characterGround = GetComponent<characterGround>();
-        characterMovement = GetComponent<characterMovement>();
+        groundChecker = GetComponent<GroundChecker>();
+        movement = GetComponent<MoveController>();
         rigidbody2 = GetComponent<Rigidbody2D>();
 
-        spriteRenderer.sortingOrder = (int)EnumSpriteLayerOder.Player;
+        spriteRenderer.sortingOrder = (int)EnumSpriteLayerOrder.Player;
     }
     private void Start()
     {        
@@ -46,8 +45,8 @@ public class PlayerAnimation : MonoBehaviour
     }
     void Update()
     {
-        animator.SetBool(hashIsGround, characterGround.GetOnGround());
-        animator.SetBool(hashTryStop, isTryStop = rigidbody2.velocity.x * characterMovement.directionX < 0);
+        animator.SetBool(hashIsGround, groundChecker.IsGround());
+        animator.SetBool(hashTryStop, isTryStop = rigidbody2.velocity.x * movement.directionX < 0);
         animator.SetFloat(hashSpeed, rigidbody2.velocity.x * runAnimationSpeed);
         SetMoveAnimation();     
     }
@@ -62,7 +61,7 @@ public class PlayerAnimation : MonoBehaviour
         if (isIdle)
             return;
 
-        if (!characterGround.GetOnGround())
+        if (!groundChecker.IsGround())
             return;
 
         spriteRenderer.flipX = velocityX < 0;        

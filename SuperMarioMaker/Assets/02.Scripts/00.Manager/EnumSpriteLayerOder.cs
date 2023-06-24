@@ -1,4 +1,4 @@
-enum EnumSpriteLayerOder
+enum EnumSpriteLayerOrder
 {
     Background = -1,
     InPipe = 0,

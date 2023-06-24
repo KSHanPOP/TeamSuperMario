@@ -11,7 +11,7 @@ public abstract class ItemBase : MonoBehaviour
     protected virtual void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        spriteRenderer.sortingOrder = (int)EnumSpriteLayerOder.Item;
+        spriteRenderer.sortingOrder = (int)EnumSpriteLayerOrder.Item;
     }
     protected virtual void StartAction()
     {

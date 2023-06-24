@@ -6,7 +6,7 @@ public class Coin : MonoBehaviour
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        spriteRenderer.sortingOrder = (int)EnumSpriteLayerOder.Item;
+        spriteRenderer.sortingOrder = (int)EnumSpriteLayerOrder.Item;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

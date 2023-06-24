@@ -45,7 +45,7 @@ public class Block : MonoBehaviour
     protected virtual void Awake()
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        spriteRenderer.sortingOrder = (int)EnumSpriteLayerOder.Block;
+        spriteRenderer.sortingOrder = (int)EnumSpriteLayerOrder.Block;
         spriteTransform = spriteRenderer.transform;        
     }
     protected virtual void Start()

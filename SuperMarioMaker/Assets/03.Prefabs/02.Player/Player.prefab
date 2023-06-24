@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4930648494648827983}
   - component: {fileID: 4930648494648827981}
   - component: {fileID: 4930648494648827980}
-  - component: {fileID: 4930648494648828083}
+  - component: {fileID: 740703152283585349}
   - component: {fileID: 4930648494648828084}
   - component: {fileID: 4930648494648828081}
   - component: {fileID: 4930648494648828086}
@@ -88,7 +88,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.75, y: 0.95}
   m_EdgeRadius: 0
---- !u!114 &4930648494648828083
+--- !u!114 &740703152283585349
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -97,7 +97,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4930648494648827982}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3e8b7cf0d79f9a43a3f25d88b599305, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f8b07d0a377c4f44b8405a2099c25e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 5
@@ -107,14 +107,8 @@ MonoBehaviour:
   maxAirAcceleration: 3.7
   maxAirDeceleration: 10
   maxAirTurnSpeed: 10.2
-  friction: 0
-  useAcceleration: 1
-  directionX: 0
-  velocity: {x: 0, y: 0}
-  onGround: 1
-  pressingKey: 0
-  runSpeed: 2
-  accelAdjust: 2
+  runSpeedMultiplier: 2
+  rapidAcceleraton: 2
 --- !u!114 &4930648494648828084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,11 +125,11 @@ MonoBehaviour:
   gravityScale: 2.7
   maxFallSpeed: 15
   maxJumpSpeed: 100
-  jumpCutForce: 2
+  minJumpPowerReduction: 0.2
+  maxJumpPowerReduction: 0.5
+  maxJumpkeyHoldTime: 0.5
   jumpBuffer: 0.1
   jumpVelocity: 15.5
-  minimumJumpTime: 0.07
-  minimumJumpAdjust: 0.7
 --- !u!114 &4930648494648828081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,10 +139,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4930648494648827982}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4696f7206d0ef6542ba7c76ae60e0267, type: 3}
+  m_Script: {fileID: 11500000, guid: 0cf43138809368d4dbbf0f139012acd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundDetectLength: 0.51
+  groundDetectLength: 0.5
   colliderOffset: {x: 0.375, y: 0, z: 0}
   platformLayer:
     serializedVersion: 2
@@ -180,9 +174,9 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4930648494648828083}
-        m_TargetAssemblyTypeName: GMTK.PlatformerToolkit.characterMovement, Assembly-CSharp
-        m_MethodName: OnMovement
+      - m_Target: {fileID: 740703152283585349}
+        m_TargetAssemblyTypeName: MoveController, Assembly-CSharp
+        m_MethodName: TryMove
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -212,8 +206,8 @@ MonoBehaviour:
     m_ActionName: IngameControl/Jump[/Keyboard/space]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4930648494648828083}
-        m_TargetAssemblyTypeName: GMTK.PlatformerToolkit.characterMovement, Assembly-CSharp
+      - m_Target: {fileID: 740703152283585349}
+        m_TargetAssemblyTypeName: MoveController, Assembly-CSharp
         m_MethodName: TryRun
         m_Mode: 0
         m_Arguments:
@@ -422,6 +416,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4930648494648827983}
     m_Modifications:
+    - target: {fileID: 865434821143397461, guid: 2df3c89c22af3cb46929812318c4026e, type: 3}
+      propertyPath: jumpController
+      value: 
+      objectReference: {fileID: 4930648494648828084}
     - target: {fileID: 865434821143397461, guid: 2df3c89c22af3cb46929812318c4026e, type: 3}
       propertyPath: blockDetectLength
       value: 0.55
