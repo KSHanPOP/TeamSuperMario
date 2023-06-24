@@ -123,4 +123,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da276589fe730134a90ceda09c217a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  iconSpritePath: Sprite/Icon/StaticTileIcon/TileIcon_00
+  iconSpritePath: Sprite/Icon/StaticTileIcon/TileIcon_02

@@ -61,6 +61,8 @@ public class IconButtonSetting : MonoBehaviour
         Logger.Debug("Selected button clicked!" + tag);
 
         ToolManager.Instance.iconManager.NowTag = tag;
+        ToolManager.Instance.iconManager.NowName = tag;
+
     }
 
     public void ChangeImage(Sprite sprite)
