@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -173,10 +174,17 @@ public class ToolManager : MonoBehaviour
     [SerializeField] BarOnOffButton RightOnOffButtonState;
     [SerializeField] GameObject toolUi;
 
+    [SerializeField] Button stopButton;
+    [SerializeField] GameObject testModeUi;
+
+    [SerializeField] TextMeshProUGUI timeText;
+    [SerializeField] TextMeshProUGUI lifeText;
+    private int nowLife;
 
     private void Init()
     {
         startButton.onClick.AddListener(AllUiOff);
+        stopButton.onClick.AddListener(AllUiOn);
     }
 
     public void AllUiOff()
@@ -188,13 +196,45 @@ public class ToolManager : MonoBehaviour
         if (!RightOnOffButtonState.IsOnOff)
             RightOnOffButton.onClick.Invoke();
 
+        nowLife = PlayerLife;
         StartCoroutine(DeactivateAfterDelay(1f));
     }
+    public void AllUiOn()
+    {
+        StopCoroutine(timeCoroutine);
+        toolUi.SetActive(true);
+        testModeUi.SetActive(false);
+
+        if (topOnOffButtonState.IsOnOff)
+            topOnOffButton.onClick.Invoke();
+        if (leftOnOffButtonState.IsOnOff)
+            leftOnOffButton.onClick.Invoke();
+        if (RightOnOffButtonState.IsOnOff)
+            RightOnOffButton.onClick.Invoke();
+
+    }
+
+    private Coroutine timeCoroutine;
     IEnumerator DeactivateAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
         toolUi.SetActive(false);
+        testModeUi.SetActive(true);
+        timeCoroutine = StartCoroutine(TimeUpdateCoroutine());
+
     }
+    private IEnumerator TimeUpdateCoroutine()
+    {
+        var time = PlayTime;
+        while (true)
+        {
+            timeText.text = time.ToString();
+            yield return new WaitForSeconds(1.0f);
+            time--;
+        }
+    }
+
+
     void Start()
     {
         Logger.CheckNullObject(this);

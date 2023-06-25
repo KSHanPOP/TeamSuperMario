@@ -69,6 +69,7 @@ public class IconManager : MonoBehaviour
     private void Start()
     {
         IconInit();
+        SetIconName();
     }
 
     [SerializeField]
