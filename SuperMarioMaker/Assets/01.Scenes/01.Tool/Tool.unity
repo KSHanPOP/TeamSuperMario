@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &4933515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10229,6 +10229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfdcf1f518458d349b76696685edfa03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scrollingBackground: {fileID: 1746608102}
   iconManager: {fileID: 1235723532}
   Background: {fileID: 1746608102}
   playTime: 500
@@ -10242,6 +10243,7 @@ MonoBehaviour:
   tilemapStartline: 7
   tilemapEndline: 10
   startButton: {fileID: 686976415}
+  saveButton: {fileID: 2022098930}
   topOnOffButton: {fileID: 723692962}
   leftOnOffButton: {fileID: 1170593415}
   RightOnOffButton: {fileID: 79783002}

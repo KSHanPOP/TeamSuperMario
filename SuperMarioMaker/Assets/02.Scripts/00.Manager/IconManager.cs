@@ -22,6 +22,7 @@ public class IconManager : MonoBehaviour
     [SerializeField]
     private Button popupExitButton;
 
+
     private string nowTag;
 
     public string NowTag
