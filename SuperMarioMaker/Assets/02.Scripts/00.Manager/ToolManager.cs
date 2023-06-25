@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ToolManager : MonoBehaviour
 {
@@ -44,18 +45,18 @@ public class ToolManager : MonoBehaviour
             switch (value)
             {
                 case ToolModeType.None:
-                    
+
                     break;
 
-                    case ToolModeType.Tool:
-                    modeState = ToolModeType.Tool; 
+                case ToolModeType.Tool:
+                    modeState = ToolModeType.Tool;
                     break;
 
-                    case ToolModeType.Test: 
+                case ToolModeType.Test:
                     modeState = ToolModeType.Test;
                     break;
 
-                    case ToolModeType.Save:
+                case ToolModeType.Save:
                     modeState = ToolModeType.Save;
                     break;
             }
@@ -163,9 +164,41 @@ public class ToolManager : MonoBehaviour
         return true;
     }
 
+    [SerializeField] Button startButton;
+    [SerializeField] Button topOnOffButton;
+    [SerializeField] Button leftOnOffButton;
+    [SerializeField] Button RightOnOffButton;
+    [SerializeField] BarOnOffButton topOnOffButtonState;
+    [SerializeField] BarOnOffButton leftOnOffButtonState;
+    [SerializeField] BarOnOffButton RightOnOffButtonState;
+    [SerializeField] GameObject toolUi;
 
+
+    private void Init()
+    {
+        startButton.onClick.AddListener(AllUiOff);
+    }
+
+    public void AllUiOff()
+    {
+        if (!topOnOffButtonState.IsOnOff)
+            topOnOffButton.onClick.Invoke();
+        if (!leftOnOffButtonState.IsOnOff)
+            leftOnOffButton.onClick.Invoke();
+        if (!RightOnOffButtonState.IsOnOff)
+            RightOnOffButton.onClick.Invoke();
+
+        StartCoroutine(DeactivateAfterDelay(1f));
+    }
+    IEnumerator DeactivateAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        toolUi.SetActive(false);
+    }
     void Start()
     {
+        Logger.CheckNullObject(this);
+        Init();
     }
 
     void Update()

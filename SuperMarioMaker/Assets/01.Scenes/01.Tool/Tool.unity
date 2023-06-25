@@ -434,7 +434,7 @@ GameObject:
   - component: {fileID: 79783002}
   - component: {fileID: 79783001}
   m_Layer: 5
-  m_Name: Button
+  m_Name: RightOnOffButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2765,7 +2765,7 @@ RectTransform:
   m_Children:
   - {fileID: 686976414}
   m_Father: {fileID: 793604621}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4275,11 +4275,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 79783000}
-  - {fileID: 1358931431}
   - {fileID: 1656044880}
   - {fileID: 512041201}
   - {fileID: 2022098929}
   - {fileID: 1775623839}
+  - {fileID: 1358931431}
   m_Father: {fileID: 1235723531}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4793,7 +4793,7 @@ RectTransform:
   m_Children:
   - {fileID: 548514094}
   m_Father: {fileID: 1533603371}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -6084,7 +6084,7 @@ GameObject:
   - component: {fileID: 1170593415}
   - component: {fileID: 1170593414}
   m_Layer: 5
-  m_Name: Button
+  m_Name: LeftOnOffButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6103,7 +6103,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1533603371}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
@@ -6803,7 +6803,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 793604621}
-  m_RootOrder: 1
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7812,8 +7812,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 925914190}
   - {fileID: 1170593413}
+  - {fileID: 925914190}
   - {fileID: 635235714}
   - {fileID: 1454315677}
   - {fileID: 712919264}
@@ -8430,7 +8430,7 @@ RectTransform:
   m_Children:
   - {fileID: 104816930}
   m_Father: {fileID: 793604621}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -8684,7 +8684,7 @@ RectTransform:
   m_Children:
   - {fileID: 254203923}
   m_Father: {fileID: 793604621}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -9770,7 +9770,7 @@ RectTransform:
   m_Children:
   - {fileID: 859499164}
   m_Father: {fileID: 793604621}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -10218,6 +10218,14 @@ MonoBehaviour:
   tilemapCol: 14
   tilemapStartline: 7
   tilemapEndline: 10
+  startButton: {fileID: 686976415}
+  topOnOffButton: {fileID: 723692962}
+  leftOnOffButton: {fileID: 1170593415}
+  RightOnOffButton: {fileID: 79783002}
+  topOnOffButtonState: {fileID: 723692965}
+  leftOnOffButtonState: {fileID: 1170593414}
+  RightOnOffButtonState: {fileID: 79783001}
+  toolUi: {fileID: 1235723527}
 --- !u!4 &2081892132
 Transform:
   m_ObjectHideFlags: 0
