@@ -12,6 +12,23 @@ public class PlantMove : MonoBehaviour
     [SerializeField]
     private Animator animator;
 
+    [SerializeField]
+    private GameObject trigger;
+
+    [SerializeField]
+    LayerMask invincibleLayer;
+    [SerializeField]
+    LayerMask monsterLayer;
+
+    int invincibleLayerToInt;
+    int monsterLayerToInt;
+
+    private void Awake()
+    {
+        invincibleLayerToInt = (int)Mathf.Log(invincibleLayer.value, 2);        
+        monsterLayerToInt = (int)Mathf.Log(monsterLayer.value, 2);        
+    }
+
     private void Start()
     {
         playerTransform = PlayerState.Instance.transform;
@@ -24,5 +41,13 @@ public class PlantMove : MonoBehaviour
     public void MoveEnd()
     {
         animator.SetTrigger(hashIsMoveEnded);
+    }
+    public void DigIn()
+    {        
+        trigger.layer = invincibleLayerToInt;
+    }
+    public void DigOut()
+    {        
+        trigger.layer = monsterLayerToInt;
     }
 }
