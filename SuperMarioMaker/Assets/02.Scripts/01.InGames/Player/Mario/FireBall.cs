@@ -134,21 +134,6 @@ public class FireBall : MonoBehaviour
     {
         Destroy(gameObject);
     }
-    //private void CollisionCheck(GameObject go)
-    //{
-    //    if (isHit)
-    //        return;        
-
-    //    if (go.CompareTag("Platform"))
-    //        Bounce();
-
-    //    if (go.CompareTag("Monster"))
-    //    {
-    //        go.GetComponent<IShakeable>().Shake(Vector2.one);
-    //        Hit();
-    //    }
-    //}
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (isHit)
