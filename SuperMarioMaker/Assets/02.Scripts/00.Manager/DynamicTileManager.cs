@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DynamicTileManager : MonoBehaviour
-{
-    private static DynamicTileManager instance;
-    public static DynamicTileManager Instance { get { return instance; } }
+{   
+    public static DynamicTileManager Instance { get; private set; }
 
     private LinkedList<DynamicTile> dynamicTiles = new();
     public LinkedList<DynamicTile> DynamicTiles { get { return dynamicTiles; } }
@@ -18,7 +17,7 @@ public class DynamicTileManager : MonoBehaviour
     private bool isPlaying = false;
     private void Awake()
     {
-        instance = this;
+        Instance = this;
     }
     public void StartTest()
     {

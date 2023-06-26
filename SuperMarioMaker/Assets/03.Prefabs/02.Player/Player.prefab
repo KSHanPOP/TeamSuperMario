@@ -126,7 +126,7 @@ MonoBehaviour:
   gravityScale: 2.7
   maxFallSpeed: 15
   maxJumpSpeed: 100
-  minJumpPowerReduction: 0.2
+  minJumpPowerReduction: 0.35
   maxJumpPowerReduction: 0.5
   maxJumpkeyHoldTime: 0.5
   jumpBuffer: 0.1

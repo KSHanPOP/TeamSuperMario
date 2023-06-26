@@ -14,6 +14,9 @@ public class JumpController : MonoBehaviour
 
     [SerializeField]
     private float maxFallSpeed;
+
+    public float MaxFallSpeed { set { maxFallSpeed = value; } }
+
     [SerializeField]
     private float maxJumpSpeed;
 
@@ -28,7 +31,7 @@ public class JumpController : MonoBehaviour
 
     private float inversMaxJumpkeyHoldTime;
 
-    private float jumpTime = 0f;
+    private float jumpTimeCounter = 0f;
 
     [SerializeField]
     private float jumpBuffer;    
@@ -42,10 +45,8 @@ public class JumpController : MonoBehaviour
     private float jumpKeyValue;
 
     private MovementLimmiter limmiter;
-
     
-    private bool isAttackableBlock;   
-    public bool IsAttackableBlock { get { return isAttackableBlock; } set { isAttackableBlock = value; } }
+    public bool IsAttackableBlock { get; set; }
 
     private void Awake()
     {
@@ -92,11 +93,14 @@ public class JumpController : MonoBehaviour
     }
     public void DoJump()
     {
-        isAttackableBlock = true;
+        jumpTimeCounter = 0f;
+
+        IsAttackableBlock = true;
 
         body.velocity = new Vector2(body.velocity.x, jumpVelocity);
 
         lastJumpBufferInputTime = -jumpBuffer;
+
         jumpCutBuffer = true;
     }
     private void TryCutJump()
@@ -110,7 +114,7 @@ public class JumpController : MonoBehaviour
         if (body.velocity.y <= 0)
             return;
 
-        var jumpPowerReduction = Mathf.Lerp(minJumpPowerReduction, maxJumpPowerReduction, jumpTime * inversMaxJumpkeyHoldTime);
+        var jumpPowerReduction = Mathf.Lerp(minJumpPowerReduction, maxJumpPowerReduction, jumpTimeCounter * inversMaxJumpkeyHoldTime);
         
         body.velocity = new Vector2(body.velocity.x, body.velocity.y * jumpPowerReduction);
         jumpCutBuffer = false;        
@@ -118,7 +122,7 @@ public class JumpController : MonoBehaviour
 
     void Update()
     {
-        jumpTime = ground.IsGround() ? 0 : jumpTime + Time.deltaTime;
+        jumpTimeCounter += Time.deltaTime;
 
         body.velocity = new Vector2(body.velocity.x, Mathf.Clamp(body.velocity.y, maxFallSpeed, maxJumpSpeed));
     }

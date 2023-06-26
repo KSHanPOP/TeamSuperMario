@@ -7,7 +7,8 @@ public class PlayerAnimation : MonoBehaviour
     private readonly int hashIsIdle = Animator.StringToHash("IsIdle");
     private readonly int hashIsGround = Animator.StringToHash("IsGround");
     private readonly int hashTryStop = Animator.StringToHash("TryStop");
-    private readonly int hashSpeed = Animator.StringToHash("Speed");        
+    private readonly int hashSpeed = Animator.StringToHash("Speed");
+    private readonly int hashGrapFlag = Animator.StringToHash("GrapFlag");
 
     private GroundChecker groundChecker;
     private MoveController movement;
@@ -70,6 +71,11 @@ public class PlayerAnimation : MonoBehaviour
     {        
         if(isTryStop)
             spriteRenderer.flipX = !spriteRenderer.flipX;
+    }
+    public void GrapFlag()
+    {
+        spriteRenderer.flipX = false;
+        animator.SetTrigger(hashGrapFlag);
     }
 
     public void EatMushroom()
