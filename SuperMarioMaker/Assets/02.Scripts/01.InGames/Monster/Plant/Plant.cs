@@ -4,12 +4,22 @@ using UnityEngine;
 
 public class Plant : MonoBehaviour
 {
-    PlayerState player;
+    private Transform playerTransform;
+
+    private bool isPlayerCloseDistance;
 
     private void Start()
     {
-        player = PlayerState.Instance;
+        playerTransform = PlayerState.Instance.transform;
     }
+
+    private void Update()
+    {
+        isPlayerCloseDistance = Mathf.Abs(playerTransform.position.x - transform.position.x) < 1.5f;
+
+
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag("Player"))
