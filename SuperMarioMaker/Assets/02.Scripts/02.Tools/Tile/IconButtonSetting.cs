@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,18 +19,21 @@ public class IconButtonSetting : MonoBehaviour
 
     public void SetOutline(bool onOff) => outLine.enabled = onOff;
 
-    private string tag;
+    [SerializeField] private string tag;
+    [SerializeField] private string name;
     public string Tag { get { return tag; } }
     private void Init()
     {
-        Sprite tempSprite = Resources.Load<Sprite>(defaltIconFilePath);
+        var prefap = ResourceManager.instance.GetPrefabWithTag(tag).GetComponent<PrefapInfo>();
+        name = prefap.name;
+        Sprite tempSprite = Resources.Load<Sprite>(prefap.IconSpritePath);
         chooseButton.GetComponent<Image>().sprite = tempSprite;
         selectedButton.GetComponent<Image>().sprite = tempSprite;
 
         chooseButton.onClick.AddListener(OnChooseButtonClick);
         selectedButton.onClick.AddListener(OnSelectedButtonClick);
         outLine.enabled = false;
-        SetTag();
+        //SetTag();
     }
 
     private void Start()
@@ -57,6 +61,8 @@ public class IconButtonSetting : MonoBehaviour
         Logger.Debug("Selected button clicked!" + tag);
 
         ToolManager.Instance.iconManager.NowTag = tag;
+        ToolManager.Instance.iconManager.NowName = tag;
+
     }
 
     public void ChangeImage(Sprite sprite)

@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 8762912046500020475}
   - component: {fileID: 8911055470742671787}
   - component: {fileID: 9159716437815625092}
+  - component: {fileID: 778708557327949631}
   m_Layer: 0
   m_Name: Goomba
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -84,8 +85,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1418001521
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 1781694899, guid: 9c9bf5816b5a88641a67da9b10821070, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -98,3 +99,16 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &778708557327949631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8762912046500020474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da276589fe730134a90ceda09c217a35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconSpritePath: Sprite/Icon/MonsterIcon/Monster01

@@ -14,18 +14,7 @@ public class ClickChangeTile : MonoBehaviour
 
     void Update()
     {
-        //if (Input.GetMouseButtonDown(0)) // 0 : left click, 1 : right click
-        //{
-        //    if (EventSystem.current.IsPointerOverGameObject())
-        //    {
-        //        Debug.Log("Clicked on the UI");
-        //    }
-        //    else
-        //    {
-        //        ChangeTileUnderMouse();
-        //        Debug.Log("Clicked on the game object");
-        //    }
-        //}
+
         if (Input.GetMouseButtonDown(0))
         {
             Logger.Debug(tilemap.cellBounds.min);
@@ -34,7 +23,11 @@ public class ClickChangeTile : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector3Int cellPos = tilemap.WorldToCell(worldPos);
+           // Vector3Int cellPos = tilemap.WorldToCell(worldPos);
+            Vector3 cellPos = tilemap.WorldToCell(worldPos);
+            cellPos.x += 0.5f;
+            cellPos.y += 0.5f;
+            ResourceManager.instance.SpawnPrefabByName("Goomba", cellPos);
             Logger.Debug(cellPos);
         }
 

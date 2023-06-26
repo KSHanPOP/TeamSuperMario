@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ToolManager : MonoBehaviour
 {
@@ -29,6 +31,8 @@ public class ToolManager : MonoBehaviour
         Save,
     }
 
+    [SerializeField] ScrollingBackground scrollingBackground;
+
     private ToolModeType modeState = ToolModeType.None;
     public ToolModeType ToolMode
     {
@@ -44,19 +48,49 @@ public class ToolManager : MonoBehaviour
             switch (value)
             {
                 case ToolModeType.None:
-                    
+
                     break;
 
-                    case ToolModeType.Tool:
-                    modeState = ToolModeType.Tool; 
+                case ToolModeType.Tool:
+                    StopCoroutine(timeCoroutine);
+                    toolUi.SetActive(true);
+                    testModeUi.SetActive(false);
+
+                    if (topOnOffButtonState.IsOnOff)
+                        topOnOffButton.onClick.Invoke();
+                    if (leftOnOffButtonState.IsOnOff)
+                        leftOnOffButton.onClick.Invoke();
+                    if (RightOnOffButtonState.IsOnOff)
+                        RightOnOffButton.onClick.Invoke();
+                    scrollingBackground.StopBackground();
+                    DynamicTileManager.Instance.StopTest();
+
                     break;
 
-                    case ToolModeType.Test: 
-                    modeState = ToolModeType.Test;
+                case ToolModeType.Test:
+                    if (!topOnOffButtonState.IsOnOff)
+                        topOnOffButton.onClick.Invoke();
+                    if (!leftOnOffButtonState.IsOnOff)
+                        leftOnOffButton.onClick.Invoke();
+                    if (!RightOnOffButtonState.IsOnOff)
+                        RightOnOffButton.onClick.Invoke();
+
+                    nowLife = PlayerLife;
+                    StartCoroutine(DeactivateAfterDelay(1f));
+
+
                     break;
 
-                    case ToolModeType.Save:
-                    modeState = ToolModeType.Save;
+                case ToolModeType.Save:
+                    if (!topOnOffButtonState.IsOnOff)
+                        topOnOffButton.onClick.Invoke();
+                    if (!leftOnOffButtonState.IsOnOff)
+                        leftOnOffButton.onClick.Invoke();
+                    if (!RightOnOffButtonState.IsOnOff)
+                        RightOnOffButton.onClick.Invoke();
+
+                    nowLife = PlayerLife;
+                    StartCoroutine(DeactivateAfterDelay(1f));
                     break;
             }
         }
@@ -163,9 +197,61 @@ public class ToolManager : MonoBehaviour
         return true;
     }
 
+    [SerializeField] Button startButton;
+    [SerializeField] Button saveButton;
+    [SerializeField] Button topOnOffButton;
+    [SerializeField] Button leftOnOffButton;
+    [SerializeField] Button RightOnOffButton;
+    [SerializeField] BarOnOffButton topOnOffButtonState;
+    [SerializeField] BarOnOffButton leftOnOffButtonState;
+    [SerializeField] BarOnOffButton RightOnOffButtonState;
+    [SerializeField] GameObject toolUi;
+
+    [SerializeField] Button stopButton;
+    [SerializeField] GameObject testModeUi;
+
+    [SerializeField] TextMeshProUGUI timeText;
+    [SerializeField] TextMeshProUGUI lifeText;
+    private int nowLife;
+
+    private void Init()
+    {
+        startButton.onClick.AddListener(GoTest);
+        stopButton.onClick.AddListener(GoTool);
+        saveButton.onClick.AddListener(GoSave);
+    }
+
+    public void GoTest() => ToolMode = ToolModeType.Test;
+    public void GoTool()=> ToolMode = ToolModeType.Tool;
+    public void GoSave()=> ToolMode = ToolModeType.Save;
+
+    private Coroutine timeCoroutine;
+    IEnumerator DeactivateAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        toolUi.SetActive(false);
+        testModeUi.SetActive(true);
+        timeCoroutine = StartCoroutine(TimeUpdateCoroutine());
+        scrollingBackground.MoveBackground();
+        DynamicTileManager.Instance.StartTest();
+
+    }
+    private IEnumerator TimeUpdateCoroutine()
+    {
+        var time = PlayTime;
+        while (true)
+        {
+            timeText.text = time.ToString();
+            yield return new WaitForSeconds(1.0f);
+            time--;
+        }
+    }
+
 
     void Start()
     {
+        Logger.CheckNullObject(this);
+        Init();
     }
 
     void Update()

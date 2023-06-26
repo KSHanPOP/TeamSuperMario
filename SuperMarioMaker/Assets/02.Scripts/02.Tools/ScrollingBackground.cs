@@ -74,10 +74,8 @@ public class ScrollingBackground : MonoBehaviour
         InitializeBackgrounds();
         Init();
         LoadBackgroundSprites();
-        MoveBackground();
+        //MoveBackground();
         ChangeBackgroundImage();
-
-
     }
 
     private void Update()

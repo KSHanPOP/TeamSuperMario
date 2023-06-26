@@ -6,6 +6,7 @@ public class BarOnOffButton : MonoBehaviour
 {
     public Animator buttonAnimator;
     private bool isOnOff = false;
+    public bool IsOnOff { get { return isOnOff; } }
 
     public void OnButtonClick()
     {
