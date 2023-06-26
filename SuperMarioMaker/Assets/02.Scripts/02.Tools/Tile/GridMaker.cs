@@ -32,6 +32,33 @@ public class GridMaker : MonoBehaviour
     private Vector3Int flagPos;// = new Vector3Int(-1, -1, 0);
     private List<Vector3Int> endLinePos = new List<Vector3Int>();
 
+    private Dictionary<Vector3Int,TileData> HSTileData;
+    private void SetDefaultTile(string objectName, Vector3Int pos)
+    {
+        ResourceManager.instance.GetPrefabWithTag(objectName);
+
+        // Create a new TileData object
+        TileData newTileData = new TileData
+        {
+            X = pos.x,
+            Y = pos.y,
+            TileType = "defalut",
+            TileName = objectName,
+            // Add other necessary properties here
+        };
+
+        // Check if the key already exists
+        if (!HSTileData.ContainsKey(pos))
+        {
+            // Add the new TileData to the dictionary
+            HSTileData.Add(pos, newTileData);
+        }
+        else
+        {
+            // If the key already exists, update the value
+            HSTileData[pos] = newTileData;
+        }
+    }
     private void CheckedNull()
     {
 
