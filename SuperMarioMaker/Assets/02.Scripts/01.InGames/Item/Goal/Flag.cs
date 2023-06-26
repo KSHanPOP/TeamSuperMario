@@ -19,7 +19,7 @@ public class Flag : MonoBehaviour
 
     public void FlagDown()
     {
-        
+        sequence.NextSequnce();
     }
 
 }

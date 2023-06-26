@@ -21,8 +21,9 @@ public class ClearAnimationSequence : MonoBehaviour
         player.transform.position = new Vector3(transform.position.x - 0.5f, player.transform.position.y, 0f);
     }    
 
-    public void EndSequence()
+    public void NextSequnce()
     {
-
+        player.transform.position = new Vector3(transform.position.x + 0.5f, player.transform.position.y, 0f);
+        player.transform.localScale = new Vector3(-1, 1, 1);
     }
 }
