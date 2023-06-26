@@ -63,6 +63,8 @@ public class ToolManager : MonoBehaviour
                     if (RightOnOffButtonState.IsOnOff)
                         RightOnOffButton.onClick.Invoke();
                     scrollingBackground.StopBackground();
+                    DynamicTileManager.Instance.StopTest();
+
                     break;
 
                 case ToolModeType.Test:
@@ -75,6 +77,8 @@ public class ToolManager : MonoBehaviour
 
                     nowLife = PlayerLife;
                     StartCoroutine(DeactivateAfterDelay(1f));
+
+
                     break;
 
                 case ToolModeType.Save:
@@ -229,6 +233,8 @@ public class ToolManager : MonoBehaviour
         testModeUi.SetActive(true);
         timeCoroutine = StartCoroutine(TimeUpdateCoroutine());
         scrollingBackground.MoveBackground();
+        DynamicTileManager.Instance.StartTest();
+
     }
     private IEnumerator TimeUpdateCoroutine()
     {
