@@ -35,7 +35,8 @@ public class CollisionMonster : MonoBehaviour
         if (!go.CompareTag("Monster"))
             return;
 
-        if (go.GetComponent<MonsterBase>().IsPressable(transform.position.y, minDistanceToPress))
+        if(go.TryGetComponent<MonsterBase>(out MonsterBase monster) &&
+            monster.IsPressable(transform.position.y, minDistanceToPress))
         {
             Attack(go);
             return;

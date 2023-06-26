@@ -134,21 +134,38 @@ public class FireBall : MonoBehaviour
     {
         Destroy(gameObject);
     }
+    //private void CollisionCheck(GameObject go)
+    //{
+    //    if (isHit)
+    //        return;        
+
+    //    if (go.CompareTag("Platform"))
+    //        Bounce();
+
+    //    if (go.CompareTag("Monster"))
+    //    {
+    //        go.GetComponent<IShakeable>().Shake(Vector2.one);
+    //        Hit();
+    //    }
+    //}
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (isHit)
             return;
 
-        var go = collision.gameObject;
-
-        if (go.CompareTag("Platform"))
+        if (collision.gameObject.CompareTag("Platform"))
             Bounce();
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (isHit)
+            return;
 
-        if (go.CompareTag("Monster"))
+        if (collision.CompareTag("Monster"))
         {
-            go.GetComponent<IShakeable>().Shake(Vector2.one);
+            collision.GetComponent<IShakeable>().Shake(Vector2.one);
             Hit();
-        }            
+        }
     }
 }
