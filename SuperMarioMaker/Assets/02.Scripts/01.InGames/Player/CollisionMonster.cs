@@ -52,7 +52,7 @@ public class CollisionMonster : MonoBehaviour
         go.GetComponent<AttackedPressed>().OnAttack();
         jumpController.DoJump();
     }
-    private void Hit()
+    public void Hit()
     {
         if (gameObject.layer != invincibleLayer)
             playerAnimation.Hit();

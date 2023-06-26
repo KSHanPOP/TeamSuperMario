@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(MarioSmall), typeof(MarioBig), typeof(MarioFire))]
 public class PlayerState : MonoBehaviour
 {
+    public static PlayerState Instance { get; private set; }
+
     [SerializeField]
     GameObject player;
 
@@ -43,6 +45,8 @@ public class PlayerState : MonoBehaviour
     private MarioFire marioFire;
     public void Awake()
     {
+        Instance = this;
+
         marioSmall = GetComponent<MarioSmall>();
         marioBig = GetComponent<MarioBig>();
         marioFire = GetComponent<MarioFire>();
