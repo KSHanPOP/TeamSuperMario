@@ -149,6 +149,7 @@ MonoBehaviour:
   animator: {fileID: 4522912395793747555}
   spriteRenderer: {fileID: 4522912395793747556}
   boxCollider: {fileID: 6485849340662536776}
+  offset: 0.1
   lifeTime: 5
   platformLayer:
     serializedVersion: 2

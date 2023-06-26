@@ -29,6 +29,9 @@ public class FireBall : MonoBehaviour
     private BoxCollider2D boxCollider;
 
     [SerializeField]
+    private float offset = 0.2f;
+
+    [SerializeField]
     private float lifeTime = 5f;
 
     private bool isFire = false;
@@ -68,7 +71,8 @@ public class FireBall : MonoBehaviour
         if (isHit)
             return;        
 
-        if (Physics2D.Raycast(transform.position, Vector2.right * dir, 0.3f, platformLayer))
+        if (Physics2D.Raycast(transform.position + Vector3.up *offset, Vector2.right * dir, 0.3f, platformLayer) ||
+            Physics2D.Raycast(transform.position - Vector3.up * offset, Vector2.right * dir, 0.3f, platformLayer))
         {
             Hit();
             transform.position += dir * 0.2f * Vector3.right;

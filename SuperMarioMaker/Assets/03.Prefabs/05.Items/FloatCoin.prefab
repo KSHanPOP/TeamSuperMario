@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6092824236401898629}
   - component: {fileID: 71366600811788551}
   - component: {fileID: -9099830651218770254}
-  m_Layer: 14
+  m_Layer: 16
   m_Name: FloatCoin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
