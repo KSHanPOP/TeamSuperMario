@@ -55,8 +55,7 @@ public class MoveController : MonoBehaviour
     }
 
     public void TryMove(InputAction.CallbackContext context)
-    {
-        Logger.Debug(context.ReadValue<float>());
+    {   
         moveKeyValue = context.ReadValue<float>();
     }
 

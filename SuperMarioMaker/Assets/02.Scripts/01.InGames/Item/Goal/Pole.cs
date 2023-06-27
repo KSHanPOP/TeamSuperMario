@@ -24,6 +24,8 @@ public class Pole : MonoBehaviour
         if(collision.CompareTag("Player"))
         {
             isClear = true;
+            Castle.Instance.Clear();
+
             flag.GetScore();
             GetScore(collision.transform.position.y);
 

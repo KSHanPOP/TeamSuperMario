@@ -24,6 +24,8 @@ public class DynamicTileManager : MonoBehaviour
         if (isPlaying)
             return;
 
+        MovementLimmiter.instance.CharacterCanMove = true;
+
         isPlaying = true;
 
         dynamicObjHolder = new GameObject("DynamicObjHolder").transform;
