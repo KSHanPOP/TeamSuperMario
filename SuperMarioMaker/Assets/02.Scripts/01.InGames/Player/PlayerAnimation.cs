@@ -74,6 +74,7 @@ public class PlayerAnimation : MonoBehaviour
     }
     public void GrapFlag()
     {
+        playerState.SetInvincibleLayer();
         spriteRenderer.flipX = false;
         animator.SetTrigger(hashGrapFlag);
     }

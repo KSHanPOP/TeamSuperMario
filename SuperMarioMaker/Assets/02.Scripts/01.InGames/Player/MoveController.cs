@@ -56,7 +56,7 @@ public class MoveController : MonoBehaviour
 
     public void TryMove(InputAction.CallbackContext context)
     {
-
+        Logger.Debug(context.ReadValue<float>());
         moveKeyValue = context.ReadValue<float>();
     }
 
@@ -79,7 +79,7 @@ public class MoveController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        isGround = ground.IsGround();        
+        isGround = ground.IsGround();
 
         Move();
     }

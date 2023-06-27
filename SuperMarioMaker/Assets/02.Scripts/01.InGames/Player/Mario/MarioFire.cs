@@ -12,12 +12,18 @@ public class MarioFire : MarioBig
     [SerializeField]
     FireBall fireball;
 
+    private MovementLimmiter limmiter;
+
     protected override void Awake()
     {
         base.Awake();
         marioBig = GetComponent<MarioBig>();
 
         bigController = marioBig.Controller;        
+    }
+    public void Start()
+    {
+        limmiter = MovementLimmiter.instance;
     }
     public override void Hit()
     {
@@ -49,6 +55,9 @@ public class MarioFire : MarioBig
     }
     public override void DoAction()
     {
+        if (!limmiter.CharacterCanMove)
+            return;
+
         playerState.Animator.SetTrigger(hashFire);   
     }
 

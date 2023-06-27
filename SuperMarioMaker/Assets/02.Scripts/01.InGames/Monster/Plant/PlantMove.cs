@@ -26,7 +26,7 @@ public class PlantMove : MonoBehaviour
     private void Awake()
     {
         invincibleLayerToInt = (int)Mathf.Log(invincibleLayer.value, 2);        
-        monsterLayerToInt = (int)Mathf.Log(monsterLayer.value, 2);        
+        monsterLayerToInt = (int)Mathf.Log(monsterLayer.value, 2);
     }
 
     private void Start()
