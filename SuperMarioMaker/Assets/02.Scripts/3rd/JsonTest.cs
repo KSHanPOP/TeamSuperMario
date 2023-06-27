@@ -26,6 +26,31 @@ public class TileData
 
     [JsonProperty("tileType")]
     public string TileType { get; set; }
+
+    [JsonProperty("tileName")]
+    public string TileName { get; set; }
+
+    public override bool Equals(object obj)
+    {
+        if (obj is TileData other)
+        {
+            return X == other.X && Y == other.Y && TileType == other.TileType && TileName == other.TileName;
+        }
+        return false;
+    }
+
+    public override int GetHashCode()
+    {
+        unchecked
+        {
+            int hash = 17;
+            hash = hash * 23 + X.GetHashCode();
+            hash = hash * 23 + Y.GetHashCode();
+            hash = hash * 23 + (TileType?.GetHashCode() ?? 0);
+            hash = hash * 23 + (TileName?.GetHashCode() ?? 0);
+            return hash;
+        }
+    }
 }
 
 
