@@ -249,7 +249,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxFallSpeedWhileGrap: -5
   sequenceStepTime:
-  - 0.2
+  - 0.4
   - 0.6
   eventMoveValue: {x: 5, y: 3}
 --- !u!1 &9192382835654386243
