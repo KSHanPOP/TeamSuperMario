@@ -46,11 +46,28 @@ public class ResourceManager : MonoBehaviour
     {
         if (prefabDict.ContainsKey(name))
         {
+            position.x += 0.5f;
+            position.y += 0.5f;
             Instantiate(prefabDict[name], position, prefabDict[name].transform.rotation);
         }
         else
         {
-            Debug.LogError("No prefab of name: " + name);
+            Logger.Debug("No prefab of name: " + name);
+        }
+    }
+
+    public GameObject GetSpawnPrefabByName(string name, Vector3 position)
+    {
+        if (prefabDict.ContainsKey(name))
+        {
+            position.x += 0.5f;
+            position.y += 0.5f;
+           return Instantiate(prefabDict[name], position, prefabDict[name].transform.rotation);
+        }
+        else
+        {
+           Logger.Debug("No prefab of name: " + name);
+            return null;
         }
     }
 
@@ -81,6 +98,7 @@ public class ResourceManager : MonoBehaviour
 
         return null;
     }
+
     void Start()
     {
 

@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
+using static UnityEditor.PlayerSettings;
 
 public class GridMaker : MonoBehaviour
 {
@@ -32,10 +35,11 @@ public class GridMaker : MonoBehaviour
     private Vector3Int flagPos;// = new Vector3Int(-1, -1, 0);
     private List<Vector3Int> endLinePos = new List<Vector3Int>();
 
-    private Dictionary<Vector3Int,TileData> DicTileData;
-    private void SetDefaultTile(string objectName, Vector3Int pos)
+    private Dictionary<Vector3Int, GameObjectTileData> DicTileData = new Dictionary<Vector3Int, GameObjectTileData>();
+
+    private void SetDefaultObj(string objectName, Vector3Int pos)
     {
-        ResourceManager.instance.GetPrefabWithTag(objectName);
+        var newObject = ResourceManager.instance.GetSpawnPrefabByName(objectName, pos);
 
         // Create a new TileData object
         TileData newTileData = new TileData
@@ -47,16 +51,39 @@ public class GridMaker : MonoBehaviour
             // Add other necessary properties here
         };
 
+        // GameObjectTileData 생성 및 초기화
+        GameObjectTileData newGameObjectTileData = new GameObjectTileData
+        {
+            gameObject = newObject,
+            tileData = newTileData,
+        };
+
         // Check if the key already exists
         if (!DicTileData.ContainsKey(pos))
         {
             // Add the new TileData to the dictionary
-            DicTileData.Add(pos, newTileData);
+            DicTileData.Add(pos, newGameObjectTileData);
         }
         else
         {
             // If the key already exists, update the value
-            DicTileData[pos] = newTileData;
+            DicTileData[pos] = newGameObjectTileData;
+        }
+    }
+    private void EraseDefaultObj(Vector3Int pos)
+    {
+        if (DicTileData.ContainsKey(pos))
+        {
+            // 좌표가 있다면 GameObject 삭제
+            GameObject toDestroy = DicTileData[pos].gameObject;
+            Destroy(toDestroy);
+
+            // 딕셔너리에서 정보 제거
+            DicTileData.Remove(pos);
+        }
+        else
+        {
+            Logger.Debug("Erase Data Fail");
         }
     }
     private void CheckedNull()
@@ -107,7 +134,9 @@ public class GridMaker : MonoBehaviour
         for (int i = 0; i < tilemapStartline; i++)
         {
             cellPos.x = i;
-            tilemap.SetTile(cellPos, customTile);
+            SetDefaultObj("Platform", cellPos);
+
+            //tilemap.SetTile(cellPos, customTile);
         }
     }
 
@@ -129,21 +158,37 @@ public class GridMaker : MonoBehaviour
         {
             cellPos.x = i;
             endLinePos.Add(cellPos);
-            tilemap.SetTile(cellPos, customTile);
+            SetDefaultObj("Platform", cellPos);
+
+            //tilemap.SetTile(cellPos, customTile);
         }
 
         // 깃발
         customTile = Resources.Load<CustomTile>("Sprite/TileSet/Grid");
 
         if (flagPos != Vector3Int.zero)
-            tilemap.SetTile(flagPos, customTile);
+        {
+            // 깃발 지우기
+            EraseDefaultObj(flagPos);
 
-        customTile = Resources.Load<CustomTile>("Sprite/TileSet/StaticTile/StaticTile_11");
+            // 캐슬 지우기
+            var casltePos = flagPos;
+            casltePos.x += 7;
+            EraseDefaultObj(casltePos);
+            tilemap.SetTile(flagPos, customTile);
+        }
+
+        // customTile = Resources.Load<CustomTile>("Sprite/TileSet/StaticTile/StaticTile_11");
 
         cellPos.x = startEndLine;
         cellPos.y = 1;
 
-        tilemap.SetTile(cellPos, customTile);
+        SetDefaultObj("Goal", cellPos);
+        var CasltePos = cellPos;
+        CasltePos.x += 7;
+        SetDefaultObj("Caslte", CasltePos);
+
+        //tilemap.SetTile(cellPos, customTile);
 
         flagPos = cellPos;
     }
@@ -168,6 +213,8 @@ public class GridMaker : MonoBehaviour
         foreach (Vector3Int EndLinePos in endLinePos)
         {
             tilemap.SetTile(EndLinePos, customTile);
+            EraseDefaultObj(EndLinePos);
+
         }
 
 
@@ -177,6 +224,7 @@ public class GridMaker : MonoBehaviour
             {
                 cellPos.x = i;
                 cellPos.y = j;
+                EraseDefaultObj(cellPos);
                 tilemap.SetTile(cellPos, customTile);
             }
         }
@@ -221,6 +269,7 @@ public class GridMaker : MonoBehaviour
             {
                 cellPos.x = i;
                 cellPos.y = j;
+                EraseDefaultObj(cellPos);
                 tilemap.SetTile(cellPos, null);
             }
         }

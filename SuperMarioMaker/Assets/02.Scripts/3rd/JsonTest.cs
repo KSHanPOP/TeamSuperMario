@@ -15,6 +15,11 @@ public class MapData
     [JsonProperty("tiles")]
     public List<TileData> Tiles { get; set; }
 }
+public class GameObjectTileData
+{
+    public GameObject gameObject;
+    public TileData tileData;
+}
 
 public class TileData
 {
@@ -29,6 +34,7 @@ public class TileData
 
     [JsonProperty("tileName")]
     public string TileName { get; set; }
+
 
     public override bool Equals(object obj)
     {
@@ -107,14 +113,14 @@ public class JsonTest : MonoBehaviour
 
         if (File.Exists(filePath))
         {
-            
+
             string dataAsJson = File.ReadAllText(filePath);
             MapData loadedData = JsonUtility.FromJson<MapData>(dataAsJson);
             return loadedData;
         }
         else
         {
-            Debug.LogError("Cannot load game data!");
+            Logger.Debug("Cannot load game data!");
         }
         return null;
     }
