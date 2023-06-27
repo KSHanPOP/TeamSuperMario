@@ -14,19 +14,19 @@ public class DynamicTileManager : MonoBehaviour
     private Transform dynamicObjHolder;
     public Transform DynamicObjHolder { get { return dynamicObjHolder; } }
 
-    private bool isPlaying = false;
+    public bool IsPlaying { get; private set; } = false;
     private void Awake()
     {
         Instance = this;
     }
     public void StartTest()
     {
-        if (isPlaying)
+        if (IsPlaying)
             return;
 
         MovementLimmiter.instance.CharacterCanMove = true;
 
-        isPlaying = true;
+        IsPlaying = true;
 
         dynamicObjHolder = new GameObject("DynamicObjHolder").transform;
 
@@ -45,10 +45,10 @@ public class DynamicTileManager : MonoBehaviour
     }
     public void StopTest()
     {
-        if (!isPlaying)
+        if (!IsPlaying)
             return;
 
-        isPlaying = false;
+        IsPlaying = false;
 
         Destroy(dynamicObjHolder.gameObject);
 
