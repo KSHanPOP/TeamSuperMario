@@ -1609,7 +1609,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 1025
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 9fa99a3934bb0714cae577c62ef7a965, type: 2}
   m_TargetDisplay: 1
@@ -2867,6 +2867,7 @@ MonoBehaviour:
   downButton: {fileID: 1431565098}
   upText: {fileID: 329155213}
   downText: {fileID: 461121848}
+  background: {fileID: 1746608102}
 --- !u!1 &548514093
 GameObject:
   m_ObjectHideFlags: 0
