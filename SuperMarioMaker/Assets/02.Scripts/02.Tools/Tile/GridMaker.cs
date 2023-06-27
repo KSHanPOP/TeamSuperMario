@@ -32,6 +32,8 @@ public class GridMaker : MonoBehaviour
     [SerializeField] private TextMeshProUGUI upText;
     [SerializeField] private TextMeshProUGUI downText;
 
+    [SerializeField] private ScrollingBackground background;
+
     private Vector3Int flagPos;// = new Vector3Int(-1, -1, 0);
     private List<Vector3Int> endLinePos = new List<Vector3Int>();
 
@@ -232,6 +234,7 @@ public class GridMaker : MonoBehaviour
         SetEndlineTile();
         SetMinimapPosition();
         SetTextVelue(nowkRow, false);
+        background.SetSizeChange();
     }
     public void LeftGrid()
     {
@@ -276,6 +279,8 @@ public class GridMaker : MonoBehaviour
 
         SetMinimapPosition();
         SetTextVelue(beforeRow, false);
+        background.SetSizeChange();
+
     }
     public void UpGrid()
     {
@@ -306,6 +311,8 @@ public class GridMaker : MonoBehaviour
 
         SetMinimapPosition();
         SetTextVelue(nowkCol, true);
+        background.SetSizeChange();
+
     }
 
     public void DownGrid()
@@ -338,6 +345,7 @@ public class GridMaker : MonoBehaviour
 
         SetMinimapPosition();
         SetTextVelue(beforeCol, true);
+        background.SetSizeChange();
 
     }
 
