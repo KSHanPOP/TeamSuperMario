@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -7708307327048197670}
   - component: {fileID: 5730413194978734858}
   m_Layer: 0
-  m_Name: Caslte
+  m_Name: Castle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

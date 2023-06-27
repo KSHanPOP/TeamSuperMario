@@ -18,6 +18,6 @@ public class PrefapInfo : MonoBehaviour
         if (DynamicTileManager.Instance.IsPlaying)
             return;
 
-        Logger.Debug(transform.position);
+        Logger.Debug(transform.position);        
     }
 }

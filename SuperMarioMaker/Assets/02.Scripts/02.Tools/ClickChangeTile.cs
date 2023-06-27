@@ -14,7 +14,6 @@ public class ClickChangeTile : MonoBehaviour
 
     void Update()
     {
-
         if (Input.GetMouseButtonDown(0))
         {
             Logger.Debug(tilemap.cellBounds.min);
