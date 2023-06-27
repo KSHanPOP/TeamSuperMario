@@ -15,7 +15,7 @@ public class PrefapInfo : MonoBehaviour
 
     public void OnMouseDown()
     {
-        if (!DynamicTileManager.Instance.IsPlaying)
+        if (DynamicTileManager.Instance.IsPlaying)
             return;
 
         Logger.Debug(transform.position);
