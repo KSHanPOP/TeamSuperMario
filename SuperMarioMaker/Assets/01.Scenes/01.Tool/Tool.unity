@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilemap: {fileID: 656817360}
-  newTile: {fileID: 11400000, guid: c77705a45d74c5b4c910823bd8682452, type: 2}
+  newTile: {fileID: 0}
   customTile: {fileID: 11400000, guid: 327a11eeabcf7e044af308f693bcea07, type: 2}
 --- !u!156049354 &4933516
 Grid:
@@ -2839,7 +2839,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilemap: {fileID: 442647680}
-  newTile: {fileID: 11400000, guid: c77705a45d74c5b4c910823bd8682452, type: 2}
+  newTile: {fileID: 0}
   customTile: {fileID: 11400000, guid: 327a11eeabcf7e044af308f693bcea07, type: 2}
 --- !u!114 &532670460
 MonoBehaviour:
