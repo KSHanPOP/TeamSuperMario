@@ -18,7 +18,7 @@ public class MoveColliderDetect : MonoBehaviour
 
     public void ChangeMoveDir()
     {
-        collisionTrigger.offset = -collisionTrigger.offset;
+        collisionTrigger.offset = new Vector2(-collisionTrigger.offset.x, collisionTrigger.offset.y);
         move.ChangeMoveDir();
     }
 

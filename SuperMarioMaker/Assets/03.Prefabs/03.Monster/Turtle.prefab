@@ -282,6 +282,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1.7
+  UseSpriteFlip: 1
+  spriteRenderer: {fileID: 2330741657895023191}
 --- !u!114 &2498931792833395088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -332,7 +334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92b0fc480141aa046a57d7bfad6a85ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3.4
+  moveSpeed: 13
 --- !u!1 &4651789131703539218
 GameObject:
   m_ObjectHideFlags: 0

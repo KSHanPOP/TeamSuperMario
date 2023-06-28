@@ -4,23 +4,11 @@ public class MushroomMove : ObjectMove, IShakeable
 {
     [SerializeField]
     private float upForceWhenCollisonShakingBlock;
-
-    private SpriteRenderer spriteRenderer;    
-
-    protected override void Awake()
+    protected override void SetVelocityX()
     {
-        base.Awake();
-
-        spriteRenderer = GetComponent<SpriteRenderer>();
         dir = -dir;
+        velocityX = dir * speed;
     }
-
-    public override void ChangeMoveDir()
-    {   
-        base.ChangeMoveDir();
-        spriteRenderer.flipX = !spriteRenderer.flipX;
-    }
-
     public void Shake(Vector2 blockPos)
     {
         Logger.Debug("shake!");

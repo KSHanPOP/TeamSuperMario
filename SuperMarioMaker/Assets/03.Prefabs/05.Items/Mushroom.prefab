@@ -249,6 +249,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
+  UseSpriteFlip: 1
+  spriteRenderer: {fileID: 5506271837870352102}
   upForceWhenCollisonShakingBlock: 70
 --- !u!114 &-1684249574632827597
 MonoBehaviour:

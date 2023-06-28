@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 9159716437815625092}
   - component: {fileID: -7708307327048197670}
   m_Layer: 0
-  m_Name: Caslte
-  m_TagString: Clear
+  m_Name: Turtle
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 435575e81d230f442a37f1e0c1b4ead0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dynamicObject: {fileID: 5123187742110743217, guid: f183bad3aa84bdf4cbb800debac65ca8, type: 3}
+  dynamicObject: {fileID: 1468138897682060624, guid: 091622510b968fa418fffafa38c53cd5, type: 3}
 --- !u!212 &9159716437815625092
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -88,12 +88,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8fc8ef02f31429048a5b58f2d0b6955e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 61bcbd43ca7027442819c39a58d5285d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5, y: 5}
+  m_Size: {x: 1, y: 1.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -111,4 +111,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da276589fe730134a90ceda09c217a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  iconSpritePath: 
+  iconSpritePath: Sprite/Icon/MonsterIcon/Monster03

@@ -10,13 +10,22 @@ public class ObjectMove : MonoBehaviour
 
     protected Rigidbody2D rb;
 
+    public bool UseSpriteFlip;
+
+    [SerializeField]
+    SpriteRenderer spriteRenderer;
+
     protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
 
-        velocityX = dir * speed;        
+        SetVelocityX();
     }
 
+    protected virtual void SetVelocityX()
+    {
+        velocityX = dir * speed;
+    }
     private void Update()
     {
         DoMove();        
@@ -30,6 +39,10 @@ public class ObjectMove : MonoBehaviour
     public virtual void ChangeMoveDir()
     {   
         dir = -dir;
+        velocityX = dir * speed;
+
+        if (UseSpriteFlip)
+            spriteRenderer.flipX = dir > 0;
     }
 
     public virtual void ChageSpeed(float speed)

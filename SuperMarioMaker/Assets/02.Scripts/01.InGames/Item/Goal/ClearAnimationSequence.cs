@@ -21,9 +21,14 @@ public class ClearAnimationSequence : MonoBehaviour
     [SerializeField]
     private Vector2 eventMoveValue;
 
+    [SerializeField]
+    private float offset = 5;
+
     public void StartSequence(GameObject player)
     {
         this.player = player;
+
+        offset = offset / 16;
 
         MovementLimmiter.instance.CharacterCanMove = false;
         playerRb = player.GetComponent<Rigidbody2D>();
@@ -31,7 +36,7 @@ public class ClearAnimationSequence : MonoBehaviour
         player.GetComponent<JumpController>().MaxFallSpeed = maxFallSpeedWhileGrap;
 
         player.GetComponent<PlayerAnimation>().GrapFlag();
-        player.transform.position = new Vector3(transform.position.x - 0.5f, player.transform.position.y, 0f);
+        player.transform.position = new Vector3(transform.position.x - offset, player.transform.position.y, 0f);
     }    
 
     public void NextSequnce()
@@ -41,7 +46,7 @@ public class ClearAnimationSequence : MonoBehaviour
 
     private void StepOne()
     {
-        player.transform.position = new Vector3(transform.position.x + 0.5f, player.transform.position.y, 0f);
+        player.transform.position = new Vector3(transform.position.x + offset, player.transform.position.y, 0f);
         player.transform.localScale = new Vector3(-1, 1, 1);
     }
     private void StepTwo()
