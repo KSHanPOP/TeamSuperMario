@@ -22,6 +22,5 @@ public abstract class MonsterBase : MonoBehaviour
             return false;
 
         return posY > monsterHeight * minDistanceToPress + transform.position.y;
-    }
-    
+    }    
 }

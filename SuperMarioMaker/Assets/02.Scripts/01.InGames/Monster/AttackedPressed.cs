@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AttackedPressed : MonoBehaviour
+public class AttackedPressed : MonoBehaviour, IPressable
 {
     private Animator animator;
     private readonly int hashPressed = Animator.StringToHash("Pressed");
@@ -14,7 +14,7 @@ public class AttackedPressed : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody2D>();
     }
-    public virtual void OnAttack()
+    public virtual void Press()
     {
         animator.SetTrigger(hashPressed);
         var colliders = GetComponents<Collider2D>();

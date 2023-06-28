@@ -6,13 +6,15 @@ public class ObjectMove : MonoBehaviour
 
     protected float dir = -1;
 
+    protected float velocityX;
+
     protected Rigidbody2D rb;
 
     protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
 
-        dir *= speed;
+        velocityX = dir * speed;        
     }
 
     private void Update()
@@ -22,7 +24,7 @@ public class ObjectMove : MonoBehaviour
 
     public virtual void DoMove()
     {
-        rb.velocity = new Vector2(dir, rb.velocity.y);
+        rb.velocity = new Vector2(velocityX, rb.velocity.y);
     }
 
     public virtual void ChangeMoveDir()
@@ -30,10 +32,16 @@ public class ObjectMove : MonoBehaviour
         dir = -dir;
     }
 
+    public virtual void ChageSpeed(float speed)
+    {
+        this.speed = speed;
+        velocityX = dir * speed;
+    }
+
     public virtual void Stop()
     {
         rb.velocity = Vector2.zero;
-        dir = 0f;
+        velocityX = 0f;
     }
 }
 

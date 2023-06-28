@@ -8,7 +8,7 @@ public class Pole : MonoBehaviour
 
     public float[] differentialScoreZone;    
 
-    private bool isClear = false;
+    private bool isStageClear = false;
 
     [SerializeField]
     private Flag flag;
@@ -18,13 +18,13 @@ public class Pole : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (isClear)
+        if (isStageClear)
             return;
 
         if(collision.CompareTag("Player"))
         {
-            isClear = true;
-            Castle.Instance.Clear();
+            isStageClear = true;
+            Castle.Instance.StageClear();
 
             flag.GetScore();
             GetScore(collision.transform.position.y);

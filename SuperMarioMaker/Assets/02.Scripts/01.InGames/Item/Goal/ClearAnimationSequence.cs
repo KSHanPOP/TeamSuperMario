@@ -10,7 +10,7 @@ public class ClearAnimationSequence : MonoBehaviour
 
     private Rigidbody2D playerRb;
 
-    private Coroutine stepTwoCoroutine;
+    private Coroutine animationCoroutine;
 
     [SerializeField]
     private float maxFallSpeedWhileGrap = 5f;
@@ -35,9 +35,8 @@ public class ClearAnimationSequence : MonoBehaviour
     }    
 
     public void NextSequnce()
-    {
-        Invoke(nameof(StepOne), sequenceStepTime[0]);        
-        stepTwoCoroutine = StartCoroutine(StepTwoCoroutine(sequenceStepTime[1]));
+    {            
+        animationCoroutine = StartCoroutine(AnimationCoroutine());
     }
 
     private void StepOne()
@@ -51,9 +50,13 @@ public class ClearAnimationSequence : MonoBehaviour
         PlayerState.Instance.Animator.SetTrigger(hashGoalSequenceEnd);
         playerRb.velocity = eventMoveValue;
     }
-    IEnumerator StepTwoCoroutine(float waitTime)
+    IEnumerator AnimationCoroutine()
     {
-        yield return new WaitForSeconds(waitTime);
+        yield return new WaitForSeconds(sequenceStepTime[0]);
+
+        StepOne();
+
+        yield return new WaitForSeconds(sequenceStepTime[1]);
 
         StepTwo();
 

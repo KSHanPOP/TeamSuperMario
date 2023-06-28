@@ -15,7 +15,7 @@ public class Castle : MonoBehaviour
         Instance = this;
     }
 
-    public void Clear()
+    public void StageClear()
     {
         isClear = true;
         rightSprite.sortingOrder = (int)EnumSpriteLayerOrder.Player + 1;

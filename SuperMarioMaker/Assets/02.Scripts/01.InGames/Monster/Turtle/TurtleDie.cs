@@ -1,7 +1,9 @@
 using UnityEngine;
 
-public class AttackedShaked : MonoBehaviour, IShakeable
+public class TurtleDie : MonoBehaviour, IShakeable
 {
+    private readonly int hashDie = Animator.StringToHash("Die");
+
     [SerializeField]
     Animator animator;
 
@@ -9,15 +11,10 @@ public class AttackedShaked : MonoBehaviour, IShakeable
     SpriteRenderer spriteRenderer;
 
     [SerializeField]
-    private float speedMultiplier = 1.5f;
-
-    [SerializeField]
     private float shakeForce = 30f;
 
     [SerializeField]
-    private int fallingLayer;
-
-    private int hashSpeed = Animator.StringToHash("Speed");
+    private int fallingLayer;    
 
     private Rigidbody2D rb;
 
@@ -30,7 +27,7 @@ public class AttackedShaked : MonoBehaviour, IShakeable
     {
         Logger.Debug("shaked!");
 
-        animator.SetFloat(hashSpeed, speedMultiplier);
+        animator.SetTrigger(hashDie);
 
         GetComponent<ObjectMove>().enabled = false;
         rb.velocity = Vector2.zero;
@@ -41,5 +38,4 @@ public class AttackedShaked : MonoBehaviour, IShakeable
         spriteRenderer.sortingOrder = (int)EnumSpriteLayerOrder.MonsterDie;
         spriteRenderer.flipY = true;
     }
-
 }

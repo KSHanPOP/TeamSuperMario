@@ -50,7 +50,7 @@ public class CollisionMonster : MonoBehaviour
         if (!playerState.IsAttckable)
             return;
 
-        go.GetComponent<AttackedPressed>().OnAttack();
+        go.GetComponent<IPressable>().Press();
         jumpController.DoJump();
     }
     public void Hit()
