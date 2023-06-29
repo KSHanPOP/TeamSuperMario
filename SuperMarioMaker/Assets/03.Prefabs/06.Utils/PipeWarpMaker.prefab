@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2303139895217235708}
   - component: {fileID: 2465362613953351175}
   m_Layer: 0
-  m_Name: PipePathmaker
+  m_Name: PipeWarpMaker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
