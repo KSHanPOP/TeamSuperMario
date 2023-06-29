@@ -78,6 +78,10 @@ public class PlayerBase : MonoBehaviour
     {
 
     }
+    public virtual void Die()
+    {
+
+    }
     public virtual void DoAction()
     {
 

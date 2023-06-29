@@ -232,6 +232,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1.7
+  UseSpriteFlip: 0
+  spriteRenderer: {fileID: 0}
 --- !u!114 &3921372779306366981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -269,7 +271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9dd7a1c5f08e5641bb0588bbb3e88fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPressable: 1
+  isAttackable: 1
   spriteRenderer: {fileID: 3921372778784510967}
 --- !u!114 &8733133591393717662
 MonoBehaviour:

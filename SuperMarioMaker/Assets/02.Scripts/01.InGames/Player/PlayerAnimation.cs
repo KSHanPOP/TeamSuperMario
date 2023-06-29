@@ -37,12 +37,12 @@ public class PlayerAnimation : MonoBehaviour
         movement = GetComponent<MoveController>();
         rigidbody2 = GetComponent<Rigidbody2D>();
 
-        spriteRenderer.sortingOrder = (int)EnumSpriteLayerOrder.Player;
+        spriteRenderer.sortingOrder = (int)EnumSpriteLayerOrder.Player;        
     }
     private void Start()
     {        
         playerState.Animator = animator;
-        playerState.SetStartState(startState);
+        playerState.SetStartState(startState);        
     }
     void Update()
     {
@@ -91,6 +91,12 @@ public class PlayerAnimation : MonoBehaviour
     {   
         playerState.CurrState.Hit();
     }
+
+    public void Die()
+    {
+        playerState.CurrState.Die();
+    }
+
     public void OnTransformationComplete()
     {   
         playerState.CurrState.OnTransformationComplete();        

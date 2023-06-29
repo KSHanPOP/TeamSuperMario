@@ -17,6 +17,10 @@ public class MarioSmall : PlayerBase
     { 
         get { return invincibleTime; }         
     }
+
+    [SerializeField]
+    private float dieJumpForce = 5f;
+
     protected override void Awake()
     {
         base.Awake();
@@ -54,10 +58,35 @@ public class MarioSmall : PlayerBase
 
     public override void Hit()
     {
+        playerState.Animator.SetTrigger(hashDie);
+
+        Die();
+    }
+
+    public override void Die()
+    {
+        MovementLimmiter.instance.CharacterCanMove = false;
+
+        isTransformingSequence = true;
+
+        playerState.IsAttckable = false;
+
+        rb.velocity = Vector2.zero;        
+
+        rb.AddForce(Vector2.up * dieJumpForce, ForceMode2D.Impulse);        
+
         playerState.SetFallingLayer();
 
-        playerState.Animator.SetTrigger(hashDie);
+
+        //////
+        Invoke(nameof(ResetGame), 5f);
+        //////
     }
+    public void ResetGame()
+    {
+        DynamicTileManager.Instance.Restart();
+    }
+
     public override void OnTransformationComplete()
     {
         base.OnTransformationComplete();        

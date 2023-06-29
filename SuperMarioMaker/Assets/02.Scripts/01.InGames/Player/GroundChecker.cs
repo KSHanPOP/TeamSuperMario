@@ -11,7 +11,7 @@ public class GroundChecker : MonoBehaviour
     [SerializeField]
     private LayerMask platformLayer;
 
-    private bool isGround;
+    private bool isGround = true;
 
     private void Update()
     {

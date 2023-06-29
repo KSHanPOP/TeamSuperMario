@@ -49,6 +49,12 @@ public class MarioBig : PlayerBase
         isFire = false;
         StartCoroutine(BigToFireTransformationCoroutine());
     }
+    public override void Die()
+    {
+        playerState.nextState = marioSmall;
+        playerState.nextState.Enter();
+        playerState.CurrState.Die();
+    }
     protected virtual void StopInvincible()
     {
         playerState.SetNormalLayer();
