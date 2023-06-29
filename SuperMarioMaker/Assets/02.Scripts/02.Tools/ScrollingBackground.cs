@@ -26,6 +26,7 @@ public class ScrollingBackground : MonoBehaviour
     [SerializeField]
     private Button downButton;
 
+
     private void Init()
     {
         //foreach (Transform background in backgrounds)
@@ -33,6 +34,13 @@ public class ScrollingBackground : MonoBehaviour
         //    initialPositions[background] = background.position;
         //}
 
+        SaveBackgroundPositions();
+
+        upButton.onClick.AddListener(BackgroundImageUp);
+        downButton.onClick.AddListener(BackgroundImageDown);
+    }
+    void SaveBackgroundPositions()
+    {
         for (int i = 0; i < backgrounds2D.GetLength(0); i++)
         {
             for (int j = 0; j < backgrounds2D.GetLength(1); j++)
@@ -40,9 +48,6 @@ public class ScrollingBackground : MonoBehaviour
                 initialPositions[backgrounds2D[i, j]] = backgrounds2D[i, j].position;
             }
         }
-
-        upButton.onClick.AddListener(BackgroundImageUp);
-        downButton.onClick.AddListener(BackgroundImageDown);
     }
     void InitializeBackgrounds()
     {
@@ -124,7 +129,7 @@ public class ScrollingBackground : MonoBehaviour
         }
 
         InitializeBackgrounds();
-        Init();
+        SaveBackgroundPositions();
         ChangeBackgroundImage();
     }
     private void Update()

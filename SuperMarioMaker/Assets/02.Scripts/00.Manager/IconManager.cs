@@ -6,22 +6,16 @@ using UnityEngine.UI;
 
 public class IconManager : MonoBehaviour
 {
-    [SerializeField]
-    private IconButtonSetting tiles;
-    [SerializeField]
-    private IconButtonSetting activeTiles;
-    [SerializeField]
-    private IconButtonSetting item;
-    [SerializeField]
-    private IconButtonSetting Monster;
-    [SerializeField]
-    private IconButtonSetting Gimmik;
+    [SerializeField] private IconButtonSetting tiles;
+    [SerializeField] private IconButtonSetting activeTiles;
+    [SerializeField] private IconButtonSetting item;
+    [SerializeField] private IconButtonSetting Monster;
+    [SerializeField] private IconButtonSetting Gimmik;
 
-    [SerializeField]
-    private GameObject iconPopup;
-    [SerializeField]
-    private Button popupExitButton;
+    [SerializeField] private GameObject iconPopup;
+    [SerializeField] private Button popupExitButton;
 
+    [SerializeField] private ClickChangeTile clickChangeTile;
 
     private string nowTag;
 
@@ -38,7 +32,8 @@ public class IconManager : MonoBehaviour
             Monster.SetOutline(false);
             Gimmik.SetOutline(false);
 
-            nowName = nowNames[nowTag];
+            //clickChangeTile.PickedName = nowNames[nowTag];
+            //nowName = nowNames[nowTag];
 
             if (nowTag == "None")
             {
@@ -98,12 +93,21 @@ public class IconManager : MonoBehaviour
     private List<string> gimmikName = new List<string>();
 
     private Dictionary<string, string> nowNames = new Dictionary<string, string>();
-    private string nowName;
-    public string NowName
+    public string GetNowName
     {
-        get { return nowName; }
-        set { nowName = value; }
+        get { return nowNames[nowTag]; }
     }
+
+    //private string nowName;
+    //public string NowName
+    //{
+    //    get { return nowName; }
+    //    set
+    //    {
+    //        nowName = value;
+    //        //clickChangeTile.PickedName = nowName;
+    //    }
+    //}
     public void SetIconName()
     {
         var Platform = ResourceManager.instance.GetAllPrefabsWithTag("Platform");
@@ -258,27 +262,27 @@ public class IconManager : MonoBehaviour
 
         if (nowTag == "Platform")
         {
-            tiles.ChangeImage(buttonImage);
+            tiles.ChangeImage(buttonImage, button.name);
         }
         else if (nowTag == "DynamicTileIcon")
         {
-            activeTiles.ChangeImage(buttonImage);
+            activeTiles.ChangeImage(buttonImage, button.name);
         }
         else if (nowTag == "Item")
         {
-            item.ChangeImage(buttonImage);
+            item.ChangeImage(buttonImage, button.name);
         }
         else if (nowTag == "Monster")
         {
-            Monster.ChangeImage(buttonImage);
+            Monster.ChangeImage(buttonImage, button.name);
         }
         else if (nowTag == "Gimmik")
         {
-            Gimmik.ChangeImage(buttonImage);
+            Gimmik.ChangeImage(buttonImage, button.name);
         }
 
         nowNames[nowTag] = button.name;
-
+        // NowName= button.name;
         iconPopup.SetActive(false);
     }
 
