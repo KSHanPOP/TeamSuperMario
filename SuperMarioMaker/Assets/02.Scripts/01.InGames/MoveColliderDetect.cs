@@ -5,7 +5,7 @@ public class MoveColliderDetect : MonoBehaviour
     private ObjectMove move;
     private Collider2D collisionTrigger;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         move = GetComponent<ObjectMove>();
         var colilders = GetComponents<Collider2D>();
@@ -19,10 +19,10 @@ public class MoveColliderDetect : MonoBehaviour
     public void ChangeMoveDir()
     {
         collisionTrigger.offset = new Vector2(-collisionTrigger.offset.x, collisionTrigger.offset.y);
-        move.ChangeMoveDir();
-    }
+        move.ReverseMoveDir();
+    }  
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Platform") ||
             collision.CompareTag("Monster"))

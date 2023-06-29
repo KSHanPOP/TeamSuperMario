@@ -28,15 +28,15 @@ public class TurtleState : MonoBehaviour, IPressable
     {
         currState = move;
     }
-
     public void Press()
     {
         currState.Press();
     }
-    public void Update()
-    {
-        currState.OnUpdate();
-    }
+
+    //public void Update()
+    //{
+    //    currState.OnUpdate();
+    //}
 
     public void EnterState(EnumTurtleState state)
     {
@@ -53,6 +53,8 @@ public class TurtleState : MonoBehaviour, IPressable
                 break;
         }
     }
+
+
 }
 
 public enum EnumTurtleState

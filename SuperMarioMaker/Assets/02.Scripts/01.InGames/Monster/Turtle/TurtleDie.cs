@@ -25,8 +25,6 @@ public class TurtleDie : MonoBehaviour, IShakeable
 
     public void Shake(Vector2 _)
     {
-        Logger.Debug("shaked!");
-
         animator.SetTrigger(hashDie);
 
         GetComponent<ObjectMove>().enabled = false;

@@ -15,6 +15,8 @@ public class ObjectMove : MonoBehaviour
     [SerializeField]
     SpriteRenderer spriteRenderer;
 
+    Vector2 newVelocity = Vector2.zero;
+
     protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -33,10 +35,13 @@ public class ObjectMove : MonoBehaviour
 
     public virtual void DoMove()
     {
-        rb.velocity = new Vector2(velocityX, rb.velocity.y);
+        newVelocity.x = velocityX;
+        newVelocity.y = rb.velocity.y;
+
+        rb.velocity = newVelocity;
     }
 
-    public virtual void ChangeMoveDir()
+    public virtual void ReverseMoveDir()
     {   
         dir = -dir;
         velocityX = dir * speed;
@@ -56,5 +61,6 @@ public class ObjectMove : MonoBehaviour
         rb.velocity = Vector2.zero;
         velocityX = 0f;
     }
-}
 
+    public float GetDir() => dir;
+}

@@ -7,15 +7,19 @@ public class CollisionMonster : MonoBehaviour
 
     [SerializeField]
     int invincibleLayer;
+    
 
     private PlayerState playerState;
 
     private JumpController jumpController;
     private PlayerAnimation playerAnimation;
+    private GroundChecker groundChecker;
+
     private void Awake()
     {
         jumpController = GetComponent<JumpController>();
         playerAnimation = GetComponent<PlayerAnimation>();
+        groundChecker = GetComponent<GroundChecker>();
 
         playerState = GetComponentInChildren<PlayerState>();
     }
@@ -36,7 +40,7 @@ public class CollisionMonster : MonoBehaviour
             return;
 
         if(go.TryGetComponent<MonsterBase>(out MonsterBase monster) &&
-            monster.IsPressable(transform.position.y, minDistanceToPress))
+            monster.IsAttackable(transform.position, minDistanceToPress))
         {
             Attack(go);
             return;
@@ -51,7 +55,9 @@ public class CollisionMonster : MonoBehaviour
             return;
 
         go.GetComponent<IPressable>().Press();
-        jumpController.DoJump();
+
+        if(!groundChecker.IsGround())
+            jumpController.DoJump();
     }
     public void Hit()
     {

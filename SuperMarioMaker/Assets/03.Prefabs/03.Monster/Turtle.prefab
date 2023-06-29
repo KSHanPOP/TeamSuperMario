@@ -122,10 +122,10 @@ GameObject:
   - component: {fileID: 8954099327423302046}
   - component: {fileID: 7755061913477079647}
   - component: {fileID: 1553522279396979689}
-  - component: {fileID: 2498931792833395088}
   - component: {fileID: 925736008394647720}
   - component: {fileID: 7723754543570496887}
   - component: {fileID: 180201803572695785}
+  - component: {fileID: -1834037927709197422}
   m_Layer: 11
   m_Name: Turtle
   m_TagString: Monster
@@ -213,10 +213,10 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 2.7
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -234,8 +234,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c97c9ea9c3c1f441bf2f17c4aae0f2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPressable: 1
+  isAttackable: 0
   spriteRenderer: {fileID: 2330741657895023191}
+  smallHeight: 0.5
+  move: {fileID: 1553522279396979689}
+  turtleMoveColliderDetect: {fileID: -1834037927709197422}
+  smallColliderSize: {x: 0.9, y: 0.875}
+  smallColliderOffset: {x: 0, y: -0.0625}
+  smallTriggerSize: {x: 0.1, y: 0.7}
+  smallTriggerOffset: {x: -0.45, y: -0.07}
 --- !u!114 &8954099327423302046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -250,7 +257,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 6045933920072416682}
   spriteRenderer: {fileID: 2330741657895023191}
-  shakeForce: 5
+  shakeForce: 1
   fallingLayer: 13
 --- !u!114 &7755061913477079647
 MonoBehaviour:
@@ -284,18 +291,6 @@ MonoBehaviour:
   speed: 1.7
   UseSpriteFlip: 1
   spriteRenderer: {fileID: 2330741657895023191}
---- !u!114 &2498931792833395088
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1468138897682060624}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f838f0b4c365da439e34ec444a07443, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &925736008394647720
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,6 +330,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 13
+--- !u!114 &-1834037927709197422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1468138897682060624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1948b6997345be4ab868b0c2274e116, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turtle: {fileID: 4496085742309706703}
 --- !u!1 &4651789131703539218
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,11 +9,14 @@ public abstract class TurtleBase : MonoBehaviour
 
     protected TurtleState state;
 
+    protected Turtle turtle;
+
     [SerializeField]
     protected float moveSpeed;
     protected virtual void Awake()
     {
         state = GetComponent<TurtleState>();
+        turtle = GetComponent<Turtle>();
     }
 
     public virtual void Press()

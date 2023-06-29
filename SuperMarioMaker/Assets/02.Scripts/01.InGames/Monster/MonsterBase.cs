@@ -5,7 +5,7 @@ public abstract class MonsterBase : MonoBehaviour
     protected float monsterHeight;
 
     [SerializeField]
-    protected bool isPressable;
+    protected bool isAttackable;
 
     [SerializeField]
     protected SpriteRenderer spriteRenderer;
@@ -16,11 +16,11 @@ public abstract class MonsterBase : MonoBehaviour
 
         spriteRenderer.sortingOrder = (int)EnumSpriteLayerOrder.Monster;
     }
-    public virtual bool IsPressable(float posY, float minDistanceToPress)
+    public virtual bool IsAttackable(Vector2 pos, float minDistanceToPress)
     {
-        if(!isPressable)
+        if(!isAttackable)
             return false;
 
-        return posY > monsterHeight * minDistanceToPress + transform.position.y;
+        return pos.y > monsterHeight * minDistanceToPress + transform.position.y;
     }    
 }
