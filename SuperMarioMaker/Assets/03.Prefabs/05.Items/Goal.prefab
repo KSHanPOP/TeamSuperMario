@@ -249,9 +249,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxFallSpeedWhileGrap: -5
   sequenceStepTime:
-  - 0.2
-  - 0.4
+  - 0.1
+  - 0.3
   eventMoveValue: {x: 5, y: 3}
+  offset: 5
 --- !u!1 &9192382835654386243
 GameObject:
   m_ObjectHideFlags: 0

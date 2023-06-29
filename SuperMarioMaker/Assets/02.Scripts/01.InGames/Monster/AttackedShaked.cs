@@ -3,34 +3,40 @@ using UnityEngine;
 public class AttackedShaked : MonoBehaviour, IShakeable
 {
     [SerializeField]
-    Animator animator;
+    protected Animator animator;
 
     [SerializeField]
-    SpriteRenderer spriteRenderer;
+    protected SpriteRenderer spriteRenderer;
 
     [SerializeField]
     private float speedMultiplier = 1.5f;
 
     [SerializeField]
-    private float shakeForce = 30f;
+    protected float shakeForce = 30f;
 
     [SerializeField]
-    private int fallingLayer;
+    protected int fallingLayer;
 
     private int hashSpeed = Animator.StringToHash("Speed");
 
     private Rigidbody2D rb;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
     }
 
-    public void Shake(Vector2 _)
+    protected virtual void SetAnimation()
+    {
+        animator.SetFloat(hashSpeed, speedMultiplier);
+        spriteRenderer.flipY = true;
+    }
+
+    public virtual void Shake(Vector2 _)
     {
         Logger.Debug("shaked!");
 
-        animator.SetFloat(hashSpeed, speedMultiplier);
+        SetAnimation();
 
         GetComponent<ObjectMove>().enabled = false;
         rb.velocity = Vector2.zero;
@@ -38,8 +44,6 @@ public class AttackedShaked : MonoBehaviour, IShakeable
 
         gameObject.layer = fallingLayer;
 
-        spriteRenderer.sortingOrder = (int)EnumSpriteLayerOrder.MonsterDie;
-        spriteRenderer.flipY = true;
+        spriteRenderer.sortingOrder = (int)EnumSpriteLayerOrder.MonsterDie;        
     }
-
 }

@@ -257,7 +257,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 6045933920072416682}
   spriteRenderer: {fileID: 2330741657895023191}
-  shakeForce: 1
+  speedMultiplier: 1.5
+  shakeForce: 0.5
   fallingLayer: 13
 --- !u!114 &7755061913477079647
 MonoBehaviour:
@@ -304,6 +305,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 0
+  idleTime:
+  - 8
+  - 5
 --- !u!114 &7723754543570496887
 MonoBehaviour:
   m_ObjectHideFlags: 0
