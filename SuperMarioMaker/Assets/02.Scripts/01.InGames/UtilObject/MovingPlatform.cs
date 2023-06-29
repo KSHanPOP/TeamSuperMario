@@ -23,6 +23,11 @@ public class MovingPlatform : MonoBehaviour
     }
     private void Update()
     {
+        if(Input.GetKeyDown(KeyCode.H))
+        {
+            PlayerState.Instance.transform.parent.GetComponentInChildren<Animator>().SetTrigger("UsingWarpZone");
+        }
+
         if(Input.GetKeyDown(KeyCode.F))
         {
             isWork = !isWork;
@@ -41,7 +46,7 @@ public class MovingPlatform : MonoBehaviour
             timer = 0f;
 
             dir = -dir;
-        }
+        }        
 
         rb.velocity = new Vector2(0, dir * speed);
     }
