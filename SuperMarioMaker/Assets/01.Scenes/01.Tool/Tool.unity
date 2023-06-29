@@ -154,8 +154,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilemap: {fileID: 656817360}
-  newTile: {fileID: 11400000, guid: c77705a45d74c5b4c910823bd8682452, type: 2}
-  customTile: {fileID: 11400000, guid: 327a11eeabcf7e044af308f693bcea07, type: 2}
+  tilemapLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!156049354 &4933516
 Grid:
   m_ObjectHideFlags: 0
@@ -1473,7 +1474,7 @@ MonoBehaviour:
   defaltIconFilePath: Sprite/Icon/DynamicTileIcon/TileIcon_09
   outLine: {fileID: 310550050}
   tag: DynamicTile
-  name: 
+  nowName: 
 --- !u!114 &310550048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1609,7 +1610,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 1025
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 9fa99a3934bb0714cae577c62ef7a965, type: 2}
   m_TargetDisplay: 1
@@ -1722,7 +1723,7 @@ MonoBehaviour:
   defaltIconFilePath: Sprite/Icon/StaticTileIcon/TileIcon_00
   outLine: {fileID: 324556760}
   tag: Platform
-  name: 
+  nowName: 
 --- !u!114 &324556758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2270,7 +2271,7 @@ GameObject:
   - component: {fileID: 442647678}
   - component: {fileID: 442647680}
   - component: {fileID: 442647679}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2331,7 +2332,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1418001521
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -2791,7 +2792,7 @@ GameObject:
   - component: {fileID: 532670457}
   - component: {fileID: 532670459}
   - component: {fileID: 532670460}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GridMaker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2839,8 +2840,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilemap: {fileID: 442647680}
-  newTile: {fileID: 11400000, guid: c77705a45d74c5b4c910823bd8682452, type: 2}
-  customTile: {fileID: 11400000, guid: 327a11eeabcf7e044af308f693bcea07, type: 2}
+  tilemapLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!114 &532670460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2867,6 +2869,7 @@ MonoBehaviour:
   downButton: {fileID: 1431565098}
   upText: {fileID: 329155213}
   downText: {fileID: 461121848}
+  background: {fileID: 1746608102}
 --- !u!1 &548514093
 GameObject:
   m_ObjectHideFlags: 0
@@ -3232,7 +3235,7 @@ MonoBehaviour:
   defaltIconFilePath: Sprite/Icon/GimmikIcon/GimmikIcon05
   outLine: {fileID: 643561440}
   tag: Gimmik
-  name: 
+  nowName: 
 --- !u!114 &643561438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5917,7 +5920,7 @@ MonoBehaviour:
   defaltIconFilePath: Sprite/Icon/MonsterIcon/Monster01
   outLine: {fileID: 1104817066}
   tag: Monster
-  name: 
+  nowName: 
 --- !u!114 &1104817064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6406,6 +6409,7 @@ MonoBehaviour:
   Gimmik: {fileID: 643561437}
   iconPopup: {fileID: 2116263384}
   popupExitButton: {fileID: 1271356152}
+  clickChangeTile: {fileID: 532670459}
   buttonPrefab: {fileID: 7108328871170779259, guid: fdfcf42a39ecd084a837c472f4b58aa2, type: 3}
   scrollViewContent: {fileID: 1957795720}
 --- !u!1 &1237578872
@@ -6613,6 +6617,7 @@ MonoBehaviour:
   - DynamicTile
   - Platform
   - Monster
+  - Clear
   - Gimmik
 --- !u!4 &1304238617
 Transform:
@@ -6792,7 +6797,7 @@ MonoBehaviour:
   defaltIconFilePath: Sprite/Icon/ItemIcon/ItemIcon02
   outLine: {fileID: 1311420730}
   tag: Item
-  name: 
+  nowName: 
 --- !u!114 &1311420728
 MonoBehaviour:
   m_ObjectHideFlags: 0

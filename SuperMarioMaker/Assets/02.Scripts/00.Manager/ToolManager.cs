@@ -8,8 +8,6 @@ public class ToolManager : MonoBehaviour
 {
     public static ToolManager Instance { get; private set; }
 
-
-
     void Awake()
     {
         if (Instance == null)
@@ -246,6 +244,7 @@ public class ToolManager : MonoBehaviour
             time--;
         }
     }
+
 
 
     void Start()
