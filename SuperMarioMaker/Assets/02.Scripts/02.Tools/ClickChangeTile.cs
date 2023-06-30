@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
+using static ToolManager;
 using static UnityEditor.PlayerSettings;
 
 public class ClickChangeTile : MonoBehaviour
@@ -20,31 +21,36 @@ public class ClickChangeTile : MonoBehaviour
 
     void Update()
     {
+        var mode = ToolManager.Instance.ToolMode;
+        if (mode == ToolModeType.Tool)
+            if (Input.GetMouseButtonUp(0))
+            {
+                // UI 위에 마우스가 있는지 검사
+                if (EventSystem.current.IsPointerOverGameObject())
+                    return; // UI 위에 마우스가 있다면 레이캐스팅을 무시하고 종료
 
-        if (Input.GetMouseButtonUp(0))
-        {
-            // 마우스의 스크린 좌표를 월드 좌표로 변환
-            Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                // 마우스의 스크린 좌표를 월드 좌표로 변환
+                Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
 
-            // 타일맵에서의 클릭 위치 계산
-            Vector3Int cellPos = tilemap.WorldToCell(worldPos);
+                // 타일맵에서의 클릭 위치 계산
+                Vector3Int cellPos = tilemap.WorldToCell(worldPos);
 
-            // 맵 위에 찍는 행동
-            var nowName = ToolManager.Instance.iconManager.GetNowName;
-            ResourceManager.instance.SpawnPrefabByName(nowName, cellPos);
-        }
-        if (Input.GetMouseButtonDown(1))
-        {
-            Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            // Vector3Int cellPos = tilemap.WorldToCell(worldPos);
-            Vector3 cellPos = tilemap.WorldToCell(worldPos);
-            //cellPos.x += 0.5f;
-            //cellPos.y += 0.5f;
-            var nowName = ToolManager.Instance.iconManager.GetNowName;
-            ResourceManager.instance.SpawnPrefabByName(nowName, cellPos);
-            Logger.Debug(cellPos);
-        }
+                // 맵 위에 찍는 행동
+                var nowName = ToolManager.Instance.iconManager.GetNowName;
+                ResourceManager.instance.SpawnPrefabByName(nowName, cellPos);
+            }
+        //if (Input.GetMouseButtonDown(1))
+        //{
+        //    Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //    // Vector3Int cellPos = tilemap.WorldToCell(worldPos);
+        //    Vector3 cellPos = tilemap.WorldToCell(worldPos);
+        //    //cellPos.x += 0.5f;
+        //    //cellPos.y += 0.5f;
+        //    var nowName = ToolManager.Instance.iconManager.GetNowName;
+        //    ResourceManager.instance.SpawnPrefabByName(nowName, cellPos);
+        //    Logger.Debug(cellPos);
+        //}
         //Logger.Debug(pickedName);
     }
 
