@@ -7,11 +7,13 @@ using UnityEngine.Tilemaps;
 using static ToolManager;
 using static UnityEditor.PlayerSettings;
 
-public class ClickChangeTile : MonoBehaviour
+public class ClickChangeTile : MonoBehaviour, ICommand
 {
     public Tilemap tilemap;
     public LayerMask tilemapLayer;  // 타일맵 레이어에 대한 레이어 마스크
 
+    public Stack<GameObjectTileData> commandStack = new Stack<GameObjectTileData>();
+    public Stack<GameObjectTileData> undoStack = new Stack<GameObjectTileData>();
     //private string pickedName;
     //public string PickedName
     //{
@@ -37,8 +39,8 @@ public class ClickChangeTile : MonoBehaviour
                 Vector3Int cellPos = tilemap.WorldToCell(worldPos);
 
                 // 맵 위에 찍는 행동
-                var nowName = ToolManager.Instance.iconManager.GetNowName;
-                ResourceManager.instance.SpawnPrefabByName(nowName, cellPos);
+                Execute(cellPos);
+
             }
         //if (Input.GetMouseButtonDown(1))
         //{
@@ -118,4 +120,32 @@ public class ClickChangeTile : MonoBehaviour
         // LayerMask를 "Tilemap" 레이어로 설정
         //tilemapLayer = LayerMask.GetMask("Tilemap");
     }
+
+
+    public void Execute(Vector3Int pos)
+    {
+        var nowName = ToolManager.Instance.iconManager.GetNowName;
+        var gameObj = ResourceManager.instance.GetSpawnPrefabByName(nowName, pos);
+
+        
+        GameObjectTileData gameObjectTileData = new GameObjectTileData();
+        gameObjectTileData.gameObject = gameObj;
+        gameObjectTileData.tileData.X = pos.x;
+        gameObjectTileData.tileData.Y = pos.y;
+        gameObjectTileData.tileData.TileName = nowName;
+        gameObjectTileData.tileData.TileType = gameObj.GetComponent<PrefapInfo>().TypeName;
+
+        commandStack.Push(gameObjectTileData);
+    }
+
+    public void Undo()
+    {
+        undoStack.Push(commandStack.Pop());
+    }
+
+    public void Redo()
+    {
+        commandStack.Push(undoStack.Pop());
+    }
+
 }
