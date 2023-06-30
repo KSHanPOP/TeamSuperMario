@@ -9,27 +9,43 @@ using static UnityEditor.PlayerSettings;
 public class ClickChangeTile : MonoBehaviour
 {
     public Tilemap tilemap;
-    public Tile newTile;
-    public CustomTile customTile;
+    public LayerMask tilemapLayer;  // 타일맵 레이어에 대한 레이어 마스크
+
+    //private string pickedName;
+    //public string PickedName
+    //{
+    //    get { return pickedName; }
+    //    set { pickedName = value; }
+    //}
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+
+        if (Input.GetMouseButtonUp(0))
         {
-            Logger.Debug(tilemap.cellBounds.min);
-            Logger.Debug(tilemap.cellBounds.max);
+            // 마우스의 스크린 좌표를 월드 좌표로 변환
+            Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+
+            // 타일맵에서의 클릭 위치 계산
+            Vector3Int cellPos = tilemap.WorldToCell(worldPos);
+
+            // 맵 위에 찍는 행동
+            var nowName = ToolManager.Instance.iconManager.GetNowName;
+            ResourceManager.instance.SpawnPrefabByName(nowName, cellPos);
         }
         if (Input.GetMouseButtonDown(1))
         {
             Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-           // Vector3Int cellPos = tilemap.WorldToCell(worldPos);
+            // Vector3Int cellPos = tilemap.WorldToCell(worldPos);
             Vector3 cellPos = tilemap.WorldToCell(worldPos);
-            cellPos.x += 0.5f;
-            cellPos.y += 0.5f;
-            ResourceManager.instance.SpawnPrefabByName("Goomba", cellPos);
+            //cellPos.x += 0.5f;
+            //cellPos.y += 0.5f;
+            var nowName = ToolManager.Instance.iconManager.GetNowName;
+            ResourceManager.instance.SpawnPrefabByName(nowName, cellPos);
             Logger.Debug(cellPos);
         }
-
+        //Logger.Debug(pickedName);
     }
 
     public void TestFunc(InputAction.CallbackContext context)
@@ -75,7 +91,7 @@ public class ClickChangeTile : MonoBehaviour
     {
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector3Int cellPos = tilemap.WorldToCell(worldPos);
-        tilemap.SetTile(cellPos, customTile);
+        //tilemap.SetTile(cellPos, customTile);
         Logger.Debug(cellPos);
         Logger.Debug(GetCustomTileName(cellPos));
     }
@@ -90,5 +106,10 @@ public class ClickChangeTile : MonoBehaviour
         }
 
         return null;
+    }
+    private void Start()
+    {
+        // LayerMask를 "Tilemap" 레이어로 설정
+        //tilemapLayer = LayerMask.GetMask("Tilemap");
     }
 }

@@ -20,7 +20,12 @@ public class IconButtonSetting : MonoBehaviour
     public void SetOutline(bool onOff) => outLine.enabled = onOff;
 
     [SerializeField] private string tag;
-    [SerializeField] private string name;
+    [SerializeField] private string nowName;
+    public string NowName
+    {
+        get { return nowName; }
+        set { nowName = value; }
+    }
     public string Tag { get { return tag; } }
     private void Init()
     {
@@ -33,7 +38,6 @@ public class IconButtonSetting : MonoBehaviour
         chooseButton.onClick.AddListener(OnChooseButtonClick);
         selectedButton.onClick.AddListener(OnSelectedButtonClick);
         outLine.enabled = false;
-        //SetTag();
     }
 
     private void Start()
@@ -50,7 +54,7 @@ public class IconButtonSetting : MonoBehaviour
     // Insert the operations that should be done when the choose button is clicked
     private void OnChooseButtonClick()
     {
-        Logger.Debug("Selected button clicked!" + tag);
+        Logger.Debug("Choose button clicked!" + tag);
         ToolManager.Instance.iconManager.NowTag = tag;
         ToolManager.Instance.iconManager.SetIconPopup(tag);
     }
@@ -61,12 +65,14 @@ public class IconButtonSetting : MonoBehaviour
         Logger.Debug("Selected button clicked!" + tag);
 
         ToolManager.Instance.iconManager.NowTag = tag;
-        ToolManager.Instance.iconManager.NowName = tag;
+        //ToolManager.Instance.iconManager.NowName = NowName;
 
     }
 
-    public void ChangeImage(Sprite sprite)
+    public void ChangeImage(Sprite sprite, string name)
     {
         selectedButton.GetComponent<Image>().sprite = sprite;
+        //NowName = name;
+
     }
 }

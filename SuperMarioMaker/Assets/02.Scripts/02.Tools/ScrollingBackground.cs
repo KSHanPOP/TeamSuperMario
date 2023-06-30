@@ -26,6 +26,7 @@ public class ScrollingBackground : MonoBehaviour
     [SerializeField]
     private Button downButton;
 
+
     private void Init()
     {
         //foreach (Transform background in backgrounds)
@@ -33,6 +34,13 @@ public class ScrollingBackground : MonoBehaviour
         //    initialPositions[background] = background.position;
         //}
 
+        SaveBackgroundPositions();
+
+        upButton.onClick.AddListener(BackgroundImageUp);
+        downButton.onClick.AddListener(BackgroundImageDown);
+    }
+    void SaveBackgroundPositions()
+    {
         for (int i = 0; i < backgrounds2D.GetLength(0); i++)
         {
             for (int j = 0; j < backgrounds2D.GetLength(1); j++)
@@ -40,9 +48,6 @@ public class ScrollingBackground : MonoBehaviour
                 initialPositions[backgrounds2D[i, j]] = backgrounds2D[i, j].position;
             }
         }
-
-        upButton.onClick.AddListener(BackgroundImageUp);
-        downButton.onClick.AddListener(BackgroundImageDown);
     }
     void InitializeBackgrounds()
     {
@@ -62,7 +67,7 @@ public class ScrollingBackground : MonoBehaviour
         //    backgrounds[i] = newBackground.transform;
         //}
 
-        float worldWidth = ToolManager.Instance.TilemapX* ToolManager.Instance.MapRowLength - 1;
+        float worldWidth = ToolManager.Instance.TilemapX * ToolManager.Instance.MapRowLength - 1;
         float worldHeight = ToolManager.Instance.TilemapY * ToolManager.Instance.MapColLength - 1;
         float backgroundWidth = backgroundPrefab.GetComponent<SpriteRenderer>().bounds.size.x;
         float backgroundHeight = backgroundPrefab.GetComponent<SpriteRenderer>().bounds.size.y;
@@ -124,7 +129,7 @@ public class ScrollingBackground : MonoBehaviour
         }
 
         InitializeBackgrounds();
-        Init();
+        SaveBackgroundPositions();
         ChangeBackgroundImage();
     }
     private void Update()
@@ -163,50 +168,65 @@ public class ScrollingBackground : MonoBehaviour
     {
         while (true)
         {
-
-
-            float maxBackgroundPosX = float.MinValue;
-
-            for (int a = 0; a < backgrounds2D.GetLength(0); a++)
+            for (int i = 0; i < backgrounds2D.GetLength(0); i++)
             {
-                for (int b = 0; b < backgrounds2D.GetLength(1); b++)
+                for (int j = 0; j < backgrounds2D.GetLength(1); j++)
                 {
-                    var bg = backgrounds2D[a, b];
-                    if (bg != null && bg.position.x > maxBackgroundPosX)
+                    Transform background = backgrounds2D[i, j];
+
+                    // 배경 이미지의 오른쪽 경계를 계산합니다.
+                    float backgroundRightBoundary = background.position.x + background.localScale.x / 2;
+                    float backgroundWidth = background.GetComponent<SpriteRenderer>().bounds.size.x;
+
+                    // 배경 이미지의 오른쪽 경계가 타일맵의 왼쪽 경계를 넘어갔다면,
+                    if (backgroundRightBoundary <= -backgroundWidth)
                     {
-                        maxBackgroundPosX = bg.position.x;
+                        float maxBackgroundPosX = Mathf.NegativeInfinity;
+                        for (int a = 0; a < backgrounds2D.GetLength(0); a++)
+                        {
+                            for (int b = 0; b < backgrounds2D.GetLength(1); b++)
+                            {
+                                Transform bg = backgrounds2D[a, b];
+                                if (bg != null && bg.position.x > maxBackgroundPosX)
+                                {
+                                    maxBackgroundPosX = bg.position.x;
+                                }
+                            }
+                        }
+                        background.position = new Vector2(maxBackgroundPosX + backgroundWidth, background.position.y);
                     }
+
+                    // 배경 이미지를 왼쪽으로 이동시킵니다.
+                    background.position = new Vector2(background.position.x - backgroundSpeed, background.position.y);
                 }
             }
-
-            //background.transform.position = new Vector2(maxBackgroundPosX + backgroundWidth, background.transform.position.y);
             yield return null;
         }
 
+
         //while (true)
         //{
-        //    for (int i = 0; i < backgrounds2D.GetLength(0); i++)
+
+
+        //    float maxBackgroundPosX = float.MinValue;
+
+        //    for (int a = 0; a < backgrounds2D.GetLength(0); a++)
         //    {
-        //        for (int j = 0; j < backgrounds2D.GetLength(1); j++)
+        //        for (int b = 0; b < backgrounds2D.GetLength(1); b++)
         //        {
-        //            var background = backgrounds2D[i, j];
-        //            // 배경 이미지의 오른쪽 경계를 계산합니다.
-        //            float backgroundRightBoundary = background.transform.position.x + background.transform.localScale.x / 2;
-        //            float backgroundWidth = background.GetComponent<SpriteRenderer>().bounds.size.x;
-
-        //            // 배경 이미지의 오른쪽 경계가 타일맵의 왼쪽 경계를 넘어갔다면,
-        //            if (backgroundRightBoundary <= -backgroundWidth)
+        //            var bg = backgrounds2D[a, b];
+        //            if (bg != null && bg.position.x > maxBackgroundPosX)
         //            {
-        //                float maxBackgroundPosX = Mathf.Max(Array.ConvertAll(backgrounds, b => b.position.x));
-        //                background.transform.position = new Vector2(maxBackgroundPosX + backgroundWidth, background.transform.position.y);
+        //                maxBackgroundPosX = bg.position.x;
         //            }
-
-        //            // 배경 이미지를 왼쪽으로 이동시킵니다.
-        //            background.transform.position = new Vector2(background.transform.position.x - backgroundSpeed, background.transform.position.y);
+        //            backgrounds2D[a, b].transform.position = new Vector2(backgrounds2D[a, b].transform.position.x - backgroundSpeed, backgrounds2D[a, b].transform.position.y);
         //        }
         //    }
+
         //    yield return null;
         //}
+
+
 
         //while (true)
         //{

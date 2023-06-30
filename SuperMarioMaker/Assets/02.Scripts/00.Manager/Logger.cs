@@ -39,16 +39,21 @@ public static class Logger
 
         foreach (var field in fields)
         {
-            // 필드에 SerializeField 어트리뷰트가 있는지 확인합니다.
-            if (System.Attribute.IsDefined(field, typeof(SerializeField)))
+            // 참조 타입만 검사
+            if (!field.FieldType.IsValueType)
             {
-                // 필드의 값을 가져옵니다.
-                var fieldValue = field.GetValue(obj);
-
-                if (fieldValue as UnityEngine.Object == null)
+                // 필드에 SerializeField 어트리뷰트가 있는지 확인합니다.
+                if (System.Attribute.IsDefined(field, typeof(SerializeField)))
                 {
-                    UnityEngine.Debug.LogError("Field name: " + field.Name + " is null!");
+                    // 필드의 값을 가져옵니다.
+                    var fieldValue = field.GetValue(obj);
+
+                    if (fieldValue as UnityEngine.Object == null)
+                    {
+                        UnityEngine.Debug.LogError("Field name: " + field.Name + " is null!");
+                    }
                 }
+
             }
         }
     }
