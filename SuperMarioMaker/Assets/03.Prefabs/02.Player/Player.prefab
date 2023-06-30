@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 4930648494648828086}
   - component: {fileID: -6965527511568072592}
   - component: {fileID: 6417868108031928266}
+  - component: {fileID: 1193241878329985941}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -237,6 +238,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 5dc37e28-5efd-42ca-8f59-c8d8ac94e9ff
     m_ActionName: IngameControl/Fire[/Keyboard/leftShift]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b9f78db5-858f-412d-b229-a7101ff302ac
+    m_ActionName: IngameControl/Down[/Keyboard/s,/Keyboard/downArrow]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: IngameControl
@@ -274,6 +279,19 @@ MonoBehaviour:
   playerState: {fileID: 2082444697104009540}
   startState: 0
   runAnimationSpeed: 0.2
+--- !u!114 &1193241878329985941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4930648494648827982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c550010259cdf714ea3cd139b4a0f918, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 4930648494675589535}
 --- !u!1 &4930648494675589528
 GameObject:
   m_ObjectHideFlags: 0
