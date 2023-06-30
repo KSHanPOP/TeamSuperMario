@@ -19,7 +19,7 @@ public class MapData
 public class GameObjectTileData
 {
     public GameObject gameObject;
-    public TileData tileData;
+    public TileData tileData = new TileData();
 }
 
 public class TileData

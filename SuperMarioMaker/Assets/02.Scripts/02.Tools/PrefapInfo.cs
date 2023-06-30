@@ -23,9 +23,6 @@ public class PrefapInfo : MonoBehaviour
 
     public void OnMouseDown()
     {
-        if (DynamicTileManager.Instance.IsPlaying)
-            return;
-
-        Logger.Debug(transform.position);
+        ClickChangeTile.prefapInfo = this.TypeName;
     }
 }

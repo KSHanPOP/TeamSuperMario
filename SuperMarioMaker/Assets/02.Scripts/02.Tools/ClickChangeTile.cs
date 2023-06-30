@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -9,11 +10,15 @@ using static UnityEditor.PlayerSettings;
 
 public class ClickChangeTile : MonoBehaviour, ICommand
 {
+    public static ETileType prefapInfo;
+
     public Tilemap tilemap;
     public LayerMask tilemapLayer;  // 타일맵 레이어에 대한 레이어 마스크
 
     public Stack<GameObjectTileData> commandStack = new Stack<GameObjectTileData>();
     public Stack<GameObjectTileData> undoStack = new Stack<GameObjectTileData>();
+    private Dictionary<Vector3Int, GameObjectTileData> DicTileData = new Dictionary<Vector3Int, GameObjectTileData>();
+
     //private string pickedName;
     //public string PickedName
     //{
@@ -27,6 +32,12 @@ public class ClickChangeTile : MonoBehaviour, ICommand
         if (mode == ToolModeType.Tool)
             if (Input.GetMouseButtonUp(0))
             {
+                if (prefapInfo == ETileType.Default)
+                {
+                    prefapInfo = ETileType.None;
+                    return;
+                }
+
                 // UI 위에 마우스가 있는지 검사
                 if (EventSystem.current.IsPointerOverGameObject())
                     return; // UI 위에 마우스가 있다면 레이캐스팅을 무시하고 종료
@@ -40,7 +51,7 @@ public class ClickChangeTile : MonoBehaviour, ICommand
 
                 // 맵 위에 찍는 행동
                 Execute(cellPos);
-
+                Logger.Debug("왜 2번 찍힘? ");
             }
         //if (Input.GetMouseButtonDown(1))
         //{
@@ -127,7 +138,7 @@ public class ClickChangeTile : MonoBehaviour, ICommand
         var nowName = ToolManager.Instance.iconManager.GetNowName;
         var gameObj = ResourceManager.instance.GetSpawnPrefabByName(nowName, pos);
 
-        
+
         GameObjectTileData gameObjectTileData = new GameObjectTileData();
         gameObjectTileData.gameObject = gameObj;
         gameObjectTileData.tileData.X = pos.x;
