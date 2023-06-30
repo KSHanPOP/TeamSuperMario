@@ -17,13 +17,9 @@ public class AttackedPressed : MonoBehaviour, IPressable
     public virtual void Press()
     {
         animator.SetTrigger(hashPressed);
-        var colliders = GetComponents<Collider2D>();
-        foreach (var collider in colliders)
-        {
-            collider.enabled = false;
-        }
-
+        GetComponent<Collider2D>().enabled = false;
         rb.gravityScale = 0;
+        rb.velocity = Vector2.zero;
         GetComponent<ObjectMove>().Stop();
         Invoke(nameof(Attacked), lifeTime);
     }       

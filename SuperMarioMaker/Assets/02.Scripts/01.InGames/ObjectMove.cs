@@ -17,6 +17,8 @@ public class ObjectMove : MonoBehaviour
 
     Vector2 newVelocity = Vector2.zero;
 
+    private bool isStop = false;
+
     protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -35,6 +37,9 @@ public class ObjectMove : MonoBehaviour
 
     public virtual void DoMove()
     {
+        if (isStop)
+            return;
+
         newVelocity.x = velocityX;
         newVelocity.y = rb.velocity.y;
 
@@ -58,9 +63,8 @@ public class ObjectMove : MonoBehaviour
 
     public virtual void Stop()
     {
-        rb.velocity = Vector2.zero;
-        velocityX = 0f;
-    }
+        isStop = true;
+    }    
 
     public float GetDir() => dir;
 }

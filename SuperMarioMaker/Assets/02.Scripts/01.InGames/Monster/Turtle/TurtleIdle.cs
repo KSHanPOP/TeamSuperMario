@@ -12,8 +12,7 @@ public class TurtleIdle : TurtleBase
     public override void Enter()
     {
         base.Enter();
-        turtle.State = EnumTurtleState.Idle;
-        turtle.SetSmallSize();
+        turtle.State = EnumTurtleState.Idle;        
 
         idleCoroutine = StartCoroutine(IdleCoroutine());
     }

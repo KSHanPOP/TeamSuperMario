@@ -116,7 +116,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8166756168453252540}
   - component: {fileID: 850026550156307108}
-  - component: {fileID: 1237378683124816331}
   - component: {fileID: 4785323111009973293}
   - component: {fileID: 4496085742309706703}
   - component: {fileID: 8954099327423302046}
@@ -162,7 +161,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.15}
+  m_Offset: {x: 0, y: -0.025}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -173,33 +172,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.9, y: 1.3}
-  m_EdgeRadius: 0
---- !u!61 &1237378683124816331
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1468138897682060624}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.45, y: 0.15}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.1, y: 1}
+  m_Size: {x: 0.9, y: 0.95}
   m_EdgeRadius: 0
 --- !u!50 &4785323111009973293
 Rigidbody2D:
@@ -236,13 +209,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAttackable: 0
   spriteRenderer: {fileID: 2330741657895023191}
-  smallHeight: 0.5
+  turtleHeight: 0.875
   move: {fileID: 1553522279396979689}
   turtleMoveColliderDetect: {fileID: -1834037927709197422}
-  smallColliderSize: {x: 0.9, y: 0.875}
-  smallColliderOffset: {x: 0, y: -0.0625}
-  smallTriggerSize: {x: 0.1, y: 0.7}
-  smallTriggerOffset: {x: -0.45, y: -0.07}
 --- !u!114 &8954099327423302046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -346,7 +315,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1948b6997345be4ab868b0c2274e116, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  move: {fileID: 1553522279396979689}
+  rayStartOffset: {x: -0.5, y: -0.5}
+  rayLength: 0.8
   turtle: {fileID: 4496085742309706703}
+  spinStateRayOffsetAdjust: 0.2
+  monstDetectRayLength: 1
 --- !u!1 &4651789131703539218
 GameObject:
   m_ObjectHideFlags: 0

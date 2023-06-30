@@ -1,28 +1,48 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using UnityEngine;
 
 public class TurtleMoveColliderDetect : MoveColliderDetect
 {
     [SerializeField]
-    Turtle turtle;
-    protected override void OnTriggerEnter2D(Collider2D collision)
+    private Turtle turtle;
+
+    [SerializeField]
+    private float spinStateRayOffsetAdjust;
+
+    [SerializeField]
+    private float monstDetectRayLength;
+
+    private LayerMask monsterLayerMask;
+    private LayerMask platformLayerMask;
+
+    protected override void Awake()
     {
-        if (collision.CompareTag("Platform"))
-            ChangeMoveDir();
+        base.Awake();
+        monsterLayerMask = LayerMask.GetMask("Monster");
+        platformLayerMask = LayerMask.GetMask("Platform");
+    }
 
-        if(collision.CompareTag("Monster"))
+    public float RayLength { get { return rayLength; } set { rayLength = value; } }
+
+    protected override void Update()
+    {
+        if (turtle.State == EnumTurtleState.Idle)
+            return;
+
+        if (turtle.State == EnumTurtleState.Move)
         {
-            if (turtle.State == EnumTurtleState.Idle)
-                return;
-
-            if(turtle.State == EnumTurtleState.Spin)
-            {
-                collision.GetComponent<IShakeable>().Shake(transform.position);
-                return;
-            }
-
-            ChangeMoveDir();
+            base.Update();
+            return;
         }
+
+        if(Physics2D.Raycast((Vector2)transform.position + rayStartOffset, Vector2.up, rayLength, platformLayerMask))
+            ChangeMoveDir();
+
+        var hit = Physics2D.Raycast((Vector2)transform.position + rayStartOffset + Vector2.down * spinStateRayOffsetAdjust, Vector2.up, monstDetectRayLength, monsterLayerMask);
+
+        if (hit)
+            hit.transform.GetComponent<IShakeable>().Shake(transform.position);
     }
 }

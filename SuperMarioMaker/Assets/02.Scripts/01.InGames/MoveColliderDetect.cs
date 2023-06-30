@@ -2,33 +2,35 @@ using UnityEngine;
 
 public class MoveColliderDetect : MonoBehaviour
 {
-    private ObjectMove move;
-    private Collider2D collisionTrigger;
+    [SerializeField]
+    protected ObjectMove move;    
+
+    [SerializeField]
+    protected Vector2 rayStartOffset;
+    [SerializeField]
+    protected float rayLength;
+
+    protected LayerMask layerMask;
 
     protected virtual void Awake()
     {
-        move = GetComponent<ObjectMove>();
-        var colilders = GetComponents<Collider2D>();
-        foreach (var collider in colilders)
-        {
-            if (collider.isTrigger)
-                collisionTrigger = collider;
-        }
+        layerMask = LayerMask.GetMask("Platform", "Monster");
+    }
+
+    protected virtual void Update()
+    {
+        if (Physics2D.Raycast((Vector2)transform.position + rayStartOffset, Vector2.up, rayLength, layerMask))
+            ChangeMoveDir();
     }
 
     public void ChangeMoveDir()
     {
-        collisionTrigger.offset = new Vector2(-collisionTrigger.offset.x, collisionTrigger.offset.y);
+        rayStartOffset.x = - rayStartOffset.x;
         move.ReverseMoveDir();
-    }  
+    }
 
-    protected virtual void OnTriggerEnter2D(Collider2D collision)
+    private void OnDrawGizmos()
     {
-        if (collision.CompareTag("Platform") ||
-            collision.CompareTag("Monster"))
-            
-        {            
-            ChangeMoveDir();
-        }
+        Gizmos.DrawLine((Vector2)transform.position + rayStartOffset, (Vector2)transform.position + rayStartOffset + Vector2.up * rayLength);
     }
 }

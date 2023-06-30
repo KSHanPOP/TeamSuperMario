@@ -7,8 +7,7 @@ public class TurtleMove : TurtleBase
     public override void Enter()
     {
         base.Enter();
-        turtle.State = EnumTurtleState.Move;
-        turtle.SetOriginSize();
+        turtle.State = EnumTurtleState.Move;        
     }
 
     public override void Press()
