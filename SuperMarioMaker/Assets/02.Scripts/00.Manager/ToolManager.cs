@@ -31,7 +31,7 @@ public class ToolManager : MonoBehaviour
 
     [SerializeField] ScrollingBackground scrollingBackground;
 
-    private ToolModeType modeState = ToolModeType.None;
+    private ToolModeType modeState = ToolModeType.Tool;
     public ToolModeType ToolMode
     {
         get { return modeState; }
@@ -63,6 +63,7 @@ public class ToolManager : MonoBehaviour
                     scrollingBackground.StopBackground();
                     DynamicTileManager.Instance.StopTest();
 
+                    iconManager.NowTag = "None";
                     break;
 
                 case ToolModeType.Test:
@@ -75,7 +76,6 @@ public class ToolManager : MonoBehaviour
 
                     nowLife = PlayerLife;
                     StartCoroutine(DeactivateAfterDelay(1f));
-
 
                     break;
 
@@ -220,8 +220,8 @@ public class ToolManager : MonoBehaviour
     }
 
     public void GoTest() => ToolMode = ToolModeType.Test;
-    public void GoTool()=> ToolMode = ToolModeType.Tool;
-    public void GoSave()=> ToolMode = ToolModeType.Save;
+    public void GoTool() => ToolMode = ToolModeType.Tool;
+    public void GoSave() => ToolMode = ToolModeType.Save;
 
     private Coroutine timeCoroutine;
     IEnumerator DeactivateAfterDelay(float delay)
