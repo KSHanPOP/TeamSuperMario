@@ -7,6 +7,13 @@ public class Mushroom : ItemBase
 
     [SerializeField]
     private float gravityScale;
+
+    [SerializeField]
+    private MushroomMove mushroomMove;
+
+    [SerializeField]
+    private MoveColliderDetect moveColliderDetect;
+
     protected override void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -16,7 +23,8 @@ public class Mushroom : ItemBase
     protected override void StartAction()
     {
         base.StartAction();
-        GetComponent<MushroomMove>().enabled = true;
+        mushroomMove.enabled = true;
+        moveColliderDetect.enabled = true;
         rb.gravityScale = gravityScale;
         rb.isKinematic = false;
     }

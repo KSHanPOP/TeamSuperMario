@@ -220,8 +220,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   move: {fileID: 3921372779306366982}
-  rayStartOffset: {x: -0.5, y: -0.5}
-  rayLength: 0.8
+  rayStartOffset: {x: -0.45, y: -0.5}
+  rayInterval: 0.475
+  rayOffset: -0.025
+  rayLength: 0.5
 --- !u!114 &-597807476348010541
 MonoBehaviour:
   m_ObjectHideFlags: 0

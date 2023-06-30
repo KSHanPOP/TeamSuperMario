@@ -316,11 +316,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   move: {fileID: 1553522279396979689}
-  rayStartOffset: {x: -0.5, y: -0.5}
-  rayLength: 0.8
+  rayInterval: 0.475
+  rayOffset: -0.025
+  rayLength: 0.5
   turtle: {fileID: 4496085742309706703}
-  spinStateRayOffsetAdjust: 0.2
-  monstDetectRayLength: 1
 --- !u!1 &4651789131703539218
 GameObject:
   m_ObjectHideFlags: 0

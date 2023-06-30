@@ -236,6 +236,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instanceSequnceTime: 0.5
   gravityScale: 2.7
+  mushroomMove: {fileID: 8109696712893211250}
+  moveColliderDetect: {fileID: -1684249574632827597}
 --- !u!114 &8109696712893211250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,8 +261,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5770539570110646108}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f838f0b4c365da439e34ec444a07443, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  move: {fileID: 8109696712893211250}
+  rayInterval: 0.475
+  rayOffset: -0.025
+  rayLength: -0.4

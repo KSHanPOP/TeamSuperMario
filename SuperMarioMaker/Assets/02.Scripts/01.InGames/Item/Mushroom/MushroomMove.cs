@@ -4,7 +4,7 @@ public class MushroomMove : ObjectMove, IShakeable
 {
     [SerializeField]
     private float upForceWhenCollisonShakingBlock;
-    protected override void SetVelocityX()
+    protected override void InitVelocity()
     {
         dir = -dir;
         velocityX = dir * speed;

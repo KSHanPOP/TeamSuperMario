@@ -23,10 +23,10 @@ public class ObjectMove : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
 
-        SetVelocityX();
+        InitVelocity();
     }
 
-    protected virtual void SetVelocityX()
+    protected virtual void InitVelocity()
     {
         velocityX = dir * speed;
     }

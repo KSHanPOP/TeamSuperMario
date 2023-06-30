@@ -6,11 +6,19 @@ public class MoveColliderDetect : MonoBehaviour
     protected ObjectMove move;    
 
     [SerializeField]
-    protected Vector2 rayStartOffset;
+    protected float rayInterval;
+
+    [SerializeField]
+    protected float rayOffset;
+
     [SerializeField]
     protected float rayLength;
 
+    protected Vector2 rayStartPos;
+
     protected LayerMask layerMask;
+
+    protected float dir = -1;
 
     protected virtual void Awake()
     {
@@ -19,18 +27,24 @@ public class MoveColliderDetect : MonoBehaviour
 
     protected virtual void Update()
     {
-        if (Physics2D.Raycast((Vector2)transform.position + rayStartOffset, Vector2.up, rayLength, layerMask))
+        rayStartPos = (Vector2)transform.position + Vector2.up * rayOffset;
+
+        if (Physics2D.Raycast(rayStartPos + Vector2.up * rayInterval, Vector2.right * dir, rayLength, layerMask) ||
+            Physics2D.Raycast(rayStartPos + Vector2.down * rayInterval, Vector2.right * dir, rayLength, layerMask))
             ChangeMoveDir();
     }
 
     public void ChangeMoveDir()
     {
-        rayStartOffset.x = - rayStartOffset.x;
+        dir = -dir;
         move.ReverseMoveDir();
     }
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawLine((Vector2)transform.position + rayStartOffset, (Vector2)transform.position + rayStartOffset + Vector2.up * rayLength);
+        var startPos = (Vector2)transform.position + Vector2.up * rayOffset;
+
+        Gizmos.DrawLine(startPos + Vector2.up * rayInterval, startPos + Vector2.up * rayInterval + Vector2.right * dir * rayLength);
+        Gizmos.DrawLine(startPos + Vector2.down * rayInterval, startPos + Vector2.down * rayInterval + Vector2.right * dir * rayLength);
     }
 }
