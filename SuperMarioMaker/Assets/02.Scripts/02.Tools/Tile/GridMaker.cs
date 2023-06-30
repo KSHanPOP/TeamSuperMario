@@ -59,6 +59,10 @@ public class GridMaker : MonoBehaviour
             gameObject = newObject,
             tileData = newTileData,
         };
+        //Logger.Debug(newObject.name);
+        newObject.GetComponent<PrefapInfo>().TypeName = ETileType.Default;
+       
+        //prefabInfo.TypeName= ETileType.Default;
 
         // Check if the key already exists
         if (!DicTileData.ContainsKey(pos))
@@ -174,9 +178,9 @@ public class GridMaker : MonoBehaviour
             EraseDefaultObj(flagPos);
 
             // 캐슬 지우기
-            var casltePos = flagPos;
-            casltePos.x += 7;
-            EraseDefaultObj(casltePos);
+            var castlePos = flagPos;
+            castlePos.x += 7;
+            EraseDefaultObj(castlePos);
             tilemap.SetTile(flagPos, customTile);
         }
 
@@ -188,7 +192,7 @@ public class GridMaker : MonoBehaviour
         SetDefaultObj("Goal", cellPos);
         var CasltePos = cellPos;
         CasltePos.x += 7;
-        SetDefaultObj("Caslte", CasltePos);
+        SetDefaultObj("Castle", CasltePos);
 
         //tilemap.SetTile(cellPos, customTile);
 

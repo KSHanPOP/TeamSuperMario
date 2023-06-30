@@ -15,6 +15,7 @@ public class PrefapInfo : MonoBehaviour
     public ETileType TypeName
     {
         get { return typeName; }
+        set { typeName = value; }
     }
     public String IconSpritePath
     {

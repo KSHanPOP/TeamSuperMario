@@ -53,6 +53,30 @@ public class ClickChangeTile : MonoBehaviour, ICommand
                 Execute(cellPos);
                 Logger.Debug("왜 2번 찍힘? ");
             }
+        if (mode == ToolModeType.Tool)
+            if (Input.GetMouseButtonUp(1))
+            {
+                if (prefapInfo == ETileType.Default)
+                {
+                    prefapInfo = ETileType.None;
+                    return;
+                }
+
+                // UI 위에 마우스가 있는지 검사
+                if (EventSystem.current.IsPointerOverGameObject())
+                    return; // UI 위에 마우스가 있다면 레이캐스팅을 무시하고 종료
+
+                // 마우스의 스크린 좌표를 월드 좌표로 변환
+                Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+
+                // 타일맵에서의 클릭 위치 계산
+                Vector3Int cellPos = tilemap.WorldToCell(worldPos);
+
+                // 맵 위에 찍는 행동
+                Execute(cellPos);
+                Logger.Debug("왜 2번 찍힘? ");
+            }
         //if (Input.GetMouseButtonDown(1))
         //{
         //    Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -133,11 +157,10 @@ public class ClickChangeTile : MonoBehaviour, ICommand
     }
 
 
-    public void Execute(Vector3Int pos)
+    public void Execute(Vector3Int pos)// 실행
     {
         var nowName = ToolManager.Instance.iconManager.GetNowName;
         var gameObj = ResourceManager.instance.GetSpawnPrefabByName(nowName, pos);
-
 
         GameObjectTileData gameObjectTileData = new GameObjectTileData();
         gameObjectTileData.gameObject = gameObj;
@@ -146,17 +169,44 @@ public class ClickChangeTile : MonoBehaviour, ICommand
         gameObjectTileData.tileData.TileName = nowName;
         gameObjectTileData.tileData.TileType = gameObj.GetComponent<PrefapInfo>().TypeName;
 
+        if (DicTileData.ContainsKey(pos))
+        {
+            DicTileData[pos] = gameObjectTileData;
+        }
+        else
+        {
+            DicTileData.Add(pos, gameObjectTileData);
+        }
+
         commandStack.Push(gameObjectTileData);
     }
 
-    public void Undo()
+    public void Undo()//실행 취소
     {
-        undoStack.Push(commandStack.Pop());
+        var temp = commandStack.Pop();
+
+        var keyToRemove = new Vector3Int(temp.tileData.X, temp.tileData.Y, 0);
+
+        if (DicTileData.ContainsKey(keyToRemove))
+        {
+            // 해당 GameObject를 파괴합니다.
+            GameObject objectToDestroy = DicTileData[keyToRemove].gameObject;
+            Destroy(objectToDestroy);
+
+            // 딕셔너리에서 항목을 제거합니다.
+            DicTileData.Remove(keyToRemove);
+        }
+
+        undoStack.Push(temp);
     }
 
-    public void Redo()
+    public void Redo()//다시
     {
         commandStack.Push(undoStack.Pop());
     }
 
+    public void Delete()
+    {
+
+    }
 }
