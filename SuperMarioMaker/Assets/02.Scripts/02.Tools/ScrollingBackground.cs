@@ -156,6 +156,9 @@ public class ScrollingBackground : MonoBehaviour
     }
     private void ResetBackgroundPositions()
     {
+        if (backgrounds == null)
+            return;
+
         foreach (Transform background in backgrounds)
         {
             if (initialPositions.ContainsKey(background))

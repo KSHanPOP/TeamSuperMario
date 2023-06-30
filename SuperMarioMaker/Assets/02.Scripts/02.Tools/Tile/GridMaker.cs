@@ -48,7 +48,7 @@ public class GridMaker : MonoBehaviour
         {
             X = pos.x,
             Y = pos.y,
-            TileType = "defalut",
+            TileType = ETileType.Default,
             TileName = objectName,
             // Add other necessary properties here
         };
