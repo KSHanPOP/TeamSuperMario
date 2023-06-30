@@ -24,7 +24,7 @@ public class CameraController : MonoBehaviour
     private void Awake()
     {
         cameraHeight = cam.orthographicSize * 2f;
-        cameraWidth = cameraHeight * cam.aspect;
+        cameraWidth = cameraHeight * cam.aspect;        
     }
     public void Init(float startPoint, float endPoint)
     {
