@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -18,7 +19,7 @@ public class MapData
 public class GameObjectTileData
 {
     public GameObject gameObject;
-    public TileData tileData;
+    public TileData tileData = new TileData();
 }
 
 public class TileData
@@ -30,7 +31,8 @@ public class TileData
     public int Y { get; set; }
 
     [JsonProperty("tileType")]
-    public string TileType { get; set; }
+    [JsonConverter(typeof(StringEnumConverter))]
+    public ETileType TileType { get; set; }
 
     [JsonProperty("tileName")]
     public string TileName { get; set; }
@@ -52,7 +54,7 @@ public class TileData
             int hash = 17;
             hash = hash * 23 + X.GetHashCode();
             hash = hash * 23 + Y.GetHashCode();
-            hash = hash * 23 + (TileType?.GetHashCode() ?? 0);
+            hash = hash * 23 + TileType.GetHashCode();
             hash = hash * 23 + (TileName?.GetHashCode() ?? 0);
             return hash;
         }
@@ -87,7 +89,7 @@ public class JsonTest : MonoBehaviour
                 //TileBase tileBase = tilemap.GetTile(pos);
                 //CustomTile customTile = tileBase as CustomTile;
                 var name = CClickChangeTile.GetCustomTileName(pos);
-                mapData.Tiles.Add(new TileData { X = x, Y = y, TileType = name });
+                //mapData.Tiles.Add(new TileData { X = x, Y = y, TileType = name });
             }
         }
         SaveMapData(mapData);

@@ -133,7 +133,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4933517}
   - component: {fileID: 4933516}
-  - component: {fileID: 4933515}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -141,22 +140,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &4933515
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4933514}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 330f2d0e28c0ccd46aa2b93e794d36a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tilemap: {fileID: 656817360}
-  tilemapLayer:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!156049354 &4933516
 Grid:
   m_ObjectHideFlags: 0
@@ -2834,7 +2817,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 532670456}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 330f2d0e28c0ccd46aa2b93e794d36a5, type: 3}
   m_Name: 

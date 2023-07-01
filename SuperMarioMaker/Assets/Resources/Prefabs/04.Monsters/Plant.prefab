@@ -113,6 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   iconSpritePath: Sprite/Icon/MonsterIcon/Monster08
+  typeName: 3
 --- !u!61 &197572725927378959
 BoxCollider2D:
   m_ObjectHideFlags: 0
