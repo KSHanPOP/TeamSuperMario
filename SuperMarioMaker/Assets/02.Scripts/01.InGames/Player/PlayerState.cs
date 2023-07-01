@@ -7,7 +7,10 @@ public class PlayerState : MonoBehaviour
     public static PlayerState Instance { get; private set; }
 
     [SerializeField]
-    GameObject player;
+    private GameObject player;
+
+    [SerializeField]
+    public BlockDetector blockDetector;
 
     [SerializeField]
     int normalLayer;

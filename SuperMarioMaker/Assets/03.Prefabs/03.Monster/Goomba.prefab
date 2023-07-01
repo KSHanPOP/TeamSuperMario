@@ -118,10 +118,10 @@ GameObject:
   - component: {fileID: 3921372779306366977}
   - component: {fileID: 4854951236620307868}
   - component: {fileID: 3921372779306366982}
-  - component: {fileID: 3921372779306366981}
   - component: {fileID: -597807476348010541}
   - component: {fileID: 1168094562097666693}
   - component: {fileID: 8733133591393717662}
+  - component: {fileID: -7497758736287724395}
   m_Layer: 11
   m_Name: Goomba
   m_TagString: Monster
@@ -207,23 +207,6 @@ MonoBehaviour:
   speed: 1.7
   UseSpriteFlip: 0
   spriteRenderer: {fileID: 0}
---- !u!114 &3921372779306366981
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3921372779306366980}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f838f0b4c365da439e34ec444a07443, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  move: {fileID: 3921372779306366982}
-  rayStartOffset: {x: -0.45, y: -0.5}
-  rayInterval: 0.475
-  rayOffset: -0.025
-  rayLength: 0.5
 --- !u!114 &-597807476348010541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -268,3 +251,20 @@ MonoBehaviour:
   speedMultiplier: 1.5
   shakeForce: 5
   fallingLayer: 13
+--- !u!114 &-7497758736287724395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3921372779306366980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ff7ee76d6d94a64fa8f171ed1370e91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  move: {fileID: 3921372779306366982}
+  rayInterval: 0.475
+  rayOffset: -0.025
+  rayLength: 0.5
+  boxCollder: {fileID: 4854951236620307868}

@@ -25,7 +25,7 @@ public class BlockDetector : MonoBehaviour
         platformLayer = LayerMask.GetMask("Platform");
     }
 
-    private void Update()
+    private void DetectBlock()
     {
         if (!playerState.IsAttckable)
             return;
@@ -48,15 +48,20 @@ public class BlockDetector : MonoBehaviour
             return;
         }
 
-        if(hit1)
+        if (hit1)
         {
             HitBlock(hit1.transform);
         }
 
-        if(hit2)
+        if (hit2)
         {
             HitBlock(hit2.transform);
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        DetectBlock();
     }
 
     public void HitBlock(Transform transform)

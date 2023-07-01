@@ -52,7 +52,7 @@ public class ObjectMove : MonoBehaviour
         velocityX = dir * speed;
 
         if (UseSpriteFlip)
-            spriteRenderer.flipX = dir > 0;
+            spriteRenderer.flipX = !spriteRenderer.flipX;
     }
 
     public virtual void ChageSpeed(float speed)

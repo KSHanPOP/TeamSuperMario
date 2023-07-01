@@ -319,6 +319,7 @@ MonoBehaviour:
   rayInterval: 0.475
   rayOffset: -0.025
   rayLength: 0.5
+  boxCollder: {fileID: 850026550156307108}
   turtle: {fileID: 4496085742309706703}
 --- !u!1 &4651789131703539218
 GameObject:

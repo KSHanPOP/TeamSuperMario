@@ -18,25 +18,32 @@ public class MoveColliderDetect : MonoBehaviour
 
     protected LayerMask layerMask;
 
-    protected float dir = -1;
+    protected float rayDir = -1;
 
     protected virtual void Awake()
     {
-        layerMask = LayerMask.GetMask("Platform", "Monster");
+        layerMask = LayerMask.GetMask("Platform");
     }
 
-    protected virtual void Update()
+    protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        rayStartPos = (Vector2)transform.position + Vector2.up * rayOffset;
+        CheckCollision();
+    }
 
-        if (Physics2D.Raycast(rayStartPos + Vector2.up * rayInterval, Vector2.right * dir, rayLength, layerMask) ||
-            Physics2D.Raycast(rayStartPos + Vector2.down * rayInterval, Vector2.right * dir, rayLength, layerMask))
+    protected virtual void CheckCollision()
+    {
+        rayStartPos = (Vector2)transform.position + rayOffset * Vector2.up;        
+
+        if (Physics2D.Raycast(rayStartPos + Vector2.up * rayInterval, Vector2.right * rayDir, rayLength, layerMask) ||
+            Physics2D.Raycast(rayStartPos + Vector2.down * rayInterval, Vector2.right * rayDir, rayLength, layerMask))
+        {   
             ChangeMoveDir();
+        }
     }
 
     public void ChangeMoveDir()
     {
-        dir = -dir;
+        rayDir = -rayDir;
         move.ReverseMoveDir();
     }
 
@@ -44,7 +51,7 @@ public class MoveColliderDetect : MonoBehaviour
     {
         var startPos = (Vector2)transform.position + Vector2.up * rayOffset;
 
-        Gizmos.DrawLine(startPos + Vector2.up * rayInterval, startPos + Vector2.up * rayInterval + Vector2.right * dir * rayLength);
-        Gizmos.DrawLine(startPos + Vector2.down * rayInterval, startPos + Vector2.down * rayInterval + Vector2.right * dir * rayLength);
+        Gizmos.DrawLine(startPos + Vector2.up * rayInterval, startPos + Vector2.up * rayInterval + Vector2.right * rayDir * rayLength);
+        Gizmos.DrawLine(startPos + Vector2.down * rayInterval, startPos + Vector2.down * rayInterval + Vector2.right * rayDir * rayLength);
     }
 }

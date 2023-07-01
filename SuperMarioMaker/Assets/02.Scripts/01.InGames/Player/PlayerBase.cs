@@ -46,7 +46,7 @@ public class PlayerBase : MonoBehaviour
     protected virtual void Awake()
     {
         playerState = GetComponent<PlayerState>();
-        detector = GetComponent<BlockDetector>();
+        detector = playerState.blockDetector;
         rb = GetComponentInParent<Rigidbody2D>();
         sprite = transform.parent.GetComponentInChildren<SpriteRenderer>();
         spriteTransform = sprite.transform;
