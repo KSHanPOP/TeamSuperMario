@@ -113,6 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   iconSpritePath: Sprite/Icon/ItemIcon/ItemIcon02
+  typeName: 0
 --- !u!61 &8117238043240764700
 BoxCollider2D:
   m_ObjectHideFlags: 0

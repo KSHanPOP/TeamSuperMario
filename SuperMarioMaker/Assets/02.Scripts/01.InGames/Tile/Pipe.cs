@@ -5,19 +5,19 @@ using UnityEngine;
 public class Pipe : MonoBehaviour
 {
     [SerializeField]
-    private bool isVertical;
+    private EnumPipeEntrancePos pipeEntrancePos;
 
     [SerializeField]
     private int maxLength = 10;
 
     [SerializeField]
-    private Sprite[] verticalEntrance;
+    private GameObject[] verticalEntrance;
 
     [SerializeField]
     private GameObject[] verticalPillar;
 
     [SerializeField]
-    private Sprite[] horizontalEntrance;
+    private GameObject[] horizontalEntrance;
 
     [SerializeField]
     private GameObject[] horizontalPillar;
@@ -27,41 +27,104 @@ public class Pipe : MonoBehaviour
 
     private LayerMask layerMask;
 
+    private bool isVertical;
+
+    private Vector2 direction;
+
+    private int length;
+
     private void Awake()
     {
-        layerMask = LayerMask.GetMask("Platform", "Monster", "Player");
+        layerMask = LayerMask.GetMask("Platform", "Monster", "Player", "Default");
+        isVertical = (int)pipeEntrancePos % 2 == 0;
+        direction = GetDirection();
     }
 
     private void Start()
     {
-        Logger.Debug(GetLength());
-
-        MakePillar(GetLength());        
+        MakeEntrance();
+        length = GetLength();
+        MakePillar();
+        SetCollider();
     }
+
+    private void MakeEntrance()
+    {
+        if (isVertical)
+        {
+            if (Physics2D.Raycast(transform.position, Vector2.right, 1f, layerMask))
+                Destroy(gameObject);
+
+            var leftSprite = Instantiate(verticalEntrance[0], transform.position, Quaternion.identity, transform).GetComponent<SpriteRenderer>();
+            var rightSprite = Instantiate(verticalEntrance[1], transform.position + Vector3.right, Quaternion.identity, transform).GetComponent<SpriteRenderer>();
+
+            leftSprite.flipY = pipeEntrancePos == EnumPipeEntrancePos.Bottom;
+            rightSprite.flipY = pipeEntrancePos == EnumPipeEntrancePos.Bottom;
+        }
+        else
+        {
+            if (Physics2D.Raycast(transform.position, Vector2.down, 1f, layerMask))
+                Destroy(gameObject);
+
+            var upSprite = Instantiate(horizontalEntrance[0], transform.position, Quaternion.identity, transform).GetComponent<SpriteRenderer>();
+            var downSprite = Instantiate(horizontalEntrance[1], transform.position + Vector3.down, Quaternion.identity, transform).GetComponent<SpriteRenderer>();
+
+            upSprite.flipX = pipeEntrancePos == EnumPipeEntrancePos.Right;
+            downSprite.flipX = pipeEntrancePos == EnumPipeEntrancePos.Right;
+        }
+    }
+
+    private Vector2 GetDirection() => pipeEntrancePos switch
+    {
+        EnumPipeEntrancePos.Top => Vector2.down,
+        EnumPipeEntrancePos.Left => Vector2.right,
+        EnumPipeEntrancePos.Bottom => Vector2.up,
+        EnumPipeEntrancePos.Right => Vector2.left,
+    };
 
     private int GetLength()
     {
-        var hit1 = Physics2D.Raycast(transform.position, isVertical ? Vector2.down : Vector2.right, maxLength + 1, layerMask);
+        var hit1 = Physics2D.Raycast(transform.position, direction, maxLength + 1, layerMask);
 
-        var hit2 = Physics2D.Raycast((Vector2)transform.position + (isVertical ? Vector2.right : Vector2.down), isVertical ? Vector2.down : Vector2.right, maxLength + 1, layerMask);
+        var hit2 = Physics2D.Raycast((Vector2)transform.position + (isVertical ? Vector2.right : Vector2.down), direction, maxLength + 1, layerMask);
 
-        int distance1 = hit1 ? Mathf.FloorToInt(hit1.distance) : maxLength;
+        int distance1 = hit1 ? Mathf.CeilToInt(hit1.distance) : maxLength;
 
-        int distance2 = hit2 ? Mathf.FloorToInt(hit2.distance) : maxLength;
+        int distance2 = hit2 ? Mathf.CeilToInt(hit2.distance) : maxLength;
 
         return distance1 < distance2 ? distance1 : distance2;
     }
-    private void MakePillar(int length)
+
+    private void MakePillar()
     {
-        for(int i = 0; i < length; i++)
+        for (int i = 1; i < length; i++)
         {
-            Vector3 pillarPos1 = transform.position + (isVertical ? Vector3.down * (i + 1) : Vector3.right * (i + 1));
+            Vector3 pillarPos1 = transform.position + (Vector3)direction * i;
 
             Vector3 pillarPos2 = pillarPos1 + (isVertical ? Vector3.right : Vector3.down);
 
-            Instantiate(isVertical ? verticalPillar[0] : horizontalPillar[0], pillarPos1, Quaternion.identity,transform);
+            Instantiate(isVertical ? verticalPillar[0] : horizontalPillar[0], pillarPos1, Quaternion.identity, transform);
 
             Instantiate(isVertical ? verticalPillar[1] : horizontalPillar[1], pillarPos2, Quaternion.identity, transform);
         }
     }
+    private void SetCollider()
+    {
+        boxCollider2D.size = isVertical ? new Vector2(2f, length) : new Vector2(length, 2f);
+
+        bool isPositive = pipeEntrancePos == EnumPipeEntrancePos.Left || pipeEntrancePos == EnumPipeEntrancePos.Bottom;
+
+        float offset = (length - 1) * 0.5f * (isPositive ? 1 : -1);
+
+        boxCollider2D.offset = isVertical ? new Vector2(0.5f, offset) : new Vector2(offset, - 0.5f);
+    }
+}
+
+public enum EnumPipeEntrancePos
+{
+    None = -1,
+    Top,
+    Left,
+    Bottom,
+    Right,
 }

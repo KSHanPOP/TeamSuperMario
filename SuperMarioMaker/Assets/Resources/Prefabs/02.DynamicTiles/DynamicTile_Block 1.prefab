@@ -116,6 +116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   iconSpritePath: Sprite/Icon/DynamicTileIcon/TileIcon_08
+  typeName: 0
 --- !u!61 &4076095898722517126
 BoxCollider2D:
   m_ObjectHideFlags: 0

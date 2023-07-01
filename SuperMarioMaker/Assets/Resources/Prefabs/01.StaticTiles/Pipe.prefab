@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5891419370040874901}
   - component: {fileID: 1960053275329528257}
   - component: {fileID: -575612528232881454}
+  - component: {fileID: 5491106917308363493}
   m_Layer: 10
   m_Name: Pipe
   m_TagString: Platform
@@ -45,17 +46,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d00471c75ec587e4a9ef7c6f58c5a568, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isVertical: 1
+  pipeEntrancePos: 0
   maxLength: 10
   verticalEntrance:
-  - {fileID: 21300000, guid: 60f44fc4fcf66404b882e6a029addb79, type: 3}
-  - {fileID: 21300000, guid: ef2b4e1e081ee124fbba9d4119d15d88, type: 3}
+  - {fileID: 5303782705302112504, guid: e7d6e47bf60828d4fa1d14b9e239e0bc, type: 3}
+  - {fileID: 5303782705302112504, guid: d6cf9e62b2499754a8dfcd7492f29b6d, type: 3}
   verticalPillar:
   - {fileID: 5303782705302112504, guid: 727c1bd568f8f1e4593a70ef9aa642cb, type: 3}
   - {fileID: 5303782705302112504, guid: 5ce30355bcf3eac42845032d168a74b3, type: 3}
   horizontalEntrance:
-  - {fileID: 21300000, guid: 7c28b563b0214f846a3ab9ae15c23aa6, type: 3}
-  - {fileID: 21300000, guid: d398ba806fdfb81469f6d676aa348ed6, type: 3}
+  - {fileID: 5303782705302112504, guid: 698f97afe0c2a45428e3da127ed32893, type: 3}
+  - {fileID: 5303782705302112504, guid: 41e1886ca53558d4d8c101b66d1cc250, type: 3}
   horizontalPillar:
   - {fileID: 5303782705302112504, guid: d379967ed00fe8e41b0d172cb85f30f4, type: 3}
   - {fileID: 5303782705302112504, guid: 0ce1ee99ee4a04c418aae52a634b139d, type: 3}
@@ -86,3 +87,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &5491106917308363493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5891419370040874900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da276589fe730134a90ceda09c217a35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconSpritePath: Sprite/Icon/DynamicTileIcon/TileIcon_03
+  typeName: 0
