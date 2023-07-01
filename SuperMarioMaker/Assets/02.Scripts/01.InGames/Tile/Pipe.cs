@@ -6,6 +6,8 @@ public class Pipe : MonoBehaviour
 {
     [SerializeField]
     private EnumPipeEntrancePos pipeEntrancePos;
+    
+    public EnumPipeEntrancePos PipeEntrancePos { get { return pipeEntrancePos; } }
 
     [SerializeField]
     private int maxLength = 10;
@@ -43,10 +45,18 @@ public class Pipe : MonoBehaviour
     private void Start()
     {
         MakeEntrance();
-        length = GetLength();
+        GetLength();
         MakePillar();
         SetCollider();
     }
+
+    private Vector2 GetDirection() => pipeEntrancePos switch
+    {
+        EnumPipeEntrancePos.Top => Vector2.down,
+        EnumPipeEntrancePos.Left => Vector2.right,
+        EnumPipeEntrancePos.Bottom => Vector2.up,
+        EnumPipeEntrancePos.Right => Vector2.left,
+    };
 
     private void MakeEntrance()
     {
@@ -74,15 +84,7 @@ public class Pipe : MonoBehaviour
         }
     }
 
-    private Vector2 GetDirection() => pipeEntrancePos switch
-    {
-        EnumPipeEntrancePos.Top => Vector2.down,
-        EnumPipeEntrancePos.Left => Vector2.right,
-        EnumPipeEntrancePos.Bottom => Vector2.up,
-        EnumPipeEntrancePos.Right => Vector2.left,
-    };
-
-    private int GetLength()
+    private void GetLength()
     {
         var hit1 = Physics2D.Raycast(transform.position, direction, maxLength + 1, layerMask);
 
@@ -92,7 +94,7 @@ public class Pipe : MonoBehaviour
 
         int distance2 = hit2 ? Mathf.CeilToInt(hit2.distance) : maxLength;
 
-        return distance1 < distance2 ? distance1 : distance2;
+        length = distance1 < distance2 ? distance1 : distance2;
     }
 
     private void MakePillar()

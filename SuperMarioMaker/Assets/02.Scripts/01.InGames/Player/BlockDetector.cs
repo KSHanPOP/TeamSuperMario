@@ -76,9 +76,8 @@ public class BlockDetector : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        //Draw the ground colliders on screen for debug purposes
         Gizmos.color = gizmo1 || gizmo2 ? Color.green : Color.red;
         Gizmos.DrawLine(transform.position - offset, transform.position - offset + Vector3.up * blockDetectLength);
         Gizmos.DrawLine(transform.position + offset, transform.position + offset + Vector3.up * blockDetectLength);
-    }
+    }    
 }

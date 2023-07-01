@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 5891419370040874901}
   - component: {fileID: 1960053275329528257}
   - component: {fileID: -575612528232881454}
+  - component: {fileID: -3930470849978642068}
+  - component: {fileID: -2034065595776304683}
   - component: {fileID: 5491106917308363493}
   m_Layer: 10
   m_Name: Pipe
@@ -87,6 +89,114 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &-3930470849978642068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5891419370040874900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8e3c9ebd30ce80469738e4534e97128, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  fallingLayer:
+    serializedVersion: 2
+    m_Bits: 8192
+  rayLength: 0.2
+  pipe: {fileID: 1960053275329528257}
+  warpMoveSpeed: 1.5
+  warpTime: 1.5
+--- !u!114 &-2034065595776304683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5891419370040874900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: f7ad812e681ff36459c08dd453443812, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -3930470849978642068}
+        m_TargetAssemblyTypeName: PipeWarpMaker, Assembly-CSharp
+        m_MethodName: GetAxisKeyValue
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: fca97984-181a-4dcc-8c97-85c89af21357
+    m_ActionName: IngameControl/Move[/Keyboard/a,/Keyboard/d,/Keyboard/leftArrow,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -3930470849978642068}
+        m_TargetAssemblyTypeName: PipeWarpMaker, Assembly-CSharp
+        m_MethodName: GetJumpKeyValue
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 2411f5c4-d26e-4a20-b596-9996c462a438
+    m_ActionName: IngameControl/Jump[/Keyboard/space,/Keyboard/w,/Keyboard/upArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 67d992fe-ae83-4182-ac0a-b6e11da7c509
+    m_ActionName: IngameControl/Run[/Keyboard/leftShift,/Keyboard/rightShift]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5dc37e28-5efd-42ca-8f59-c8d8ac94e9ff
+    m_ActionName: IngameControl/Fire[/Keyboard/leftShift]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -3930470849978642068}
+        m_TargetAssemblyTypeName: PipeWarpMaker, Assembly-CSharp
+        m_MethodName: GetDownKeyValue
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b9f78db5-858f-412d-b229-a7101ff302ac
+    m_ActionName: IngameControl/Down[/Keyboard/s,/Keyboard/downArrow]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: IngameControl
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!114 &5491106917308363493
 MonoBehaviour:
   m_ObjectHideFlags: 0
