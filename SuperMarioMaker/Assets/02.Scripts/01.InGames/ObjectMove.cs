@@ -13,11 +13,11 @@ public class ObjectMove : MonoBehaviour
     public bool UseSpriteFlip;
 
     [SerializeField]
-    SpriteRenderer spriteRenderer;
+    protected SpriteRenderer spriteRenderer;
 
-    Vector2 newVelocity = Vector2.zero;
+    protected Vector2 newVelocity = Vector2.zero;
 
-    private bool isStop = false;
+    protected bool isStop = false;
 
     protected virtual void Awake()
     {
@@ -52,7 +52,7 @@ public class ObjectMove : MonoBehaviour
         velocityX = dir * speed;
 
         if (UseSpriteFlip)
-            spriteRenderer.flipX = !spriteRenderer.flipX;
+            spriteRenderer.flipX = dir > 0;
     }
 
     public virtual void ChageSpeed(float speed)

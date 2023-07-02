@@ -56,6 +56,7 @@ public class Pipe : MonoBehaviour
         EnumPipeEntrancePos.Left => Vector2.right,
         EnumPipeEntrancePos.Bottom => Vector2.up,
         EnumPipeEntrancePos.Right => Vector2.left,
+        _=> Vector2.zero,
     };
 
     private void MakeEntrance()

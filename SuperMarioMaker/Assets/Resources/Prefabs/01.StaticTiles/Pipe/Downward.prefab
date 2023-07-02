@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -2034065595776304683}
   - component: {fileID: 5491106917308363493}
   m_Layer: 10
-  m_Name: Pipe
+  m_Name: Downward
   m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d00471c75ec587e4a9ef7c6f58c5a568, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pipeEntrancePos: 0
+  pipeEntrancePos: 2
   maxLength: 10
   verticalEntrance:
   - {fileID: 5303782705302112504, guid: e7d6e47bf60828d4fa1d14b9e239e0bc, type: 3}
@@ -107,10 +107,15 @@ MonoBehaviour:
   fallingLayer:
     serializedVersion: 2
     m_Bits: 8192
-  rayLength: 0.2
+  rayLength: 0.17
   pipe: {fileID: 1960053275329528257}
-  warpMoveSpeed: 1.5
-  warpTime: 1.5
+  IsSmallState: 0
+  smallStateWarpSpeed: 1.5
+  bigStateWarpSpeed: 2
+  enterWarpTime: 1.4
+  isConnected: 0
+  destWarpPoint: {fileID: 0}
+  Player: {fileID: 0}
 --- !u!114 &-2034065595776304683
 MonoBehaviour:
   m_ObjectHideFlags: 0

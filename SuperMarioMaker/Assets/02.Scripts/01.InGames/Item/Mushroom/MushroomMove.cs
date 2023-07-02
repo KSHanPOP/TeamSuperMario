@@ -9,6 +9,14 @@ public class MushroomMove : ObjectMove, IShakeable
         dir = -dir;
         velocityX = dir * speed;
     }
+
+    public override void ReverseMoveDir()
+    {
+        dir = -dir;
+        velocityX = dir * speed;
+
+        spriteRenderer.flipX = dir < 0;
+    }
     public void Shake(Vector2 blockPos)
     {
         Logger.Debug("shake!");
