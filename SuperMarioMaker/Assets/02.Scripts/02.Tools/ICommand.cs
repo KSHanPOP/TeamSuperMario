@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface ICommand
 {
-    void Execute(Vector3Int pos);
+    void Execute();
     void Undo();
     void Redo();
 }
