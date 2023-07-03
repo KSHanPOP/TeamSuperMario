@@ -96,6 +96,12 @@ public class ToolManager : MonoBehaviour
 
     public IconManager iconManager;
     public ScrollingBackground Background;
+    private GameObject playerObj;
+    public GameObject PlayerObj
+    {
+        get { return playerObj; }
+        set { playerObj = value; }
+    }
 
     [SerializeField]
     private float playTime = 500f;

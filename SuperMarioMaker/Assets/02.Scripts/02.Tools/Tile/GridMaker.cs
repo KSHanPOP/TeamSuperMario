@@ -61,7 +61,7 @@ public class GridMaker : MonoBehaviour
         };
         //Logger.Debug(newObject.name);
         newObject.GetComponent<PrefapInfo>().TypeName = ETileType.Default;
-       
+
         //prefabInfo.TypeName= ETileType.Default;
 
         // Check if the key already exists
@@ -135,14 +135,12 @@ public class GridMaker : MonoBehaviour
         Vector3Int cellPos = new Vector3Int(0, 0, 0);
 
         // CustomTile customTile = new CustomTile();
-        CustomTile customTile = Resources.Load<CustomTile>("Sprite/TileSet/StaticTile/StaticTile_00");
+        //CustomTile customTile = Resources.Load<CustomTile>("Sprite/TileSet/StaticTile/StaticTile_00");
 
         for (int i = 0; i < tilemapStartline; i++)
         {
             cellPos.x = i;
             SetDefaultObj("Platform", cellPos);
-
-            //tilemap.SetTile(cellPos, customTile);
         }
     }
 
@@ -156,7 +154,7 @@ public class GridMaker : MonoBehaviour
         Vector3Int cellPos = new Vector3Int(startEndLine, 0, 0);
 
         CustomTile customTile = ScriptableObject.CreateInstance<CustomTile>();
-        customTile = Resources.Load<CustomTile>("Sprite/TileSet/StaticTile/StaticTile_00");
+        //customTile = Resources.Load<CustomTile>("Sprite/TileSet/StaticTile/StaticTile_00");
 
         endLinePos.Clear();
 
@@ -165,8 +163,6 @@ public class GridMaker : MonoBehaviour
             cellPos.x = i;
             endLinePos.Add(cellPos);
             SetDefaultObj("Platform", cellPos);
-
-            //tilemap.SetTile(cellPos, customTile);
         }
 
         // ±ê¹ß
@@ -410,9 +406,14 @@ public class GridMaker : MonoBehaviour
         }
     }
 
+
+    [SerializeField] private Vector3Int firstPlayerPos;
+    public void SetPlayer()
+    {
+        ToolManager.Instance.PlayerObj = ResourceManager.instance.GetSpawnPrefabByName("Player", firstPlayerPos);
+    }
     public void Init()
     {
-
         rightButton.onClick.AddListener(() => RightGrid());
         leftButton.onClick.AddListener(() => LeftGrid());
         upButton.onClick.AddListener(() => UpGrid());
@@ -423,6 +424,7 @@ public class GridMaker : MonoBehaviour
         onButton.onClick.AddListener(() => PopupOn());
         offButton.onClick.AddListener(() => PopupOff());
         popUp.SetActive(false);
+        SetPlayer();
     }
 
 
@@ -433,6 +435,5 @@ public class GridMaker : MonoBehaviour
 
     void Update()
     {
-
     }
 }

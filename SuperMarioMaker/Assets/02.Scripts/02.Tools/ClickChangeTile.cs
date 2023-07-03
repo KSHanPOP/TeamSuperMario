@@ -13,21 +13,58 @@ public class ClickChangeTile : MonoBehaviour, ICommand
 {
     [SerializeField] private Button undoButton;
     [SerializeField] private Button redoButton;
+    [SerializeField] private Button playerButton;
+
     public Tilemap tilemap;
 
     public Stack<List<GameObjectTileData>> commandStack = new Stack<List<GameObjectTileData>>();
     public Stack<List<GameObjectTileData>> undoStack = new Stack<List<GameObjectTileData>>();
 
+    private bool isPlayerMove = false;
+
+    private void SetIsPlayerMove()
+    {
+        isPlayerMove = true;
+    }
     void Update()
     {
         var mode = ToolManager.Instance.ToolMode;
         if (mode == ToolModeType.Tool)
+        {
+            if (isPlayerMove)
+            {
+                // UI 위에 마우스가 있는지 검사
+                if (EventSystem.current.IsPointerOverGameObject())
+                    return; // UI 위에 마우스가 있다면 레이캐스팅을 무시하고 종료
+
+                Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                worldPos.z = 0;
+                ToolManager.Instance.PlayerObj.transform.position = worldPos;
+
+                if (Input.GetMouseButtonUp(0))
+                {
+
+                    int playerLayer = LayerMask.NameToLayer("Player"); // Player 레이어의 번호를 가져옵니다.
+                    int layerMask = 1 << playerLayer; // Player 레이어를 Mask로 설정합니다.
+                    layerMask = ~layerMask; // Bitwise NOT 연산을 통해 Player 레이어를 제외합니다.
+                  
+                    // 마우스의 스크린 좌표를 월드 좌표로 변환
+                    Collider2D hitCollider = Physics2D.OverlapPoint(worldPos,layerMask);
+                    List<GameObjectTileData> gameObjectTileDatas = new List<GameObjectTileData>();
+
+                    if (hitCollider == null)
+                    {
+                        isPlayerMove = false;
+                    }
+                }
+                return;
+            }
             if (Input.GetMouseButtonUp(0))
             {
                 // UI 위에 마우스가 있는지 검사
                 if (EventSystem.current.IsPointerOverGameObject())
                     return; // UI 위에 마우스가 있다면 레이캐스팅을 무시하고 종료
-                
+
                 // 맵 위에 찍는 행동
                 Execute();
                 CheckUndoButtonStatus();
@@ -49,6 +86,7 @@ public class ClickChangeTile : MonoBehaviour, ICommand
                 Delete();
                 CheckUndoButtonStatus();
             }
+        }
     }
 
     public void TestFunc(InputAction.CallbackContext context)
@@ -100,6 +138,7 @@ public class ClickChangeTile : MonoBehaviour, ICommand
     {
         redoButton.onClick.AddListener(Redo);
         undoButton.onClick.AddListener(Undo);
+        playerButton.onClick.AddListener(SetIsPlayerMove);
         CheckUndoButtonStatus();
     }
 
@@ -253,6 +292,7 @@ public class ClickChangeTile : MonoBehaviour, ICommand
             }
         }
     }
+
 
 
 }

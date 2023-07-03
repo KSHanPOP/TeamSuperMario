@@ -2824,6 +2824,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   undoButton: {fileID: 648286252}
   redoButton: {fileID: 276515539}
+  playerButton: {fileID: 1656044881}
   tilemap: {fileID: 442647680}
 --- !u!114 &532670460
 MonoBehaviour:
@@ -2852,6 +2853,7 @@ MonoBehaviour:
   upText: {fileID: 329155213}
   downText: {fileID: 461121848}
   background: {fileID: 1746608102}
+  firstPlayerPos: {x: 5, y: 1, z: 0}
 --- !u!1 &548514093
 GameObject:
   m_ObjectHideFlags: 0
