@@ -6,10 +6,10 @@ using UnityEngine;
 public class TurtleMoveColliderDetect : MonsterMoveColliderDetect
 {
     [SerializeField]
-    private Turtle turtle;
+    protected Turtle turtle;
 
-    private LayerMask originLayerMask;
-    private LayerMask platformLayerMask;
+    protected LayerMask originLayerMask;
+    protected LayerMask platformLayerMask;
 
     protected override void Awake()
     {
