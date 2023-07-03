@@ -211,7 +211,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 2330741657895023191}
   turtleHeight: 0.875
   move: {fileID: 1553522279396979689}
-  turtleMoveColliderDetect: {fileID: 0}
+  turtleMoveColliderDetect: {fileID: 6578158431334649477}
 --- !u!114 &8954099327423302046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -322,7 +322,7 @@ MonoBehaviour:
   boxCollder: {fileID: 850026550156307108}
   turtle: {fileID: 4496085742309706703}
   groundCheckRayLength: 0.55
-  groundRayOffset: -0.05
+  groundRayOffset: -0.3
 --- !u!1 &4651789131703539218
 GameObject:
   m_ObjectHideFlags: 0
