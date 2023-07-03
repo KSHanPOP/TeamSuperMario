@@ -42,6 +42,7 @@ public class DynamicTileManager : MonoBehaviour
 
         SwapBuffer();
 
+        PipeWarpConnector.StartTest();
     }
     public void StopTest()
     {
@@ -56,6 +57,8 @@ public class DynamicTileManager : MonoBehaviour
         {
             tile.StopTest();
         }
+
+        PipeWarpConnector.StopTest();
     }
 
     public void SwapBuffer()

@@ -21,6 +21,8 @@ public class PipeWarpController : MonoBehaviour
 
     private bool isVertical;
 
+    public bool IsVertical { get { return isVertical; } }
+
     [SerializeField]
     private Pipe pipe;
 
@@ -113,8 +115,6 @@ public class PipeWarpController : MonoBehaviour
         smallStateExtiWarpTime = (1f / smallStateWarpSpeed) + (isVertical ? -0.05f : 0.15f);        
 
         bigStateExtiWarpTime = isVertical ? (2f / bigStateWarpSpeed) - 0.05f : smallStateExtiWarpTime;
-
-        Logger.Debug(smallStateExtiWarpTime);
     }
 
     private void Update()
@@ -282,6 +282,16 @@ public class PipeWarpController : MonoBehaviour
             inWarpSequence = false;
             StopCoroutine(pipeWarpCoroutine);
         }
+    }
+
+    public void SetDestWarpPoint(PipeWarpController dest)
+    {
+        destWarpPoint = dest;
+        isConnected = true;
+    }
+    public void DisconnectWarpPoint()
+    {
+        isConnected = false;
     }
 
     private void OnDestroy()
