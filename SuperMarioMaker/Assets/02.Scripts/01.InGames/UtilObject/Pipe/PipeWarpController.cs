@@ -289,6 +289,11 @@ public class PipeWarpController : MonoBehaviour
         destWarpPoint = dest;
         isConnected = true;
     }
+
+    public PipeWarpController GetDestWarpPoint()
+    {
+        return destWarpPoint;
+    }
     public void DisconnectWarpPoint()
     {
         isConnected = false;

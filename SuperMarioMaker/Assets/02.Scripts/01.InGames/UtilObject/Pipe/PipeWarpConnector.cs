@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Data;
 using UnityEngine;
 
 public class PipeWarpConnector : MonoBehaviour
@@ -51,6 +50,8 @@ public class PipeWarpConnector : MonoBehaviour
     private Vector3 targetPos;
 
     private Camera cam;
+    
+    private PipeWarpConnector linkedWithReceiveState;
     private void Awake()
     {
         Connectors.AddLast(this);
@@ -111,13 +112,13 @@ public class PipeWarpConnector : MonoBehaviour
             }
         }
 
-        lineRenderer.enabled = true;
-        arrowhead.enabled = true;
+        EnableLine();
 
         State = EnumWarpConnectorState.Sender;
         Sender = this;
         highlight.enabled = false;
     }
+
     public void EndLinking()
     {
         if (!IsLinking)
@@ -152,24 +153,21 @@ public class PipeWarpConnector : MonoBehaviour
     {
         if (isLinked)
         {
-            lineRenderer.enabled = true;
-            arrowhead.enabled = true;
+            EnableLine();  
         }
     }
 
     public void ClearAll()
     {
-        lineRenderer.enabled = false;
+        DisableLine();
         highlight.enabled = false;
-        arrowhead.enabled = false;
     }
 
     public void ClearDrawsExceptLinked()
     {
         if (!isLinked)
         {
-            arrowhead.enabled = false;
-            lineRenderer.enabled = false;
+            DisableLine();
         }
 
         highlight.enabled = false;        
@@ -189,6 +187,7 @@ public class PipeWarpConnector : MonoBehaviour
         if(State == EnumWarpConnectorState.Receiver)
         {
             Sender.SetDest(controller, startPos);
+            linkedWithReceiveState = Sender;
         }
     }
     public void SetDest(PipeWarpController dest, Vector3 destPos)
@@ -271,6 +270,35 @@ public class PipeWarpConnector : MonoBehaviour
         Vector2 C = midPoint + scaleFactor * normal;
 
         return C;
+    }
+
+    private void EnableLine()
+    {
+        lineRenderer.enabled = true;
+        arrowhead.enabled = true;
+    }
+
+    private void DisableLine()
+    {
+        lineRenderer.enabled = false;
+        arrowhead.enabled = false;
+    }
+    public void DisConnect()
+    {
+        isLinked = false;
+        DisableLine();
+        controller.DisconnectWarpPoint();
+    }
+
+    private void OnDestroy()
+    {
+        if (linkedWithReceiveState == null)
+            return;
+
+        if(linkedWithReceiveState.controller.GetDestWarpPoint() == controller)
+        {
+            linkedWithReceiveState.DisConnect();
+        }        
     }
 }
 
