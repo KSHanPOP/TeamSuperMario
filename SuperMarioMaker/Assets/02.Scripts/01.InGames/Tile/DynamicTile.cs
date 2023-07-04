@@ -7,11 +7,11 @@ public class DynamicTile : MonoBehaviour
     [SerializeField]
     protected GameObject dynamicObject;
 
-    protected DynamicTileManager dynamicTileManager;
+    protected TileManager dynamicTileManager;
 
     protected virtual void Start()
     {
-        dynamicTileManager = DynamicTileManager.Instance;
+        dynamicTileManager = TileManager.Instance;
         dynamicTileManager.DynamicTiles.AddLast(this);        
     }
 

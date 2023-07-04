@@ -65,9 +65,6 @@ public class Thwomp : MonoBehaviour
     private LayerMask platformLayer;
 
     [SerializeField]
-    private float animationPlaySpeed = 2f;
-
-    [SerializeField]
     private float attackCooldown = 0.5f;
     private float lastAttackSequenceTime = 0f;
 

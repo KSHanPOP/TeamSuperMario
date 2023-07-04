@@ -84,7 +84,7 @@ public class MarioSmall : PlayerBase
     }
     public void ResetGame()
     {
-        DynamicTileManager.Instance.Restart();
+        TileManager.Instance.Restart();
     }
 
     public override void OnTransformationComplete()

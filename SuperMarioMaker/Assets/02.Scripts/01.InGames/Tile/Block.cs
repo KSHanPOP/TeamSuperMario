@@ -51,7 +51,7 @@ public class Block : MonoBehaviour
     protected virtual void Start()
     {
         spawnManagers = ItemSpawnManagers.Instance;
-        dynamicObjHolder = DynamicTileManager.Instance.DynamicObjHolder;
+        dynamicObjHolder = TileManager.Instance.DynamicObjHolder;
     }
 
     public virtual void InitSetting()

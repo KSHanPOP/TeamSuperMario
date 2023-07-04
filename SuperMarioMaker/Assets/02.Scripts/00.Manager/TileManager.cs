@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DynamicTileManager : MonoBehaviour
+public class TileManager : MonoBehaviour
 {   
-    public static DynamicTileManager Instance { get; private set; }
+    public static TileManager Instance { get; private set; }
 
     private LinkedList<DynamicTile> dynamicTiles = new();
     public LinkedList<DynamicTile> DynamicTiles { get { return dynamicTiles; } }
@@ -28,21 +28,11 @@ public class DynamicTileManager : MonoBehaviour
 
         IsPlaying = true;
 
-        dynamicObjHolder = new GameObject("DynamicObjHolder").transform;
+        OnDynamics();
 
-        foreach (DynamicTile tile in dynamicTiles)
-        {
-            if (tile == null)
-                continue;            
+        OnStatics();
 
-            tile.StartTest();
-
-            buffer.AddLast(tile);
-        }
-
-        SwapBuffer();
-
-        PipeWarpConnector.StartTest();
+        SwapBuffer();        
     }
     public void StopTest()
     {
@@ -51,14 +41,9 @@ public class DynamicTileManager : MonoBehaviour
 
         IsPlaying = false;
 
-        Destroy(dynamicObjHolder.gameObject);
+        OffDynamics();
 
-        foreach (DynamicTile tile in dynamicTiles)
-        {
-            tile.StopTest();
-        }
-
-        PipeWarpConnector.StopTest();
+        OffStatics();
     }
 
     public void SwapBuffer()
@@ -66,6 +51,41 @@ public class DynamicTileManager : MonoBehaviour
         dynamicTiles.Clear();
 
         (buffer, dynamicTiles) = (dynamicTiles, buffer);
+    }
+
+    private void OnDynamics()
+    {
+        dynamicObjHolder = new GameObject("DynamicObjHolder").transform;
+
+        foreach (DynamicTile tile in dynamicTiles)
+        {
+            if (tile == null)
+                continue;
+
+            tile.StartTest();
+
+            buffer.AddLast(tile);
+        }
+    }
+    private void OffDynamics()
+    {
+        Destroy(dynamicObjHolder.gameObject);
+
+        foreach (DynamicTile tile in dynamicTiles)
+        {
+            tile.StopTest();
+        }
+    }
+    private void OnStatics()
+    {
+        PipeWarpConnector.StartTest();
+        Needle.StartTest();
+    }
+
+    private void OffStatics()
+    {
+        PipeWarpConnector.StopTest();
+        Needle.StopTest();
     }
 
     public void Restart()

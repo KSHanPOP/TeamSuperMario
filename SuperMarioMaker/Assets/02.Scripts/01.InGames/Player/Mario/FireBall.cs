@@ -151,10 +151,12 @@ public class FireBall : MonoBehaviour
         if (isHit)
             return;
 
-        if (collision.CompareTag("Monster"))
-        {
-            collision.GetComponent<IShakeable>().Shake(Vector2.one);
-            Hit();
-        }
+        if (!collision.CompareTag("Monster"))
+            return;
+
+        if (collision.TryGetComponent<IShakeable>(out IShakeable shakeable))
+            shakeable.Shake(Vector2.one);
+        
+        Hit();
     }
 }

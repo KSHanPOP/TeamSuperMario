@@ -67,7 +67,7 @@ public class MarioFire : MarioBig
 
         Vector3 fireInstancePos = new Vector2(isLeft ? -0.375f : 0.375f, 0.25f);
 
-        var instanced = Instantiate<FireBall>(fireball, transform.position + fireInstancePos, Quaternion.identity, DynamicTileManager.Instance.DynamicObjHolder);
+        var instanced = Instantiate<FireBall>(fireball, transform.position + fireInstancePos, Quaternion.identity, TileManager.Instance.DynamicObjHolder);
 
         instanced.FireWithDirection(isLeft);
 

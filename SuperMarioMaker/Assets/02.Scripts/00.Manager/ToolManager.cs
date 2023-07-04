@@ -61,7 +61,7 @@ public class ToolManager : MonoBehaviour
                     if (RightOnOffButtonState.IsOnOff)
                         RightOnOffButton.onClick.Invoke();
                     scrollingBackground.StopBackground();
-                    DynamicTileManager.Instance.StopTest();
+                    TileManager.Instance.StopTest();
 
                     iconManager.NowTag = "None";
                     break;
@@ -237,7 +237,7 @@ public class ToolManager : MonoBehaviour
         testModeUi.SetActive(true);
         timeCoroutine = StartCoroutine(TimeUpdateCoroutine());
         scrollingBackground.MoveBackground();
-        DynamicTileManager.Instance.StartTest();
+        TileManager.Instance.StartTest();
 
     }
     private IEnumerator TimeUpdateCoroutine()

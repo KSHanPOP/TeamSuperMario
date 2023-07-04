@@ -12,6 +12,8 @@ public class Pipe : MonoBehaviour
     [SerializeField]
     private int maxLength = 10;
 
+    private int minLength = 2;
+
     [SerializeField]
     private GameObject[] verticalEntrance;
 
@@ -45,9 +47,10 @@ public class Pipe : MonoBehaviour
     private void Start()
     {
         MakeEntrance();
-        GetLength();
+        //GetLength();
         MakePillar();
-        SetCollider();
+        //SetCollider();
+        SetPillarLength(0);
     }
 
     private Vector2 GetDirection() => pipeEntrancePos switch
@@ -100,7 +103,7 @@ public class Pipe : MonoBehaviour
 
     private void MakePillar()
     {
-        for (int i = 1; i < length; i++)
+        for (int i = 1; i < maxLength; i++)
         {
             Vector3 pillarPos1 = transform.position + (Vector3)direction * i;
 
@@ -109,6 +112,25 @@ public class Pipe : MonoBehaviour
             Instantiate(isVertical ? verticalPillar[0] : horizontalPillar[0], pillarPos1, Quaternion.identity, transform);
 
             Instantiate(isVertical ? verticalPillar[1] : horizontalPillar[1], pillarPos2, Quaternion.identity, transform);
+        }
+    }
+    public void SetPillarLength(int length)
+    {
+        if (length < minLength)
+            length = minLength;
+
+        int activeCount = length * 2 + 2;
+
+        int childCount = transform.childCount;
+
+        for(int i = 0; i < activeCount; i++)
+        {
+            transform.GetChild(i).gameObject.SetActive(true);
+        }
+
+        for (int i = activeCount; i < childCount; i++)
+        {
+            transform.GetChild(i).gameObject.SetActive(false);            
         }
     }
     private void SetCollider()
