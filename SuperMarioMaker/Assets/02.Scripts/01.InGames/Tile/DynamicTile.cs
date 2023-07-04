@@ -12,7 +12,7 @@ public class DynamicTile : MonoBehaviour
     protected virtual void Start()
     {
         dynamicTileManager = DynamicTileManager.Instance;
-        dynamicTileManager.DynamicTiles.AddLast(this);
+        dynamicTileManager.DynamicTiles.AddLast(this);        
     }
 
     public virtual void StartTest()

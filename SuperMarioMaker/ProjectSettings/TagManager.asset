@@ -30,7 +30,7 @@ TagManager:
   - MonsterDetector
   - Coin
   - OnlyMouse
-  - 
+  - MonsetrNoCollision
   - 
   - 
   - 
