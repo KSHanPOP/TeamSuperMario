@@ -2826,6 +2826,7 @@ MonoBehaviour:
   redoButton: {fileID: 276515539}
   playerButton: {fileID: 1656044881}
   tilemap: {fileID: 442647680}
+  cursorTexture: {fileID: 2800000, guid: 836b15858797e7f4da4dc69300af3862, type: 3}
 --- !u!114 &532670460
 MonoBehaviour:
   m_ObjectHideFlags: 0

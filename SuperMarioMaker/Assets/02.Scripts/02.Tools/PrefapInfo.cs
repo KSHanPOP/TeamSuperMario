@@ -25,10 +25,13 @@ public class PrefapInfo : MonoBehaviour
     {
         get { return iconSpritePath; }
     }
-
     private void Awake()
     {   
         IsDynamic = TryGetComponent<DynamicTile>(out dynamicTile);
+    }
+    public void OnPopup()
+    {
+        
     }
 
     public void OnMouseDown()
