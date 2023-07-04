@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -9,6 +10,14 @@ using UnityEngine.UI;
 using static ToolManager;
 using static UnityEditor.PlayerSettings;
 
+public enum PickMode
+{
+    None,
+    Tile,
+    Player,
+    Pick,
+    Eraser,
+}
 public class ClickChangeTile : MonoBehaviour, ICommand
 {
     [SerializeField] private Button undoButton;
@@ -19,6 +28,34 @@ public class ClickChangeTile : MonoBehaviour, ICommand
 
     public Stack<List<GameObjectTileData>> commandStack = new Stack<List<GameObjectTileData>>();
     public Stack<List<GameObjectTileData>> undoStack = new Stack<List<GameObjectTileData>>();
+
+    [SerializeField] private Texture2D cursorTexture; // 바꿀 커서 이미지를 에디터에서 할당
+    private CursorMode cursorMode = CursorMode.ForceSoftware;
+    private Vector2 hotSpot = Vector2.zero; // 커서 이미지에서 클릭 지점의 위치. (0,0)이면 왼쪽 위 꼭짓점
+
+    private PickMode pickerMode = PickMode.None;
+    public PickMode PickerMode
+    {
+        get { return pickerMode; }
+        set
+        {
+            pickerMode = value;
+
+            switch (pickerMode)
+            {
+                case PickMode.None:
+                    break;
+                case PickMode.Tile:
+                    break;
+                case PickMode.Player:
+                    break;
+                case PickMode.Pick:
+                    break;
+                case PickMode.Eraser:
+                    break;
+            }
+        }
+    }
 
     private bool isPlayerMove = false;
 
@@ -47,9 +84,9 @@ public class ClickChangeTile : MonoBehaviour, ICommand
                     int playerLayer = LayerMask.NameToLayer("Player"); // Player 레이어의 번호를 가져옵니다.
                     int layerMask = 1 << playerLayer; // Player 레이어를 Mask로 설정합니다.
                     layerMask = ~layerMask; // Bitwise NOT 연산을 통해 Player 레이어를 제외합니다.
-                  
+
                     // 마우스의 스크린 좌표를 월드 좌표로 변환
-                    Collider2D hitCollider = Physics2D.OverlapPoint(worldPos,layerMask);
+                    Collider2D hitCollider = Physics2D.OverlapBox(worldPos, new Vector2(1, 1), 0f, layerMask);
                     List<GameObjectTileData> gameObjectTileDatas = new List<GameObjectTileData>();
 
                     if (hitCollider == null)
@@ -140,6 +177,7 @@ public class ClickChangeTile : MonoBehaviour, ICommand
         undoButton.onClick.AddListener(Undo);
         playerButton.onClick.AddListener(SetIsPlayerMove);
         CheckUndoButtonStatus();
+        Cursor.SetCursor(cursorTexture, hotSpot, cursorMode); ;
     }
 
     private void CheckUndoButtonStatus()
