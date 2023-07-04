@@ -112,7 +112,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da276589fe730134a90ceda09c217a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsDynamic: 1
   iconSpritePath: Sprite/Icon/MonsterIcon/Monster01
+  typeName: 0
 --- !u!61 &2941063243321772900
 BoxCollider2D:
   m_ObjectHideFlags: 0

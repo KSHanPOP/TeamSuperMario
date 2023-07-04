@@ -112,6 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da276589fe730134a90ceda09c217a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsDynamic: 1
   iconSpritePath: Sprite/Icon/MonsterIcon/Monster04
   typeName: 3
 --- !u!61 &-3181558299089410738

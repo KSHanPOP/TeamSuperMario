@@ -112,6 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da276589fe730134a90ceda09c217a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsDynamic: 1
   iconSpritePath: 
   typeName: 1
 --- !u!61 &5730413194978734858

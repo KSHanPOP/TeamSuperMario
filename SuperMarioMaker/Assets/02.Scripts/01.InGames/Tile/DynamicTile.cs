@@ -26,4 +26,12 @@ public class DynamicTile : MonoBehaviour
     {
         gameObject.SetActive(true);
     }
+    public void AddToTilesList()
+    {
+        dynamicTileManager.DynamicTiles.AddLast(this);
+    }
+    public void RemoveFromTilesList()
+    {
+        dynamicTileManager.DynamicTiles.Remove(this);
+    }
 }

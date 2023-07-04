@@ -115,6 +115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da276589fe730134a90ceda09c217a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsDynamic: 1
   iconSpritePath: Sprite/Icon/DynamicTileIcon/TileIcon_08
   typeName: 2
 --- !u!61 &7421681583088266181
