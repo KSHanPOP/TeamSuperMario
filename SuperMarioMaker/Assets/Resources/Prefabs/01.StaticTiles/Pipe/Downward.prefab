@@ -218,7 +218,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da276589fe730134a90ceda09c217a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  iconSpritePath: Sprite/Icon/DynamicTileIcon/TileIcon_03
+  IsDynamic: 0
+  iconSpritePath: Sprite/Icon/DynamicTileIcon/TileIcon_03D
   typeName: 0
 --- !u!114 &-7961746096331907520
 MonoBehaviour:
