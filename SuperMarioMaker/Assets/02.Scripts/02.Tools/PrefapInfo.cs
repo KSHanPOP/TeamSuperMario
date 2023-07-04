@@ -22,6 +22,10 @@ public class PrefapInfo : MonoBehaviour
         get { return iconSpritePath; }
     }
 
+    public void OnPopup()
+    {
+        
+    }
     public void OnMouseDown()
     {
         //ClickChangeTile.prefapInfo = this.TypeName;
