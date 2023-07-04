@@ -10,8 +10,24 @@ using static UnityEditor.PlayerSettings;
 
 public class MapData
 {
-    [JsonProperty("name")]
-    public string Name { get; set; }
+    [JsonProperty("mapname")]
+    public string MapName { get; set; }
+
+    [JsonProperty("time")]
+    public string Time { get; set; }
+
+    [JsonProperty("life")]
+    public string Life { get; set; }
+
+
+    [JsonProperty("BackGroundName")]
+    public string BackGroundName { get; set; }
+
+    [JsonProperty("MapRowLength")]
+    public string MapRowLength { get; set; }
+
+    [JsonProperty("MapColLength")]
+    public string MapColLength { get; set; }
 
     [JsonProperty("tiles")]
     public List<TileData> Tiles { get; set; }
@@ -78,7 +94,7 @@ public class JsonTest : MonoBehaviour
     {
         var mapData = new MapData
         {
-            Name = "Defalt",
+            MapName = "Defalt",
             Tiles = new List<TileData>()
         };
         for (int x = 0; x < tilemapRow; x++)

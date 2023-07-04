@@ -2822,10 +2822,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 330f2d0e28c0ccd46aa2b93e794d36a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  undoButton: {fileID: 648286252}
+  redoButton: {fileID: 276515539}
+  playerButton: {fileID: 1656044881}
   tilemap: {fileID: 442647680}
-  tilemapLayer:
-    serializedVersion: 2
-    m_Bits: 128
 --- !u!114 &532670460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2853,6 +2853,7 @@ MonoBehaviour:
   upText: {fileID: 329155213}
   downText: {fileID: 461121848}
   background: {fileID: 1746608102}
+  firstPlayerPos: {x: 5, y: 1, z: 0}
 --- !u!1 &548514093
 GameObject:
   m_ObjectHideFlags: 0

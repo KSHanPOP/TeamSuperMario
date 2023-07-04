@@ -5,63 +5,73 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 using static ToolManager;
 using static UnityEditor.PlayerSettings;
 
 public class ClickChangeTile : MonoBehaviour, ICommand
 {
-    public static ETileType prefapInfo;
+    [SerializeField] private Button undoButton;
+    [SerializeField] private Button redoButton;
+    [SerializeField] private Button playerButton;
 
     public Tilemap tilemap;
-    public LayerMask tilemapLayer;  // 타일맵 레이어에 대한 레이어 마스크
 
-    public Stack<GameObjectTileData> commandStack = new Stack<GameObjectTileData>();
-    public Stack<GameObjectTileData> undoStack = new Stack<GameObjectTileData>();
-    private Dictionary<Vector3Int, GameObjectTileData> DicTileData = new Dictionary<Vector3Int, GameObjectTileData>();
+    public Stack<List<GameObjectTileData>> commandStack = new Stack<List<GameObjectTileData>>();
+    public Stack<List<GameObjectTileData>> undoStack = new Stack<List<GameObjectTileData>>();
 
-    //private string pickedName;
-    //public string PickedName
-    //{
-    //    get { return pickedName; }
-    //    set { pickedName = value; }
-    //}
+    private bool isPlayerMove = false;
 
+    private void SetIsPlayerMove()
+    {
+        isPlayerMove = true;
+    }
     void Update()
     {
         var mode = ToolManager.Instance.ToolMode;
         if (mode == ToolModeType.Tool)
+        {
+            if (isPlayerMove)
+            {
+                // UI 위에 마우스가 있는지 검사
+                if (EventSystem.current.IsPointerOverGameObject())
+                    return; // UI 위에 마우스가 있다면 레이캐스팅을 무시하고 종료
+
+                Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                worldPos.z = 0;
+                ToolManager.Instance.PlayerObj.transform.position = worldPos;
+
+                if (Input.GetMouseButtonUp(0))
+                {
+
+                    int playerLayer = LayerMask.NameToLayer("Player"); // Player 레이어의 번호를 가져옵니다.
+                    int layerMask = 1 << playerLayer; // Player 레이어를 Mask로 설정합니다.
+                    layerMask = ~layerMask; // Bitwise NOT 연산을 통해 Player 레이어를 제외합니다.
+                  
+                    // 마우스의 스크린 좌표를 월드 좌표로 변환
+                    Collider2D hitCollider = Physics2D.OverlapPoint(worldPos,layerMask);
+                    List<GameObjectTileData> gameObjectTileDatas = new List<GameObjectTileData>();
+
+                    if (hitCollider == null)
+                    {
+                        isPlayerMove = false;
+                    }
+                }
+                return;
+            }
             if (Input.GetMouseButtonUp(0))
             {
-                if (prefapInfo == ETileType.Default)
-                {
-                    prefapInfo = ETileType.None;
-                    return;
-                }
-
                 // UI 위에 마우스가 있는지 검사
                 if (EventSystem.current.IsPointerOverGameObject())
                     return; // UI 위에 마우스가 있다면 레이캐스팅을 무시하고 종료
 
-                // 마우스의 스크린 좌표를 월드 좌표로 변환
-                Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-
-                // 타일맵에서의 클릭 위치 계산
-                Vector3Int cellPos = tilemap.WorldToCell(worldPos);
-
                 // 맵 위에 찍는 행동
-                Execute(cellPos);
+                Execute();
+                CheckUndoButtonStatus();
                 Logger.Debug("왜 2번 찍힘? ");
             }
-        if (mode == ToolModeType.Tool)
-            if (Input.GetMouseButtonUp(1))
+            else if (Input.GetMouseButtonUp(1))
             {
-                if (prefapInfo == ETileType.Default)
-                {
-                    prefapInfo = ETileType.None;
-                    return;
-                }
-
                 // UI 위에 마우스가 있는지 검사
                 if (EventSystem.current.IsPointerOverGameObject())
                     return; // UI 위에 마우스가 있다면 레이캐스팅을 무시하고 종료
@@ -73,22 +83,10 @@ public class ClickChangeTile : MonoBehaviour, ICommand
                 // 타일맵에서의 클릭 위치 계산
                 Vector3Int cellPos = tilemap.WorldToCell(worldPos);
 
-                // 맵 위에 찍는 행동
-                Execute(cellPos);
-                Logger.Debug("왜 2번 찍힘? ");
+                Delete();
+                CheckUndoButtonStatus();
             }
-        //if (Input.GetMouseButtonDown(1))
-        //{
-        //    Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //    // Vector3Int cellPos = tilemap.WorldToCell(worldPos);
-        //    Vector3 cellPos = tilemap.WorldToCell(worldPos);
-        //    //cellPos.x += 0.5f;
-        //    //cellPos.y += 0.5f;
-        //    var nowName = ToolManager.Instance.iconManager.GetNowName;
-        //    ResourceManager.instance.SpawnPrefabByName(nowName, cellPos);
-        //    Logger.Debug(cellPos);
-        //}
-        //Logger.Debug(pickedName);
+        }
     }
 
     public void TestFunc(InputAction.CallbackContext context)
@@ -97,27 +95,13 @@ public class ClickChangeTile : MonoBehaviour, ICommand
         {
             Logger.Debug("우");
         }
-
-
-
     }
     public void AwTestFunc(InputAction.CallbackContext context)
     {
 
         var dir = context.ReadValue<float>();
 
-        //if (context.started)
-        //{
-        //    if (dir > 0)
-        //    {
-        //        Logger.Debug("우");
-        //    }
-        //    else
-        //    {
-        //        Logger.Debug("좌");
 
-        //    }
-        //}
         //if (context.performed)
         {
             if (context.ReadValue<float>() > 0)
@@ -152,61 +136,163 @@ public class ClickChangeTile : MonoBehaviour, ICommand
     }
     private void Start()
     {
-        // LayerMask를 "Tilemap" 레이어로 설정
-        //tilemapLayer = LayerMask.GetMask("Tilemap");
+        redoButton.onClick.AddListener(Redo);
+        undoButton.onClick.AddListener(Undo);
+        playerButton.onClick.AddListener(SetIsPlayerMove);
+        CheckUndoButtonStatus();
     }
 
-
-    public void Execute(Vector3Int pos)// 실행
+    private void CheckUndoButtonStatus()
     {
+        undoButton.interactable = commandStack.Count > 0;
+        redoButton.interactable = undoStack.Count > 0;
+    }
+
+    public void Execute()// 실행
+    {
+        if (undoStack.Count != 0)
+        {
+            undoStack.Clear();
+        }
+
+        // 마우스의 스크린 좌표를 월드 좌표로 변환
+        Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        // 타일맵에서의 클릭 위치 계산
+        Vector3Int cellPos = tilemap.WorldToCell(worldPos);
+
+        Collider2D hitCollider = Physics2D.OverlapPoint(worldPos);
+        List<GameObjectTileData> gameObjectTileDatas = new List<GameObjectTileData>();
+
+        if (hitCollider != null)
+        {
+            var obj = hitCollider.gameObject;
+            if (obj.GetComponent<PrefapInfo>().TypeName == ETileType.Default)
+            {
+                Logger.Debug("Default");
+                return;
+            }
+            else
+            {
+                hitCollider.gameObject.SetActive(false);
+
+                // GameObjectTileData 인스턴스를 만듭니다.
+                GameObjectTileData data = new GameObjectTileData();
+                data.gameObject = hitCollider.gameObject;  // 게임 오브젝트 설정
+                gameObjectTileDatas.Add(data);
+            }
+        }
+
+
+
         var nowName = ToolManager.Instance.iconManager.GetNowName;
-        var gameObj = ResourceManager.instance.GetSpawnPrefabByName(nowName, pos);
+        if (nowName == null)
+            return;
+
+        var gameObj = ResourceManager.instance.GetSpawnPrefabByName(nowName, cellPos);
 
         GameObjectTileData gameObjectTileData = new GameObjectTileData();
         gameObjectTileData.gameObject = gameObj;
-        gameObjectTileData.tileData.X = pos.x;
-        gameObjectTileData.tileData.Y = pos.y;
+        gameObjectTileData.tileData.X = cellPos.x;
+        gameObjectTileData.tileData.Y = cellPos.y;
         gameObjectTileData.tileData.TileName = nowName;
         gameObjectTileData.tileData.TileType = gameObj.GetComponent<PrefapInfo>().TypeName;
 
-        if (DicTileData.ContainsKey(pos))
-        {
-            DicTileData[pos] = gameObjectTileData;
-        }
-        else
-        {
-            DicTileData.Add(pos, gameObjectTileData);
-        }
+        gameObjectTileDatas.Add(gameObjectTileData);
 
-        commandStack.Push(gameObjectTileData);
+        commandStack.Push(gameObjectTileDatas);
     }
 
     public void Undo()//실행 취소
     {
-        var temp = commandStack.Pop();
-
-        var keyToRemove = new Vector3Int(temp.tileData.X, temp.tileData.Y, 0);
-
-        if (DicTileData.ContainsKey(keyToRemove))
+        if (commandStack.Count > 0)
         {
-            // 해당 GameObject를 파괴합니다.
-            GameObject objectToDestroy = DicTileData[keyToRemove].gameObject;
-            Destroy(objectToDestroy);
+            List<GameObjectTileData> gameObjList = commandStack.Pop();
 
-            // 딕셔너리에서 항목을 제거합니다.
-            DicTileData.Remove(keyToRemove);
+            foreach (var gameObj in gameObjList)
+            {
+                if (gameObj.gameObject.activeSelf)
+                {
+                    // GameObject 비활성화
+                    gameObj.gameObject.SetActive(false);
+                }
+                else
+                {
+                    gameObj.gameObject.SetActive(true);
+                }
+            }
+
+            // GameObject를 undoStack에 push
+            undoStack.Push(gameObjList);
         }
-
-        undoStack.Push(temp);
+        else
+        {
+            Debug.LogError("Nothing to undo.");
+        }
+        CheckUndoButtonStatus();
     }
 
     public void Redo()//다시
     {
-        commandStack.Push(undoStack.Pop());
+        if (undoStack.Count > 0)
+        {
+            List<GameObjectTileData> gameObjList = undoStack.Pop();
+
+            foreach (var gameObj in gameObjList)
+            {
+                if (gameObj.gameObject.activeSelf)
+                {
+                    // GameObject 비활성화
+                    gameObj.gameObject.SetActive(false);
+                }
+                else
+                {
+                    gameObj.gameObject.SetActive(true);
+                }
+            }
+
+            // GameObject를 redoStack에 push
+            commandStack.Push(gameObjList);
+        }
+        else
+        {
+            Debug.LogError("Nothing to redo.");
+        }
+        CheckUndoButtonStatus();
     }
 
     public void Delete()
     {
+        // 마우스의 스크린 좌표를 월드 좌표로 변환
+        Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //// 타일맵에서의 클릭 위치 계산
+        //Vector3Int cellPos = tilemap.WorldToCell(worldPos);
 
+        Collider2D hitCollider = Physics2D.OverlapPoint(worldPos);
+        List<GameObjectTileData> gameObjectTileDatas = new List<GameObjectTileData>();
+
+        if (hitCollider != null)
+        {
+            var obj = hitCollider.gameObject;
+            if (obj.GetComponent<PrefapInfo>().TypeName == ETileType.Default)
+            {
+                Logger.Debug("Default");
+                return;
+            }
+            else
+            {
+                hitCollider.gameObject.SetActive(false);
+
+                // GameObjectTileData 인스턴스를 만듭니다.
+                GameObjectTileData data = new GameObjectTileData();
+                data.gameObject = hitCollider.gameObject;  // 게임 오브젝트 설정
+                gameObjectTileDatas.Add(data);
+
+                // GameObject를 undoStack에 push
+                commandStack.Push(gameObjectTileDatas);
+            }
+        }
     }
+
+
+
 }

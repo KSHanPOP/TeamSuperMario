@@ -24,6 +24,6 @@ public class PrefapInfo : MonoBehaviour
 
     public void OnMouseDown()
     {
-        ClickChangeTile.prefapInfo = this.TypeName;
+        //ClickChangeTile.prefapInfo = this.TypeName;
     }
 }
