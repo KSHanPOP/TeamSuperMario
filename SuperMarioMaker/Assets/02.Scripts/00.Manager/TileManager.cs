@@ -62,6 +62,12 @@ public class TileManager : MonoBehaviour
             if (tile == null)
                 continue;
 
+            if (!tile.gameObject.activeSelf)
+            {
+                tile.IsPoped = true;
+                continue;
+            }
+
             tile.StartTest();
 
             buffer.AddLast(tile);

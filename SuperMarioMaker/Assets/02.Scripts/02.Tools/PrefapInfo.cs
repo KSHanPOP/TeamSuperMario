@@ -25,10 +25,7 @@ public class PrefapInfo : MonoBehaviour
     {
         get { return iconSpritePath; }
     }
-    private void Awake()
-    {   
-        IsDynamic = TryGetComponent<DynamicTile>(out dynamicTile);
-    }
+
     public void OnMouseDown()
     {
         //ClickChangeTile.prefapInfo = this.TypeName;        
@@ -36,17 +33,6 @@ public class PrefapInfo : MonoBehaviour
     public void OnMouseUp()
     {
         OnPopup();
-    }
-
-    public void EnableCommand()
-    {
-        if (TryGetComponent<ICommandStackAble>(out ICommandStackAble stackAble))
-            stackAble.EnableCommand();
-    }
-    public void DisableCommand()
-    {
-        if (TryGetComponent<ICommandStackAble>(out ICommandStackAble stackAble))
-            stackAble.DisableCommand();
     }
     public void OnPopup()
     {

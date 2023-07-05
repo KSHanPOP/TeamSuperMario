@@ -102,6 +102,7 @@ public class PipeWarpConnector : MonoBehaviour, ICommandStackAble
 
         IsLinking = true;
         isLinked = false;
+        controller.DisconnectWarpPoint();
 
         foreach (var connector in Connectors)
         {

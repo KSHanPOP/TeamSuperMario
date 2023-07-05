@@ -39,7 +39,7 @@ public class Pipe : MonoBehaviour
 
     private void Awake()
     {
-        layerMask = LayerMask.GetMask("Platform", "Monster", "Player", "Default");
+        layerMask = LayerMask.GetMask("Platform", "Monster", "Player", "Default", "MonsetrNoCollision", "Coin");
         isVertical = (int)pipeEntrancePos % 2 == 0;
         direction = GetDirection();
     }
@@ -95,7 +95,14 @@ public class Pipe : MonoBehaviour
             EnumPipeEntrancePos.Right => pos + new Vector2(-0.5f, -0.5f),
             _ => Vector2.zero,
         };
-        return Physics2D.BoxCast(startPos, Vector2.one * 1.5f, 0f, Vector2.zero, layerMask);
+
+        boxCollider2D.enabled = false;
+
+        var hit = Physics2D.BoxCast(startPos, Vector2.one * 1.5f, 0f, Vector2.zero, layerMask);
+
+        boxCollider2D.enabled = true;
+
+        return hit;
     }
     private int CheckSpace(int value)
     {
