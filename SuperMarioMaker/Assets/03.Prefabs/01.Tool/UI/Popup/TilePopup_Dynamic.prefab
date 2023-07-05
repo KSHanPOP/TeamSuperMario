@@ -121,7 +121,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6373302385018536636}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6373302386325726426}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6373302385115556757
 GameObject:
   m_ObjectHideFlags: 0
@@ -435,12 +447,24 @@ MonoBehaviour:
   m_HandleRect: {fileID: 6373302385831167303}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 20
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 627653671195948202}
+        m_TargetAssemblyTypeName: DynamicTilePopup, Assembly-CSharp
+        m_MethodName: OnSliderValueChange
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6373302385328556986
 GameObject:
   m_ObjectHideFlags: 0
@@ -454,7 +478,7 @@ GameObject:
   - component: {fileID: 6373302385328556615}
   - component: {fileID: 6373302385328556612}
   m_Layer: 5
-  m_Name: Button
+  m_Name: CoinButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -862,7 +886,7 @@ GameObject:
   - component: {fileID: 6373302385753129499}
   - component: {fileID: 6373302385753129496}
   m_Layer: 5
-  m_Name: Button
+  m_Name: MushroomButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1270,7 +1294,7 @@ GameObject:
   - component: {fileID: 6373302386086273488}
   - component: {fileID: 6373302386086273489}
   m_Layer: 5
-  m_Name: Button
+  m_Name: FlowerButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1543,6 +1567,7 @@ GameObject:
   - component: {fileID: 6373302386325726437}
   - component: {fileID: 6373302386325726439}
   - component: {fileID: 6373302386325726436}
+  - component: {fileID: 627653671195948202}
   m_Layer: 5
   m_Name: TilePopup_Dynamic
   m_TagString: Untagged
@@ -1615,3 +1640,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &627653671195948202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6373302386325726426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3511af82347a9264e981d20dca569e5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttons:
+  - {fileID: 6373302385328556612}
+  - {fileID: 6373302385753129496}
+  - {fileID: 6373302386086273489}
+  exitButton: {fileID: 6373302385018536637}
+  textMeshProUGUI: {fileID: 6373302385883158390}
+  slider: {fileID: 6373302385242917156}

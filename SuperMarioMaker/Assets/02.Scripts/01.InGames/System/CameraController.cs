@@ -8,7 +8,7 @@ public class CameraController : MonoBehaviour
     private float height;
 
     [SerializeField]
-    Camera cam;
+    private Camera cam;
 
     private float leftClamp;
     private float rightClamp;

@@ -7,14 +7,21 @@ public class QuestionBlock : Block
     
     protected override void Awake()
     {
+        base.Awake();
+
         animator = GetComponentInChildren<Animator>();
+    }
+
+    public override void InitSetting()
+    {
+        if (itemCount == 0)
+            itemCount = 1;
 
         if (itemType == EnumItems.Blank)
             itemType = EnumItems.Coin;
 
-        base.Awake();
+        SetStartSprite();
     }
-
     protected override void CheckItemRemainCount()
     {
         --itemCount;

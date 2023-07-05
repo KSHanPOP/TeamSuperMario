@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Purchasing;
 using UnityEngine;
 
-public class PipeWarpConnector : MonoBehaviour
+public class PipeWarpConnector : MonoBehaviour, ICommandStackAble
 {
     public static bool IsLinking = false;
     public static LinkedList<PipeWarpConnector> Connectors = new();
@@ -290,15 +291,41 @@ public class PipeWarpConnector : MonoBehaviour
         controller.DisconnectWarpPoint();
     }
 
-    private void OnDestroy()
+    public void ConnectAgain()
+    {
+        isLinked = true;
+        EnableLine();
+        controller.ConnectWarpPoint();
+    }
+
+    private void DisConnectWhenDisable()
     {
         if (linkedWithReceiveState == null)
             return;
 
-        if(linkedWithReceiveState.controller.GetDestWarpPoint() == controller)
+        if (linkedWithReceiveState.controller.GetDestWarpPoint() == controller)
         {
             linkedWithReceiveState.DisConnect();
-        }        
+        }
+    }
+
+    private void OnDestroy()
+    {
+        DisConnectWhenDisable();
+    }
+    public void DisableCommand()
+    {
+        DisConnectWhenDisable();
+    }
+    public void EnableCommand()
+    {
+        if (linkedWithReceiveState == null)
+            return;
+
+        if (linkedWithReceiveState.controller.GetDestWarpPoint() == controller)
+        {
+            linkedWithReceiveState.ConnectAgain();
+        }
     }
 }
 

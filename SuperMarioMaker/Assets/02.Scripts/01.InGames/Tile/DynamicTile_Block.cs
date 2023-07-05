@@ -28,17 +28,10 @@ public class DynamicTile_Block : DynamicTile
         block.InitSetting();
         gameObject.SetActive(false);
     }
+    public Sprite[] GetSprites() => ItemSpawnManagers.Instance.Sprites;
+    public void SetItemType(EnumItems items) => itemType = items;
+    public EnumItems GetItemType() => itemType;
+    public void SetItemCount(float count) => itemCount = (int)count;
+    public int GetItemCount() => itemCount;
 
-    public Sprite[] GetSprites()
-    {
-        return ItemSpawnManagers.Instance.Sprites;
-    }
-    public void SetItemType(int index)
-    {
-        itemType = (EnumItems)index;
-    }
-    public void SetItemCount(int count)
-    {
-        itemCount = count;
-    }
 }

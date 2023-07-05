@@ -49,8 +49,8 @@ public class Pipe : MonoBehaviour
         MakeEntrance();
         //GetLength();
         MakePillar();
-        //SetCollider();
         SetPillarLength(0);
+        SetCollider();
     }
 
     private Vector2 GetDirection() => pipeEntrancePos switch
@@ -64,11 +64,11 @@ public class Pipe : MonoBehaviour
 
     private void MakeEntrance()
     {
+        if (BoxCast())
+            Destroy(gameObject);
+
         if (isVertical)
         {
-            if (Physics2D.Raycast(transform.position, Vector2.right, 1f, layerMask))
-                Destroy(gameObject);
-
             var leftSprite = Instantiate(verticalEntrance[0], transform.position, Quaternion.identity, transform).GetComponent<SpriteRenderer>();
             var rightSprite = Instantiate(verticalEntrance[1], transform.position + Vector3.right, Quaternion.identity, transform).GetComponent<SpriteRenderer>();
 
@@ -77,9 +77,6 @@ public class Pipe : MonoBehaviour
         }
         else
         {
-            if (Physics2D.Raycast(transform.position, Vector2.down, 1f, layerMask))
-                Destroy(gameObject);
-
             var upSprite = Instantiate(horizontalEntrance[0], transform.position, Quaternion.identity, transform).GetComponent<SpriteRenderer>();
             var downSprite = Instantiate(horizontalEntrance[1], transform.position + Vector3.down, Quaternion.identity, transform).GetComponent<SpriteRenderer>();
 
@@ -87,18 +84,30 @@ public class Pipe : MonoBehaviour
             downSprite.flipX = pipeEntrancePos == EnumPipeEntrancePos.Right;
         }
     }
-
-    private void GetLength()
+    private bool BoxCast()
     {
-        var hit1 = Physics2D.Raycast(transform.position, direction, maxLength + 1, layerMask);
+        Vector2 pos = (Vector2)transform.position;
+        Vector2 startPos = pipeEntrancePos switch
+        {
+            EnumPipeEntrancePos.Top => pos + new Vector2(0.5f,-0.5f),
+            EnumPipeEntrancePos.Left => pos + new Vector2(0.5f, -0.5f),
+            EnumPipeEntrancePos.Bottom => pos + new Vector2(0.5f, 0.5f),
+            EnumPipeEntrancePos.Right => pos + new Vector2(-0.5f, -0.5f),
+            _ => Vector2.zero,
+        };
+        return Physics2D.BoxCast(startPos, Vector2.one * 1.5f, 0f, Vector2.zero, layerMask);
+    }
+    private int CheckSpace(int value)
+    {
+        var hit1 = Physics2D.Raycast(transform.position, direction, value + 1, layerMask);
 
-        var hit2 = Physics2D.Raycast((Vector2)transform.position + (isVertical ? Vector2.right : Vector2.down), direction, maxLength + 1, layerMask);
+        var hit2 = Physics2D.Raycast((Vector2)transform.position + (isVertical ? Vector2.right : Vector2.down), direction, value + 1, layerMask);
 
-        int distance1 = hit1 ? Mathf.CeilToInt(hit1.distance) : maxLength;
+        int distance1 = hit1 ? Mathf.CeilToInt(hit1.distance) : value;
 
-        int distance2 = hit2 ? Mathf.CeilToInt(hit2.distance) : maxLength;
+        int distance2 = hit2 ? Mathf.CeilToInt(hit2.distance) : value;
 
-        length = distance1 < distance2 ? distance1 : distance2;
+        return distance1 < distance2 ? distance1 : distance2;
     }
 
     private void MakePillar()
@@ -114,12 +123,11 @@ public class Pipe : MonoBehaviour
             Instantiate(isVertical ? verticalPillar[1] : horizontalPillar[1], pillarPos2, Quaternion.identity, transform);
         }
     }
-    public void SetPillarLength(int length)
+    public void SetPillarLength(int value)
     {
-        if (length < minLength)
-            length = minLength;
+        length = value + minLength;
 
-        int activeCount = length * 2 + 2;
+        int activeCount = 2 + length * 2;
 
         int childCount = transform.childCount;
 
@@ -142,6 +150,12 @@ public class Pipe : MonoBehaviour
         float offset = (length - 1) * 0.5f * (isPositive ? 1 : -1);
 
         boxCollider2D.offset = isVertical ? new Vector2(0.5f, offset) : new Vector2(offset, - 0.5f);
+    }
+    public void AdjustLength(int value)
+    {
+        value = CheckSpace(value);
+        SetPillarLength(value);
+        SetCollider();
     }
 }
 

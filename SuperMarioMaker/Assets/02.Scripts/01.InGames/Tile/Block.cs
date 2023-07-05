@@ -56,7 +56,13 @@ public class Block : MonoBehaviour
 
     public virtual void InitSetting()
     {
-        itemCount = itemCount > 0 ? itemCount : 1;
+        //itemCount = itemCount > 0 ? itemCount : 1;
+
+        if (itemCount == 0)
+            itemType = EnumItems.Blank;
+
+        if(itemCount > 0 && itemType == EnumItems.Blank)
+            itemType = EnumItems.Coin;            
         
         SetStartSprite();
     }

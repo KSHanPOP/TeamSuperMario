@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DynamicTile : MonoBehaviour
+public class DynamicTile : MonoBehaviour, ICommandStackAble
 {
     [SerializeField]
     protected GameObject dynamicObject;
@@ -26,12 +26,13 @@ public class DynamicTile : MonoBehaviour
     {
         gameObject.SetActive(true);
     }
-    public void AddToTilesList()
-    {
-        dynamicTileManager.DynamicTiles.AddLast(this);
-    }
-    public void RemoveFromTilesList()
+    public void DisableCommand()
     {
         dynamicTileManager.DynamicTiles.Remove(this);
+    }
+
+    public void EnableCommand()
+    {
+        dynamicTileManager.DynamicTiles.AddLast(this);
     }
 }

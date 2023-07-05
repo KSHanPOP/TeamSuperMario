@@ -29,28 +29,28 @@ public class PrefapInfo : MonoBehaviour
     {   
         IsDynamic = TryGetComponent<DynamicTile>(out dynamicTile);
     }
-    public void OnPopup()
-    {
-        
-    }
-
     public void OnMouseDown()
     {
-        //ClickChangeTile.prefapInfo = this.TypeName;
+        //ClickChangeTile.prefapInfo = this.TypeName;        
+    }
+    public void OnMouseUp()
+    {
+        OnPopup();
     }
 
-    public void AddToTilesList()
+    public void EnableCommand()
     {
-        if (!IsDynamic)
-            return;
-
-        dynamicTile.AddToTilesList();
+        if (TryGetComponent<ICommandStackAble>(out ICommandStackAble stackAble))
+            stackAble.EnableCommand();
     }
-    public void RemoveFromTilesList()
+    public void DisableCommand()
     {
-        if (!IsDynamic)
-            return;
-
-        dynamicTile.RemoveFromTilesList();
+        if (TryGetComponent<ICommandStackAble>(out ICommandStackAble stackAble))
+            stackAble.DisableCommand();
+    }
+    public void OnPopup()
+    {
+        if (TryGetComponent<PopupGetter>(out PopupGetter popupGetter))
+            popupGetter.OnPopup();
     }
 }

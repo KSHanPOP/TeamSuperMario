@@ -298,6 +298,10 @@ public class PipeWarpController : MonoBehaviour
     {
         isConnected = false;
     }
+    public void ConnectWarpPoint()
+    {
+        isConnected = true;
+    }
 
     private void OnDestroy()
     {
