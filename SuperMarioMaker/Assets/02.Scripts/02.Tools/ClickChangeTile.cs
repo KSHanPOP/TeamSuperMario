@@ -29,7 +29,8 @@ public class ClickChangeTile : MonoBehaviour, ICommand
     public Stack<List<GameObjectTileData>> commandStack = new Stack<List<GameObjectTileData>>();
     public Stack<List<GameObjectTileData>> undoStack = new Stack<List<GameObjectTileData>>();
 
-    [SerializeField] private Texture2D cursorTexture; // 바꿀 커서 이미지를 에디터에서 할당
+    [SerializeField] private Texture2D cursorTextureBefore; // 바꿀 커서 이미지를 에디터에서 할당
+    [SerializeField] private Texture2D cursorTextureAfter; // 바꿀 커서 이미지를 에디터에서 할당
     private CursorMode cursorMode = CursorMode.ForceSoftware;
     private Vector2 hotSpot = Vector2.zero; // 커서 이미지에서 클릭 지점의 위치. (0,0)이면 왼쪽 위 꼭짓점
 
@@ -126,6 +127,7 @@ public class ClickChangeTile : MonoBehaviour, ICommand
         }
     }
 
+
     public void TestFunc(InputAction.CallbackContext context)
     {
         if (context.started)
@@ -171,13 +173,33 @@ public class ClickChangeTile : MonoBehaviour, ICommand
 
         return null;
     }
+
+    public void MouseLeftClick(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            Cursor.SetCursor(cursorTextureAfter, hotSpot, cursorMode);
+        }
+        else if (context.canceled)
+        {
+            Cursor.SetCursor(cursorTextureBefore, hotSpot, cursorMode);
+        }
+    }
+    public void MouseRightClick(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            Logger.Debug("눌림");
+        }
+    }
     private void Start()
     {
         redoButton.onClick.AddListener(Redo);
         undoButton.onClick.AddListener(Undo);
         playerButton.onClick.AddListener(SetIsPlayerMove);
         CheckUndoButtonStatus();
-        Cursor.SetCursor(cursorTexture, hotSpot, cursorMode); ;
+        Cursor.SetCursor(cursorTextureBefore, hotSpot, cursorMode);
+        // mouseClickAction = actionMap.FindAction("MouseClick");
     }
 
     private void CheckUndoButtonStatus()

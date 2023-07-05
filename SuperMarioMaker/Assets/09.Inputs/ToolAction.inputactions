@@ -6,6 +6,15 @@
             "id": "0b841187-5f1d-42de-b70f-b51694919be3",
             "actions": [
                 {
+                    "name": "Mouse Left",
+                    "type": "Button",
+                    "id": "8738b2d8-aa09-4351-9ce2-13b038702744",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Mouse Right",
                     "type": "Button",
                     "id": "3dcb2dff-b77f-4a83-a007-f717edf05ac4",
@@ -15,18 +24,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Tool Keyboard",
+                    "name": "Keyboard",
                     "type": "Button",
                     "id": "6184971c-f002-4286-9f65-6d5b49fb9cee",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Mouse Left",
-                    "type": "Button",
-                    "id": "8738b2d8-aa09-4351-9ce2-13b038702744",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -52,7 +52,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Tool Keyboard",
+                    "action": "Keyboard",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -63,7 +63,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Tool Keyboard",
+                    "action": "Keyboard",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -74,7 +74,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Tool Keyboard",
+                    "action": "Keyboard",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -85,7 +85,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Tool Keyboard",
+                    "action": "Keyboard",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -96,7 +96,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Tool Keyboard",
+                    "action": "Keyboard",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -107,7 +107,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Tool Keyboard",
+                    "action": "Keyboard",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -118,7 +118,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Tool Keyboard",
+                    "action": "Keyboard",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -129,7 +129,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Tool Keyboard",
+                    "action": "Keyboard",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -140,7 +140,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Tool Keyboard",
+                    "action": "Keyboard",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -151,7 +151,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Tool Keyboard",
+                    "action": "Keyboard",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
