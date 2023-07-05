@@ -1,17 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PipePopup : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField]
+    private Toggle plantToggle; 
 
-    // Update is called once per frame
-    void Update()
+    [SerializeField]
+    private Button pipeConnectorButton;
+
+    [SerializeField]
+    private Slider slider;
+    public void OnToggleValueChanged(bool isOn)
     {
         
     }
