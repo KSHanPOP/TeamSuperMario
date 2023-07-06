@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 public class DynamicTilePopup : MonoBehaviour
 {
@@ -42,6 +41,12 @@ public class DynamicTilePopup : MonoBehaviour
         SetToggleValue(type);
         SetSliderValue(count);
     }
+    public void OnToggle(bool value)
+    {
+        if(value && slider.value == 0)
+            slider.value = 1f;
+    }
+
     public void SetToggleValue(EnumItems type)
     {
         int idx = (int)type;
@@ -52,13 +57,8 @@ public class DynamicTilePopup : MonoBehaviour
     }
     public void SetSliderValue(float newValue)
     {
-        if (newValue == 0)
-            OffHighlights();
-        else
-            OnHighlights();
-
+        OnSliderValueChange(newValue);
         slider.value = newValue;
-        textMeshProUGUI.text = ((int)slider.value).ToString();
     }
 
     public void OffHighlights()

@@ -28,14 +28,18 @@ public class PrefapInfo : MonoBehaviour
 
     public void OnMouseDown()
     {
-        //ClickChangeTile.prefapInfo = this.TypeName;        
+        //ClickChangeTile.prefapInfo = this.TypeName;                
     }
-    public void OnMouseUp()
+
+    public void OnMouseUpAsButton()
     {
         OnPopup();
     }
     public void OnPopup()
     {
+        if (PipeWarpConnector.IsLinking)
+            return;
+
         if (TryGetComponent<PopupGetter>(out PopupGetter popupGetter))
             popupGetter.OnPopup();
     }

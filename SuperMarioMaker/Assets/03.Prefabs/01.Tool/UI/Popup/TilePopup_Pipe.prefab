@@ -81,24 +81,12 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 6074619604310764532}
-  toggleTransition: 1
+  toggleTransition: 0
   graphic: {fileID: 1177291129272749318}
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3009504770450248081}
-        m_TargetAssemblyTypeName: PipePopup, Assembly-CSharp
-        m_MethodName: OnToggleValueChanged
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_IsOn: 0
 --- !u!222 &7748522183436865731
 CanvasRenderer:
@@ -621,7 +609,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8855593087798794030}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8855593089420095983}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8855593088081780515
 GameObject:
   m_ObjectHideFlags: 0
@@ -1070,13 +1070,25 @@ MonoBehaviour:
   m_FillRect: {fileID: 8855593087566172989}
   m_HandleRect: {fileID: 8855593087717347442}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 1
+  m_MinValue: 2
+  m_MaxValue: 10
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 2
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3009504770450248081}
+        m_TargetAssemblyTypeName: PipePopup, Assembly-CSharp
+        m_MethodName: OnSliderValueChange
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8855593088407190220
 GameObject:
   m_ObjectHideFlags: 0
@@ -1272,7 +1284,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8855593088517658505}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8855593089420095983}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8855593089420095983
 GameObject:
   m_ObjectHideFlags: 0
@@ -1368,9 +1392,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78401d583afe7d44aa3ff776ae6e23dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  plantToggle: {fileID: 3879220688068193798}
+  plantBanToggle: {fileID: 3879220688068193798}
   pipeConnectorButton: {fileID: 8855593087798794029}
   slider: {fileID: 8855593088372710417}
+  textMeshProUGUI: {fileID: 8855593087668765251}
 --- !u!1 &8855593089564338925
 GameObject:
   m_ObjectHideFlags: 0

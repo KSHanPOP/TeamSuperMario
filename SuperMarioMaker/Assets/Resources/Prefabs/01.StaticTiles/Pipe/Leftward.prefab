@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 5491106917308363493}
   - component: {fileID: -7961746096331907520}
   - component: {fileID: 8723587838806770287}
+  - component: {fileID: 2935683516133112061}
   m_Layer: 10
   m_Name: Leftward
   m_TagString: Platform
@@ -67,6 +68,8 @@ MonoBehaviour:
   - {fileID: 5303782705302112504, guid: d379967ed00fe8e41b0d172cb85f30f4, type: 3}
   - {fileID: 5303782705302112504, guid: 0ce1ee99ee4a04c418aae52a634b139d, type: 3}
   boxCollider2D: {fileID: -575612528232881454}
+  plant: {fileID: 0}
+  banPlant: 0
 --- !u!61 &-575612528232881454
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -351,6 +354,22 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!114 &2935683516133112061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5891419370040874900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 786fd9f82cb17fb44b48f0ca8c76eb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clampX: 75
+  clampY: 210
+  pipe: {fileID: 1960053275329528257}
+  connector: {fileID: -7961746096331907520}
 --- !u!1 &5927781251149763355
 GameObject:
   m_ObjectHideFlags: 0
