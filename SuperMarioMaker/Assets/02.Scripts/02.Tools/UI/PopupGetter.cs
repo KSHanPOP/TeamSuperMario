@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Purchasing;
 using UnityEngine;
 
 public abstract class PopupGetter : MonoBehaviour
 {
     [SerializeField]
     protected float clampX;
+
     [SerializeField]
     protected float clampY;
 
@@ -14,11 +14,12 @@ public abstract class PopupGetter : MonoBehaviour
     protected SpriteRenderer spriteRenderer;
 
     [SerializeField]
-    public Color highlightColor;
+    protected Color highlightColor;
 
     protected Vector3 posMover = Vector3.zero;
-    public virtual void OnPopup() { }
-    public virtual void OffPopup() { }
+
+    public virtual void OnPopup() => spriteRenderer.color = highlightColor;
+    public virtual void OffPopup() => spriteRenderer.color = Color.white;
 
     protected virtual void SetPosition(Transform popupTransform)
     {

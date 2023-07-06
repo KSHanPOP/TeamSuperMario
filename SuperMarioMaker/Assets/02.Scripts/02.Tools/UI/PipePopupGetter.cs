@@ -9,8 +9,7 @@ public class PipePopupGetter : PopupGetter
     private Pipe pipe;
 
     [SerializeField]
-    private PipeWarpConnector connector;
-
+    private PipeWarpConnector connector;  
     public override void OnPopup()
     {
         var popup = PopupManager.Instance.GetPopup(1).GetComponent<PipePopup>();
@@ -19,14 +18,13 @@ public class PipePopupGetter : PopupGetter
 
         SetPosition(popup.transform);
 
+        popup.offPopup.AddListener(connector.ClearHighlight);
         SetToggleListener(popup);
         SetButtonListener(popup);
         SetSliderListener(popup);
-    }
 
-    public override void OffPopup()
-    {
-        spriteRenderer.color = Color.white;
+        connector.DrawHighlight();
+        spriteRenderer.color = highlightColor;
     }
 
     public void SetToggleListener(PipePopup popup)
@@ -48,11 +46,11 @@ public class PipePopupGetter : PopupGetter
     public void SetButtonListener(PipePopup popup)
     {
         popup.GetButton().onClick
-            .AddListener(() => connector.StartLink());
+            .AddListener(connector.StartLink);
     }
     public void SetSliderListener(PipePopup popup)
     {
         popup.GetSlider().onValueChanged
-            .AddListener(value => pipe.Setlength((int)value));
+            .AddListener(pipe.Setlength);
     }    
 }

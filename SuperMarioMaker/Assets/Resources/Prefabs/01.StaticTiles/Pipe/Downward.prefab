@@ -238,6 +238,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: -3930470849978642068}
   highlight: {fileID: 4421620822956242871}
+  highlighColor: {r: 0, g: 1, b: 0, a: 0.5882353}
   arrowhead: {fileID: 8291053810738421938}
   boxCollider2D: {fileID: -575612528232881454}
   lineRenderer: {fileID: 8723587838806770287}
@@ -368,7 +369,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clampX: 75
   clampY: 210
+  spriteRenderer: {fileID: 4421620822956242871}
+  highlightColor: {r: 1, g: 0, b: 0, a: 0.5882353}
   pipe: {fileID: 1960053275329528257}
+  connector: {fileID: 0}
 --- !u!1 &5927781251149763355
 GameObject:
   m_ObjectHideFlags: 0

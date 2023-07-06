@@ -184,9 +184,9 @@ public class Pipe : MonoBehaviour
 
         boxCollider2D.offset = isVertical ? new Vector2(0.5f, offset) : new Vector2(offset, -0.5f);
     }
-    public void Setlength(int value)
+    public void Setlength(float value)
     {
-        SetPillarLength(value);
+        SetPillarLength((int)value);
         SetCollider();
     }
 

@@ -12,34 +12,33 @@ public class DynamicPopupGetter : PopupGetter
     private DynamicTile_Block dynamicTileBlock;
 
     private void Start()
-    {
-        float horizontalValue = Mathf.Lerp(1, -1, transform.position.x / 20);
-        float verticalValue = Mathf.Lerp(1, -1, transform.position.y / (180/16));
+    {   
+        Vector3 cameraPosition = Camera.main.transform.position;
 
-        posMover = Vector3.right * horizontalValue + Vector3.up * verticalValue;          
+        float horizontalValue = (transform.position.x - cameraPosition.x) < 0 ? 1f : -1f;
+        float verticalValue = (transform.position.y - cameraPosition.y) < 0 ? 1f : -1f;
+
+        posMover = new Vector3(horizontalValue * 1.3f, verticalValue, 0);
     }
-
     public override void OnPopup()
     {
         var popup = PopupManager.Instance.GetPopup(0).GetComponent<DynamicTilePopup>();
 
-        popup.GetSlider().minValue = isQusetion ? 1 : 0;
-
-        popup.Enter(dynamicTileBlock.GetItemType() ,dynamicTileBlock.GetItemCount());
+        popup.Enter(dynamicTileBlock.GetItemType(), dynamicTileBlock.GetItemCount(), isQusetion);
 
         SetPosition(popup.transform);
-        
+
+        popup.offPopup.AddListener(OffPopup);
         SetToggleListener(popup);
         SetSliderListener(popup);
+
+        base.OnPopup();
     }
-    public override void OffPopup()
-    {
-        spriteRenderer.color = Color.white;
-    }
+
     private void SetToggleListener(DynamicTilePopup popup)
     {
         popup.GetToggle(EnumItems.Coin).onValueChanged
-            .AddListener(value => { if(value) dynamicTileBlock.SetItemType(EnumItems.Coin); });
+            .AddListener(value => { if (value) dynamicTileBlock.SetItemType(EnumItems.Coin); });
 
         popup.GetToggle(EnumItems.Mushroom).onValueChanged
             .AddListener(value => { if (value) dynamicTileBlock.SetItemType(EnumItems.Mushroom); });
@@ -51,6 +50,6 @@ public class DynamicPopupGetter : PopupGetter
     private void SetSliderListener(DynamicTilePopup popup)
     {
         popup.GetSlider().onValueChanged
-            .AddListener(value => dynamicTileBlock.SetItemCount(value));
+            .AddListener(dynamicTileBlock.SetItemCount);
     }
 }

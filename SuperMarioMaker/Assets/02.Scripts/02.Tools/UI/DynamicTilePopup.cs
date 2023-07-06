@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class DynamicTilePopup : MonoBehaviour
@@ -21,6 +23,8 @@ public class DynamicTilePopup : MonoBehaviour
     [SerializeField]
     private Slider slider;
 
+    public UnityEvent offPopup; 
+
     public Toggle GetToggle(EnumItems type) => toggles[(int)type];
     public Toggle[] GetToggles() => toggles;
     public Slider GetSlider() => slider;   
@@ -34,10 +38,12 @@ public class DynamicTilePopup : MonoBehaviour
         textMeshProUGUI.text = ((int)value).ToString();
     }
 
-    public void Enter(EnumItems type, float count)
+    public void Enter(EnumItems type, float count, bool isQuestion)
     {
+        offPopup.Invoke();
         gameObject.SetActive(true);
         ClearListeners();
+        slider.minValue = isQuestion ? 1f : 0f;
         SetToggleValue(type);
         SetSliderValue(count);
     }
@@ -82,9 +88,12 @@ public class DynamicTilePopup : MonoBehaviour
             toggle.onValueChanged.RemoveAllListeners();
 
         slider.onValueChanged.RemoveAllListeners();
+
+        offPopup.RemoveAllListeners();
     }
     private void OnDisable()
     {
+        offPopup.Invoke();
         ClearListeners();
     }
 }
