@@ -284,6 +284,7 @@ public class IconManager : MonoBehaviour
         nowNames[nowTag] = button.name;
         // NowName= button.name;
         iconPopup.SetActive(false);
+        clickChangeTile.PickerMode = PickMode.Tile;
     }
 
     public void ExitPopup()

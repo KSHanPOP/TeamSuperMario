@@ -65,6 +65,8 @@ public class IconButtonSetting : MonoBehaviour
         Logger.Debug("Selected button clicked!" + tag);
 
         ToolManager.Instance.iconManager.NowTag = tag;
+
+        ToolManager.Instance.CClickMode.PickerMode = PickMode.Tile;
         //ToolManager.Instance.iconManager.NowName = NowName;
 
     }

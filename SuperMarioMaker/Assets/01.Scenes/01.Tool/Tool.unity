@@ -2828,6 +2828,8 @@ MonoBehaviour:
   tilemap: {fileID: 442647680}
   cursorTextureBefore: {fileID: 2800000, guid: 836b15858797e7f4da4dc69300af3862, type: 3}
   cursorTextureAfter: {fileID: 2800000, guid: b97517cd48ccd974582d990a9348c561, type: 3}
+  eraserTextureBefore: {fileID: 2800000, guid: 5915ad0e6786bc242bc2a095e624f33e, type: 3}
+  eraserTextureAfter: {fileID: 2800000, guid: 7711dc4ba7c3adb479a013fcde94c255, type: 3}
 --- !u!114 &532670460
 MonoBehaviour:
   m_ObjectHideFlags: 0
