@@ -44,9 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2381274636589b4ba47e85fd04052c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprites: []
   item: 0
   prefabs:
-  - {fileID: 8376332173620522625, guid: 379e25789f9cded439f7fd6845e60ce1, type: 3}
   - {fileID: 19077419110035749, guid: ebde6611dae909942b9d7f4b49d78593, type: 3}
   - {fileID: 5770539570110646108, guid: 13f72033fa5438744a4cec726a88a9f8, type: 3}
   - {fileID: 1425364335978023892, guid: b921e057b59a94345b3b5238ab47a822, type: 3}
+  - {fileID: 8376332173620522625, guid: 379e25789f9cded439f7fd6845e60ce1, type: 3}
