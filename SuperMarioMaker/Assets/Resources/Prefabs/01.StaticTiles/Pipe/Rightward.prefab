@@ -238,7 +238,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: -3930470849978642068}
   highlight: {fileID: 4421620822956242871}
-  highlighColor: {r: 0, g: 1, b: 0, a: 0.5882353}
+  highlighColor: {r: 0.8169507, g: 1, b: 0, a: 0.39215687}
   arrowhead: {fileID: 8291053810738421938}
   boxCollider2D: {fileID: -575612528232881454}
   lineRenderer: {fileID: 8723587838806770287}
@@ -267,7 +267,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 4b70845bb27866343b5f869edacbb64c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -344,7 +344,7 @@ LineRenderer:
       atime5: 0
       atime6: 0
       atime7: 0
-      m_Mode: 0
+      m_Mode: 1
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     numCornerVertices: 0
@@ -370,7 +370,7 @@ MonoBehaviour:
   clampX: 75
   clampY: 210
   spriteRenderer: {fileID: 4421620822956242871}
-  highlightColor: {r: 1, g: 0, b: 0, a: 0.5882353}
+  highlightColor: {r: 0.8509804, g: 0.3137255, b: 0, a: 0.5882353}
   pipe: {fileID: 1960053275329528257}
   connector: {fileID: -7961746096331907520}
 --- !u!1 &5927781251149763355
@@ -399,7 +399,7 @@ Transform:
   m_GameObject: {fileID: 5927781251149763355}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5891419370040874901}
@@ -425,7 +425,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 4b70845bb27866343b5f869edacbb64c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -55,6 +55,7 @@ public class PipeWarpConnector : MonoBehaviour, ICommandStackAble
     private Camera cam;
     
     private PipeWarpConnector receviedPipe;
+    
     private void Awake()
     {
         Connectors.AddLast(this);
@@ -205,14 +206,19 @@ public class PipeWarpConnector : MonoBehaviour, ICommandStackAble
         isLinked = true;
         controller.SetDestWarpPoint(dest);
 
-        bool isRight = destPos.x - startPos.x > 0f;
+        //bool isRight = destPos.x - startPos.x > 0f;
 
-        targetPos = destPos + (isRight ? Vector3.up : Vector3.down) * 0.5f;
+        //targetPos = destPos + (isRight ? Vector3.up : Vector3.down) * 0.5f;
+
+        Vector3 direction = destPos - startPos;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        targetPos = destPos + Quaternion.Euler(0, 0, angle + 150) * Vector3.right * 0.5f;
 
         StopLinking();
-        UpdateLine();        
+        UpdateLine();
     }
-    public void OnMouseDown()
+    public void OnMouseUpAsButton()
     {
         CompleteLinking();
     }
@@ -245,6 +251,7 @@ public class PipeWarpConnector : MonoBehaviour, ICommandStackAble
 
         arrowhead.transform.position = dest;
         float angle = CalculateAngle(linePoses[(int)(lineVerticleCount * 0.5f)], dest);
+        //float angle = CalculateAngle(linePoses[lineVerticleCount - 2], dest);
         arrowhead.transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 
