@@ -57,6 +57,7 @@ public class ClickChangeTile : MonoBehaviour, ICommand
             switch (pickerMode)
             {
                 case PickMode.None:
+                    ToolManager.Instance.iconManager.SetOUtLineOff();
                     break;
                 case PickMode.Tile:
                     break;
@@ -190,6 +191,8 @@ public class ClickChangeTile : MonoBehaviour, ICommand
 
     public void MouseLeftClick(InputAction.CallbackContext context)
     {
+        if (context.performed)
+            return;
         var mode = ToolManager.Instance.ToolMode;
 
         if (mode == ToolModeType.Tool)
@@ -301,6 +304,9 @@ public class ClickChangeTile : MonoBehaviour, ICommand
     }
     public void MouseRightClick(InputAction.CallbackContext context)
     {
+        if (context.started || context.performed)
+            return;
+
         if (PickerMode == PickMode.None)
         {
             PickerMode = PickMode.Eraser;
@@ -310,7 +316,7 @@ public class ClickChangeTile : MonoBehaviour, ICommand
             PickerMode = PickMode.None;
         }
 
-        if (context.started)
+        if (context.canceled)
         {
             Logger.Debug("´­¸²");
         }
