@@ -11,6 +11,8 @@ public class DynamicTile : MonoBehaviour
 
     public bool IsPoped = false;
 
+    public GameObject Instantiated { get; set; }
+
     protected virtual void Start()
     {
         dynamicTileManager = TileManager.Instance;
@@ -28,7 +30,7 @@ public class DynamicTile : MonoBehaviour
 
     public virtual void StartTest()
     {
-        Instantiate(dynamicObject, transform.position, Quaternion.identity, dynamicTileManager.DynamicObjHolder);
+        Instantiated = Instantiate(dynamicObject, transform.position, Quaternion.identity, dynamicTileManager.DynamicObjHolder);
 
         gameObject.SetActive(false);
     }
@@ -37,13 +39,4 @@ public class DynamicTile : MonoBehaviour
     {
         gameObject.SetActive(true);
     }
-    //public void DisableCommand()
-    //{
-    //    dynamicTileManager.DynamicTiles.Remove(this);
-    //}
-
-    //public void EnableCommand()
-    //{
-    //    dynamicTileManager.DynamicTiles.AddLast(this);
-    //}
 }

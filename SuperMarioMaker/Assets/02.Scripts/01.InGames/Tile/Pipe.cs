@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using UnityEngine;
 
 public class Pipe : MonoBehaviour
@@ -30,6 +31,9 @@ public class Pipe : MonoBehaviour
     private BoxCollider2D boxCollider2D;
 
     [SerializeField]
+    private GameObject highlight;
+
+    [SerializeField]
     private GameObject plant;
 
     public bool IsUpward { get; set; }
@@ -57,7 +61,7 @@ public class Pipe : MonoBehaviour
 
     private void Awake()
     {
-        layerMask = LayerMask.GetMask("Platform", "Monster", "Player", "Default", "MonsetrNoCollision", "Coin");
+        layerMask = LayerMask.GetMask("Platform", "Monster", "Player", "Default", "MonsterNoCollision", "Coin");
         IsUpward = pipeEntrancePos == EnumPipeEntrancePos.Top;
         isVertical = (int)pipeEntrancePos % 2 == 0;
         direction = GetDirection();
@@ -69,6 +73,7 @@ public class Pipe : MonoBehaviour
         MakePillar();
         SetPillarLength(minLength);
         SetCollider();
+        SetHighlight();
     }
 
     private Vector2 GetDirection() => pipeEntrancePos switch
@@ -184,10 +189,28 @@ public class Pipe : MonoBehaviour
 
         boxCollider2D.offset = isVertical ? new Vector2(0.5f, offset) : new Vector2(offset, -0.5f);
     }
+    private void SetHighlight()
+    {
+        highlight.transform.localScale = boxCollider2D.size;
+        highlight.transform.localPosition = boxCollider2D.offset;
+    }
     public void Setlength(float value)
     {
         SetPillarLength((int)value);
         SetCollider();
+        SetHighlight();
+    }
+
+    public void SleepPlant()
+    {
+        if (banPlant)
+            return;
+
+        if (!IsUpward)
+            return;
+
+        plant.GetComponent<DynamicTile>().Instantiated
+            .GetComponent<PlantMove>().SleepCollision();        
     }
 
     private void OnEnable()

@@ -322,7 +322,8 @@ MonoBehaviour:
   boxCollder: {fileID: 850026550156307108}
   turtle: {fileID: 4496085742309706703}
   groundCheckRayLength: 0.55
-  groundRayOffset: -0.3
+  groundRayOffset: 0.3
+  rb: {fileID: 4785323111009973293}
 --- !u!1 &4651789131703539218
 GameObject:
   m_ObjectHideFlags: 0

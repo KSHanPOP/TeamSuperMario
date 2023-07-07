@@ -68,6 +68,7 @@ MonoBehaviour:
   - {fileID: 5303782705302112504, guid: d379967ed00fe8e41b0d172cb85f30f4, type: 3}
   - {fileID: 5303782705302112504, guid: 0ce1ee99ee4a04c418aae52a634b139d, type: 3}
   boxCollider2D: {fileID: -575612528232881454}
+  highlight: {fileID: 1608548633374151694}
   plant: {fileID: 8762912046500020474, guid: 0176a55eabe574b4d8fb149a66a72b8c, type: 3}
   banPlant: 0
 --- !u!61 &-575612528232881454
@@ -240,7 +241,6 @@ MonoBehaviour:
   highlight: {fileID: 4421620822956242871}
   highlighColor: {r: 0.8169507, g: 1, b: 0, a: 0.39215687}
   arrowhead: {fileID: 8291053810738421938}
-  boxCollider2D: {fileID: -575612528232881454}
   lineRenderer: {fileID: 8723587838806770287}
   lineVerticleCount: 20
   minControlPointMultiplier: 0.3
@@ -518,6 +518,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8e4209078768b5541a2f511da3787394, type: 3}
+--- !u!1 &1608548633374151694 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3360691179311509178, guid: 8e4209078768b5541a2f511da3787394, type: 3}
+  m_PrefabInstance: {fileID: 4103101038655077044}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2726546786465232906 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2100796721866752702, guid: 8e4209078768b5541a2f511da3787394, type: 3}

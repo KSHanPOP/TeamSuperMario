@@ -1943,6 +1943,9 @@ MonoBehaviour:
   exitButton: {fileID: 6373302385018536637}
   textMeshProUGUI: {fileID: 6373302385883158390}
   slider: {fileID: 6373302385242917156}
+  offPopup:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1567738652556523848
 MonoBehaviour:
   m_ObjectHideFlags: 0

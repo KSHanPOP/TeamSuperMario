@@ -25,9 +25,6 @@ public class PipeWarpConnector : MonoBehaviour, ICommandStackAble
     private SpriteRenderer arrowhead;
 
     [SerializeField]
-    private BoxCollider2D boxCollider2D;
-
-    [SerializeField]
     private LineRenderer lineRenderer;
 
     [SerializeField]
@@ -150,9 +147,6 @@ public class PipeWarpConnector : MonoBehaviour, ICommandStackAble
     {
         highlight.color = highlighColor;
         highlight.enabled = true;
-
-        highlight.transform.localScale = boxCollider2D.size;
-        highlight.transform.localPosition = boxCollider2D.offset;
     }
 
     public void ClearHighlight()
