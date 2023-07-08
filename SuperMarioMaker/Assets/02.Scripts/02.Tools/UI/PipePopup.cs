@@ -3,10 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class PipePopup : MonoBehaviour
+public class PipePopup : TilePopup
 {
     [SerializeField]
     private Toggle plantBanToggle; 
@@ -19,24 +18,21 @@ public class PipePopup : MonoBehaviour
 
     [SerializeField]
     private TextMeshProUGUI textMeshProUGUI;
-
-    public UnityEvent offPopup;
-
     public Toggle GetToggle() => plantBanToggle;
     public Button GetButton() => pipeConnectorButton;
     public Slider GetSlider() => slider;
     public void Enter(bool value, float sliderMaxValue ,float sliderValue)
     {
-        offPopup.Invoke();
+        EventPopupOff.Invoke();
         gameObject.SetActive(true);
         ClearListeners();
         SetToggleValue(value);
         SetSliderValue(sliderMaxValue, sliderValue);
     }
 
-    private void ClearListeners()
+    public override void ClearListeners()
     {
-        offPopup.RemoveAllListeners();
+        EventPopupOff.RemoveAllListeners();
         plantBanToggle.onValueChanged.RemoveAllListeners();
         pipeConnectorButton.onClick.RemoveAllListeners();
         slider.onValueChanged.RemoveAllListeners();        
@@ -63,9 +59,8 @@ public class PipePopup : MonoBehaviour
         textMeshProUGUI.text = ((int)slider.value).ToString();
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
-        offPopup.Invoke();
-        ClearListeners();
+        base.OnDisable();
     }
 }

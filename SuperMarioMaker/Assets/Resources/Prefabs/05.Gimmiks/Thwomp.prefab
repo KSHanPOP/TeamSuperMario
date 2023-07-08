@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 9159716437815625092}
   - component: {fileID: -7708307327048197670}
   - component: {fileID: 1402343756875482357}
+  - component: {fileID: 4907742858633293343}
   m_Layer: 0
   m_Name: Thwomp
   m_TagString: Gimmik
@@ -48,6 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dynamicObject: {fileID: 5036898980640264324, guid: 40b8497c696f082428bf5346b6494137, type: 3}
+  IsPoped: 0
 --- !u!212 &9159716437815625092
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -141,3 +143,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.5, y: 2}
   m_EdgeRadius: 0
+--- !u!114 &4907742858633293343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8762912046500020474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b65016abe2be5b14e8e76231390fef45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clampX: 0
+  clampY: 0
+  spriteRenderer: {fileID: 0}
+  highlightColor: {r: 1, g: 0, b: 0, a: 1}
+  thwomp: {fileID: 0}

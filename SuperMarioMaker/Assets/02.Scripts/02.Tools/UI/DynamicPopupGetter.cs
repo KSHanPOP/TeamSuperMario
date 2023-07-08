@@ -28,7 +28,7 @@ public class DynamicPopupGetter : PopupGetter
 
         SetPosition(popup.transform);
 
-        popup.offPopup.AddListener(OffPopup);
+        popup.EventPopupOff.AddListener(OffPopup);
         SetToggleListener(popup);
         SetSliderListener(popup);
 

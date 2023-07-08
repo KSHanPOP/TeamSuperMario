@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class DynamicTilePopup : MonoBehaviour
+public class DynamicTilePopup : TilePopup
 {
     [SerializeField]
     private Toggle[] toggles;
@@ -15,16 +15,10 @@ public class DynamicTilePopup : MonoBehaviour
     private Image[] highlights;
 
     [SerializeField]
-    private Button exitButton;
-
-    [SerializeField]
     private TextMeshProUGUI textMeshProUGUI;
 
     [SerializeField]
     private Slider slider;
-
-    public UnityEvent offPopup; 
-
     public Toggle GetToggle(EnumItems type) => toggles[(int)type];
     public Toggle[] GetToggles() => toggles;
     public Slider GetSlider() => slider;   
@@ -40,7 +34,7 @@ public class DynamicTilePopup : MonoBehaviour
 
     public void Enter(EnumItems type, float count, bool isQuestion)
     {
-        offPopup.Invoke();
+        EventPopupOff.Invoke();
         gameObject.SetActive(true);
         ClearListeners();
         slider.minValue = isQuestion ? 1f : 0f;
@@ -82,18 +76,17 @@ public class DynamicTilePopup : MonoBehaviour
             highlight.enabled = true;
         }
     }
-    public void ClearListeners()
+    public override void ClearListeners()
     {
         foreach (var toggle in toggles)
             toggle.onValueChanged.RemoveAllListeners();
 
         slider.onValueChanged.RemoveAllListeners();
 
-        offPopup.RemoveAllListeners();
+        EventPopupOff.RemoveAllListeners();
     }
-    private void OnDisable()
+    protected override void OnDisable()
     {
-        offPopup.Invoke();
-        ClearListeners();
+        base.OnDisable();        
     }
 }

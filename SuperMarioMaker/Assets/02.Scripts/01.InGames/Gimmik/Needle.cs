@@ -1,45 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Purchasing;
 using UnityEngine;
 
-public class Needle : MonoBehaviour
+public class Needle : StaticTile
 {
-    private static LinkedList<Needle> Needles= new LinkedList<Needle>();
-
     private int hashPlay = Animator.StringToHash("Play");
     private int hashStop = Animator.StringToHash("Stop");
 
     [SerializeField]
     private Animator animator;
 
-    public static void StartTest()
-    {
-        foreach (var needle in Needles)
-        {
-            if (needle != null)
-                needle.Play();
-        }
-    }
-    public static void StopTest()
-    {
-        foreach (var needle in Needles)
-        {
-            if (needle != null)
-                needle.Stop();
-        }
-    }
-
-    private void Awake()
-    {
-        Needles.AddLast(this);
-    }
-
-    private void Play()
+    protected override void Play()
     {
         animator.SetTrigger(hashPlay);
     }
-    private void Stop()
+    protected override void Stop()
     {
         animator.SetTrigger(hashStop);
     }

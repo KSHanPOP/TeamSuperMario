@@ -30,6 +30,7 @@ public class Thwomp : MonoBehaviour
 
     [SerializeField]
     private EnumThwompDir dir;
+
     private bool isVertical;
 
     [SerializeField]
@@ -200,4 +201,7 @@ public class Thwomp : MonoBehaviour
             collision.GetComponent<PlayerAnimation>().Hit();
         }
     }
+
+    public int GetDir() => (int)dir;
+    public void SetDir(int idx) => dir = (EnumThwompDir)idx;
 }

@@ -18,13 +18,13 @@ public class PipePopupGetter : PopupGetter
 
         SetPosition(popup.transform);
 
-        popup.offPopup.AddListener(connector.ClearHighlight);
+        popup.EventPopupOff.AddListener(connector.ClearHighlight);
         SetToggleListener(popup);
         SetButtonListener(popup);
         SetSliderListener(popup);
 
         connector.DrawHighlight();
-        spriteRenderer.color = highlightColor;
+        base.OnPopup();
     }
 
     public void SetToggleListener(PipePopup popup)
