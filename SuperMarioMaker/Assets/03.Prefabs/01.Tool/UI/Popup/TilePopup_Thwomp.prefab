@@ -374,6 +374,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62d6bca1abaf65e46af2b62b8e302026, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EventPopupOff:
+    m_PersistentCalls:
+      m_Calls: []
+  toggles:
+  - {fileID: 4443494469413880272}
+  - {fileID: 349920212049409430}
+  - {fileID: 6673827191484032378}
 --- !u!114 &6306451246123926786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -789,7 +796,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3580713849340339968}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3580713848236573030}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3580713849583284138
 GameObject:
   m_ObjectHideFlags: 0

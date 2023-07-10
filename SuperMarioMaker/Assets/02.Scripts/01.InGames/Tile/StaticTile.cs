@@ -7,20 +7,20 @@ public class StaticTile : MonoBehaviour
     public static LinkedList<StaticTile> StaticTiles = new();
     public static LinkedList<StaticTile> Buffer = new();
 
-    public bool IsPoped = false;
+    public bool IsInList;
 
     private void Awake()
     {
-        StaticTiles.AddLast(this);
+        IsInList = false;        
     }
 
     protected virtual void OnEnable()
     {
-        if (!IsPoped)
+        if (IsInList)
             return;
 
         StaticTiles.AddLast(this);
-        IsPoped = false;
+        IsInList = true;
     }
 
     public static void StartTest()
@@ -29,7 +29,7 @@ public class StaticTile : MonoBehaviour
         {
             if (!staticTile.gameObject.activeSelf)
             {
-                staticTile.IsPoped = true;
+                staticTile.Pop();
                 continue;
             }
 
@@ -42,6 +42,8 @@ public class StaticTile : MonoBehaviour
     }
     public static void StopTest()
     {
+        SwapBuffer();
+
         foreach (var staticTile in StaticTiles)
         {
             staticTile.Stop();
@@ -52,6 +54,11 @@ public class StaticTile : MonoBehaviour
         StaticTiles.Clear();
 
         (StaticTiles, Buffer) = (Buffer, StaticTiles);
+    }
+
+    protected void Pop()
+    {
+        IsInList = false;
     }
 
     protected virtual void Play() { }
