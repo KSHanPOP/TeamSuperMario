@@ -26,8 +26,4 @@ public class ThwompPopup : TilePopup
 
         EventPopupOff.RemoveAllListeners();
     }
-    protected override void OnDisable()
-    {
-        base.OnDisable();
-    }    
 }

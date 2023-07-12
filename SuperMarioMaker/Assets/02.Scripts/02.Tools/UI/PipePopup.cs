@@ -58,9 +58,4 @@ public class PipePopup : TilePopup
     {   
         textMeshProUGUI.text = ((int)slider.value).ToString();
     }
-
-    protected override void OnDisable()
-    {
-        base.OnDisable();
-    }
 }

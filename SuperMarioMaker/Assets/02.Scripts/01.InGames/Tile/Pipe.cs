@@ -90,8 +90,8 @@ public class Pipe : MonoBehaviour
         if (IsUpward)
             plant = Instantiate(plant, transform.position + Vector3.up, Quaternion.identity);
 
-        if (BoxCast())
-            Destroy(gameObject);
+        //if (BoxCast())
+        //    Destroy(gameObject);
 
         if (isVertical)
         {

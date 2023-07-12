@@ -322,6 +322,12 @@ public class PipeWarpConnector : MonoBehaviour, ICommandStackAble
     {
         DisConnectWhenDisable();
     }
+
+    private void OnDisable()
+    {
+        DisConnectWhenDisable();
+    }
+
     public void DisableCommand()
     {
         DisConnectWhenDisable();

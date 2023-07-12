@@ -29,6 +29,6 @@ public class Castle : MonoBehaviour
             return;
 
         Logger.Debug("game clear!");
-        TileManager.Instance.StopTest();
+        //TileManager.Instance.StopTest();
     }
 }

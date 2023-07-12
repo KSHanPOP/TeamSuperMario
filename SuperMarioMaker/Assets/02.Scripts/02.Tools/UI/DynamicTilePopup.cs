@@ -85,8 +85,4 @@ public class DynamicTilePopup : TilePopup
 
         EventPopupOff.RemoveAllListeners();
     }
-    protected override void OnDisable()
-    {
-        base.OnDisable();        
-    }
 }
