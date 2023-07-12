@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using UnityEngine;
 
 public class Pipe : MonoBehaviour
 {
     [SerializeField]
     private EnumPipeEntrancePos pipeEntrancePos;
-    
+
     public EnumPipeEntrancePos PipeEntrancePos { get { return pipeEntrancePos; } }
 
     [SerializeField]
@@ -29,6 +30,26 @@ public class Pipe : MonoBehaviour
     [SerializeField]
     private BoxCollider2D boxCollider2D;
 
+    [SerializeField]
+    private GameObject highlight;
+
+    [SerializeField]
+    private GameObject plant;
+
+    public bool IsUpward { get; set; }
+
+    [SerializeField]
+    private bool banPlant;
+    public bool BanPlant
+    {
+        get { return banPlant; }
+        set
+        {
+            banPlant = value;
+            plant.SetActive(!banPlant);
+        }
+    }
+
     private LayerMask layerMask;
 
     private bool isVertical;
@@ -36,10 +57,12 @@ public class Pipe : MonoBehaviour
     private Vector2 direction;
 
     private int length;
+    public int Length { get { return length; } }
 
     private void Awake()
     {
-        layerMask = LayerMask.GetMask("Platform", "Monster", "Player", "Default", "MonsetrNoCollision", "Coin");
+        layerMask = LayerMask.GetMask("Platform", "Monster", "Player", "Default", "MonsterNoCollision", "Coin");
+        IsUpward = pipeEntrancePos == EnumPipeEntrancePos.Top;
         isVertical = (int)pipeEntrancePos % 2 == 0;
         direction = GetDirection();
     }
@@ -47,10 +70,10 @@ public class Pipe : MonoBehaviour
     private void Start()
     {
         MakeEntrance();
-        //GetLength();
         MakePillar();
-        SetPillarLength(0);
+        SetPillarLength(minLength);
         SetCollider();
+        SetHighlight();
     }
 
     private Vector2 GetDirection() => pipeEntrancePos switch
@@ -59,13 +82,16 @@ public class Pipe : MonoBehaviour
         EnumPipeEntrancePos.Left => Vector2.right,
         EnumPipeEntrancePos.Bottom => Vector2.up,
         EnumPipeEntrancePos.Right => Vector2.left,
-        _=> Vector2.zero,
+        _ => Vector2.zero,
     };
 
     private void MakeEntrance()
     {
-        if (BoxCast())
-            Destroy(gameObject);
+        if (IsUpward)
+            plant = Instantiate(plant, transform.position + Vector3.up, Quaternion.identity);
+
+        //if (BoxCast())
+        //    Destroy(gameObject);
 
         if (isVertical)
         {
@@ -89,7 +115,7 @@ public class Pipe : MonoBehaviour
         Vector2 pos = (Vector2)transform.position;
         Vector2 startPos = pipeEntrancePos switch
         {
-            EnumPipeEntrancePos.Top => pos + new Vector2(0.5f,-0.5f),
+            EnumPipeEntrancePos.Top => pos + new Vector2(0.5f, -0.5f),
             EnumPipeEntrancePos.Left => pos + new Vector2(0.5f, -0.5f),
             EnumPipeEntrancePos.Bottom => pos + new Vector2(0.5f, 0.5f),
             EnumPipeEntrancePos.Right => pos + new Vector2(-0.5f, -0.5f),
@@ -104,15 +130,20 @@ public class Pipe : MonoBehaviour
 
         return hit;
     }
-    private int CheckSpace(int value)
+    public int GetMaxLength()
     {
-        var hit1 = Physics2D.Raycast(transform.position, direction, value + 1, layerMask);
+        boxCollider2D.enabled = false;
+        int maxValue = 10;
 
-        var hit2 = Physics2D.Raycast((Vector2)transform.position + (isVertical ? Vector2.right : Vector2.down), direction, value + 1, layerMask);
+        var hit1 = Physics2D.Raycast(transform.position, direction, maxValue, layerMask);
 
-        int distance1 = hit1 ? Mathf.CeilToInt(hit1.distance) : value;
+        var hit2 = Physics2D.Raycast((Vector2)transform.position + (isVertical ? Vector2.right : Vector2.down), direction, maxValue, layerMask);
 
-        int distance2 = hit2 ? Mathf.CeilToInt(hit2.distance) : value;
+        boxCollider2D.enabled = true;
+
+        int distance1 = hit1 ? Mathf.CeilToInt(hit1.distance) : maxValue;
+
+        int distance2 = hit2 ? Mathf.CeilToInt(hit2.distance) : maxValue;
 
         return distance1 < distance2 ? distance1 : distance2;
     }
@@ -132,20 +163,20 @@ public class Pipe : MonoBehaviour
     }
     public void SetPillarLength(int value)
     {
-        length = value + minLength;
+        length = value;
 
         int activeCount = 2 + length * 2;
 
         int childCount = transform.childCount;
 
-        for(int i = 0; i < activeCount; i++)
+        for (int i = 0; i < activeCount; i++)
         {
             transform.GetChild(i).gameObject.SetActive(true);
         }
 
         for (int i = activeCount; i < childCount; i++)
         {
-            transform.GetChild(i).gameObject.SetActive(false);            
+            transform.GetChild(i).gameObject.SetActive(false);
         }
     }
     private void SetCollider()
@@ -156,13 +187,42 @@ public class Pipe : MonoBehaviour
 
         float offset = (length - 1) * 0.5f * (isPositive ? 1 : -1);
 
-        boxCollider2D.offset = isVertical ? new Vector2(0.5f, offset) : new Vector2(offset, - 0.5f);
+        boxCollider2D.offset = isVertical ? new Vector2(0.5f, offset) : new Vector2(offset, -0.5f);
     }
-    public void AdjustLength(int value)
+    private void SetHighlight()
     {
-        value = CheckSpace(value);
-        SetPillarLength(value);
+        highlight.transform.localScale = boxCollider2D.size;
+        highlight.transform.localPosition = boxCollider2D.offset;
+    }
+    public void Setlength(float value)
+    {
+        SetPillarLength((int)value);
         SetCollider();
+        SetHighlight();
+    }
+
+    public void SleepPlant()
+    {
+        if (banPlant)
+            return;
+
+        if (!IsUpward)
+            return;
+
+        plant.GetComponent<DynamicTile>().Instantiated
+            .GetComponent<PlantMove>().SleepCollision();        
+    }
+
+    private void OnEnable()
+    {
+        if (!banPlant && plant != null)
+            plant.SetActive(true);
+    }
+
+    private void OnDisable()
+    {
+        if (!banPlant && plant != null)
+            plant.SetActive(false);
     }
 }
 

@@ -7,6 +7,7 @@ public class FallObjectHandler : MonoBehaviour
     private float startPoint;
     private float endPoint;
 
+    [SerializeField]
     private float height;
 
     [SerializeField]

@@ -85,13 +85,13 @@ public class TileManager : MonoBehaviour
     private void OnStatics()
     {
         PipeWarpConnector.StartTest();
-        Needle.StartTest();
+        StaticTile.StartTest();
     }
 
     private void OffStatics()
     {
         PipeWarpConnector.StopTest();
-        Needle.StopTest();
+        StaticTile.StopTest();
     }
 
     public void Restart()

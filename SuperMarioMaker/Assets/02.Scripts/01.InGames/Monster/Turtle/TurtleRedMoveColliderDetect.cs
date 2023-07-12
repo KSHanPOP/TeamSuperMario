@@ -8,20 +8,26 @@ public class TurtleRedMoveColliderDetect : TurtleMoveColliderDetect
     private float groundCheckRayLength;    
 
     [SerializeField]
-    private float groundRayOffset;
+    private float groundRayOffset = 0.3f;
+
+    [SerializeField]
+    private Rigidbody2D rb;
+    
     private void Update()
     {
         if (turtle.State != EnumTurtleState.Move)
             return;
-        
-        if (!Physics2D.Raycast(transform.position + Vector3.right * groundRayOffset, Vector3.down, groundCheckRayLength, platformLayerMask))
-        {
-            groundRayOffset = -groundRayOffset;
+
+        if (rb.velocity.y != 0f)
+            return;        
+
+        if (!Physics2D.Raycast((Vector2)transform.position + rb.velocity.normalized * groundRayOffset, Vector3.down, groundCheckRayLength, platformLayerMask))
+        {   
             ChangeMoveDir();
         }
     }
     private void OnDrawGizmos()
     {
-        Gizmos.DrawLine(transform.position + Vector3.right * groundRayOffset, transform.position + Vector3.right * groundRayOffset + Vector3.down * groundCheckRayLength);
+        Gizmos.DrawLine((Vector2)transform.position + rb.velocity.normalized * groundRayOffset, transform.position + (Vector3)rb.velocity.normalized * groundRayOffset + Vector3.down * groundCheckRayLength);;
     }
 }

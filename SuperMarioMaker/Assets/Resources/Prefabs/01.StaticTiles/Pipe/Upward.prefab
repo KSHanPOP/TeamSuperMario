@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 5491106917308363493}
   - component: {fileID: -7961746096331907520}
   - component: {fileID: 8723587838806770287}
+  - component: {fileID: 1259457857057174332}
   m_Layer: 10
   m_Name: Upward
   m_TagString: Platform
@@ -67,6 +68,9 @@ MonoBehaviour:
   - {fileID: 5303782705302112504, guid: d379967ed00fe8e41b0d172cb85f30f4, type: 3}
   - {fileID: 5303782705302112504, guid: 0ce1ee99ee4a04c418aae52a634b139d, type: 3}
   boxCollider2D: {fileID: -575612528232881454}
+  highlight: {fileID: 1608548633374151694}
+  plant: {fileID: 8762912046500020474, guid: 0176a55eabe574b4d8fb149a66a72b8c, type: 3}
+  banPlant: 0
 --- !u!61 &-575612528232881454
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -235,8 +239,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: -3930470849978642068}
   highlight: {fileID: 4421620822956242871}
+  highlighColor: {r: 0.8169507, g: 1, b: 0, a: 0.39215687}
   arrowhead: {fileID: 8291053810738421938}
-  boxCollider2D: {fileID: -575612528232881454}
   lineRenderer: {fileID: 8723587838806770287}
   lineVerticleCount: 20
   minControlPointMultiplier: 0.3
@@ -263,7 +267,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 4b70845bb27866343b5f869edacbb64c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -340,7 +344,7 @@ LineRenderer:
       atime5: 0
       atime6: 0
       atime7: 0
-      m_Mode: 0
+      m_Mode: 1
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     numCornerVertices: 0
@@ -351,6 +355,24 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!114 &1259457857057174332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5891419370040874900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 786fd9f82cb17fb44b48f0ca8c76eb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clampX: 75
+  clampY: 210
+  spriteRenderer: {fileID: 4421620822956242871}
+  highlightColor: {r: 0.8509804, g: 0.3137255, b: 0, a: 0.5882353}
+  pipe: {fileID: 1960053275329528257}
+  connector: {fileID: -7961746096331907520}
 --- !u!1 &5927781251149763355
 GameObject:
   m_ObjectHideFlags: 0
@@ -377,7 +399,7 @@ Transform:
   m_GameObject: {fileID: 5927781251149763355}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5891419370040874901}
@@ -403,7 +425,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 4b70845bb27866343b5f869edacbb64c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -496,6 +518,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8e4209078768b5541a2f511da3787394, type: 3}
+--- !u!1 &1608548633374151694 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3360691179311509178, guid: 8e4209078768b5541a2f511da3787394, type: 3}
+  m_PrefabInstance: {fileID: 4103101038655077044}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2726546786465232906 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2100796721866752702, guid: 8e4209078768b5541a2f511da3787394, type: 3}

@@ -1,55 +1,55 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class DynamicPopupGetter : PopupGetter
 {
-    private DynamicTilePopup dynamicTilePopup;
-
     [SerializeField]
     private bool isQusetion;
 
     [SerializeField]
     private DynamicTile_Block dynamicTileBlock;
+
+    private void Start()
+    {   
+        Vector3 cameraPosition = Camera.main.transform.position;
+
+        float horizontalValue = (transform.position.x - cameraPosition.x) < 0 ? 1f : -1f;
+        float verticalValue = (transform.position.y - cameraPosition.y) < 0 ? 1f : -1f;
+
+        posMover = new Vector3(horizontalValue * 1.3f, verticalValue, 0);
+    }
     public override void OnPopup()
     {
-        var popup = PopupManager.Instance.GetPopup(0);        
-        dynamicTilePopup = popup.GetComponent<DynamicTilePopup>();
-        
-        dynamicTilePopup.GetSlider().minValue = isQusetion ? 1 : 0;
+        var popup = PopupManager.Instance.GetPopup(0).GetComponent<DynamicTilePopup>();
 
-        dynamicTilePopup.Enter(dynamicTileBlock.GetItemCount());
+        popup.Enter(dynamicTileBlock.GetItemType(), dynamicTileBlock.GetItemCount(), isQusetion);
 
         SetPosition(popup.transform);
 
-        SetButtonListeners();
-        SetSliderListeners();
-    }
-    private void SetPosition(Transform popupTransform)
-    {
-        var newPos = Camera.main.WorldToScreenPoint(transform.position);    
+        popup.EventPopupOff.AddListener(OffPopup);
+        SetToggleListener(popup);
+        SetSliderListener(popup);
 
-        newPos.x = Mathf.Clamp(newPos.x, clampX, Screen.width - clampX);
-        newPos.y = Mathf.Clamp(newPos.y, clampY, Screen.height - clampY);
-
-        popupTransform.position = newPos;
+        base.OnPopup();
     }
 
-    private void SetButtonListeners()
+    private void SetToggleListener(DynamicTilePopup popup)
     {
-        dynamicTilePopup.GetButton(EnumItems.Coin).onClick
-            .AddListener(()=> dynamicTileBlock.SetItemType(EnumItems.Coin));
+        popup.GetToggle(EnumItems.Coin).onValueChanged
+            .AddListener(value => { if (value) dynamicTileBlock.SetItemType(EnumItems.Coin); });
 
-        dynamicTilePopup.GetButton(EnumItems.FireFlower).onClick
-            .AddListener(() => dynamicTileBlock.SetItemType(EnumItems.FireFlower));
+        popup.GetToggle(EnumItems.Mushroom).onValueChanged
+            .AddListener(value => { if (value) dynamicTileBlock.SetItemType(EnumItems.Mushroom); });
 
-        dynamicTilePopup.GetButton(EnumItems.Mushroom).onClick
-            .AddListener(() => dynamicTileBlock.SetItemType(EnumItems.Mushroom));
+        popup.GetToggle(EnumItems.FireFlower).onValueChanged
+            .AddListener(value => { if (value) dynamicTileBlock.SetItemType(EnumItems.FireFlower); });
     }
-    private void SetSliderListeners()
+
+    private void SetSliderListener(DynamicTilePopup popup)
     {
-        dynamicTilePopup.GetSlider().onValueChanged
-            .AddListener(value => dynamicTileBlock.SetItemCount(value));
+        popup.GetSlider().onValueChanged
+            .AddListener(dynamicTileBlock.SetItemCount);
     }
 }

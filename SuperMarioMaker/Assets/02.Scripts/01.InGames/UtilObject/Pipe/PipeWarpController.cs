@@ -249,6 +249,8 @@ public class PipeWarpController : MonoBehaviour
 
     private void MovePlayerPosToExitEntrance()
     {
+        pipe.SleepPlant();
+
         Vector3 destPos = isVertical ?
             transform.position + Vector3.right * 0.5f : transform.position + Vector3.down * 1.01f;        
 

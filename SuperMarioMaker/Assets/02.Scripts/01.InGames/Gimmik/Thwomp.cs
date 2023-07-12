@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Thwomp : MonoBehaviour
@@ -30,6 +28,7 @@ public class Thwomp : MonoBehaviour
 
     [SerializeField]
     private EnumThwompDir dir;
+
     private bool isVertical;
 
     [SerializeField]
@@ -64,6 +63,8 @@ public class Thwomp : MonoBehaviour
     [SerializeField]
     private LayerMask platformLayer;
 
+    private LayerMask layerMask;
+
     [SerializeField]
     private float attackCooldown = 0.5f;
     private float lastAttackSequenceTime = 0f;
@@ -95,6 +96,8 @@ public class Thwomp : MonoBehaviour
 
     private void Start()
     {
+        layerMask = LayerMask.GetMask("Platform", "MonsterNoCollision");
+
         startPos = transform.position;
         middlePos = transform.position + (Vector3.right + Vector3.down) * 0.5f;
         isVertical = dir == EnumThwompDir.Down;
@@ -139,10 +142,16 @@ public class Thwomp : MonoBehaviour
     }
     private float GetPlatformDistance()
     {
+        var collider = GetComponent<BoxCollider2D>();
+
+        collider.enabled = false;
+
         Vector3 adjustPos = (isVertical ? Vector3.left : Vector3.up) * 0.5f;
 
-        var hit1 = Physics2D.Raycast(middlePos + adjustPos, moveDir, maxMoveAbleDisatance, platformLayer);
-        var hit2 = Physics2D.Raycast(middlePos - adjustPos, moveDir, maxMoveAbleDisatance, platformLayer);
+        var hit1 = Physics2D.Raycast(middlePos + adjustPos, moveDir, maxMoveAbleDisatance, layerMask);
+        var hit2 = Physics2D.Raycast(middlePos - adjustPos, moveDir, maxMoveAbleDisatance, layerMask);
+
+        collider.enabled = true;
 
         if (hit1 && hit2)
             return hit1.distance < hit2.distance ? hit1.distance : hit2.distance;
@@ -200,4 +209,7 @@ public class Thwomp : MonoBehaviour
             collision.GetComponent<PlayerAnimation>().Hit();
         }
     }
+
+    public int GetDir() => (int)dir;
+    public void SetDir(int idx) => dir = (EnumThwompDir)idx;
 }

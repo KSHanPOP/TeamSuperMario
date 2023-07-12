@@ -9,10 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8762912046500020475}
-  - component: {fileID: 8911055470742671787}
   - component: {fileID: 9159716437815625092}
   - component: {fileID: -7708307327048197670}
   - component: {fileID: 1402343756875482357}
+  - component: {fileID: 4907742858633293343}
+  - component: {fileID: -8933590891779221422}
   m_Layer: 0
   m_Name: Thwomp
   m_TagString: Gimmik
@@ -35,19 +36,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8911055470742671787
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8762912046500020474}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 435575e81d230f442a37f1e0c1b4ead0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dynamicObject: {fileID: 5036898980640264324, guid: 40b8497c696f082428bf5346b6494137, type: 3}
 --- !u!212 &9159716437815625092
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -114,7 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsDynamic: 1
   iconSpritePath: Sprite/Icon/GimmikIcon/GimmikIcon05
-  typeName: 0
+  typeName: 2
 --- !u!61 &1402343756875482357
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -141,3 +129,34 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.5, y: 2}
   m_EdgeRadius: 0
+--- !u!114 &4907742858633293343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8762912046500020474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b65016abe2be5b14e8e76231390fef45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clampX: 75
+  clampY: 250
+  spriteRenderer: {fileID: 9159716437815625092}
+  highlightColor: {r: 1, g: 0.3019608, b: 0.06666667, a: 1}
+  thwompTile: {fileID: -8933590891779221422}
+--- !u!114 &-8933590891779221422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8762912046500020474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97de6fc3c86a4424e96d712d77e7043f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dynamicObject: {fileID: 5036898980640264324, guid: 40b8497c696f082428bf5346b6494137, type: 3}
+  IsPoped: 0

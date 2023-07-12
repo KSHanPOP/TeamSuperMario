@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Purchasing;
 using UnityEngine;
 
 public class PipeWarpConnector : MonoBehaviour, ICommandStackAble
@@ -20,10 +19,10 @@ public class PipeWarpConnector : MonoBehaviour, ICommandStackAble
     private SpriteRenderer highlight;
 
     [SerializeField]
-    private SpriteRenderer arrowhead;
+    private Color highlighColor;
 
     [SerializeField]
-    private BoxCollider2D boxCollider2D;
+    private SpriteRenderer arrowhead;
 
     [SerializeField]
     private LineRenderer lineRenderer;
@@ -52,7 +51,8 @@ public class PipeWarpConnector : MonoBehaviour, ICommandStackAble
 
     private Camera cam;
     
-    private PipeWarpConnector linkedWithReceiveState;
+    private PipeWarpConnector receviedPipe;
+    
     private void Awake()
     {
         Connectors.AddLast(this);
@@ -92,7 +92,7 @@ public class PipeWarpConnector : MonoBehaviour, ICommandStackAble
         }
     }
 
-    private void StartLinking()
+    public void StartLink()
     {
         if (IsPlaying)
             return;
@@ -121,7 +121,7 @@ public class PipeWarpConnector : MonoBehaviour, ICommandStackAble
         highlight.enabled = false;
     }
 
-    public void EndLinking()
+    public void StopLinking()
     {
         if (!IsLinking)
             return;
@@ -143,12 +143,15 @@ public class PipeWarpConnector : MonoBehaviour, ICommandStackAble
         (Connectors, Buffer) = (Buffer, Connectors);
     }
 
-    private void DrawHighlight()
+    public void DrawHighlight()
     {
+        highlight.color = highlighColor;
         highlight.enabled = true;
+    }
 
-        highlight.transform.localScale = boxCollider2D.size;
-        highlight.transform.localPosition = boxCollider2D.offset;
+    public void ClearHighlight()
+    {
+        highlight.enabled = false;
     }
 
     private void DrawLinkedLine()
@@ -181,7 +184,7 @@ public class PipeWarpConnector : MonoBehaviour, ICommandStackAble
 
         return cam.ScreenToWorldPoint(mousePosition);
     }
-    private void OnLink()
+    private void CompleteLinking()
     {
         if (!IsLinking)
             return;        
@@ -189,7 +192,7 @@ public class PipeWarpConnector : MonoBehaviour, ICommandStackAble
         if(State == EnumWarpConnectorState.Receiver)
         {
             Sender.SetDest(controller, startPos);
-            linkedWithReceiveState = Sender;
+            receviedPipe = Sender;
         }
     }
     public void SetDest(PipeWarpController dest, Vector3 destPos)
@@ -197,24 +200,28 @@ public class PipeWarpConnector : MonoBehaviour, ICommandStackAble
         isLinked = true;
         controller.SetDestWarpPoint(dest);
 
-        bool isRight = destPos.x - startPos.x > 0f;
+        //bool isRight = destPos.x - startPos.x > 0f;
 
-        targetPos = destPos + (isRight ? Vector3.up : Vector3.down) * 0.5f;
+        //targetPos = destPos + (isRight ? Vector3.up : Vector3.down) * 0.5f;
 
-        EndLinking();
-        UpdateLine();        
+        Vector3 direction = destPos - startPos;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        targetPos = destPos + Quaternion.Euler(0, 0, angle + 150) * Vector3.right * 0.5f;
+
+        StopLinking();
+        UpdateLine();
     }
-    private void OnMouseDown()
+    public void OnMouseUpAsButton()
     {
-        StartLinking();
-        OnLink();
+        CompleteLinking();
     }
 
     private void Update()
     {
         if (Input.GetMouseButtonDown(1))
         {
-            EndLinking();
+            StopLinking();
         }
 
         if (IsLinking)
@@ -238,6 +245,7 @@ public class PipeWarpConnector : MonoBehaviour, ICommandStackAble
 
         arrowhead.transform.position = dest;
         float angle = CalculateAngle(linePoses[(int)(lineVerticleCount * 0.5f)], dest);
+        //float angle = CalculateAngle(linePoses[lineVerticleCount - 2], dest);
         arrowhead.transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 
@@ -301,12 +309,12 @@ public class PipeWarpConnector : MonoBehaviour, ICommandStackAble
 
     private void DisConnectWhenDisable()
     {
-        if (linkedWithReceiveState == null)
+        if (receviedPipe == null)
             return;
 
-        if (linkedWithReceiveState.controller.GetDestWarpPoint() == controller)
+        if (receviedPipe.controller.GetDestWarpPoint() == controller)
         {
-            linkedWithReceiveState.DisConnect();
+            receviedPipe.DisConnect();
         }
     }
 
@@ -314,18 +322,24 @@ public class PipeWarpConnector : MonoBehaviour, ICommandStackAble
     {
         DisConnectWhenDisable();
     }
+
+    private void OnDisable()
+    {
+        DisConnectWhenDisable();
+    }
+
     public void DisableCommand()
     {
         DisConnectWhenDisable();
     }
     public void EnableCommand()
     {
-        if (linkedWithReceiveState == null)
+        if (receviedPipe == null)
             return;
 
-        if (linkedWithReceiveState.controller.GetDestWarpPoint() == controller)
+        if (receviedPipe.controller.GetDestWarpPoint() == controller)
         {
-            linkedWithReceiveState.ConnectAgain();
+            receviedPipe.ConnectAgain();
         }
     }
 }
