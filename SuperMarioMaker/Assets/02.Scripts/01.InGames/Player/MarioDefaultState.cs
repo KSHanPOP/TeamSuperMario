@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerBase : MonoBehaviour
+public abstract class MarioDefaultState : MonoBehaviour
 {
     protected PlayerState playerState;
 

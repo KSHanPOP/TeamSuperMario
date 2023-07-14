@@ -37,8 +37,8 @@ public class PlayerState : MonoBehaviour
     private float lastActionTime;
 
 
-    public PlayerBase CurrState { get; set; }
-    public PlayerBase nextState { get; set; }
+    public MarioDefaultState CurrState { get; set; }
+    public MarioDefaultState nextState { get; set; }
     public Animator Animator { get; set; }
 
     private MarioSmall marioSmall;

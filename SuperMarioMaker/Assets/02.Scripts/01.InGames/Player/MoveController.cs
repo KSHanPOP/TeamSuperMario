@@ -18,7 +18,7 @@ public class MoveController : MonoBehaviour
     public float maxAirAcceleration;
     [SerializeField]
     public float maxAirDeceleration;
-    [SerializeField] 
+    [SerializeField]
     public float maxAirTurnSpeed = 80f;
 
     public float directionX;
@@ -33,18 +33,18 @@ public class MoveController : MonoBehaviour
     private float moveKeyValue;
 
     private bool isGround;
-    private bool pressingKey;
+    private bool isPressingKey;
 
     private bool isTryRun;
 
-    [SerializeField] 
+    [SerializeField]
     private float runSpeedMultiplier = 2f;
 
-    [SerializeField] 
+    [SerializeField]
     private float rapidAcceleraton = 2f;
 
     private void Awake()
-    {        
+    {
         body = GetComponent<Rigidbody2D>();
         ground = GetComponent<GroundChecker>();
     }
@@ -55,7 +55,7 @@ public class MoveController : MonoBehaviour
     }
 
     public void TryMove(InputAction.CallbackContext context)
-    {   
+    {
         moveKeyValue = context.ReadValue<float>();
     }
 
@@ -68,7 +68,7 @@ public class MoveController : MonoBehaviour
     {
         directionX = limiter.CharacterCanMove ? moveKeyValue : 0f;
 
-        pressingKey = directionX != 0;
+        isPressingKey = directionX != 0;
 
         desiredVelocity = new Vector2(directionX, 0f) * maxSpeed;
 
@@ -91,19 +91,18 @@ public class MoveController : MonoBehaviour
         deceleration = isGround ? maxDecceleration : maxAirDeceleration;
         turnSpeed = isGround ? maxTurnSpeed : maxAirTurnSpeed;
 
-        if (pressingKey)
+        if (isPressingKey)
         {
             maxSpeedChange = directionX * velocity.x < 0 ?
-                turnSpeed * Time.deltaTime :
-                acceleration * Mathf.Lerp(1f, rapidAcceleraton, 1 - (velocity.x / desiredVelocity.x)) * Time.deltaTime;
+                turnSpeed : acceleration * Mathf.Lerp(rapidAcceleraton, 1f, velocity.x / desiredVelocity.x);
         }
         else
-        {   
-            maxSpeedChange = deceleration * Time.deltaTime;
-        }
+        {
+            maxSpeedChange = deceleration;
+        }        
 
-        velocity.x = Mathf.MoveTowards(velocity.x, desiredVelocity.x, maxSpeedChange);
-        
+        velocity.x = Mathf.MoveTowards(velocity.x, desiredVelocity.x, maxSpeedChange * Time.deltaTime);
+
         body.velocity = velocity;
     }
 }

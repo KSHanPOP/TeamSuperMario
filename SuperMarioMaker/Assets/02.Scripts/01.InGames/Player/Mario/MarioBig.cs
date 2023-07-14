@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class MarioBig : PlayerBase
+public class MarioBig : MarioDefaultState
 {
     protected MarioSmall marioSmall;
     protected MarioFire marioFire;

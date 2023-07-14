@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class TurtleState : MonoBehaviour, IPressable
 {
-    private TurtleBase currState;
-    public TurtleBase CurrState { get { return currState; } set { currState = value; } }
+    private TurtleDefaultState currState;
+    public TurtleDefaultState CurrState { get { return currState; } set { currState = value; } }
 
     [SerializeField]
     private Animator animator;

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TurtleIdle : TurtleBase
+public class TurtleIdle : TurtleDefaultState
 {
     private Coroutine idleCoroutine;    
 
