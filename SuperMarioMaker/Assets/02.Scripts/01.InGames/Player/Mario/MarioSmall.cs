@@ -70,6 +70,7 @@ public class MarioSmall : MarioDefaultState
 
     public override void Die()
     {
+        SoundManager.Instance.StopAll();
         SoundManager.Instance.PlaySFX("Die");
 
         MovementLimmiter.instance.CharacterCanMove = false;

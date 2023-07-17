@@ -26,6 +26,9 @@ public class ClearAnimationSequence : MonoBehaviour
 
     public void StartSequence(GameObject player)
     {
+        SoundManager.Instance.StopAll();
+        SoundManager.Instance.PlaySFX("Flagpole");
+
         this.player = player;
 
         offset = offset / 16;

@@ -27,7 +27,8 @@ public class Castle : MonoBehaviour
 
         if (!isClear)
             return;
-
+        
+        SoundManager.Instance.PlaySFX("Clear");
         Logger.Debug("game clear!");
         //TileManager.Instance.StopTest();
     }

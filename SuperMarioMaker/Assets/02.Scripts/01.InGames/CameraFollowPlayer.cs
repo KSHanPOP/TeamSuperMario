@@ -21,10 +21,12 @@ public class CameraFollowPlayer : MonoBehaviour
 
     void Update()
     {
-        minX = GameManager.instance.gameData.TileX / 2;
-        maxX = GameManager.instance.gameData.TileX * GameManager.instance.gameData.MapRowLength - minX;
-        minY = GameManager.instance.gameData.TileY / 2;
-        maxY = GameManager.instance.gameData.TileY * GameManager.instance.gameData.MapRowLength - minY;
+        var gameData = GameManager.instance.gameData;
+
+        minX = gameData.TileX / 2;
+        maxX = gameData.TileX * gameData.MapRowLength - minX;
+        minY = gameData.TileY / 2;
+        maxY = gameData.TileY * gameData.MapRowLength - minY;
 
         Vector3 targetPosition = transform.TransformPoint(new Vector3(0, 0, -10));
         Vector3 smoothPosition = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
