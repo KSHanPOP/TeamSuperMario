@@ -21,6 +21,8 @@ public class SceneLoader : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        SoundManager.Instance.PlayBGM("Title");
     }
     private void Start()
     {
@@ -88,12 +90,15 @@ public class SceneLoader : MonoBehaviour
         switch (sceneName)
         {
             case "Title":
+                SoundManager.Instance.BGMStop();
                 State = SceneState.Title;
                 break;
             case "Tool":
+                SoundManager.Instance.BGMStop();
                 State = SceneState.Tool;
                 break;
             case "MainGame":
+                SoundManager.Instance.BGMStop();
                 State = SceneState.MainGame;
                 break;
         }
