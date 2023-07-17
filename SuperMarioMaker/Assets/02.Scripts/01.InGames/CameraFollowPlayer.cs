@@ -20,7 +20,7 @@ public class CameraFollowPlayer : MonoBehaviour
     }
 
     void Update()
-    {        
+    {
         minX = GameManager.instance.gameData.TileX / 2;
         maxX = GameManager.instance.gameData.TileX * GameManager.instance.gameData.MapRowLength - minX;
         minY = GameManager.instance.gameData.TileY / 2;
@@ -30,6 +30,7 @@ public class CameraFollowPlayer : MonoBehaviour
         Vector3 smoothPosition = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
         smoothPosition.x = Mathf.Clamp(smoothPosition.x, minX, maxX);
         smoothPosition.y = Mathf.Clamp(smoothPosition.y, minY, maxY);
+        smoothPosition.z = -10;
         cam.transform.position = smoothPosition;
     }
 }

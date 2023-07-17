@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
 
         DontDestroyOnLoad(gameObject);
+        gameData = new GameData();
     }
 
     void Start()
@@ -31,13 +32,13 @@ public class GameManager : MonoBehaviour
 
 public class GameData
 {
-    public float Time { get { return Time; } set { Time = value; } }
-    public int Life { get { return Life; } set { Life = value; } }
-    public string BackGround { get { return BackGround; } set { BackGround = value; } }
+    public float Time;
+    public int Life;
+    public string BackGround;
 
-    public int MapRowLength { get { return MapColLength; } set { MapColLength = value; } }
-    public int MapColLength { get { return MapRowLength; } set { MapColLength = value; } }
+    public int MapRowLength;
+    public int MapColLength;
 
-    public int TileX { get { return TileX; } set { TileX = value; } }
-    public int TileY { get { return TileY; } set { TileY = value; } }
+    public int TileX;
+    public int TileY;
 }
