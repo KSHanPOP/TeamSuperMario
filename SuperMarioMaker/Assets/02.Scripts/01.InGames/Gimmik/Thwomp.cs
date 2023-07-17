@@ -186,6 +186,7 @@ public class Thwomp : MonoBehaviour
 
         if (checkMoveableRange > platformDistance)
         {
+            SoundManager.Instance.PlaySFX("Thwomp");
             State = EnumThwompState.Return;
         }
     }

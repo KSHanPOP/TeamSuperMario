@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Net.NetworkInformation;
 using UnityEngine;
 
 public class TurtleMoveColliderDetect : MonsterMoveColliderDetect
@@ -19,6 +18,8 @@ public class TurtleMoveColliderDetect : MonsterMoveColliderDetect
     }
     protected override void OnCollisionEnter2D(Collision2D collision)
     {
+        Logger.Debug("collison");
+
         if (turtle.State == EnumTurtleState.Idle)
             return;
 
