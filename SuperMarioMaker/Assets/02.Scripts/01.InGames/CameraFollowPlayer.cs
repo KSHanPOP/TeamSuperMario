@@ -20,11 +20,11 @@ public class CameraFollowPlayer : MonoBehaviour
     }
 
     void Update()
-    {
-        minX = 0f + ToolManager.Instance.TilemapX / 2;
-        maxX = ToolManager.Instance.TilemapX * ToolManager.Instance.MapRowLength - minX;
-        minY = 0f + ToolManager.Instance.TilemapY / 2;
-        maxY = ToolManager.Instance.TilemapY * ToolManager.Instance.MapColLength - minY;
+    {        
+        minX = GameManager.instance.gameData.TileX / 2;
+        maxX = GameManager.instance.gameData.TileX * GameManager.instance.gameData.MapRowLength - minX;
+        minY = GameManager.instance.gameData.TileY / 2;
+        maxY = GameManager.instance.gameData.TileY * GameManager.instance.gameData.MapRowLength - minY;
 
         Vector3 targetPosition = transform.TransformPoint(new Vector3(0, 0, -10));
         Vector3 smoothPosition = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
