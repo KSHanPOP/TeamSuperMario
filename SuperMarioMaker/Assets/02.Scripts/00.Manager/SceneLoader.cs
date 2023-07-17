@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SceneLoader : MonoBehaviour
 {
     public static SceneLoader Instance { get; private set; }
     [SerializeField] private GameObject loadingBG;
+    [SerializeField] private Button exitButton;
 
     void Awake()
     {
@@ -20,6 +22,17 @@ public class SceneLoader : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    private void Start()
+    {
+        exitButton.onClick.AddListener(LoadTitleScene);
+        state = SceneState.Title;
+        SoundManager.Instance.PlayBGM("Title");
+    }
+
+    //public void GoToTitle()
+    //{
+    //    State = SceneState.Title;
+    //}
 
     private SceneState state;
     public SceneState State
@@ -27,13 +40,15 @@ public class SceneLoader : MonoBehaviour
         get { return state; }
         set
         {
+            SoundManager.Instance.StopAll();
+            SoundManager.Instance.AllPopUpOff();
+
             state = value;
 
             switch (state)
             {
                 case SceneState.Title:
-                    TitleManager.Instance.Init();
-                    LoadTitleScene();
+
                     break;
                 case SceneState.Tool:
 
@@ -46,12 +61,11 @@ public class SceneLoader : MonoBehaviour
 
     public void LoadTitleScene()
     {
-        SceneManager.LoadScene("Title");
+        StartCoroutine(LoadSceneAndInit("Title"));
     }
 
     public void LoadToolScene()
     {
-        //SceneManager.LoadScene("Tool");
         StartCoroutine(LoadSceneAndInit("Tool"));
     }
 
@@ -71,7 +85,7 @@ public class SceneLoader : MonoBehaviour
             yield return null;
         }
 
-        switch(sceneName)
+        switch (sceneName)
         {
             case "Title":
                 State = SceneState.Title;
@@ -87,6 +101,19 @@ public class SceneLoader : MonoBehaviour
 
         yield return new WaitForSeconds(3);
         loadingBG.SetActive(false);
+        switch (sceneName)
+        {
+            case "Title":
+                TitleManager.Instance.Init();
+                SoundManager.Instance.PlayBGM("Title");
+                break;
+            case "Tool":
+                SoundManager.Instance.PlayBGM("Tool");
+                break;
+            case "MainGame":
+
+                break;
+        }
     }
 }
 

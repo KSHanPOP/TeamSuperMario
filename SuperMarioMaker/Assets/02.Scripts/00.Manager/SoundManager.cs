@@ -20,6 +20,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private float sfxVolume;
     private float tempSFXVolume;
     [SerializeField] private GameObject popUp;
+    [SerializeField] private GameObject goToTitle;
     public GameObject PopUp
     {
         get { return popUp; }
@@ -38,25 +39,40 @@ public class SoundManager : MonoBehaviour
 
     private void Start()
     {
-        PlayBGM("Title");
     }
-
+    public void AllPopUpOff()
+    {
+        goToTitle.SetActive(false);
+        popUp.SetActive(false);
+    }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (popUp.activeSelf) { popUp.SetActive(false); }
-            else 
+            if (popUp.activeSelf)
+            {
+                popUp.SetActive(false);
+                if (SceneLoader.Instance.State != SceneState.Title)
+                {
+                    goToTitle.SetActive(false);
+                }
+            }
+            else
             {
                 PlaySFX("Pause");
-                popUp.SetActive(true); 
+                popUp.SetActive(true);
+                if (SceneLoader.Instance.State != SceneState.Title)
+                {
+                    goToTitle.SetActive(true);
+                }
             }
+
         }
 
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            PlaySFX("Test");
-        }
+        //if (Input.GetKeyDown(KeyCode.C))
+        //{
+        //    PlaySFX("Test");
+        //}
     }
     void Awake()
     {
