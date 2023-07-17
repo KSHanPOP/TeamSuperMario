@@ -31,7 +31,7 @@ public class ToolManager : MonoBehaviour
 
     public ClickChangeTile CClickMode;
 
-   [SerializeField] ScrollingBackground scrollingBackground;
+    [SerializeField] ScrollingBackground scrollingBackground;
 
     private ToolModeType modeState = ToolModeType.Tool;
     public ToolModeType ToolMode
@@ -42,6 +42,7 @@ public class ToolManager : MonoBehaviour
             var prevState = modeState;
 
             modeState = value;
+            scoreText.text = "000000000";
 
             if (prevState == modeState)
                 return;
@@ -226,6 +227,8 @@ public class ToolManager : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI timeText;
     [SerializeField] TextMeshProUGUI lifeText;
+    [SerializeField] TextMeshProUGUI scoreText;
+
     private int nowLife;
 
     private void Init()
@@ -258,6 +261,11 @@ public class ToolManager : MonoBehaviour
             timeText.text = time.ToString();
             yield return new WaitForSeconds(1.0f);
             time--;
+            GameManager.instance.nowPlayTime = time;
+            if (time <= 0)
+            {
+                PlayerState.Instance.CurrState.Die();
+            }
         }
     }
 
