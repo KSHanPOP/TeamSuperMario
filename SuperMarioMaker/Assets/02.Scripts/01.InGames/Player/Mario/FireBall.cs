@@ -155,7 +155,10 @@ public class FireBall : MonoBehaviour
             return;
 
         if (collision.TryGetComponent<IShakeable>(out IShakeable shakeable))
+        {
+            SoundManager.Instance.PlaySFX("Kick");
             shakeable.Shake(Vector2.one);
+        }
         
         Hit();
     }
