@@ -75,7 +75,7 @@ public class ToolManager : MonoBehaviour
                         leftOnOffButton.onClick.Invoke();
                     if (!RightOnOffButtonState.IsOnOff)
                         RightOnOffButton.onClick.Invoke();
-
+                    SetGameData();
                     nowLife = PlayerLife;
                     StartCoroutine(DeactivateAfterDelay(1f));
 
@@ -88,7 +88,7 @@ public class ToolManager : MonoBehaviour
                         leftOnOffButton.onClick.Invoke();
                     if (!RightOnOffButtonState.IsOnOff)
                         RightOnOffButton.onClick.Invoke();
-
+                    SetGameData();
                     nowLife = PlayerLife;
                     StartCoroutine(DeactivateAfterDelay(1f));
                     break;
@@ -123,7 +123,15 @@ public class ToolManager : MonoBehaviour
         get { return background; }
         set { background = value; }
     }
-
+    void SetGameData()
+    {
+        GameData data = GameManager.instance.gameData;
+        data.Time = playTime;
+        data.Life = playerLife;
+        data.BackGround = background;
+        data.MapRowLength = MapRowLength;
+        data.TileX = TilemapX; data.TileY = TilemapY;
+    }
     [SerializeField]
     [Range(1, 10)]
     private int mapRowLength = 1;
