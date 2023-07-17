@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public GameData gameData;
+    public float nowPlayTime;
 
     private void Awake()
     {

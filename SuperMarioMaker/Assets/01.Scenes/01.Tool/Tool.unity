@@ -10438,6 +10438,7 @@ MonoBehaviour:
   testModeUi: {fileID: 2071971064}
   timeText: {fileID: 347013325}
   lifeText: {fileID: 0}
+  scoreText: {fileID: 0}
 --- !u!4 &2081892132
 Transform:
   m_ObjectHideFlags: 0
