@@ -21,7 +21,7 @@ public class DynamicTile_Block : DynamicTile
         block.ItemCount = itemCount;
     }
 
-    public override void StartTest()
+    public override void Play()
     {
         block = Instantiate(dynamicObject, transform.position, Quaternion.identity, dynamicTileManager.DynamicObjHolder).GetComponent<Block>();
         SetBlockValue();
