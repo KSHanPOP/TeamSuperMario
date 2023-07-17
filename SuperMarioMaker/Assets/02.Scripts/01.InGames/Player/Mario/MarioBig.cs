@@ -1,7 +1,8 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class MarioBig : PlayerBase
+public class MarioBig : MarioDefaultState
 {
     protected MarioSmall marioSmall;
     protected MarioFire marioFire;
@@ -87,6 +88,7 @@ public class MarioBig : PlayerBase
         scales[3] = 0.8f;
         scales[4] = 0.6f;
     }
+
     protected IEnumerator ToSmallTransformationCoroutine()
     {
         WaitForSeconds changePeriod = new(0.1f);

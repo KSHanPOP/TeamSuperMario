@@ -10,11 +10,11 @@ public class Needle : StaticTile
     [SerializeField]
     private Animator animator;
 
-    protected override void Play()
+    public override void Play()
     {
         animator.SetTrigger(hashPlay);
     }
-    protected override void Stop()
+    public override void Stop()
     {
         animator.SetTrigger(hashStop);
     }

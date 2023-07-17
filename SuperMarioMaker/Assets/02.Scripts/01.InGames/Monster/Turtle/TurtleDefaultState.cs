@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class TurtleBase : MonoBehaviour
+public abstract class TurtleDefaultState : MonoBehaviour
 {
     protected readonly int hashPressed = Animator.StringToHash("Pressed");
     protected readonly int hashIdleTimeDone = Animator.StringToHash("IdleTimeDone");

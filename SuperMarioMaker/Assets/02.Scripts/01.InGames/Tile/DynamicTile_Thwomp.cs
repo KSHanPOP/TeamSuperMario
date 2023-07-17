@@ -21,7 +21,7 @@ public class DynamicTile_Thwomp : DynamicTile
 
     public int Dir { get; set; }
 
-    public override void StartTest()
+    public override void Play()
     {
         var thwomp = Instantiate(dynamicObject, transform.position, Quaternion.identity, dynamicTileManager.DynamicObjHolder).GetComponent<Thwomp>();
         thwomp.SetDir(Dir);

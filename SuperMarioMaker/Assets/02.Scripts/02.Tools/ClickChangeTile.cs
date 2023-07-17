@@ -9,6 +9,7 @@ using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 using static ToolManager;
 using static UnityEditor.PlayerSettings;
+using static UnityEngine.UI.Image;
 
 public enum PickMode
 {
@@ -57,6 +58,7 @@ public class ClickChangeTile : MonoBehaviour, ICommand
             switch (pickerMode)
             {
                 case PickMode.None:
+                    ToolManager.Instance.iconManager.SetOUtLineOff();
                     break;
                 case PickMode.Tile:
                     break;
@@ -82,65 +84,6 @@ public class ClickChangeTile : MonoBehaviour, ICommand
     }
     void Update()
     {
-        // var mode = ToolManager.Instance.ToolMode;
-        //if (mode == ToolModeType.Tool)
-        {
-            //if (isPlayerMove)
-            //{
-            //    // UI 위에 마우스가 있는지 검사
-            //    if (EventSystem.current.IsPointerOverGameObject())
-            //        return; // UI 위에 마우스가 있다면 레이캐스팅을 무시하고 종료
-
-            //    Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            //    worldPos.z = 0;
-            //    ToolManager.Instance.PlayerObj.transform.position = worldPos;
-
-            //    if (Input.GetMouseButtonUp(0))
-            //    {
-
-            //        int playerLayer = LayerMask.NameToLayer("Player"); // Player 레이어의 번호를 가져옵니다.
-            //        int layerMask = 1 << playerLayer; // Player 레이어를 Mask로 설정합니다.
-            //        layerMask = ~layerMask; // Bitwise NOT 연산을 통해 Player 레이어를 제외합니다.
-
-            //        // 마우스의 스크린 좌표를 월드 좌표로 변환
-            //        Collider2D hitCollider = Physics2D.OverlapBox(worldPos, new Vector2(1, 1), 0f, layerMask);
-            //        List<GameObjectTileData> gameObjectTileDatas = new List<GameObjectTileData>();
-
-            //        if (hitCollider == null)
-            //        {
-            //            isPlayerMove = false;
-            //        }
-            //    }
-            //    return;
-            //}
-            //if (Input.GetMouseButtonUp(0))
-            //{
-            //    // UI 위에 마우스가 있는지 검사
-            //    if (EventSystem.current.IsPointerOverGameObject())
-            //        return; // UI 위에 마우스가 있다면 레이캐스팅을 무시하고 종료
-
-            //    // 맵 위에 찍는 행동
-            //    Execute();
-            //    CheckUndoButtonStatus();
-            //    Logger.Debug("왜 2번 찍힘? ");
-            //}
-            //else if (Input.GetMouseButtonUp(1))
-            //{
-            //    // UI 위에 마우스가 있는지 검사
-            //    if (EventSystem.current.IsPointerOverGameObject())
-            //        return; // UI 위에 마우스가 있다면 레이캐스팅을 무시하고 종료
-
-            //    // 마우스의 스크린 좌표를 월드 좌표로 변환
-            //    Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-
-            //    // 타일맵에서의 클릭 위치 계산
-            //    Vector3Int cellPos = tilemap.WorldToCell(worldPos);
-
-            //    Delete();
-            //    CheckUndoButtonStatus();
-            //}
-        }
     }
 
 
@@ -190,6 +133,8 @@ public class ClickChangeTile : MonoBehaviour, ICommand
 
     public void MouseLeftClick(InputAction.CallbackContext context)
     {
+        if (context.performed)
+            return;
         var mode = ToolManager.Instance.ToolMode;
 
         if (mode == ToolModeType.Tool)
@@ -301,6 +246,9 @@ public class ClickChangeTile : MonoBehaviour, ICommand
     }
     public void MouseRightClick(InputAction.CallbackContext context)
     {
+        if (context.started || context.performed)
+            return;
+
         if (PickerMode == PickMode.None)
         {
             PickerMode = PickMode.Eraser;
@@ -310,7 +258,7 @@ public class ClickChangeTile : MonoBehaviour, ICommand
             PickerMode = PickMode.None;
         }
 
-        if (context.started)
+        if (context.canceled)
         {
             Logger.Debug("눌림");
         }
@@ -474,5 +422,47 @@ public class ClickChangeTile : MonoBehaviour, ICommand
                 commandStack.Push(gameObjectTileDatas);
             }
         }
+    }
+
+    public void LoadData(Stack<List<GameObjectTileData>> data)
+    {
+        commandStack.Clear();
+        undoStack.Clear();
+
+        while (data.Count != 0)
+        {
+            commandStack.Push(data.Pop());
+        }
+    }
+
+    public Stack<List<GameObjectTileData>> SaveData()
+    {
+        Stack<List<GameObjectTileData>> tempStack = new Stack<List<GameObjectTileData>>();
+        Stack<List<GameObjectTileData>> data = new Stack<List<GameObjectTileData>>();
+
+        // Copy the original stack to the temporary stack and the data stack
+        while (commandStack.Count > 0)
+        {
+            List<GameObjectTileData> command = commandStack.Pop();
+            tempStack.Push(command);
+
+            foreach (var item in command)
+            {
+                if (item.gameObject.activeSelf)
+                {
+                    List<GameObjectTileData> temp = new List<GameObjectTileData> { item };
+                    data.Push(temp);
+                }
+            }
+        }
+
+        // Restore the original stack
+        while (tempStack.Count > 0)
+        {
+            commandStack.Push(tempStack.Pop());
+        }
+
+        // Return the data stack
+        return data;
     }
 }

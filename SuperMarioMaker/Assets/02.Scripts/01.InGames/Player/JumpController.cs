@@ -21,23 +21,23 @@ public class JumpController : MonoBehaviour
     private float maxJumpSpeed;
 
     [SerializeField, Range(0f, 1f)]
-    private float minJumpPowerReduction;
+    private float minJumpPower;
 
     [SerializeField, Range(0f, 1f)]
-    private float maxJumpPowerReduction;
+    private float maxJumpPower;
 
     [SerializeField]
     private float maxJumpkeyHoldTime = 0.5f;
 
     private float inversMaxJumpkeyHoldTime;
 
-    private float jumpTimeCounter = 0f;
+    private float jumpKeyHoldTimeCounter = 0f;
 
     [SerializeField]
-    private float jumpBuffer;    
+    private float jumpBufferDuration;    
     private float lastJumpBufferInputTime;
 
-    private bool jumpCutBuffer;
+    private bool canCutableJumpPower;
 
     [SerializeField]
     private float jumpVelocity;
@@ -66,7 +66,7 @@ public class JumpController : MonoBehaviour
     {
         //v2JumpForce = Vector2.up * jumpForce;        
         maxFallSpeed *= -1;
-        lastJumpBufferInputTime = -jumpBuffer;
+        lastJumpBufferInputTime = -jumpBufferDuration;
     }
 
     public void TryJump(InputAction.CallbackContext context)
@@ -84,7 +84,8 @@ public class JumpController : MonoBehaviour
         if (!limmiter.CharacterCanMove)
             return;
 
-        if (ground.IsGround() && (Time.time - lastJumpBufferInputTime) < jumpBuffer)
+        //플레이어가 땅에 닿아있는지 && 점프 키 버퍼가 남아있는지 체크.
+        if (ground.IsGround() && (Time.time - lastJumpBufferInputTime) < jumpBufferDuration)
         {
             DoJump();
         }
@@ -93,36 +94,45 @@ public class JumpController : MonoBehaviour
     }
     public void DoJump()
     {
-        jumpTimeCounter = 0f;
+        //점프 시작 시 키 입력 시간 카운터 초기화        
+        jumpKeyHoldTimeCounter = 0f;
 
         IsAttackableBlock = true;
 
         body.velocity = new Vector2(body.velocity.x, jumpVelocity);
 
-        lastJumpBufferInputTime = -jumpBuffer;
+        lastJumpBufferInputTime = -jumpBufferDuration;
 
-        jumpCutBuffer = true;
+        //점프력 감소는 점프 한번당 한번씩만 일어나도록 함
+        canCutableJumpPower = true;
     }
     private void TryCutJump()
     {
-        if (!jumpCutBuffer)
+        //점프력 감소가 불가능상태시 리턴
+        if (!canCutableJumpPower)
             return;
 
+        //점프 키가 눌린 상태면 리턴
         if (jumpKeyValue != 0)
             return;
 
+        //플레이어가 낙하 중에는 리턴
         if (body.velocity.y <= 0)
             return;
 
-        var jumpPowerReduction = Mathf.Lerp(minJumpPowerReduction, maxJumpPowerReduction, jumpTimeCounter * inversMaxJumpkeyHoldTime);
-        
+        //점프키를 누른 시간이 작을수록 점프력을 크게 감소. 누른 시간이 길수록 약하게 감소.
+        var jumpPowerReduction = Mathf.Lerp(minJumpPower, maxJumpPower, jumpKeyHoldTimeCounter / maxJumpkeyHoldTime);        
+
+        //현재 플레이어에 점프속도를 위 결과에 따라 감소시킴.
         body.velocity = new Vector2(body.velocity.x, body.velocity.y * jumpPowerReduction);
-        jumpCutBuffer = false;        
+
+        //점프력 감소 불가능하게 처리.
+        canCutableJumpPower = false;        
     }
 
     void Update()
     {
-        jumpTimeCounter += Time.deltaTime;
+        jumpKeyHoldTimeCounter += Time.deltaTime;
 
         body.velocity = new Vector2(body.velocity.x, Mathf.Clamp(body.velocity.y, maxFallSpeed, maxJumpSpeed));
     }

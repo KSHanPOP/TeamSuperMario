@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Thwomp : MonoBehaviour
 {
-    private enum EnumThwompSate
+    private enum EnumThwompState
     {
         None = -1,
         Idle,
@@ -71,22 +71,22 @@ public class Thwomp : MonoBehaviour
 
     private Vector3 moveDir;
 
-    private EnumThwompSate state;
-    private EnumThwompSate State
+    private EnumThwompState state;
+    private EnumThwompState State
     {
         set
         {
             switch (value)
             {
-                case EnumThwompSate.Idle:
+                case EnumThwompState.Idle:
                     lastAttackSequenceTime = Time.time;
                     transform.position = startPos;
                     rb2d.velocity = Vector2.zero;
                     break;
-                case EnumThwompSate.Attack:
+                case EnumThwompState.Attack:
                     animator.SetTrigger(hashAttack);
                     break;
-                case EnumThwompSate.Return:
+                case EnumThwompState.Return:
                     animator.SetTrigger(hashReturn);
                     break;
             }
@@ -119,13 +119,13 @@ public class Thwomp : MonoBehaviour
     {
         switch (state)
         {
-            case EnumThwompSate.Idle:
+            case EnumThwompState.Idle:
                 UpdateIdle();
                 break;
-            case EnumThwompSate.Attack:
+            case EnumThwompState.Attack:
                 UpdateAttack();
                 break;
-            case EnumThwompSate.Return:
+            case EnumThwompState.Return:
                 UpdateReturn();
                 break;
         }
@@ -174,7 +174,7 @@ public class Thwomp : MonoBehaviour
 
         if (Mathf.Abs(playerDistance) < playerDetectionRange)
         {
-            State = EnumThwompSate.Attack;
+            State = EnumThwompState.Attack;
         }
     }
     private void UpdateAttack()
@@ -186,7 +186,7 @@ public class Thwomp : MonoBehaviour
 
         if (checkMoveableRange > platformDistance)
         {
-            State = EnumThwompSate.Return;
+            State = EnumThwompState.Return;
         }
     }
     private void UpdateReturn()
@@ -199,7 +199,7 @@ public class Thwomp : MonoBehaviour
 
         if (checkReturn < 0f)
         {
-            State = EnumThwompSate.Idle;
+            State = EnumThwompState.Idle;
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)

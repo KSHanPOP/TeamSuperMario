@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class MarioSmall : PlayerBase
+public class MarioSmall : MarioDefaultState
 {
     private int hashDie = Animator.StringToHash("Die");
 
@@ -45,6 +45,7 @@ public class MarioSmall : PlayerBase
 
         StartCoroutine(SmallToBigTransformationCoroutine());
     }
+    
 
     public override void EatFireFlower()
     {

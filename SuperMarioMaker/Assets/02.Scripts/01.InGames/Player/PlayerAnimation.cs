@@ -91,12 +91,10 @@ public class PlayerAnimation : MonoBehaviour
     {   
         playerState.CurrState.Hit();
     }
-
     public void Die()
     {
         playerState.CurrState.Die();
     }
-
     public void OnTransformationComplete()
     {   
         playerState.CurrState.OnTransformationComplete();        
