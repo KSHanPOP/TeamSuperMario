@@ -42,7 +42,7 @@ public class ToolManager : MonoBehaviour
             var prevState = modeState;
 
             modeState = value;
-            //scoreText.text = "000000000";
+            scoreText.text = "000000000";
 
             if (prevState == modeState)
                 return;
@@ -226,7 +226,7 @@ public class ToolManager : MonoBehaviour
     [SerializeField] GameObject testModeUi;
 
     [SerializeField] TextMeshProUGUI timeText;
-    [SerializeField] TextMeshProUGUI lifeText;
+    [SerializeField] TextMeshProUGUI coinText;
     [SerializeField] TextMeshProUGUI scoreText;
 
     private int nowLife;
@@ -270,10 +270,28 @@ public class ToolManager : MonoBehaviour
         }
     }
 
+    public void AddScore(int score)
+    {
+        int nowscore = int.Parse(scoreText.text);
+        nowscore += score;
 
+        scoreText.text = nowscore.ToString("D8");
+    }
+
+    public void AddCoin(int coin)
+    {
+        int nowCoin = int.Parse(coinText.text);
+
+        nowCoin += coin;
+
+        if (nowCoin == 100)
+            nowCoin = 1;
+
+        coinText.text = nowCoin.ToString("D2");
+    }
 
     void Start()
-    {   
+    {
         Logger.CheckNullObject(this);
         Init();
     }
