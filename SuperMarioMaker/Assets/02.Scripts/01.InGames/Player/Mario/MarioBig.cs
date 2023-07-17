@@ -27,6 +27,8 @@ public class MarioBig : MarioDefaultState
     }
     public override void Hit()
     {
+        SoundManager.Instance.PlaySFX("Warp");
+
         StartTransformation();
         playerState.nextState = marioSmall;
 
@@ -45,6 +47,8 @@ public class MarioBig : MarioDefaultState
         if (isTransformingSequence)
             return;
 
+        SoundManager.Instance.PlaySFX("Powerup");
+
         StartTransformation();
         playerState.nextState = marioFire;
         isFire = false;
@@ -56,10 +60,9 @@ public class MarioBig : MarioDefaultState
         playerState.nextState.Enter();
         playerState.CurrState.Die();
     }
-    public override void DoJump()
+    public override void PlayJumpSound()
     {
-        SoundManager.Instance.PlaySFX("BigJump");
-        SoundManager.Instance.PlaySFX("Jump");
+        SoundManager.Instance.PlaySFX("BigJump");        
     }
 
     protected virtual void StopInvincible()

@@ -27,6 +27,8 @@ public class MarioFire : MarioBig
     }
     public override void Hit()
     {
+        SoundManager.Instance.PlaySFX("Warp");
+
         StartTransformation();
         playerState.nextState = marioBig;
         playerState.nextState.Enter();
@@ -63,11 +65,13 @@ public class MarioFire : MarioBig
 
     public void Fired()
     {
+        SoundManager.Instance.PlaySFX("FireBall");
+
         bool isLeft = sprite.flipX;
 
         Vector3 fireInstancePos = new Vector2(isLeft ? -0.375f : 0.375f, 0.25f);
 
-        var instanced = Instantiate<FireBall>(fireball, transform.position + fireInstancePos, Quaternion.identity, TileManager.Instance.DynamicObjHolder);
+        var instanced = Instantiate(fireball, transform.position + fireInstancePos, Quaternion.identity, TileManager.Instance.DynamicObjHolder);
 
         instanced.FireWithDirection(isLeft);
 

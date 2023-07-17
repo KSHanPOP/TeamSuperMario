@@ -88,15 +88,13 @@ public class JumpController : MonoBehaviour
         //플레이어가 땅에 닿아있는지 && 점프 키 버퍼가 남아있는지 체크.
         if (ground.IsGround() && (Time.time - lastJumpBufferInputTime) < jumpBufferDuration)
         {
-            DoJump();
+            GroundJump();
         }
 
         TryCutJump();
     }
     public void DoJump()
     {
-        playerState.CurrState.DoJump();
-
         //점프 시작 시 키 입력 시간 카운터 초기화        
         jumpKeyHoldTimeCounter = 0f;
 
@@ -109,6 +107,20 @@ public class JumpController : MonoBehaviour
         //점프력 감소는 점프 한번당 한번씩만 일어나도록 함
         canCutableJumpPower = true;
     }
+
+    public void GroundJump()
+    {
+        playerState.CurrState.PlayJumpSound();
+        DoJump();
+    }
+
+
+    public void MonsterPressJump()
+    {
+        SoundManager.Instance.PlaySFX("Stomp");
+        DoJump();
+    }
+
     private void TryCutJump()
     {
         //점프력 감소가 불가능상태시 리턴

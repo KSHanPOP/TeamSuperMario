@@ -56,10 +56,8 @@ public class CollisionMonster : MonoBehaviour
 
         go.GetComponent<IPressable>().Press();
 
-        SoundManager.Instance.PlaySFX("Kick");
-
-        if(!groundChecker.IsGround())
-            jumpController.DoJump();
+        if (!groundChecker.IsGround())
+            jumpController.MonsterPressJump();
     }
     public void Hit()
     {

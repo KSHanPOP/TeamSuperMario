@@ -86,7 +86,7 @@ public abstract class MarioDefaultState : MonoBehaviour
     {
 
     }
-    public virtual void DoJump()
+    public virtual void PlayJumpSound()
     {
 
     }

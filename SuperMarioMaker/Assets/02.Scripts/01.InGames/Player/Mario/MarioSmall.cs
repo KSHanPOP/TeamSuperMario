@@ -38,6 +38,8 @@ public class MarioSmall : MarioDefaultState
     }
     public override void EatMushroom()
     {
+        SoundManager.Instance.PlaySFX("Powerup");
+
         StartTransformation();
         playerState.nextState = marioBig;
         playerState.nextState.Enter();
@@ -49,6 +51,8 @@ public class MarioSmall : MarioDefaultState
 
     public override void EatFireFlower()
     {
+        SoundManager.Instance.PlaySFX("Powerup");
+
         StartTransformation();
         playerState.nextState = marioFire;
         playerState.nextState.Enter();
@@ -66,6 +70,8 @@ public class MarioSmall : MarioDefaultState
 
     public override void Die()
     {
+        SoundManager.Instance.PlaySFX("Die");
+
         MovementLimmiter.instance.CharacterCanMove = false;
 
         isTransformingSequence = true;
@@ -84,7 +90,7 @@ public class MarioSmall : MarioDefaultState
         //////
     }
 
-    public override void DoJump()
+    public override void PlayJumpSound()
     {
         SoundManager.Instance.PlaySFX("Jump");
     }

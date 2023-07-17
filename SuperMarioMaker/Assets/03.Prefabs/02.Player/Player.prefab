@@ -132,6 +132,7 @@ MonoBehaviour:
   minJumpPower: 0.35
   maxJumpPower: 0.5
   maxJumpkeyHoldTime: 0.5
+  playerState: {fileID: 2082444697104009540}
   jumpBufferDuration: 0.1
   jumpVelocity: 15.5
 --- !u!114 &4930648494648828081

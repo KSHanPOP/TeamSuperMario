@@ -24,6 +24,19 @@ public class QuestionBlock : Block
     }
     protected override void CheckItemRemainCount()
     {
+        switch (itemType)
+        {
+            case EnumItems.Coin:
+                SoundManager.Instance.PlaySFX("Coin");
+                break;
+            case EnumItems.Mushroom:
+                SoundManager.Instance.PlaySFX("Item");
+                break;
+            case EnumItems.FireFlower:
+                SoundManager.Instance.PlaySFX("Item");
+                break;
+        }
+
         --itemCount;
 
         if (itemCount == 0)

@@ -46,7 +46,11 @@ public class SoundManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (popUp.activeSelf) { popUp.SetActive(false); }
-            else { popUp.SetActive(true); }
+            else 
+            {
+                PlaySFX("Pause");
+                popUp.SetActive(true); 
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.C))

@@ -13,6 +13,7 @@ public class Coin : MonoBehaviour
         if (!collision.CompareTag("Player"))
             return;
 
+        SoundManager.Instance.PlaySFX("Coin");
         Logger.Debug("get score");
         Logger.Debug("get coin");
 

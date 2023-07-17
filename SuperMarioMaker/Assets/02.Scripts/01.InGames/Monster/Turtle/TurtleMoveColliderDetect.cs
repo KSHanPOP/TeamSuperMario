@@ -37,6 +37,8 @@ public class TurtleMoveColliderDetect : MonsterMoveColliderDetect
 
             if (target.CompareTag("Monster"))
             {
+                SoundManager.Instance.PlaySFX("Kick");
+
                 target.GetComponent<IShakeable>().Shake(transform.position);
             }
         }

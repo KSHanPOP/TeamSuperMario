@@ -29,6 +29,8 @@ public class BlockCrashAnimation : MonoBehaviour
     }
     public void OnCrash()
     {
+        SoundManager.Instance.PlaySFX("Break");
+
         foreach (var fragment in fragments)
         {
             fragment.gravityScale = gravityScale;

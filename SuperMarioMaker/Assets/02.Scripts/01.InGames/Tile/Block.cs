@@ -108,14 +108,28 @@ public class Block : MonoBehaviour
 
     protected virtual void CheckItemRemainCount()
     {
-        if (itemType == EnumItems.Blank)
-            return;
+        switch (itemType)
+        { 
+            case EnumItems.Blank:
+                SoundManager.Instance.PlaySFX("Bump");
+                return;
+            case EnumItems.Coin:
+                SoundManager.Instance.PlaySFX("Coin");
+                break;
+            case EnumItems.Mushroom:
+                SoundManager.Instance.PlaySFX("Item");
+                break;
+            case EnumItems.FireFlower:
+                SoundManager.Instance.PlaySFX("Item");
+                break;
+        }
 
         --itemCount;
 
         if (itemCount <= 0)
             spriteRenderer.sprite = spriteAfterUseItem;
     }
+
     protected virtual void CheckHitable()
     {
         if(isCrahsed)
