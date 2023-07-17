@@ -21,14 +21,6 @@ public class SceneLoader : MonoBehaviour
         }
     }
 
-
-    public enum SceneState
-    {
-        Title,
-        Tool,
-        MainGame,
-    }
-
     private SceneState state;
     public SceneState State
     {
@@ -96,4 +88,12 @@ public class SceneLoader : MonoBehaviour
         yield return new WaitForSeconds(3);
         loadingBG.SetActive(false);
     }
+}
+
+
+public enum SceneState
+{
+    Title,
+    Tool,
+    MainGame,
 }

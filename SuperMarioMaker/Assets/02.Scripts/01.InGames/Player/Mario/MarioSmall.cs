@@ -21,6 +21,9 @@ public class MarioSmall : MarioDefaultState
     [SerializeField]
     private float dieJumpForce = 5f;
 
+    [SerializeField]
+    private CameraFollowPlayer cameraFollowPlayer;
+
     protected override void Awake()
     {
         base.Awake();
@@ -63,13 +66,15 @@ public class MarioSmall : MarioDefaultState
 
     public override void Hit()
     {
-        playerState.Animator.SetTrigger(hashDie);
-
         Die();
     }
 
     public override void Die()
     {
+        cameraFollowPlayer.enabled = false;
+
+        playerState.Animator.SetTrigger(hashDie);
+
         SoundManager.Instance.StopAll();
         SoundManager.Instance.PlaySFX("Die");
 
@@ -85,10 +90,7 @@ public class MarioSmall : MarioDefaultState
 
         playerState.SetFallingLayer();
 
-
-        //////
-        Invoke(nameof(ResetGame), 5f);
-        //////
+        Invoke(nameof(ResetGame), 2f);
     }
 
     public override void PlayJumpSound()
@@ -98,7 +100,12 @@ public class MarioSmall : MarioDefaultState
 
     public void ResetGame()
     {
-        TileManager.Instance.Restart();
+        if (SceneLoader.Instance.State == SceneState.Tool)
+            ToolManager.Instance.GoTool();
+        else
+        {
+
+        }
     }
 
     public override void OnTransformationComplete()

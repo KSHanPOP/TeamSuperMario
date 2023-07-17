@@ -545,6 +545,10 @@ PrefabInstance:
       propertyPath: dieJumpForce
       value: 10.5
       objectReference: {fileID: 0}
+    - target: {fileID: 5531624047663584021, guid: 2df3c89c22af3cb46929812318c4026e, type: 3}
+      propertyPath: cameraFollowPlayer
+      value: 
+      objectReference: {fileID: 8205711964375372439}
     - target: {fileID: 5531624047663584022, guid: 2df3c89c22af3cb46929812318c4026e, type: 3}
       propertyPath: player
       value: 

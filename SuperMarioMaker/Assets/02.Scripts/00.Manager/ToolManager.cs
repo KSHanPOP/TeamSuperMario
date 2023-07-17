@@ -42,7 +42,7 @@ public class ToolManager : MonoBehaviour
             var prevState = modeState;
 
             modeState = value;
-            scoreText.text = "000000000";
+            //scoreText.text = "000000000";
 
             if (prevState == modeState)
                 return;
@@ -262,9 +262,10 @@ public class ToolManager : MonoBehaviour
             yield return new WaitForSeconds(1.0f);
             time--;
             GameManager.instance.nowPlayTime = time;
-            if (time <= 0)
+            if (time < 0)
             {
                 PlayerState.Instance.CurrState.Die();
+                yield break;
             }
         }
     }
@@ -272,7 +273,7 @@ public class ToolManager : MonoBehaviour
 
 
     void Start()
-    {
+    {   
         Logger.CheckNullObject(this);
         Init();
     }
