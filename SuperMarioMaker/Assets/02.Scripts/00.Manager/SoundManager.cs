@@ -38,7 +38,6 @@ public class SoundManager : MonoBehaviour
 
     private void Start()
     {
-        PlayBGM("Title");
     }
 
     private void Update()
@@ -46,10 +45,10 @@ public class SoundManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (popUp.activeSelf) { popUp.SetActive(false); }
-            else 
+            else
             {
                 PlaySFX("Pause");
-                popUp.SetActive(true); 
+                popUp.SetActive(true);
             }
         }
 
@@ -121,6 +120,7 @@ public class SoundManager : MonoBehaviour
         {
             bgmSource.clip = bgmClips[clipName];
             bgmSource.volume = bgmVolume * allVolume;
+            bgmSource.loop = true;
             bgmSource.Play();
         }
         else
@@ -182,8 +182,17 @@ public class SoundManager : MonoBehaviour
     // 모든 사운드 스탑
     public void StopAll()
     {
-        bgmSource.clip = null; // clear the BGM
+        BGMStop();
+        SFXStop();
+    }
 
+    public void BGMStop()
+    {
+        bgmSource.clip = null; // clear the BGM
+    }
+
+    public void SFXStop()
+    {
         foreach (var pair in sfxSources)
         {
             foreach (var source in pair.Value)

@@ -19,6 +19,8 @@ public class SceneLoader : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        SoundManager.Instance.PlayBGM("Title");
     }
 
     private SceneState state;
@@ -71,15 +73,18 @@ public class SceneLoader : MonoBehaviour
             yield return null;
         }
 
-        switch(sceneName)
+        switch (sceneName)
         {
             case "Title":
+                SoundManager.Instance.BGMStop();
                 State = SceneState.Title;
                 break;
             case "Tool":
+                SoundManager.Instance.BGMStop();
                 State = SceneState.Tool;
                 break;
             case "MainGame":
+                SoundManager.Instance.BGMStop();
                 State = SceneState.MainGame;
                 break;
         }
@@ -87,6 +92,16 @@ public class SceneLoader : MonoBehaviour
 
         yield return new WaitForSeconds(3);
         loadingBG.SetActive(false);
+        switch (sceneName)
+        {
+            case "Title":
+                SoundManager.Instance.PlayBGM("Title");
+                break;
+            case "Tool":
+                break;
+            case "MainGame":
+                break;
+        }
     }
 }
 
