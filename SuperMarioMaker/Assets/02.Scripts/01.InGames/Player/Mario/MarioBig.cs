@@ -56,6 +56,12 @@ public class MarioBig : MarioDefaultState
         playerState.nextState.Enter();
         playerState.CurrState.Die();
     }
+    public override void DoJump()
+    {
+        SoundManager.Instance.PlaySFX("BigJump");
+        SoundManager.Instance.PlaySFX("Jump");
+    }
+
     protected virtual void StopInvincible()
     {
         playerState.SetNormalLayer();

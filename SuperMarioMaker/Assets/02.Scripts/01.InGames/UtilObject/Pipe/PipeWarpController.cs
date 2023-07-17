@@ -181,6 +181,8 @@ public class PipeWarpController : MonoBehaviour
 
     IEnumerator EnterWarpCoroutine()
     {
+        SoundManager.Instance.PlaySFX("Warp");
+
         inWarpSequence = true;
 
         IsSmallState = PlayerState.Instance.IsSmallState();
@@ -216,7 +218,9 @@ public class PipeWarpController : MonoBehaviour
     }
 
     IEnumerator ExitWarpCoroutine(Rigidbody2D playerRb, float playerOriginGravScale)
-    {        
+    {
+        SoundManager.Instance.PlaySFX("Warp");
+
         MovePlayerPosToExitEntrance();
 
         float startTime = Time.time;

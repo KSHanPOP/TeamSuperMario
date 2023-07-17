@@ -1,5 +1,7 @@
+using System.Net.NetworkInformation;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Playables;
 
 public class JumpController : MonoBehaviour
 {
@@ -29,7 +31,8 @@ public class JumpController : MonoBehaviour
     [SerializeField]
     private float maxJumpkeyHoldTime = 0.5f;
 
-    private float inversMaxJumpkeyHoldTime;
+    [SerializeField]
+    private PlayerState playerState;
 
     private float jumpKeyHoldTimeCounter = 0f;
 
@@ -52,9 +55,7 @@ public class JumpController : MonoBehaviour
     {
         body = GetComponent<Rigidbody2D>();
         ground = GetComponent<GroundChecker>();         
-        body.gravityScale = gravityScale;
-
-        inversMaxJumpkeyHoldTime = 1 / maxJumpkeyHoldTime;
+        body.gravityScale = gravityScale;        
 
         InitSetting();
     }
@@ -94,6 +95,8 @@ public class JumpController : MonoBehaviour
     }
     public void DoJump()
     {
+        playerState.CurrState.DoJump();
+
         //점프 시작 시 키 입력 시간 카운터 초기화        
         jumpKeyHoldTimeCounter = 0f;
 

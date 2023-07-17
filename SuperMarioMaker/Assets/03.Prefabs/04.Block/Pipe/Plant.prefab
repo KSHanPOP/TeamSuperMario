@@ -47,7 +47,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dynamicObject: {fileID: 8835998033996004334, guid: b4e459bd9c32f47468ab821ef3035d2d, type: 3}
-  IsPoped: 0
 --- !u!212 &9159716437815625092
 SpriteRenderer:
   m_ObjectHideFlags: 0

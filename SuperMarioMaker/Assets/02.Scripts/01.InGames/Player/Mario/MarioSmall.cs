@@ -83,6 +83,12 @@ public class MarioSmall : MarioDefaultState
         Invoke(nameof(ResetGame), 5f);
         //////
     }
+
+    public override void DoJump()
+    {
+        SoundManager.Instance.PlaySFX("Jump");
+    }
+
     public void ResetGame()
     {
         TileManager.Instance.Restart();
