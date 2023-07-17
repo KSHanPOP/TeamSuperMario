@@ -11,9 +11,25 @@ public class PopupManager : MonoBehaviour
 
     [SerializeField]
     private GameObject[] popups; 
+
     private void Awake()
     {
-        Instance = this;        
+        Instance = this;
+
+        for(int i = 0; i < popups.Length; i++)
+        {
+            popups[i].GetComponent<TilePopup>().Index = i;
+        }
     }        
-    public GameObject GetPopup(int index) => popups[index];     
+
+    public void OffPopups()
+    {
+        foreach (var popup in popups)
+        {
+            popup.SetActive(false);
+        }
+    }
+
+    public GameObject GetPopup(int index) => popups[index];
+    public GameObject[] GetPopups() => popups;
 }

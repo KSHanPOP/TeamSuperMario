@@ -26,6 +26,8 @@ public class TileManager : MonoBehaviour
         dynamicObjHolder = new GameObject("DynamicObjHolder").transform;
         BaseTile.StartTest();
         PipeWarpConnector.StartTest();
+
+        PopupManager.Instance.OffPopups();
     }
     public void StopTest()
     {

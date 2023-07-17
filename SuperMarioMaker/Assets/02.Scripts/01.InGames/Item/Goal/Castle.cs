@@ -29,7 +29,17 @@ public class Castle : MonoBehaviour
             return;
         
         SoundManager.Instance.PlaySFX("Clear");
-        Logger.Debug("game clear!");
+        Invoke(nameof(ResetGame), 7f);
         //TileManager.Instance.StopTest();
+    }
+
+    public void ResetGame()
+    {
+        if (SceneLoader.Instance.State == SceneState.Tool)
+            ToolManager.Instance.GoTool();
+        else
+        {
+
+        }
     }
 }
