@@ -32,7 +32,16 @@ public class SpinCoin : ItemBase
             yield return null;
         }
 
-        Logger.Debug("get score");
+        if (SceneLoader.Instance.State == SceneState.Tool)
+        {
+            ToolManager.Instance.AddCoin(1);
+            ToolManager.Instance.AddScore(100);
+        }
+        else
+        {
+
+        }
+
         Destroy(gameObject);
         yield break;
     }
