@@ -35,7 +35,7 @@ public class ClearAnimationSequence : MonoBehaviour
 
         MovementLimmiter.instance.CharacterCanMove = false;
         playerRb = player.GetComponent<Rigidbody2D>();
-        playerRb.velocity = Vector2.zero;
+        playerRb.velocity = new Vector2(0f, maxFallSpeedWhileGrap);
         player.GetComponent<JumpController>().MaxFallSpeed = maxFallSpeedWhileGrap;
 
         player.GetComponent<PlayerAnimation>().GrapFlag();

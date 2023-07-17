@@ -29,8 +29,8 @@ public class Castle : MonoBehaviour
             return;
         
         SoundManager.Instance.PlaySFX("Clear");
-        Invoke(nameof(ResetGame), 7f);
-        //TileManager.Instance.StopTest();
+        collision.gameObject.SetActive(false);
+        Invoke(nameof(ResetGame), 7f);        
     }
 
     public void ResetGame()

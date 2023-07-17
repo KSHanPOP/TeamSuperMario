@@ -15,15 +15,7 @@ public class Coin : MonoBehaviour
 
         SoundManager.Instance.PlaySFX("Coin");
 
-        if(SceneLoader.Instance.State == SceneState.Tool)
-        {
-            ToolManager.Instance.AddCoin(1);
-            ToolManager.Instance.AddScore(100);
-        }
-        else
-        {
-            
-        }
+        ScoreManager.Instance.GetCoin(1);
 
         Destroy(gameObject);
     }

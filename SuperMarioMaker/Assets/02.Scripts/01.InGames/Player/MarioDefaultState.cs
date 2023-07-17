@@ -24,9 +24,9 @@ public abstract class MarioDefaultState : MonoBehaviour
 
     protected BoxCollider2D playerTrigger;
 
-    protected Vector2 smallColliderSize = new Vector2(0.75f, 0.95f);
+    protected Vector2 smallColliderSize = new Vector2(0.75f, 0.80f);
 
-    protected Vector2 smallColliderOffset = new Vector2(0f, 0);
+    protected Vector2 smallColliderOffset = new Vector2(0f, -0.075f);
 
     protected float smallBlockDetectLength = 0.5f;
 

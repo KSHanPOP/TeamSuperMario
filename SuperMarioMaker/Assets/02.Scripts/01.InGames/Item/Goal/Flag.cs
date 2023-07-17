@@ -6,6 +6,8 @@ public class Flag : MonoBehaviour
 {
     private int hashGetScore = Animator.StringToHash("GetScore");
 
+    public int Score { get; set; }
+
     [SerializeField]
     private Animator animator;
 
@@ -18,7 +20,8 @@ public class Flag : MonoBehaviour
     }
 
     public void FlagDown()
-    {   
+    {
+        ScoreManager.Instance.GetScore(Score);
         sequence.NextSequnce();
     }
 

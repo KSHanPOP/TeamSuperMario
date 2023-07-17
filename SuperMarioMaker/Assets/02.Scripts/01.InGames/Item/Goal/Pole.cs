@@ -26,14 +26,14 @@ public class Pole : MonoBehaviour
             isStageClear = true;
             Castle.Instance.StageClear();
 
+            SetScore(collision.transform.position.y);
             flag.GetScore();
-            GetScore(collision.transform.position.y);
 
             clearAnimation.StartSequence(collision.gameObject);            
         }                
     }
 
-    private void GetScore(float playerHeight)
+    private void SetScore(float playerHeight)
     {       
         float heightAvobeFloor = playerHeight - (transform.position.y + 0.5f);
 
@@ -41,12 +41,12 @@ public class Pole : MonoBehaviour
         {
             if(heightAvobeFloor < differentialScoreZone[i])
             {
-                Logger.Debug($"get score{scores[i]}");
+                flag.Score = scores[i];                
                 return;
             }
         }
 
-        Logger.Debug($"get score{scores[scores.Length - 1]}");
+        flag.Score = scores[scores.Length - 1];             
     }
     
 }
