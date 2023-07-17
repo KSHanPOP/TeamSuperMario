@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 1881219319078193911}
   - component: {fileID: 3167385374547739932}
   m_Layer: 0
-  m_Name: DynamicTileManager
+  m_Name: TileManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
