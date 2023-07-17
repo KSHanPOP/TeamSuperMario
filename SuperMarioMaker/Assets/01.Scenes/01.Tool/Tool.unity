@@ -404,6 +404,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5eaf70bc65d245a4a981402ea193e75f, type: 3}
+--- !u!114 &29241017 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5383091299721752256, guid: 5eaf70bc65d245a4a981402ea193e75f, type: 3}
+  m_PrefabInstance: {fileID: 29241016}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &29241018 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5383091299728199476, guid: 5eaf70bc65d245a4a981402ea193e75f, type: 3}
+  m_PrefabInstance: {fileID: 29241016}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &79782999
 GameObject:
   m_ObjectHideFlags: 0
@@ -10437,8 +10459,8 @@ MonoBehaviour:
   stopButton: {fileID: 1259634123}
   testModeUi: {fileID: 2071971064}
   timeText: {fileID: 347013325}
-  lifeText: {fileID: 0}
-  scoreText: {fileID: 0}
+  coinText: {fileID: 29241018}
+  scoreText: {fileID: 29241017}
 --- !u!4 &2081892132
 Transform:
   m_ObjectHideFlags: 0
