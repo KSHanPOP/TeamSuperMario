@@ -216,6 +216,15 @@ public class IconManager : MonoBehaviour
         }
     }
 
+    public void SetOUtLineOff()
+    {
+            tiles.SetOutline(false);
+            activeTiles.SetOutline(false);
+            item.SetOutline(false);
+            Monster.SetOutline(false);
+            Gimmik.SetOutline(false);
+    }
+
     public void SetActivePopupButtons(string iconTag)
     {
         var prefaps = ResourceManager.instance.GetAllPrefabsWithTag(nowTag);
@@ -284,6 +293,7 @@ public class IconManager : MonoBehaviour
         nowNames[nowTag] = button.name;
         // NowName= button.name;
         iconPopup.SetActive(false);
+        clickChangeTile.PickerMode = PickMode.Tile;
     }
 
     public void ExitPopup()

@@ -9,6 +9,7 @@ using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 using static ToolManager;
 using static UnityEditor.PlayerSettings;
+using static UnityEngine.UI.Image;
 
 public enum PickMode
 {
@@ -29,7 +30,10 @@ public class ClickChangeTile : MonoBehaviour, ICommand
     public Stack<List<GameObjectTileData>> commandStack = new Stack<List<GameObjectTileData>>();
     public Stack<List<GameObjectTileData>> undoStack = new Stack<List<GameObjectTileData>>();
 
-    [SerializeField] private Texture2D cursorTexture; // 바꿀 커서 이미지를 에디터에서 할당
+    [SerializeField] private Texture2D cursorTextureBefore; // 바꿀 커서 이미지를 에디터에서 할당
+    [SerializeField] private Texture2D cursorTextureAfter; // 바꿀 커서 이미지를 에디터에서 할당
+    [SerializeField] private Texture2D eraserTextureBefore; // 바꿀 커서 이미지를 에디터에서 할당
+    [SerializeField] private Texture2D eraserTextureAfter; // 바꿀 커서 이미지를 에디터에서 할당
     private CursorMode cursorMode = CursorMode.ForceSoftware;
     private Vector2 hotSpot = Vector2.zero; // 커서 이미지에서 클릭 지점의 위치. (0,0)이면 왼쪽 위 꼭짓점
 
@@ -39,11 +43,22 @@ public class ClickChangeTile : MonoBehaviour, ICommand
         get { return pickerMode; }
         set
         {
+            var before = pickerMode;
+
+            if (before == PickMode.Pick && value != PickMode.None) return;
+            if (before == PickMode.Player && value != PickMode.None) return;
+
+            if (pickerMode == value) return;
+
+            if (pickerMode == PickMode.Eraser)
+                Cursor.SetCursor(cursorTextureBefore, hotSpot, cursorMode);
+
             pickerMode = value;
 
             switch (pickerMode)
             {
                 case PickMode.None:
+                    ToolManager.Instance.iconManager.SetOUtLineOff();
                     break;
                 case PickMode.Tile:
                     break;
@@ -52,8 +67,11 @@ public class ClickChangeTile : MonoBehaviour, ICommand
                 case PickMode.Pick:
                     break;
                 case PickMode.Eraser:
+                    Cursor.SetCursor(eraserTextureBefore, hotSpot, cursorMode);
                     break;
             }
+
+            Logger.Debug(value);
         }
     }
 
@@ -61,70 +79,13 @@ public class ClickChangeTile : MonoBehaviour, ICommand
 
     private void SetIsPlayerMove()
     {
+        PickerMode = PickMode.Player;
         isPlayerMove = true;
     }
     void Update()
     {
-        var mode = ToolManager.Instance.ToolMode;
-        if (mode == ToolModeType.Tool)
-        {
-            if (isPlayerMove)
-            {
-                // UI 위에 마우스가 있는지 검사
-                if (EventSystem.current.IsPointerOverGameObject())
-                    return; // UI 위에 마우스가 있다면 레이캐스팅을 무시하고 종료
-
-                Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                worldPos.z = 0;
-                ToolManager.Instance.PlayerObj.transform.position = worldPos;
-
-                if (Input.GetMouseButtonUp(0))
-                {
-
-                    int playerLayer = LayerMask.NameToLayer("Player"); // Player 레이어의 번호를 가져옵니다.
-                    int layerMask = 1 << playerLayer; // Player 레이어를 Mask로 설정합니다.
-                    layerMask = ~layerMask; // Bitwise NOT 연산을 통해 Player 레이어를 제외합니다.
-
-                    // 마우스의 스크린 좌표를 월드 좌표로 변환
-                    Collider2D hitCollider = Physics2D.OverlapBox(worldPos, new Vector2(1, 1), 0f, layerMask);
-                    List<GameObjectTileData> gameObjectTileDatas = new List<GameObjectTileData>();
-
-                    if (hitCollider == null)
-                    {
-                        isPlayerMove = false;
-                    }
-                }
-                return;
-            }
-            if (Input.GetMouseButtonUp(0))
-            {
-                // UI 위에 마우스가 있는지 검사
-                if (EventSystem.current.IsPointerOverGameObject())
-                    return; // UI 위에 마우스가 있다면 레이캐스팅을 무시하고 종료
-
-                // 맵 위에 찍는 행동
-                Execute();
-                CheckUndoButtonStatus();
-                Logger.Debug("왜 2번 찍힘? ");
-            }
-            else if (Input.GetMouseButtonUp(1))
-            {
-                // UI 위에 마우스가 있는지 검사
-                if (EventSystem.current.IsPointerOverGameObject())
-                    return; // UI 위에 마우스가 있다면 레이캐스팅을 무시하고 종료
-
-                // 마우스의 스크린 좌표를 월드 좌표로 변환
-                Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-
-                // 타일맵에서의 클릭 위치 계산
-                Vector3Int cellPos = tilemap.WorldToCell(worldPos);
-
-                Delete();
-                CheckUndoButtonStatus();
-            }
-        }
     }
+
 
     public void TestFunc(InputAction.CallbackContext context)
     {
@@ -135,9 +96,7 @@ public class ClickChangeTile : MonoBehaviour, ICommand
     }
     public void AwTestFunc(InputAction.CallbackContext context)
     {
-
         var dir = context.ReadValue<float>();
-
 
         //if (context.performed)
         {
@@ -171,13 +130,147 @@ public class ClickChangeTile : MonoBehaviour, ICommand
 
         return null;
     }
+
+    public void MouseLeftClick(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+            return;
+        var mode = ToolManager.Instance.ToolMode;
+
+        if (mode == ToolModeType.Tool)
+            switch (PickerMode)
+            {
+                case PickMode.None:
+                    if (context.started)
+                    {
+                        Cursor.SetCursor(cursorTextureAfter, hotSpot, cursorMode);
+                    }
+                    else if (context.canceled)
+                    {
+                        Cursor.SetCursor(cursorTextureBefore, hotSpot, cursorMode);
+                    }
+                    break;
+
+                case PickMode.Tile:
+                    if (context.started)
+                    {
+                        Cursor.SetCursor(cursorTextureAfter, hotSpot, cursorMode);
+                    }
+                    else if (context.canceled)
+                    {
+                        // UI 위에 마우스가 있는지 검사
+                        if (EventSystem.current.IsPointerOverGameObject())
+                            return; // UI 위에 마우스가 있다면 레이캐스팅을 무시하고 종료
+
+                        // 맵 위에 찍는 행동
+                        Execute();
+                        CheckUndoButtonStatus();
+                        Logger.Debug("왜 2번 찍힘? ");
+                        Cursor.SetCursor(cursorTextureBefore, hotSpot, cursorMode);
+                    }
+                    break;
+
+                case PickMode.Player:
+                    if (context.started)
+                    {
+                        Cursor.SetCursor(cursorTextureAfter, hotSpot, cursorMode);
+                    }
+                    else if (context.canceled)
+                    {
+                        // UI 위에 마우스가 있는지 검사
+                        if (EventSystem.current.IsPointerOverGameObject())
+                            return; // UI 위에 마우스가 있다면 레이캐스팅을 무시하고 종료
+
+                        Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                        worldPos.z = 0;
+                        ToolManager.Instance.PlayerObj.transform.position = worldPos;
+
+                        if (Input.GetMouseButtonUp(0))
+                        {
+
+                            int playerLayer = LayerMask.NameToLayer("Player"); // Player 레이어의 번호를 가져옵니다.
+                            int layerMask = 1 << playerLayer; // Player 레이어를 Mask로 설정합니다.
+                            layerMask = ~layerMask; // Bitwise NOT 연산을 통해 Player 레이어를 제외합니다.
+
+                            // 마우스의 스크린 좌표를 월드 좌표로 변환
+                            Collider2D hitCollider = Physics2D.OverlapBox(worldPos, new Vector2(1, 1), 0f, layerMask);
+                            List<GameObjectTileData> gameObjectTileDatas = new List<GameObjectTileData>();
+
+                            if (hitCollider == null)
+                            {
+                                isPlayerMove = false;
+                            }
+                        }
+
+                        Cursor.SetCursor(cursorTextureBefore, hotSpot, cursorMode);
+                        PickerMode = PickMode.None;
+                    }
+                    break;
+
+                case PickMode.Pick:
+                    if (context.started)
+                    {
+                        Cursor.SetCursor(cursorTextureAfter, hotSpot, cursorMode);
+                    }
+                    else if (context.canceled)
+                    {
+                        Cursor.SetCursor(cursorTextureBefore, hotSpot, cursorMode);
+                    }
+                    break;
+
+                case PickMode.Eraser:
+                    if (context.started)
+                    {
+                        Cursor.SetCursor(eraserTextureAfter, hotSpot, cursorMode);
+                    }
+                    else if (context.canceled)
+                    {
+                        // UI 위에 마우스가 있는지 검사
+                        if (EventSystem.current.IsPointerOverGameObject())
+                            return; // UI 위에 마우스가 있다면 레이캐스팅을 무시하고 종료
+
+                        // 마우스의 스크린 좌표를 월드 좌표로 변환
+                        Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+                        // 타일맵에서의 클릭 위치 계산
+                        Vector3Int cellPos = tilemap.WorldToCell(worldPos);
+
+                        Delete();
+                        CheckUndoButtonStatus();
+                        Cursor.SetCursor(eraserTextureBefore, hotSpot, cursorMode);
+                    }
+                    break;
+            }
+
+
+    }
+    public void MouseRightClick(InputAction.CallbackContext context)
+    {
+        if (context.started || context.performed)
+            return;
+
+        if (PickerMode == PickMode.None)
+        {
+            PickerMode = PickMode.Eraser;
+        }
+        else if (PickerMode == PickMode.Eraser || PickerMode == PickMode.Tile || PickerMode == PickMode.Pick)
+        {
+            PickerMode = PickMode.None;
+        }
+
+        if (context.canceled)
+        {
+            Logger.Debug("눌림");
+        }
+    }
     private void Start()
     {
         redoButton.onClick.AddListener(Redo);
         undoButton.onClick.AddListener(Undo);
         playerButton.onClick.AddListener(SetIsPlayerMove);
         CheckUndoButtonStatus();
-        Cursor.SetCursor(cursorTexture, hotSpot, cursorMode); ;
+        Cursor.SetCursor(cursorTextureBefore, hotSpot, cursorMode);
+        // mouseClickAction = actionMap.FindAction("MouseClick");
     }
 
     private void CheckUndoButtonStatus()
@@ -331,6 +424,45 @@ public class ClickChangeTile : MonoBehaviour, ICommand
         }
     }
 
+    public void LoadData(Stack<List<GameObjectTileData>> data)
+    {
+        commandStack.Clear();
+        undoStack.Clear();
 
+        while (data.Count != 0)
+        {
+            commandStack.Push(data.Pop());
+        }
+    }
 
+    public Stack<List<GameObjectTileData>> SaveData()
+    {
+        Stack<List<GameObjectTileData>> tempStack = new Stack<List<GameObjectTileData>>();
+        Stack<List<GameObjectTileData>> data = new Stack<List<GameObjectTileData>>();
+
+        // Copy the original stack to the temporary stack and the data stack
+        while (commandStack.Count > 0)
+        {
+            List<GameObjectTileData> command = commandStack.Pop();
+            tempStack.Push(command);
+
+            foreach (var item in command)
+            {
+                if (item.gameObject.activeSelf)
+                {
+                    List<GameObjectTileData> temp = new List<GameObjectTileData> { item };
+                    data.Push(temp);
+                }
+            }
+        }
+
+        // Restore the original stack
+        while (tempStack.Count > 0)
+        {
+            commandStack.Push(tempStack.Pop());
+        }
+
+        // Return the data stack
+        return data;
+    }
 }

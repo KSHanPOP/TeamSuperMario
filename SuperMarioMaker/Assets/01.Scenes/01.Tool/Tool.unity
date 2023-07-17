@@ -314,6 +314,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ToolPlayInfoUI
       objectReference: {fileID: 0}
+    - target: {fileID: 5383091299905639529, guid: 5eaf70bc65d245a4a981402ea193e75f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5383091299905639541, guid: 5eaf70bc65d245a4a981402ea193e75f, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -2826,7 +2830,10 @@ MonoBehaviour:
   redoButton: {fileID: 276515539}
   playerButton: {fileID: 1656044881}
   tilemap: {fileID: 442647680}
-  cursorTexture: {fileID: 2800000, guid: 836b15858797e7f4da4dc69300af3862, type: 3}
+  cursorTextureBefore: {fileID: 2800000, guid: 836b15858797e7f4da4dc69300af3862, type: 3}
+  cursorTextureAfter: {fileID: 2800000, guid: b97517cd48ccd974582d990a9348c561, type: 3}
+  eraserTextureBefore: {fileID: 2800000, guid: 5915ad0e6786bc242bc2a095e624f33e, type: 3}
+  eraserTextureAfter: {fileID: 2800000, guid: 7711dc4ba7c3adb479a013fcde94c255, type: 3}
 --- !u!114 &532670460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6836,6 +6843,56 @@ MonoBehaviour:
   m_EffectColor: {r: 0.89411765, g: 0.3019608, b: 0.06666667, a: 1}
   m_EffectDistance: {x: 10, y: 10}
   m_UseGraphicAlpha: 0
+--- !u!1 &1351825607
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1351825608}
+  - component: {fileID: 1351825609}
+  m_Layer: 0
+  m_Name: CameraFollowPlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1351825608
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1351825607}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1006.81067, y: 465, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1351825609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1351825607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36f4d70786c429b4a931e79c547d0864, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  smoothTime: 0.3
+  minX: 0
+  maxX: 0
+  minY: 0
+  maxY: 0
 --- !u!1 &1358931430
 GameObject:
   m_ObjectHideFlags: 0
@@ -8838,6 +8895,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1775623838}
   m_CullTransparentMesh: 1
+--- !u!1 &1808711298
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1808711300}
+  - component: {fileID: 1808711299}
+  m_Layer: 0
+  m_Name: CameraMover
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1808711299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1808711298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 063d098d25766794da9ca9ab6fe24629, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+--- !u!4 &1808711300
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1808711298}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1006.81067, y: 465, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1832151371
 GameObject:
   m_ObjectHideFlags: 0
@@ -9351,9 +9453,9 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 532670459}
         m_TargetAssemblyTypeName: ClickChangeTile, Assembly-CSharp
-        m_MethodName: TestFunc
+        m_MethodName: MouseRightClick
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9366,10 +9468,14 @@ MonoBehaviour:
     m_ActionId: 3dcb2dff-b77f-4a83-a007-f717edf05ac4
     m_ActionName: Tool/Tool Mouse[/Mouse/leftButton,/Mouse/rightButton]
   - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6184971c-f002-4286-9f65-6d5b49fb9cee
+    m_ActionName: Tool/Tool Keyboard[/Keyboard/anyKey]
+  - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 532670459}
         m_TargetAssemblyTypeName: ClickChangeTile, Assembly-CSharp
-        m_MethodName: AwTestFunc
+        m_MethodName: MouseLeftClick
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9379,12 +9485,24 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 6184971c-f002-4286-9f65-6d5b49fb9cee
-    m_ActionName: Tool/Tool Keyboard[/Keyboard/anyKey]
-  - m_PersistentCalls:
-      m_Calls: []
     m_ActionId: 8738b2d8-aa09-4351-9ce2-13b038702744
     m_ActionName: Tool/Mouse Left[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1808711299}
+        m_TargetAssemblyTypeName: CameraMover, Assembly-CSharp
+        m_MethodName: OnMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: d20c9bec-fd17-4112-90ae-a879569bacf1
+    m_ActionName: Tool/CameraMove[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Tool
@@ -10276,6 +10394,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfdcf1f518458d349b76696685edfa03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CClickMode: {fileID: 532670459}
   scrollingBackground: {fileID: 1746608102}
   iconManager: {fileID: 1235723532}
   Background: {fileID: 1746608102}

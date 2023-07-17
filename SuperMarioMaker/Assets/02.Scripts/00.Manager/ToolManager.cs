@@ -29,7 +29,9 @@ public class ToolManager : MonoBehaviour
         Save,
     }
 
-    [SerializeField] ScrollingBackground scrollingBackground;
+    public ClickChangeTile CClickMode;
+
+   [SerializeField] ScrollingBackground scrollingBackground;
 
     private ToolModeType modeState = ToolModeType.Tool;
     public ToolModeType ToolMode

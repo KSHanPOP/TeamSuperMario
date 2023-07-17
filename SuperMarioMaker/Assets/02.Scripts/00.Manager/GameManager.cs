@@ -7,8 +7,6 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    public Tilemap tilemap;
-
     private void Awake()
     {
         if (instance == null)
