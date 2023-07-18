@@ -11,6 +11,9 @@ public class TileManager : MonoBehaviour
 
     public bool IsPlaying { get; private set; } = false;
 
+    [SerializeField]
+    FallTileHandler fallTileHandler;
+
     private void Awake()
     {
         Instance = this;
@@ -26,6 +29,7 @@ public class TileManager : MonoBehaviour
         dynamicObjHolder = new GameObject("DynamicObjHolder").transform;
         BaseTile.StartTest();
         PipeWarpConnector.StartTest();
+        fallTileHandler.StartTest();
 
         PopupManager.Instance.OffPopups();
     }
@@ -39,6 +43,7 @@ public class TileManager : MonoBehaviour
         Destroy(dynamicObjHolder.gameObject);
         BaseTile.StopTest();        
         PipeWarpConnector.StopTest();
+        fallTileHandler.StopTest();
     }
 
     public void Restart()

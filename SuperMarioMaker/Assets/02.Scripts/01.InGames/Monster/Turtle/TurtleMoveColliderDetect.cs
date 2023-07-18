@@ -18,8 +18,6 @@ public class TurtleMoveColliderDetect : MonsterMoveColliderDetect
     }
     protected override void OnCollisionEnter2D(Collision2D collision)
     {
-        Logger.Debug("turtle collision");
-
         if (turtle.State == EnumTurtleState.Idle)
             return;
 

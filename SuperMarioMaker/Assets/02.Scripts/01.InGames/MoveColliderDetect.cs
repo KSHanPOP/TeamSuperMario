@@ -20,9 +20,16 @@ public class MoveColliderDetect : MonoBehaviour
 
     protected float rayDir = -1;
 
+    protected bool dirChanged = false;
+
     protected virtual void Awake()
     {
         layerMask = LayerMask.GetMask("Platform");
+    }
+
+    protected virtual void FixedUpdate()
+    {
+        dirChanged = false;
     }
 
     protected virtual void OnCollisionEnter2D(Collision2D collision)
@@ -43,6 +50,10 @@ public class MoveColliderDetect : MonoBehaviour
 
     public void ChangeMoveDir()
     {
+        if (dirChanged)
+            return;
+
+        dirChanged = true;
         rayDir = -rayDir;
         move.ReverseMoveDir();
     }
