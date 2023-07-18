@@ -37,14 +37,6 @@ public class MarioFire : MarioBig
 
         Invoke(nameof(StopInvincible), marioSmall.InvincibleTime);
     }
-    public override void EatMushroom()
-    {
-        Logger.Debug("get score");
-    }
-    public override void EatFireFlower()
-    {
-        Logger.Debug("get score");
-    }
 
     protected override void ChangeControllder()
     {

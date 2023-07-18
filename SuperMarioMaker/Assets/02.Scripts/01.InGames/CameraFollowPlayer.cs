@@ -17,17 +17,23 @@ public class CameraFollowPlayer : MonoBehaviour
     private void Start()
     {
         cam = Camera.main;
-    }
 
-    void Update()
-    {
+        if(GameManager.instance == null)
+        {
+            enabled = false;
+            return;
+        }
+
         var gameData = GameManager.instance.gameData;
 
         minX = gameData.TileX / 2;
         maxX = gameData.TileX * gameData.MapRowLength - minX;
         minY = gameData.TileY / 2;
         maxY = gameData.TileY * gameData.MapRowLength - minY;
+    }
 
+    void Update()
+    {
         Vector3 targetPosition = transform.TransformPoint(new Vector3(0, 0, -10));
         Vector3 smoothPosition = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
         smoothPosition.x = Mathf.Clamp(smoothPosition.x, minX, maxX);

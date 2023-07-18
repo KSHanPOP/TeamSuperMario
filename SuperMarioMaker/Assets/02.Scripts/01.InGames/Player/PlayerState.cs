@@ -13,6 +13,9 @@ public class PlayerState : MonoBehaviour
     public BlockDetector blockDetector;
 
     [SerializeField]
+    public MoveController moveController;
+
+    [SerializeField]
     int normalLayer;
 
     [SerializeField]
@@ -36,9 +39,8 @@ public class PlayerState : MonoBehaviour
     private float actionCooltime = 0.5f;
     private float lastActionTime;
 
-
-    public MarioDefaultState CurrState { get; set; }
-    public MarioDefaultState nextState { get; set; }
+    public DefaultMario CurrState { get; set; }
+    public DefaultMario nextState { get; set; }
     public Animator Animator { get; set; }
 
     private MarioSmall marioSmall;
@@ -46,6 +48,9 @@ public class PlayerState : MonoBehaviour
     private MarioBig marioBig;
 
     private MarioFire marioFire;
+
+    public bool Sit { get; set; }
+
     public void Awake()
     {
         Instance = this;
@@ -99,12 +104,13 @@ public class PlayerState : MonoBehaviour
     private void Update()
     {
         if((Time.time - lastActionBufferInputTime) < actionBuffer &&
-            Time.time - lastActionTime > actionCooltime)
+            Time.time - lastActionTime > actionCooltime &&
+            !Sit)
         {
             CurrState.DoAction();
             lastActionBufferInputTime = -actionBuffer;
             lastActionTime = Time.time;
-        }
+        }        
     }
 
     public bool IsSmallState()

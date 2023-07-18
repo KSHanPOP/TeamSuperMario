@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class MarioSmall : MarioDefaultState
+public class MarioSmall : DefaultMario
 {
     private int hashDie = Animator.StringToHash("Die");
 

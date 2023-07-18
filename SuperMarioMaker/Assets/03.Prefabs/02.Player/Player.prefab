@@ -113,6 +113,7 @@ MonoBehaviour:
   directionX: 0
   runSpeedMultiplier: 2
   rapidAcceleraton: 2
+  playerState: {fileID: 2082444697104009540}
 --- !u!114 &4930648494648828084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,7 +244,19 @@ MonoBehaviour:
     m_ActionId: 5dc37e28-5efd-42ca-8f59-c8d8ac94e9ff
     m_ActionName: IngameControl/Fire[/Keyboard/leftShift]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 740703152283585349}
+        m_TargetAssemblyTypeName: MoveController, Assembly-CSharp
+        m_MethodName: TrySit
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: b9f78db5-858f-412d-b229-a7101ff302ac
     m_ActionName: IngameControl/Down[/Keyboard/s,/Keyboard/downArrow]
   m_NeverAutoSwitchControlSchemes: 0
@@ -310,7 +323,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerState: {fileID: 2082444697104009540}
   offset: {x: 0.375, y: 0, z: 0}
-  blockDetectLength: 0.5
+  blockDetectLength: 0.4
   jumpController: {fileID: 4930648494648828084}
 --- !u!114 &8205711964375372439
 MonoBehaviour:
@@ -319,7 +332,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4930648494648827982}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 36f4d70786c429b4a931e79c547d0864, type: 3}
   m_Name: 

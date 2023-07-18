@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class MarioDefaultState : MonoBehaviour
+public abstract class DefaultMario : MonoBehaviour
 {
     protected PlayerState playerState;
 
@@ -28,7 +28,7 @@ public abstract class MarioDefaultState : MonoBehaviour
 
     protected Vector2 smallColliderOffset = new Vector2(0f, -0.075f);
 
-    protected float smallBlockDetectLength = 0.5f;
+    protected float smallBlockDetectLength = 0.4f;
 
     protected Vector2 bigColliderSize = new Vector2(0.75f, 1.75f);
 
@@ -68,11 +68,11 @@ public abstract class MarioDefaultState : MonoBehaviour
     }
     public virtual void EatMushroom()
     {
-
+        ScoreManager.Instance.GetScore(1000);
     }
     public virtual void EatFireFlower()
     {
-
+        ScoreManager.Instance.GetScore(1000);
     }
     public virtual void Hit()
     {
@@ -87,6 +87,14 @@ public abstract class MarioDefaultState : MonoBehaviour
 
     }
     public virtual void PlayJumpSound()
+    {
+
+    }
+    public virtual void StartSit()
+    {
+
+    }
+    public virtual void EndSit()
     {
 
     }

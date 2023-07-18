@@ -46,6 +46,7 @@ public class JumpController : MonoBehaviour
     private float jumpVelocity;
 
     private float jumpKeyValue;
+    private bool isTryJump;
 
     private MovementLimmiter limmiter;
     
@@ -72,9 +73,9 @@ public class JumpController : MonoBehaviour
 
     public void TryJump(InputAction.CallbackContext context)
     {
-        jumpKeyValue = context.ReadValue<float>();
+        isTryJump = context.ReadValue<float>() == 1;
 
-        if(jumpKeyValue == 1)
+        if (isTryJump)
         {
             lastJumpBufferInputTime = Time.time;            
         }   
@@ -128,7 +129,7 @@ public class JumpController : MonoBehaviour
             return;
 
         //점프 키가 눌린 상태면 리턴
-        if (jumpKeyValue != 0)
+        if (isTryJump)
             return;
 
         //플레이어가 낙하 중에는 리턴
@@ -136,10 +137,10 @@ public class JumpController : MonoBehaviour
             return;
 
         //점프키를 누른 시간이 작을수록 점프력을 크게 감소. 누른 시간이 길수록 약하게 감소.
-        var jumpPowerReduction = Mathf.Lerp(minJumpPower, maxJumpPower, jumpKeyHoldTimeCounter / maxJumpkeyHoldTime);        
+        var jumpPowerAdjust = Mathf.Lerp(minJumpPower, maxJumpPower, jumpKeyHoldTimeCounter / maxJumpkeyHoldTime);        
 
         //현재 플레이어에 점프속도를 위 결과에 따라 감소시킴.
-        body.velocity = new Vector2(body.velocity.x, body.velocity.y * jumpPowerReduction);
+        body.velocity = new Vector2(body.velocity.x, body.velocity.y * jumpPowerAdjust);
 
         //점프력 감소 불가능하게 처리.
         canCutableJumpPower = false;        

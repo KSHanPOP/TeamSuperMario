@@ -17,7 +17,10 @@ public class FallTileHandler : MonoBehaviour
     {
         trigger.enabled = true;
 
-        var gameData = GameManager.instance.gameData;
+        if (GameManager.instance == null)
+            return;
+
+        var gameData = GameManager.instance.gameData;        
 
         startPoint = 0f;
         endPoint = gameData.TileX * gameData.MapRowLength;
