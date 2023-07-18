@@ -14,23 +14,25 @@ public class MapData
     public string MapName { get; set; }
 
     [JsonProperty("time")]
-    public string Time { get; set; }
+    public float Time { get; set; }
 
     [JsonProperty("life")]
-    public string Life { get; set; }
+    public int Life { get; set; }
 
 
     [JsonProperty("BackGroundName")]
     public string BackGroundName { get; set; }
 
     [JsonProperty("MapRowLength")]
-    public string MapRowLength { get; set; }
+    public int MapRowLength { get; set; }
 
     [JsonProperty("MapColLength")]
-    public string MapColLength { get; set; }
+    public int MapColLength { get; set; }
 
-    [JsonProperty("tiles")]
+    [JsonProperty("Tiles")]
     public List<TileData> Tiles { get; set; }
+
+
 }
 public class GameObjectTileData
 {
@@ -90,31 +92,21 @@ public class JsonTest : MonoBehaviour
 
     [SerializeField]
     private Tilemap tilemap;
-    public void MakeADefaultMapData()
+    public void GameComplete()
     {
-        var mapData = new MapData
-        {
-            MapName = "Defalt",
-            Tiles = new List<TileData>()
-        };
-        for (int x = 0; x < tilemapRow; x++)
-        {
-            for (int y = 0; y < tilemapCol; y++)
-            {
-                var pos = new Vector3Int(x, y, 0);
-                //TileBase tileBase = tilemap.GetTile(pos);
-                //CustomTile customTile = tileBase as CustomTile;
-                var name = CClickChangeTile.GetCustomTileName(pos);
-                //mapData.Tiles.Add(new TileData { X = x, Y = y, TileType = name });
-            }
-        }
-        SaveMapData(mapData);
+        SaveMapData(ToolManager.Instance.SetMapData());
     }
 
     public void SaveMapData(MapData mapData)
     {
-        string json = JsonConvert.SerializeObject(mapData);
-        System.IO.File.WriteAllText("DefaltMapData.jon", json);
+        string folderPath = Path.Combine(Directory.GetCurrentDirectory(), "SaveData");
+        string fileName = mapData.MapName.Replace(":", "_") + ".json";
+        string filePath = Path.Combine(folderPath, fileName);
+
+        Directory.CreateDirectory(folderPath);
+
+        string json = JsonConvert.SerializeObject(mapData, Formatting.Indented);
+        System.IO.File.WriteAllText(filePath, json);
     }
     public MapData LoadMapData(string fileName, bool isDefalt = false)
     {
@@ -146,10 +138,7 @@ public class JsonTest : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            //LoadMapData("DefaltMapData.jon", true);
-            //Logger.Debug("로드 완");
-            // MakeADefaultMapData();
-            //Logger.Debug("세이브 완");
+            GameComplete();
         }
     }
 }

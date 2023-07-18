@@ -84,6 +84,11 @@ public class ClickChangeTile : MonoBehaviour, ICommand
     }
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            SaveData();
+        }
+
     }
 
 
@@ -435,23 +440,25 @@ public class ClickChangeTile : MonoBehaviour, ICommand
         }
     }
 
-    public Stack<List<GameObjectTileData>> SaveData()
+    public List<TileData> SaveData()
     {
         Stack<List<GameObjectTileData>> tempStack = new Stack<List<GameObjectTileData>>();
-        Stack<List<GameObjectTileData>> data = new Stack<List<GameObjectTileData>>();
+        List<TileData> data = new List<TileData>();
 
         // Copy the original stack to the temporary stack and the data stack
         while (commandStack.Count > 0)
         {
-            List<GameObjectTileData> command = commandStack.Pop();
+            List<GameObjectTileData> command;// = new List<GameObjectTileData>();
+
+            command = commandStack.Pop();
+
             tempStack.Push(command);
 
             foreach (var item in command)
             {
                 if (item.gameObject.activeSelf)
                 {
-                    List<GameObjectTileData> temp = new List<GameObjectTileData> { item };
-                    data.Push(temp);
+                    data.Add(item.tileData);
                 }
             }
         }

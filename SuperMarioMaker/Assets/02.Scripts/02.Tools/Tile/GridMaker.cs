@@ -427,6 +427,22 @@ public class GridMaker : MonoBehaviour
         SetPlayer();
     }
 
+    public List<TileData> SaveData()
+    {
+
+        List<TileData> values = new List<TileData>();
+
+        foreach (var Data in DicTileData)
+        {
+            var pos = Data.Key;
+            Data.Value.tileData.X = pos.x;
+            Data.Value.tileData.Y = pos.y;
+
+            values.Add(Data.Value.tileData);
+        }
+
+        return values;
+    }
 
     void Start()
     {

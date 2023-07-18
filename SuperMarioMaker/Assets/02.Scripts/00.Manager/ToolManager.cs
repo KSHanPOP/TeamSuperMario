@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -117,7 +119,8 @@ public class ToolManager : MonoBehaviour
     }
 
     public IconManager iconManager;
-    public ScrollingBackground Background;
+    public GridMaker gridMaker;
+
     private GameObject playerObj;
     public GameObject PlayerObj
     {
@@ -152,6 +155,7 @@ public class ToolManager : MonoBehaviour
         data.MapRowLength = MapRowLength;
         data.TileX = TilemapX; data.TileY = TilemapY;
     }
+
     [SerializeField]
     [Range(1, 10)]
     private int mapRowLength = 1;
@@ -309,6 +313,26 @@ public class ToolManager : MonoBehaviour
             nowCoin = 1;
 
         coinText.text = nowCoin.ToString("D2");
+    }
+
+    public MapData SetMapData()
+    {
+        MapData data = new MapData();
+
+        data.MapName = DateTime.Now.ToString("HH:mm:ss");
+        data.Time = PlayTime;
+        data.Life = PlayerLife;
+
+        data.BackGroundName = BackgroundName;
+        data.MapRowLength = MapRowLength;
+        data.MapColLength = MapColLength;
+
+        data.Tiles = new List<TileData>();
+
+        data.Tiles.AddRange(gridMaker.SaveData());
+        data.Tiles.AddRange(CClickMode.SaveData());
+
+        return data;
     }
 
     void Start()

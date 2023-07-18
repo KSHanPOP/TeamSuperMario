@@ -10436,7 +10436,7 @@ MonoBehaviour:
   CClickMode: {fileID: 532670459}
   scrollingBackground: {fileID: 1746608102}
   iconManager: {fileID: 1235723532}
-  Background: {fileID: 1746608102}
+  gridMaker: {fileID: 532670460}
   playTime: 500
   playerLife: 3
   background: Background Ground
