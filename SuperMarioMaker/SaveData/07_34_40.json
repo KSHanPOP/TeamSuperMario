@@ -1,5 +1,5 @@
 {
-  "mapname": "06:49:14",
+  "mapname": "07:34:40",
   "time": 500.0,
   "life": 3,
   "BackGroundName": "Background Ground",
@@ -121,70 +121,22 @@
       "tileName": "Castle"
     },
     {
-      "x": 15,
-      "y": 5,
-      "tileType": "unSelected",
-      "tileName": "Goomba"
-    },
-    {
       "x": 19,
-      "y": 6,
-      "tileType": "unSelected",
-      "tileName": "Goomba"
-    },
-    {
-      "x": 20,
-      "y": 6,
-      "tileType": "unSelected",
-      "tileName": "Goomba"
-    },
-    {
-      "x": 21,
-      "y": 8,
-      "tileType": "unSelected",
-      "tileName": "Goomba"
-    },
-    {
-      "x": 17,
-      "y": 4,
-      "tileType": "unSelected",
-      "tileName": "Goomba"
-    },
-    {
-      "x": 17,
       "y": 7,
-      "tileType": "unSelected",
-      "tileName": "Goomba"
-    },
-    {
-      "x": 15,
-      "y": 7,
-      "tileType": "unSelected",
-      "tileName": "Goomba"
+      "tileType": "None",
+      "tileName": "Coin"
     },
     {
       "x": 10,
-      "y": 8,
-      "tileType": "unSelected",
-      "tileName": "Goomba"
-    },
-    {
-      "x": 9,
-      "y": 8,
-      "tileType": "unSelected",
-      "tileName": "Goomba"
-    },
-    {
-      "x": 8,
       "y": 7,
-      "tileType": "unSelected",
-      "tileName": "Goomba"
+      "tileType": "None",
+      "tileName": "Coin"
     },
     {
-      "x": 9,
-      "y": 5,
-      "tileType": "unSelected",
-      "tileName": "Goomba"
+      "x": 6,
+      "y": 7,
+      "tileType": "None",
+      "tileName": "Coin"
     }
   ]
 }

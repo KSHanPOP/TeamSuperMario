@@ -382,18 +382,43 @@ public class GridMaker : MonoBehaviour
         float pixelPerUnitY = pixelHeight / worldHeight;
 
         // 메인 카메라의 월드 좌표 영역을 미니맵의 픽셀 좌표로 변환합니다.
-        Vector2 bottomLeftPixel = new Vector2(bottomLeft.x * pixelPerUnitX, bottomLeft.y * pixelPerUnitY);
-        Vector2 topRightPixel = new Vector2(topRight.x * pixelPerUnitX, topRight.y * pixelPerUnitY);
+        Vector2 bottomLeftPixel = new Vector2((bottomLeft.x - miniMapCamera.transform.position.x) * pixelPerUnitX, (bottomLeft.y - miniMapCamera.transform.position.y) * pixelPerUnitY);
+        Vector2 topRightPixel = new Vector2((topRight.x - miniMapCamera.transform.position.x) * pixelPerUnitX, (topRight.y - miniMapCamera.transform.position.y) * pixelPerUnitY);
 
         // 이제 이 좌표를 사용하여 UI 요소의 위치와 크기를 설정할 수 있습니다.
-        Vector2 position = bottomLeftPixel;
         Vector2 size = topRightPixel - bottomLeftPixel;
+        Vector2 position = bottomLeftPixel + size / 2f;
 
         // UI 요소의 위치와 크기를 업데이트합니다.
         cameraFrameRect.anchoredPosition = position;
         cameraFrameRect.sizeDelta = size;
     }
 
+    public void CaptureMiniMap(string fileName)
+    {
+        StartCoroutine(CaptureScreenshot(fileName));
+    }
+    private IEnumerator CaptureScreenshot(string fileName)
+    {
+        yield return new WaitForEndOfFrame();
+
+        RenderTexture renderTexture = miniMapCamera.targetTexture;
+
+        Texture2D texture2D = new Texture2D(renderTexture.width, renderTexture.height, TextureFormat.RGB24, false);
+        Rect rect = new Rect(0, 0, renderTexture.width, renderTexture.height);
+
+        // 렌더 텍스처를 읽어서 2D 텍스처를 생성합니다.
+        RenderTexture.active = renderTexture;
+        texture2D.ReadPixels(rect, 0, 0);
+
+        // 바이트 배열로 변환합니다.
+        byte[] byteArray = texture2D.EncodeToPNG();
+
+        // 파일로 저장합니다.
+        System.IO.File.WriteAllBytes(fileName, byteArray);
+
+        Logger.Debug("Saved screenshot to: " + fileName);
+    }
     public void SetTextVelue(int value, bool up)
     {
         if (up)

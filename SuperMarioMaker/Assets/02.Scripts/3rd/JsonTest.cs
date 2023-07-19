@@ -107,6 +107,9 @@ public class JsonTest : MonoBehaviour
 
         string json = JsonConvert.SerializeObject(mapData, Formatting.Indented);
         System.IO.File.WriteAllText(filePath, json);
+
+        string screenshotFileName = Path.ChangeExtension(filePath, ".png");
+        ToolManager.Instance.gridMaker.CaptureMiniMap(screenshotFileName);
     }
     public MapData LoadMapData(string fileName, bool isDefalt = false)
     {
