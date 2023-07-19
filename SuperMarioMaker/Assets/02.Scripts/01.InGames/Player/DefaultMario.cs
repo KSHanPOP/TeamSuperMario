@@ -68,11 +68,11 @@ public abstract class DefaultMario : MonoBehaviour
     }
     public virtual void EatMushroom()
     {
-        ScoreManager.Instance.GetScore(1000);
+        
     }
     public virtual void EatFireFlower()
     {
-        ScoreManager.Instance.GetScore(1000);
+        
     }
     public virtual void Hit()
     {

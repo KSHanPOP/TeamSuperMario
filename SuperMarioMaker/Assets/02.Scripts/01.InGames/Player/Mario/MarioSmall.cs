@@ -41,6 +41,8 @@ public class MarioSmall : DefaultMario
     }
     public override void EatMushroom()
     {
+        base.EatMushroom();
+
         SoundManager.Instance.PlaySFX("Powerup");
 
         StartTransformation();
@@ -54,6 +56,8 @@ public class MarioSmall : DefaultMario
 
     public override void EatFireFlower()
     {
+        base.EatFireFlower();
+
         SoundManager.Instance.PlaySFX("Powerup");
 
         StartTransformation();

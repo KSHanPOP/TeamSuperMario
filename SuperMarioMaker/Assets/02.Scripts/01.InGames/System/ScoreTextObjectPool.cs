@@ -5,14 +5,14 @@ using UnityEngine.Pool;
 
 public class ScoreTextObjectPool : MonoBehaviour
 {
-    private IObjectPool<ScoreText> pool;
+    public IObjectPool<ScoreText> Pool { get; set; }
 
     [SerializeField]
     private ScoreText prefab;
 
     private void Awake()
     {
-        pool = new ObjectPool<ScoreText>
+        Pool = new ObjectPool<ScoreText>
             (
             Create,
             Get,
@@ -24,7 +24,7 @@ public class ScoreTextObjectPool : MonoBehaviour
     private ScoreText Create()
     {
         ScoreText scoreText = Instantiate(prefab);
-        scoreText.SetPool(pool);
+        scoreText.SetPool(Pool);
 
         return scoreText;
     }
@@ -39,13 +39,5 @@ public class ScoreTextObjectPool : MonoBehaviour
     private void Destroy(ScoreText scoreText)
     {
         Destroy(scoreText.gameObject);
-    }
-
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.H))
-        {
-            pool.Get();
-        }
     }
 }

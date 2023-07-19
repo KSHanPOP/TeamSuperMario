@@ -16,9 +16,6 @@ public class ScoreText : MonoBehaviour
     private float transSpeed = 1f;
 
     [SerializeField]
-    private float heightAbove = 1f;
-
-    [SerializeField]
     private float lifeTime = 2f;
 
     private IObjectPool<ScoreText> pool;
@@ -32,11 +29,10 @@ public class ScoreText : MonoBehaviour
         Invoke(nameof(Release), lifeTime);
     }
 
-    public void SetValue(int score, Vector2 pos, float newHeight = 1f)
+    public void SetValue(int score, Vector2 pos, float heightAbove)
     {
-        textMeshPro.text= score.ToString();
-        transform.position = pos;
-        heightAbove = newHeight;
+        textMeshPro.text= score.ToString();        
+        transform.position = pos + new Vector2(0, heightAbove);
     }
 
     public void SetPool(IObjectPool<ScoreText> pool) => this.pool= pool;

@@ -4,25 +4,26 @@ using UnityEngine;
 
 public class CameraFollowPlayer : MonoBehaviour
 {
+    [SerializeField]
+    private float customHeightValue;
+
     public float smoothTime = 0.3F;
     private Vector3 velocity = Vector3.zero;
 
     private Camera cam;
 
-    private float minX;
-    private float maxX;
-    private float minY;
-    private float maxY;
+    private float minX = float.MinValue;
+    private float maxX = float.MaxValue;
+    private float minY = float.MinValue;
+    private float maxY = float.MaxValue;
 
     private void Start()
     {
         cam = Camera.main;
+        minY = customHeightValue;
 
         if(GameManager.instance == null)
-        {
-            enabled = false;
             return;
-        }
 
         var gameData = GameManager.instance.gameData;
 

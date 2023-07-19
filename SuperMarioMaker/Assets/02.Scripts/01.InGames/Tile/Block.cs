@@ -197,9 +197,14 @@ public class Block : MonoBehaviour
 
         foreach(var hit in hits)
         {
-            if(hit.transform.TryGetComponent<IShakeable>(out IShakeable shakeable) &&
-                !shakenObjects.Contains(shakeable))
+            if(hit.collider.CompareTag("Monster"))
             {
+                ScoreManager.Instance.GetScore(200, hit.transform.position);
+            }
+
+            if(hit.transform.TryGetComponent(out IShakeable shakeable) &&
+                !shakenObjects.Contains(shakeable))
+            {                
                 shakeable.Shake(transform.position);
                 shakenObjects.Add(shakeable);
             }

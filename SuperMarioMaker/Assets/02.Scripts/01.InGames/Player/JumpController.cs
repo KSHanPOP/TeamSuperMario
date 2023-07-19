@@ -1,7 +1,5 @@
-using System.Net.NetworkInformation;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Playables;
 
 public class JumpController : MonoBehaviour
 {
@@ -50,7 +48,7 @@ public class JumpController : MonoBehaviour
 
     private MovementLimmiter limmiter;
     
-    public bool IsAttackableBlock { get; set; }
+    public bool IsAttackableBlock { get; set; }    
 
     private void Awake()
     {
@@ -84,7 +82,7 @@ public class JumpController : MonoBehaviour
     private void FixedUpdate()
     {
         if (!limmiter.CharacterCanMove)
-            return;
+            return;  
 
         //플레이어가 땅에 닿아있는지 && 점프 키 버퍼가 남아있는지 체크.
         if (ground.IsGround() && (Time.time - lastJumpBufferInputTime) < jumpBufferDuration)
@@ -117,7 +115,7 @@ public class JumpController : MonoBehaviour
 
 
     public void MonsterPressJump()
-    {
+    {               
         SoundManager.Instance.PlaySFX("Stomp");
         DoJump();
     }

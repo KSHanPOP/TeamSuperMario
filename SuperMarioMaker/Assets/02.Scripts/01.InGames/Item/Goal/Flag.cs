@@ -21,7 +21,7 @@ public class Flag : MonoBehaviour
 
     public void FlagDown()
     {
-        ScoreManager.Instance.GetScore(Score);
+        ScoreManager.Instance.GetScore(Score, transform.position);
         sequence.NextSequnce();
     }
 

@@ -34,8 +34,6 @@ public class AttackedShaked : MonoBehaviour, IShakeable
 
     public virtual void Shake(Vector2 _)
     {
-        Logger.Debug("shaked!");
-
         SetAnimation();
 
         GetComponent<ObjectMove>().enabled = false;

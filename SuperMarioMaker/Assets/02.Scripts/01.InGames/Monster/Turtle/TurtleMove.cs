@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TurtleMove : TurtleDefaultState
+public class TurtleMove : DefaultTurtleState
 {
     public override void Enter()
     {

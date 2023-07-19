@@ -99,7 +99,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dcaafc2c908a634f93bcf7f67edac6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreCombo: 
+  scoreCombo: c80000009001000020030000e8030000d0070000a00f0000401f0000
+  scoreTextObjectPool: {fileID: 564761577897604413}
 --- !u!114 &2155222892565808119
 MonoBehaviour:
   m_ObjectHideFlags: 0

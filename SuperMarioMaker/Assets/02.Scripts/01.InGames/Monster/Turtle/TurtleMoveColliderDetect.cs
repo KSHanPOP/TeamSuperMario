@@ -7,6 +7,9 @@ public class TurtleMoveColliderDetect : MonsterMoveColliderDetect
     [SerializeField]
     protected Turtle turtle;
 
+    [SerializeField]
+    protected TurtleSpin turtleSpin;
+
     protected LayerMask originLayerMask;
     protected LayerMask platformLayerMask;
 
@@ -37,6 +40,7 @@ public class TurtleMoveColliderDetect : MonsterMoveColliderDetect
             if (target.CompareTag("Monster"))
             {
                 SoundManager.Instance.PlaySFX("Kick");
+                ScoreManager.Instance.GetComboScore(turtleSpin.ScoreCombo++, target.transform.position);
 
                 target.GetComponent<IShakeable>().Shake(transform.position);
             }

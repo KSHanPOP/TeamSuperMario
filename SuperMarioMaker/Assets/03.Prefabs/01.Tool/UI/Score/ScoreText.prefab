@@ -187,6 +187,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 6442509724708913030}
   textMeshPro: {fileID: 6442509724708913029}
-  transSpeed: 1
-  heightAbove: 1
-  lifeTime: 2
+  transSpeed: 1.5
+  lifeTime: 0.5

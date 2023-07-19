@@ -154,9 +154,11 @@ public class FireBall : MonoBehaviour
         if (!collision.CompareTag("Monster"))
             return;
 
-        if (collision.TryGetComponent<IShakeable>(out IShakeable shakeable))
+        if (collision.TryGetComponent(out IShakeable shakeable))
         {
             SoundManager.Instance.PlaySFX("Kick");
+            ScoreManager.Instance.GetScore(200, collision.transform.position);
+
             shakeable.Shake(Vector2.one);
         }
         

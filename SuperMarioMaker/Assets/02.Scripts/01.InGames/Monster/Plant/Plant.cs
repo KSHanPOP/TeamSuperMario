@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Plant : MonoBehaviour, IShakeable
+public class Plant : MonoBehaviour
 {
     public void Shake(Vector2 _)
     {
