@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f8b07d0a377c4f44b8405a2099c25e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 5
+  maxSpeed: 4.5
   maxAcceleration: 7.8
   maxDecceleration: 20
   maxTurnSpeed: 13.3
@@ -337,7 +337,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36f4d70786c429b4a931e79c547d0864, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  customHeightValue: 6
+  customHeightValue: 4.5
+  customStartValue: 11
+  customEndValue: 200
   smoothTime: 0.3
 --- !u!1 &4930648494675589528
 GameObject:

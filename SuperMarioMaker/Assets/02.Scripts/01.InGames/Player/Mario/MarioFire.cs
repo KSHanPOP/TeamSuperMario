@@ -38,6 +38,11 @@ public class MarioFire : MarioBig
         Invoke(nameof(StopInvincible), marioSmall.InvincibleTime);
     }
 
+    public override void EatFireFlower()
+    {
+        
+    }
+
     protected override void ChangeControllder()
     {
         playerState.Animator.runtimeAnimatorController = isFire ? controller : bigController;

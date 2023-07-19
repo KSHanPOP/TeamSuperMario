@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class Thwomp : MonoBehaviour
+public class Thwomp : MonoBehaviour, IAwake
 {
     private enum EnumThwompState
     {
@@ -94,6 +94,12 @@ public class Thwomp : MonoBehaviour
         }
     }
 
+    public void OnAwake()
+    {
+        Logger.Debug("thwomp awake");
+        enabled = true;
+    }
+
     private void Start()
     {
         layerMask = LayerMask.GetMask("Platform", "MonsterNoCollision");
@@ -103,7 +109,7 @@ public class Thwomp : MonoBehaviour
         isVertical = dir == EnumThwompDir.Down;
         playerDetectionRange = isVertical ? verticalPlayerDetectionRange : horizontalPlayerDetectionRange;
         SetMoveDir();
-        platformDistance = GetPlatformDistance() - (isVertical ? 1f : 0.75f);        
+        platformDistance = GetPlatformDistance() - (isVertical ? 1f : 0.75f);
 
         if (!isVertical)
         {
@@ -164,6 +170,42 @@ public class Thwomp : MonoBehaviour
 
         return maxMoveAbleDisatance;
     }
+
+    private bool IsPlayerInRange()
+    {
+        float playerDistance = 0f;
+
+        switch (dir)
+        {
+            case EnumThwompDir.Down:
+                {
+                    if (player.position.y > middlePos.y)
+                        return false;
+
+                    playerDistance = player.position.x - middlePos.x;
+                }
+                break;
+            case EnumThwompDir.Left:
+                {
+                    if (player.position.x > middlePos.x)
+                        return false;
+
+                    playerDistance = player.position.y - middlePos.y;
+                }
+                break;                
+            case EnumThwompDir.Right:
+                {
+                    if(player.position.x < middlePos.x) 
+                        return false;
+
+                    playerDistance = player.position.y - middlePos.y;
+                }
+                break;
+        }  
+
+        return Mathf.Abs(playerDistance) < playerDetectionRange;
+    }
+
     private void UpdateIdle()
     {
         if (Time.time - lastAttackSequenceTime < attackCooldown)
@@ -172,7 +214,7 @@ public class Thwomp : MonoBehaviour
         float playerDistance =
             isVertical ? player.position.x - middlePos.x : player.position.y - middlePos.y;
 
-        if (Mathf.Abs(playerDistance) < playerDetectionRange)
+        if (IsPlayerInRange())
         {
             State = EnumThwompState.Attack;
         }

@@ -7,23 +7,34 @@ public class CameraFollowPlayer : MonoBehaviour
     [SerializeField]
     private float customHeightValue;
 
+    [SerializeField]
+    private float customStartValue;
+
+    [SerializeField]
+    private float customEndValue;
+
     public float smoothTime = 0.3F;
     private Vector3 velocity = Vector3.zero;
 
     private Camera cam;
 
-    private float minX = float.MinValue;
-    private float maxX = float.MaxValue;
-    private float minY = float.MinValue;
-    private float maxY = float.MaxValue;
+    private float minX;
+    private float maxX;
+    private float minY;
+    private float maxY;
 
     private void Start()
     {
         cam = Camera.main;
-        minY = customHeightValue;
 
         if(GameManager.instance == null)
+        {
+            minX = customStartValue;
+            maxX = customEndValue;
+            maxY = customHeightValue;
+            minY = customHeightValue;
             return;
+        }   
 
         var gameData = GameManager.instance.gameData;
 
