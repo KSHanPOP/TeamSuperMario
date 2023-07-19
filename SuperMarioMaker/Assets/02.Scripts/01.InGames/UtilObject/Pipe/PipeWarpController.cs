@@ -17,7 +17,10 @@ public class PipeWarpController : MonoBehaviour
     private int fallingLayerIntValue;
 
     [SerializeField]
-    private float rayLength;
+    private float verticalPipeRayLength;
+
+    [SerializeField]
+    private float horizontalPipeRayLength;    
 
     private bool isVertical;
 
@@ -80,9 +83,9 @@ public class PipeWarpController : MonoBehaviour
     {
         rayOrigin.x = pipeEntrancePos switch
         {
-            EnumPipeEntrancePos.Top => transform.position.x + (1 - rayLength) * 0.5f,
+            EnumPipeEntrancePos.Top => transform.position.x + (1 - horizontalPipeRayLength) * 0.5f,
             EnumPipeEntrancePos.Left => transform.position.x - 0.6f,
-            EnumPipeEntrancePos.Bottom => transform.position.x + (1 - rayLength) * 0.5f,
+            EnumPipeEntrancePos.Bottom => transform.position.x + (1 - horizontalPipeRayLength) * 0.5f,
             EnumPipeEntrancePos.Right => transform.position.x + 0.6f,
             _ => 0f,
         };
@@ -90,9 +93,9 @@ public class PipeWarpController : MonoBehaviour
         rayOrigin.y = pipeEntrancePos switch
         {
             EnumPipeEntrancePos.Top => transform.position.y + 0.6f,
-            EnumPipeEntrancePos.Left => transform.position.y + (-1 + rayLength) * 0.5f,
+            EnumPipeEntrancePos.Left => transform.position.y + (-1 + horizontalPipeRayLength) * 0.5f,
             EnumPipeEntrancePos.Bottom => transform.position.y - 0.6f,
-            EnumPipeEntrancePos.Right => transform.position.y + (-1 + rayLength) * 0.5f,
+            EnumPipeEntrancePos.Right => transform.position.y + (-1 + horizontalPipeRayLength) * 0.5f,
             _ => 0f,
         };
     }
@@ -125,7 +128,7 @@ public class PipeWarpController : MonoBehaviour
         if (inWarpSequence)
             return;
 
-        var hit = Physics2D.Raycast(rayOrigin, isVertical ? Vector2.right : Vector2.down, rayLength, playerLayer);
+        var hit = Physics2D.Raycast(rayOrigin, isVertical ? Vector2.right : Vector2.down, isVertical ? verticalPipeRayLength : horizontalPipeRayLength, playerLayer);
 
         if (!hit)
             return;
@@ -195,6 +198,7 @@ public class PipeWarpController : MonoBehaviour
         var playerRb = Player.GetComponent<Rigidbody2D>();
         float playerOriginGravScale = playerRb.gravityScale;
 
+        Player.GetComponent<MoveController>().EndSitting();
         StopPlayerControllable();
 
         playerRb.gravityScale = 0f;
@@ -316,6 +320,6 @@ public class PipeWarpController : MonoBehaviour
 
     public void OnDrawGizmos()
     {
-        Gizmos.DrawRay(rayOrigin, (isVertical ? Vector2.right : Vector2.down) * rayLength);
+        Gizmos.DrawRay(rayOrigin, (isVertical ? Vector2.right : Vector2.down) * (IsVertical ? verticalPipeRayLength : horizontalPipeRayLength));
     }
 }

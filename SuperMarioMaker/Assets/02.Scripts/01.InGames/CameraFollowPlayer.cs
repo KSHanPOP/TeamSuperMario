@@ -25,7 +25,7 @@ public class CameraFollowPlayer : MonoBehaviour
 
     private void Start()
     {
-        cam = Camera.main;
+        cam = Camera.main;        
 
         if(GameManager.instance == null)
         {
@@ -33,18 +33,22 @@ public class CameraFollowPlayer : MonoBehaviour
             maxX = customEndValue;
             maxY = customHeightValue;
             minY = customHeightValue;
-            return;
-        }   
+        }
+        else
+        {
+            var gameData = GameManager.instance.gameData;
 
-        var gameData = GameManager.instance.gameData;
+            minX = gameData.TileX / 2;
+            maxX = gameData.TileX * gameData.MapRowLength - minX;
+            minY = gameData.TileY / 2;
+            maxY = gameData.TileY * gameData.MapRowLength - minY;
+        }
 
-        minX = gameData.TileX / 2;
-        maxX = gameData.TileX * gameData.MapRowLength - minX;
-        minY = gameData.TileY / 2;
-        maxY = gameData.TileY * gameData.MapRowLength - minY;
+        Update();
+        cam.GetComponent<SleepMonsterAwaker>().enabled = true;
     }
 
-    void Update()
+    private void Update()
     {
         Vector3 targetPosition = transform.TransformPoint(new Vector3(0, 0, -10));
         Vector3 smoothPosition = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);

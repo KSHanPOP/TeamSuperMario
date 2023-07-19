@@ -111,15 +111,21 @@ public class MoveController : MonoBehaviour
         }
     }
 
-    private void StartSitting()
-    {   
+    public void StartSitting()
+    {
+        if (!limiter.CharacterCanMove)
+            return;
+
         isSitting = true;
         playerState.Sit = true;
         playerState.CurrState.StartSit();
     }
 
-    private void EndSitting()
+    public void EndSitting()
     {
+        if (!limiter.CharacterCanMove)
+            return;
+
         isSitting = false;
         playerState.Sit = false;
         playerState.CurrState.EndSit();

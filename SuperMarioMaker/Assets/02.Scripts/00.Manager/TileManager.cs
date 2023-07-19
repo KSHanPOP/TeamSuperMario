@@ -44,6 +44,8 @@ public class TileManager : MonoBehaviour
         BaseTile.StopTest();        
         PipeWarpConnector.StopTest();
         fallTileHandler.StopTest();
+
+        Camera.main.GetComponent<SleepMonsterAwaker>().enabled = false;
     }
 
     public void Restart()
