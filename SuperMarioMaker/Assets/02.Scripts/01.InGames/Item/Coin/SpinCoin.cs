@@ -1,5 +1,3 @@
-
-
 using System.Collections;
 using UnityEngine;
 
@@ -10,6 +8,8 @@ public class SpinCoin : ItemBase
 
     public override IEnumerator InstanceCoroutine(Vector2 destPos)
     {
+        ScoreManager.Instance.GetCoin(1);
+
         destPos.y += destHeightAdjust;
 
         float timer = 0f;
@@ -30,9 +30,7 @@ public class SpinCoin : ItemBase
             transform.position = Vector3.Lerp(startPos, destPos, t);
 
             yield return null;
-        }
-
-        ScoreManager.Instance.GetCoin(1);   
+        }        
 
         Destroy(gameObject);
         yield break;

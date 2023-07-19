@@ -15,9 +15,7 @@ public class SleepMonsterAwaker : MonoBehaviour
 
     public void ClearMonsters()
     {
-        LayerMask mask = LayerMask.GetMask("Monster");
-
-        var monsters = Physics2D.BoxCastAll(transform.position, boxCollider.size * 2, 0f, Vector2.zero, 0f, mask);
+        var monsters = Physics2D.BoxCastAll(transform.position, boxCollider.size * 2, 0f, Vector2.zero, 0f, LayerMask.GetMask("Monster"));
 
         int scoreCount = 0;
         foreach (var monster in monsters)

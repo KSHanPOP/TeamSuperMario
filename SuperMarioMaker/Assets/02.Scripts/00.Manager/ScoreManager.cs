@@ -48,7 +48,7 @@ public class ScoreManager : MonoBehaviour
         if (SceneLoader.Instance.State == SceneState.Tool)
         {
             ToolManager.Instance.AddCoin(count);
-            ToolManager.Instance.AddScore(count * 100);
+            ToolManager.Instance.AddScore(count * 200);
         }
     }
 }

@@ -26,6 +26,10 @@ public class Block : MonoBehaviour
     [SerializeField]
     protected float maxShakeHeight;
 
+    [SerializeField]
+    protected float rayLength = 0.9f;
+    protected Vector2 rayStartPos;
+
     protected bool isHitable = true;    
 
     protected SpriteRenderer spriteRenderer;
@@ -46,7 +50,9 @@ public class Block : MonoBehaviour
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         spriteRenderer.sortingOrder = (int)EnumSpriteLayerOrder.Block;
-        spriteTransform = spriteRenderer.transform;        
+        spriteTransform = spriteRenderer.transform;
+
+        rayStartPos = (Vector2)transform.position + new Vector2(-rayLength * 0.5f, 0.55f);
     }
     protected virtual void Start()
     {
@@ -160,7 +166,7 @@ public class Block : MonoBehaviour
 
         Vector3 newPos = Vector3.zero;
 
-        int layerMask = LayerMask.GetMask("Invincible", "Monster");
+        int layerMask = LayerMask.GetMask("Invincible", "Monster", "Coin");
 
         CheckItemRemainCount();
 
@@ -193,7 +199,7 @@ public class Block : MonoBehaviour
     }
     private void ShakeColliders(int layerMask)
     {
-        var hits = Physics2D.RaycastAll((Vector2)transform.position + Vector2.one * 0.55f, Vector2.left, 1.1f, layerMask);
+        var hits = Physics2D.RaycastAll(rayStartPos, Vector2.right, rayLength, layerMask);
 
         foreach(var hit in hits)
         {
@@ -209,5 +215,10 @@ public class Block : MonoBehaviour
                 shakenObjects.Add(shakeable);
             }
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawLine(rayStartPos, rayStartPos + Vector2.right * rayLength);
     }
 }

@@ -146,3 +146,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45b99f4159a583845bf5fac109940d6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spinCoin: {fileID: -673502299898678562, guid: ebde6611dae909942b9d7f4b49d78593, type: 3}

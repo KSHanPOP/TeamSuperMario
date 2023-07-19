@@ -52,6 +52,7 @@ MonoBehaviour:
   itemCount: 0
   shakeTime: 0.25
   maxShakeHeight: 0.3
+  rayLength: 0.8
 --- !u!68 &6042802563659700886
 EdgeCollider2D:
   m_ObjectHideFlags: 0
