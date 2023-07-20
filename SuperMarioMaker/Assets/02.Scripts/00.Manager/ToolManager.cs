@@ -19,6 +19,8 @@ public class ToolManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        BackgroundName = "Background Ground";
     }
 
     public enum ToolModeType
@@ -43,6 +45,7 @@ public class ToolManager : MonoBehaviour
 
             modeState = value;
             scoreText.text = "000000000";
+            coinText.text = "00";
 
             if (prevState == modeState)
                 return;
@@ -67,6 +70,10 @@ public class ToolManager : MonoBehaviour
                     TileManager.Instance.StopTest();
 
                     iconManager.NowTag = "None";
+
+                    SoundManager.Instance.StopAll();
+                    SoundManager.Instance.PlayBGM("Tool");
+
                     break;
 
                 case ToolModeType.Test:
@@ -79,7 +86,6 @@ public class ToolManager : MonoBehaviour
                     SetGameData();
                     nowLife = PlayerLife;
                     StartCoroutine(DeactivateAfterDelay(1f));
-
                     break;
 
                 case ToolModeType.Save:
@@ -94,6 +100,19 @@ public class ToolManager : MonoBehaviour
                     StartCoroutine(DeactivateAfterDelay(1f));
                     break;
             }
+        }
+    }
+
+    public string BgNameToSound(string bgName)
+    {
+        string[] words = bgName.Split(' ');
+        if (words.Length > 1)
+        {
+            return words[1];
+        }
+        else
+        {
+            return string.Empty;
         }
     }
 
@@ -117,7 +136,7 @@ public class ToolManager : MonoBehaviour
     { get { return playerLife; } set { playerLife = value; } }
 
     [SerializeField]
-    private string background = "Background Ground";
+    private string background;
 
     public string BackgroundName
     {
@@ -236,6 +255,8 @@ public class ToolManager : MonoBehaviour
         startButton.onClick.AddListener(GoTest);
         stopButton.onClick.AddListener(GoTool);
         saveButton.onClick.AddListener(GoSave);
+
+        SoundManager.Instance.PlayBGM("Tool");
     }
 
     public void GoTest() => ToolMode = ToolModeType.Test;
@@ -251,7 +272,7 @@ public class ToolManager : MonoBehaviour
         timeCoroutine = StartCoroutine(TimeUpdateCoroutine());
         scrollingBackground.MoveBackground();
         TileManager.Instance.StartTest();
-
+        BgNameToSound(BackgroundName);
     }
     private IEnumerator TimeUpdateCoroutine()
     {
@@ -292,6 +313,7 @@ public class ToolManager : MonoBehaviour
 
     void Start()
     {
+
         Logger.CheckNullObject(this);
         Init();
     }

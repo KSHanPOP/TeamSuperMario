@@ -20,6 +20,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private float sfxVolume;
     private float tempSFXVolume;
     [SerializeField] private GameObject popUp;
+    [SerializeField] private GameObject goToTitle;
     public GameObject PopUp
     {
         get { return popUp; }
@@ -38,25 +39,41 @@ public class SoundManager : MonoBehaviour
 
     private void Start()
     {
-        PlayBGM("Title");
     }
-
+    public void AllPopUpOff()
+    {
+        goToTitle.SetActive(false);
+        popUp.SetActive(false);
+    }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (popUp.activeSelf) { popUp.SetActive(false); }
-            else 
+            if (popUp.activeSelf)
+            {
+                popUp.SetActive(false);
+
+                if (SceneLoader.Instance.State != SceneState.Title)
+                {
+                    goToTitle.SetActive(false);
+                }
+            }
+            else
             {
                 PlaySFX("Pause");
-                popUp.SetActive(true); 
+                popUp.SetActive(true);
+
+                if (SceneLoader.Instance.State != SceneState.Title)
+                {
+                    goToTitle.SetActive(true);
+                }
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            PlaySFX("Test");
-        }
+        //if (Input.GetKeyDown(KeyCode.C))
+        //{
+        //    PlaySFX("Test");
+        //}
     }
     void Awake()
     {
@@ -121,6 +138,7 @@ public class SoundManager : MonoBehaviour
         {
             bgmSource.clip = bgmClips[clipName];
             bgmSource.volume = bgmVolume * allVolume;
+            bgmSource.loop = true;
             bgmSource.Play();
         }
         else
@@ -182,8 +200,17 @@ public class SoundManager : MonoBehaviour
     // 모든 사운드 스탑
     public void StopAll()
     {
-        bgmSource.clip = null; // clear the BGM
+        BGMStop();
+        SFXStop();
+    }
 
+    public void BGMStop()
+    {
+        bgmSource.clip = null; // clear the BGM
+    }
+
+    public void SFXStop()
+    {
         foreach (var pair in sfxSources)
         {
             foreach (var source in pair.Value)
