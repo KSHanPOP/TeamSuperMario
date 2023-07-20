@@ -103,8 +103,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f8b07d0a377c4f44b8405a2099c25e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 20
-  maxAcceleration: 2
+  maxSpeed: 5
+  maxAcceleration: 10.7
   maxDecceleration: 20
   maxTurnSpeed: 13.3
   maxAirAcceleration: 3.7
@@ -112,7 +112,7 @@ MonoBehaviour:
   maxAirTurnSpeed: 10.2
   directionX: 0
   runSpeedMultiplier: 2
-  rapidAcceleraton: 1
+  rapidAcceleraton: 2
   playerState: {fileID: 2082444697104009540}
 --- !u!114 &4930648494648828084
 MonoBehaviour:
