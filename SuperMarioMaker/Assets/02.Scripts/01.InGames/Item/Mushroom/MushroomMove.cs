@@ -19,8 +19,6 @@ public class MushroomMove : ObjectMove, IShakeable
     }
     public void Shake(Vector2 blockPos)
     {
-        Logger.Debug("shake!");
-
         if((transform.position.x - blockPos.x) * rb.velocity.x < 0)
             GetComponent<MoveColliderDetect>().ChangeMoveDir();
 

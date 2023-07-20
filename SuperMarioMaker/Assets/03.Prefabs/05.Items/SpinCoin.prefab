@@ -119,5 +119,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a76e0d2fd87a83449b7493fc7c10766, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  instanceSequnceTime: 0.6
+  instanceSequnceTime: 0.75
   destHeightAdjust: 3

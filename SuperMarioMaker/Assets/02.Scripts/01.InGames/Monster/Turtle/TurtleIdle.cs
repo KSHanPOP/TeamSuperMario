@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TurtleIdle : TurtleDefaultState
+public class TurtleIdle : DefaultTurtleState
 {
     private Coroutine idleCoroutine;    
 
@@ -35,5 +35,11 @@ public class TurtleIdle : TurtleDefaultState
 
         state.Animator.SetTrigger(hashIdleTimeDone);
         state.EnterState(EnumTurtleState.Move);
+    }
+
+    protected void OnDestroy()
+    {
+        if (idleCoroutine != null)
+            StopCoroutine(idleCoroutine);
     }
 }

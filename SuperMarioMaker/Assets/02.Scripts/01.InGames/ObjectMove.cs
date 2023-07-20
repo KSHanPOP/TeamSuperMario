@@ -1,5 +1,5 @@
 using UnityEngine;
-public class ObjectMove : MonoBehaviour
+public class ObjectMove : MonoBehaviour, IAwake
 {
     [SerializeField]
     protected float speed;
@@ -24,6 +24,11 @@ public class ObjectMove : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 
         InitVelocity();
+    }
+
+    public void OnAwake()
+    {
+        enabled = true;
     }
 
     protected virtual void InitVelocity()
@@ -66,5 +71,5 @@ public class ObjectMove : MonoBehaviour
         isStop = true;
     }    
 
-    public float GetDir() => dir;
+    public float GetDir() => dir;    
 }

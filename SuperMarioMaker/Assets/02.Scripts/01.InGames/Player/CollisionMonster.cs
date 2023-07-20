@@ -15,6 +15,8 @@ public class CollisionMonster : MonoBehaviour
     private PlayerAnimation playerAnimation;
     private GroundChecker groundChecker;
 
+    private int stompCombo = 0;
+
     private void Awake()
     {
         jumpController = GetComponent<JumpController>();
@@ -22,6 +24,12 @@ public class CollisionMonster : MonoBehaviour
         groundChecker = GetComponent<GroundChecker>();
 
         playerState = GetComponentInChildren<PlayerState>();
+    }
+
+    private void FixedUpdate()
+    {
+        if(groundChecker.IsGround())
+            stompCombo = 0;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -39,7 +47,7 @@ public class CollisionMonster : MonoBehaviour
         if (!go.CompareTag("Monster"))
             return;
 
-        if(go.TryGetComponent<MonsterBase>(out MonsterBase monster) &&
+        if(go.TryGetComponent(out MonsterBase monster) &&
             monster.IsAttackable(transform.position, minDistanceToPress))
         {
             Attack(go);
@@ -54,6 +62,7 @@ public class CollisionMonster : MonoBehaviour
         if (!playerState.IsAttckable)
             return;
 
+        ScoreManager.Instance.GetComboScore(stompCombo++, go.transform.position);
         go.GetComponent<IPressable>().Press();
 
         if (!groundChecker.IsGround())

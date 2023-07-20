@@ -11,6 +11,12 @@ public class TileManager : MonoBehaviour
 
     public bool IsPlaying { get; private set; } = false;
 
+    [SerializeField]
+    FallTileHandler fallTileHandler;
+
+    [SerializeField]
+    private BoxCollider2D monsterAwaker;
+
     private void Awake()
     {
         Instance = this;
@@ -26,8 +32,11 @@ public class TileManager : MonoBehaviour
         dynamicObjHolder = new GameObject("DynamicObjHolder").transform;
         BaseTile.StartTest();
         PipeWarpConnector.StartTest();
+        fallTileHandler.StartTest();
 
         PopupManager.Instance.OffPopups();
+
+        monsterAwaker.enabled = true;
     }
     public void StopTest()
     {
@@ -39,6 +48,10 @@ public class TileManager : MonoBehaviour
         Destroy(dynamicObjHolder.gameObject);
         BaseTile.StopTest();        
         PipeWarpConnector.StopTest();
+        fallTileHandler.StopTest();
+
+        monsterAwaker.enabled = false;
+        Camera.main.GetComponent<SleepMonsterAwaker>().enabled = false;
     }
 
     public void Restart()

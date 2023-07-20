@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class MarioSmall : MarioDefaultState
+public class MarioSmall : DefaultMario
 {
     private int hashDie = Animator.StringToHash("Die");
 
@@ -41,6 +41,8 @@ public class MarioSmall : MarioDefaultState
     }
     public override void EatMushroom()
     {
+        base.EatMushroom();
+
         SoundManager.Instance.PlaySFX("Powerup");
 
         StartTransformation();
@@ -54,6 +56,8 @@ public class MarioSmall : MarioDefaultState
 
     public override void EatFireFlower()
     {
+        base.EatFireFlower();
+
         SoundManager.Instance.PlaySFX("Powerup");
 
         StartTransformation();

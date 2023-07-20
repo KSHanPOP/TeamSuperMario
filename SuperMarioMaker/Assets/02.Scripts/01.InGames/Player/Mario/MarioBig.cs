@@ -1,8 +1,7 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class MarioBig : MarioDefaultState
+public class MarioBig : DefaultMario
 {
     protected MarioSmall marioSmall;
     protected MarioFire marioFire;
@@ -37,15 +36,12 @@ public class MarioBig : MarioDefaultState
         Invoke(nameof(StopInvincible), marioSmall.InvincibleTime);
     }
 
-    public override void EatMushroom()
-    {
-        Logger.Debug("get score");
-    }
-
     public override void EatFireFlower()
     {
         if (isTransformingSequence)
             return;
+
+        base.EatFireFlower();
 
         SoundManager.Instance.PlaySFX("Powerup");
 
@@ -54,6 +50,22 @@ public class MarioBig : MarioDefaultState
         isFire = false;
         StartCoroutine(BigToFireTransformationCoroutine());
     }
+
+    public override void StartSit()
+    {
+        SetSmallCollider();
+    }
+
+    public override void EndSit()
+    {
+        SetBigCollider();
+
+        //Vector3 offset = Vector3.right * 0.375f;
+        //LayerMask platformLayer = LayerMask.GetMask("Platform");
+        //RaycastHit2D hit1 = Physics2D.Raycast(transform.position - offset, Vector2.up, bigBlockDetectLength, platformLayer);
+        //RaycastHit2D hit2 = Physics2D.Raycast(transform.position + offset, Vector2.up, bigBlockDetectLength, platformLayer);
+    }
+
     public override void Die()
     {
         playerState.nextState = marioSmall;

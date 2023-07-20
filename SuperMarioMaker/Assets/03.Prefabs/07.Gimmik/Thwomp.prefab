@@ -73,7 +73,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 704921a8ce3d81d49b47780d2878f76e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -148,7 +148,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5036898980640264324}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f45b75a9f5320b4428e1a66c16ff2d76, type: 3}
   m_Name: 
@@ -166,7 +166,6 @@ MonoBehaviour:
   platformLayer:
     serializedVersion: 2
     m_Bits: 1024
-  animationPlaySpeed: 2
   attackCooldown: 0.5
 --- !u!50 &5842802709603269690
 Rigidbody2D:
