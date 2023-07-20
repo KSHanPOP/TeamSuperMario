@@ -37,10 +37,10 @@ public class TurtleMoveColliderDetect : MonsterMoveColliderDetect
 
             var target = collision.collider;
 
-            //if(target.CompareTag("Block"))
-            //{
-            //    target.GetComponent<Block>().BigHit();
-            //}
+            if (target.CompareTag("Block"))
+            {
+                target.GetComponent<Block>().BigHit();
+            }
 
             if (target.CompareTag("Monster"))
             {
