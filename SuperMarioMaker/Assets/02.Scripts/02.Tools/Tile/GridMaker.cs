@@ -454,7 +454,6 @@ public class GridMaker : MonoBehaviour
 
     public List<TileData> SaveData()
     {
-
         List<TileData> values = new List<TileData>();
 
         foreach (var Data in DicTileData)
