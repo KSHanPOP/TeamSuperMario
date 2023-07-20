@@ -24,6 +24,8 @@ public class PlantMove : MonoBehaviour
     int invincibleLayerToInt;
     int monsterLayerToInt;
 
+    private bool startAct = false;
+
     private void Awake()
     {
         invincibleLayerToInt = (int)Mathf.Log(invincibleLayer.value, 2);        
@@ -37,7 +39,15 @@ public class PlantMove : MonoBehaviour
     }
     private void Update()
     {
-        animator.SetBool(hashIsPlayerClose, Mathf.Abs(playerTransform.position.x - middlePosX) < 1.5f);
+        float playerDistance = Mathf.Abs(playerTransform.position.x - middlePosX);
+
+        if (!startAct && playerDistance < 10f)
+        {
+            startAct = true;
+            animator.enabled = true;
+        }
+
+        animator.SetBool(hashIsPlayerClose, playerDistance < 1.5f);
     }
 
     public void MoveEnd()
@@ -55,5 +65,5 @@ public class PlantMove : MonoBehaviour
     public void SleepCollision()
     {
         trigger.layer = invincibleLayerToInt;
-    }
+    }    
 }

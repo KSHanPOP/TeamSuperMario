@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BaseTile : MonoBehaviour 
+public abstract class BaseTile : MonoBehaviour
 {
     public static LinkedList<BaseTile> Tiles = new();
     public static LinkedList<BaseTile> Buffer = new();
@@ -22,7 +22,7 @@ public abstract class BaseTile : MonoBehaviour
     {
         foreach (var tile in Tiles)
         {
-            if(tile == null)
+            if (tile == null)
                 continue;
 
             if (!tile.gameObject.activeSelf)
@@ -46,8 +46,7 @@ public abstract class BaseTile : MonoBehaviour
     }
     protected static void SwapBuffer()
     {
-        Tiles.Clear();
-
+        Tiles.Clear(); 
         (Tiles, Buffer) = (Buffer, Tiles);
     }
 

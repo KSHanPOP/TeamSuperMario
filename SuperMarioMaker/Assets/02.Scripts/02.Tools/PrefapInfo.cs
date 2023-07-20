@@ -12,10 +12,12 @@ public class PrefapInfo : MonoBehaviour
     public bool IsDynamic;
     // [SerializeField] String iconPath;
 
+    public int TileInfo1 { get; set; } = 0;
+    public int TileInfo2 { get; set; } = 0;
+
     [SerializeField] private String iconSpritePath;
     [SerializeField] private ETileType typeName;
 
-    private DynamicTile dynamicTile;
     public ETileType TypeName
     {
         get { return typeName; }
@@ -40,7 +42,7 @@ public class PrefapInfo : MonoBehaviour
         if (PipeWarpConnector.IsLinking)
             return;
 
-        if (TryGetComponent<PopupGetter>(out PopupGetter popupGetter))
+        if (TryGetComponent(out PopupGetter popupGetter))
             popupGetter.OnPopup();
     }
 }

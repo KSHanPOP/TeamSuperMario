@@ -11,14 +11,11 @@ public class DynamicPopupGetter : PopupGetter
     [SerializeField]
     private DynamicTile_Block dynamicTileBlock;
 
-    private void Start()
-    {   
-        Vector3 cameraPosition = Camera.main.transform.position;
+    protected override void Start()
+    {
+        posMoverMult = 1.3f;
 
-        float horizontalValue = (transform.position.x - cameraPosition.x) < 0 ? 1f : -1f;
-        float verticalValue = (transform.position.y - cameraPosition.y) < 0 ? 1f : -1f;
-
-        posMover = new Vector3(horizontalValue * 1.3f, verticalValue, 0);
+        base.Start();
     }
     public override void OnPopup()
     {

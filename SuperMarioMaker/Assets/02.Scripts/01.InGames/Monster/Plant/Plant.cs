@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using UnityEngine;
 
 public class Plant : MonoBehaviour, IShakeable
 {
     public void Shake(Vector2 _)
-    {
-        Logger.Debug("plant shaked");
+    {   
         Destroy(transform.parent.gameObject, 0.1f);        
     }
 
@@ -16,5 +16,10 @@ public class Plant : MonoBehaviour, IShakeable
         {
             collision.GetComponent<CollisionMonster>().Hit();
         }
+    }
+
+    private void OnDestroy()
+    {
+        Destroy(transform.parent.gameObject);
     }
 }

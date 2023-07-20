@@ -29,14 +29,22 @@ public class Castle : MonoBehaviour
             return;
         
         SoundManager.Instance.PlaySFX("Clear");
-        Invoke(nameof(ResetGame), 7f);
-        //TileManager.Instance.StopTest();
+        collision.gameObject.SetActive(false);
+        Invoke(nameof(ResetGame), 7f);        
     }
 
     public void ResetGame()
     {
         if (SceneLoader.Instance.State == SceneState.Tool)
-            ToolManager.Instance.GoTool();
+        {
+            var toolMgr = ToolManager.Instance;
+
+            if(toolMgr.ToolMode == ToolManager.ToolModeType.Save)
+            {
+                toolMgr.CJsonTest.GameComplete();
+            }
+            toolMgr.GoTool();
+        }
         else
         {
 

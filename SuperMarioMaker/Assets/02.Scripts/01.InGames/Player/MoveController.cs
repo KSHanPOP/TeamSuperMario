@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Playables;
 
 public class MoveController : MonoBehaviour
 {
@@ -33,15 +34,20 @@ public class MoveController : MonoBehaviour
     private float moveKeyValue;
 
     private bool isGround;
-    private bool isPressingKey;
+    private bool isPressingMoveKey = false;
 
-    private bool isTryRun;
+    private bool isTryRun = false;
+    private bool isTrySit = false;
+    private bool isSitting = false;
 
     [SerializeField]
     private float runSpeedMultiplier = 2f;
 
     [SerializeField]
     private float rapidAcceleraton = 2f;
+
+    [SerializeField]
+    private PlayerState playerState;
 
     private void Awake()
     {
@@ -56,31 +62,82 @@ public class MoveController : MonoBehaviour
 
     public void TryMove(InputAction.CallbackContext context)
     {
-        moveKeyValue = context.ReadValue<float>();
+        moveKeyValue = context.ReadValue<float>();        
     }
 
     public void TryRun(InputAction.CallbackContext context)
     {
-        isTryRun = context.ReadValue<float>() == 1;
+        isTryRun = context.ReadValue<float>() != 0;
+    }
+
+    public void TrySit(InputAction.CallbackContext context)
+    {
+        isTrySit = context.ReadValue<float>() != 0;        
     }
 
     private void Update()
     {
         directionX = limiter.CharacterCanMove ? moveKeyValue : 0f;
+        isPressingMoveKey = moveKeyValue != 0 && limiter.CharacterCanMove;
 
-        isPressingKey = directionX != 0;
+        CheckSitting();        
 
         desiredVelocity = new Vector2(directionX, 0f) * maxSpeed;
 
         if (isTryRun)
             desiredVelocity *= runSpeedMultiplier;
-    }
 
-    private void FixedUpdate()
-    {
         isGround = ground.IsGround();
 
         Move();
+    }
+
+    //private void FixedUpdate()
+    //{
+    //    isGround = ground.IsGround();
+
+    //    Move();
+    //}
+
+    private void CheckSitting()
+    {
+        if (isTrySit && ground.IsGround())
+            StartSitting();
+
+        if (!isTrySit)
+            EndSitting();
+
+        if (isSitting)
+        {
+            directionX = 0;
+            isPressingMoveKey = false;
+            return;
+        }
+    }
+
+    public void StartSitting()
+    {
+        if (!limiter.CharacterCanMove)
+            return;
+
+        isSitting = true;
+        playerState.Sit = true;
+        playerState.CurrState.StartSit();
+    }
+
+    public void EndSitting()
+    {
+        if (!limiter.CharacterCanMove)
+            return;
+
+        isSitting = false;
+        playerState.Sit = false;
+        playerState.CurrState.EndSit();
+    }
+
+    public bool GetSit()
+    {   
+        return isSitting;
     }
 
     private void Move()
@@ -91,7 +148,7 @@ public class MoveController : MonoBehaviour
         deceleration = isGround ? maxDecceleration : maxAirDeceleration;
         turnSpeed = isGround ? maxTurnSpeed : maxAirTurnSpeed;
 
-        if (isPressingKey)
+        if (isPressingMoveKey)
         {
             maxSpeedChange = directionX * velocity.x < 0 ?
                 turnSpeed : acceleration * Mathf.Lerp(rapidAcceleraton, 1f, velocity.x / desiredVelocity.x);

@@ -53,6 +53,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d00471c75ec587e4a9ef7c6f58c5a568, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefapInfo: {fileID: 5491106917308363493}
   pipeEntrancePos: 3
   maxLength: 10
   verticalEntrance:
@@ -115,7 +116,8 @@ MonoBehaviour:
   fallingLayer:
     serializedVersion: 2
     m_Bits: 8192
-  rayLength: 0.2
+  verticalPipeRayLength: 0
+  horizontalPipeRayLength: 0.4
   pipe: {fileID: 1960053275329528257}
   IsSmallState: 0
   smallStateWarpSpeed: 1.5

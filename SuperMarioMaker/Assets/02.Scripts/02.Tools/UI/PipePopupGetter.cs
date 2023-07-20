@@ -9,7 +9,14 @@ public class PipePopupGetter : PopupGetter
     private Pipe pipe;
 
     [SerializeField]
-    private PipeWarpConnector connector;  
+    private PipeWarpConnector connector;
+
+    protected override void Start()
+    {
+        posMoverMult = 1.5f;
+        base.Start();
+    }
+
     public override void OnPopup()
     {
         var popup = PopupManager.Instance.GetPopup(1).GetComponent<PipePopup>();

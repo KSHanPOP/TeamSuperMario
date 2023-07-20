@@ -9,6 +9,7 @@ public class PlayerAnimation : MonoBehaviour
     private readonly int hashTryStop = Animator.StringToHash("TryStop");
     private readonly int hashSpeed = Animator.StringToHash("Speed");
     private readonly int hashGrapFlag = Animator.StringToHash("GrapFlag");
+    private readonly int hashSit = Animator.StringToHash("Sit");
 
     private GroundChecker groundChecker;
     private MoveController movement;
@@ -49,6 +50,7 @@ public class PlayerAnimation : MonoBehaviour
         animator.SetBool(hashIsGround, groundChecker.IsGround());
         animator.SetBool(hashTryStop, isTryStop = rigidbody2.velocity.x * movement.directionX < 0);
         animator.SetFloat(hashSpeed, rigidbody2.velocity.x * runAnimationSpeed);
+        animator.SetBool(hashSit, movement.GetSit());
         SetMoveAnimation();     
     }
     private void SetMoveAnimation()

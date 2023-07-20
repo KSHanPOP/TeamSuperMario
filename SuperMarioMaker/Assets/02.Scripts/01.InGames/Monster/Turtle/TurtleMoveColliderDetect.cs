@@ -7,6 +7,9 @@ public class TurtleMoveColliderDetect : MonsterMoveColliderDetect
     [SerializeField]
     protected Turtle turtle;
 
+    [SerializeField]
+    protected TurtleSpin turtleSpin;
+
     protected LayerMask originLayerMask;
     protected LayerMask platformLayerMask;
 
@@ -18,8 +21,6 @@ public class TurtleMoveColliderDetect : MonsterMoveColliderDetect
     }
     protected override void OnCollisionEnter2D(Collision2D collision)
     {
-        Logger.Debug("turtle collision");
-
         if (turtle.State == EnumTurtleState.Idle)
             return;
 
@@ -36,9 +37,15 @@ public class TurtleMoveColliderDetect : MonsterMoveColliderDetect
 
             var target = collision.collider;
 
+            //if(target.CompareTag("Block"))
+            //{
+            //    target.GetComponent<Block>().BigHit();
+            //}
+
             if (target.CompareTag("Monster"))
             {
                 SoundManager.Instance.PlaySFX("Kick");
+                ScoreManager.Instance.GetComboScore(turtleSpin.ScoreCombo++, target.transform.position);
 
                 target.GetComponent<IShakeable>().Shake(transform.position);
             }

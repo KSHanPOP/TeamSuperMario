@@ -11,6 +11,7 @@ public class FireFlower : ItemBase
 
         if (collision.CompareTag("Player"))
         {
+            ScoreManager.Instance.GetScore(1000, transform.position);
             isAte = true;
             collision.GetComponent<PlayerAnimation>().EatFireFlower();
             Destroy(gameObject);

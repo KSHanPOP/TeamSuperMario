@@ -36,6 +36,7 @@ public class Mushroom : ItemBase
 
         if (collision.CompareTag("Player"))
         {
+            ScoreManager.Instance.GetScore(1000, transform.position);
             isAte = true;
             collision.GetComponent<PlayerAnimation>().EatMushroom();                        
             Destroy(gameObject);

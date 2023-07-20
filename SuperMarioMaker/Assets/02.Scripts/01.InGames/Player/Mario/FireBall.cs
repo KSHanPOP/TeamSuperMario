@@ -143,7 +143,8 @@ public class FireBall : MonoBehaviour
         if (isHit)
             return;
 
-        if (collision.gameObject.CompareTag("Platform"))
+        if (collision.gameObject.CompareTag("Platform") ||
+            collision.gameObject.CompareTag("Block"))
             Bounce();
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -154,9 +155,11 @@ public class FireBall : MonoBehaviour
         if (!collision.CompareTag("Monster"))
             return;
 
-        if (collision.TryGetComponent<IShakeable>(out IShakeable shakeable))
+        if (collision.TryGetComponent(out IShakeable shakeable))
         {
             SoundManager.Instance.PlaySFX("Kick");
+            ScoreManager.Instance.GetScore(200, collision.transform.position);
+
             shakeable.Shake(Vector2.one);
         }
         

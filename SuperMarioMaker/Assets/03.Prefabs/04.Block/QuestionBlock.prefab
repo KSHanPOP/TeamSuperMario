@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -4452496503412889562}
   m_Layer: 10
   m_Name: QuestionBlock
-  m_TagString: Platform
+  m_TagString: Block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -52,6 +52,7 @@ MonoBehaviour:
   itemCount: 0
   shakeTime: 0.25
   maxShakeHeight: 0.3
+  rayLength: 0.8
 --- !u!68 &-4452496503412889562
 EdgeCollider2D:
   m_ObjectHideFlags: 0
