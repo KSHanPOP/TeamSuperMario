@@ -6109,6 +6109,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IngameManagers
       objectReference: {fileID: 0}
+    - target: {fileID: 6151051732478867965, guid: 0fe9aaac9f20e4240b90322cf253a1fc, type: 3}
+      propertyPath: monsterAwaker
+      value: 
+      objectReference: {fileID: 1973331235}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0fe9aaac9f20e4240b90322cf253a1fc, type: 3}
 --- !u!1 &1150192505
@@ -9709,7 +9713,9 @@ GameObject:
   - component: {fileID: 1973331230}
   - component: {fileID: 1973331233}
   - component: {fileID: 1973331234}
-  m_Layer: 0
+  - component: {fileID: 1973331236}
+  - component: {fileID: 1973331235}
+  m_Layer: 19
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -9838,6 +9844,45 @@ MonoBehaviour:
   m_CropFrameX: 0
   m_CropFrameY: 0
   m_StretchFill: 0
+--- !u!61 &1973331235
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1973331229}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 24, y: 13.5}
+  m_EdgeRadius: 0
+--- !u!114 &1973331236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1973331229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ec6c758cbeaefe409a556f74c55b7f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boxCollider: {fileID: 1973331235}
 --- !u!1 &1987488016
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,6 +14,9 @@ public class TileManager : MonoBehaviour
     [SerializeField]
     FallTileHandler fallTileHandler;
 
+    [SerializeField]
+    private BoxCollider2D monsterAwaker;
+
     private void Awake()
     {
         Instance = this;
@@ -32,6 +35,8 @@ public class TileManager : MonoBehaviour
         fallTileHandler.StartTest();
 
         PopupManager.Instance.OffPopups();
+
+        monsterAwaker.enabled = true;
     }
     public void StopTest()
     {
@@ -45,6 +50,7 @@ public class TileManager : MonoBehaviour
         PipeWarpConnector.StopTest();
         fallTileHandler.StopTest();
 
+        monsterAwaker.enabled = false;
         Camera.main.GetComponent<SleepMonsterAwaker>().enabled = false;
     }
 
