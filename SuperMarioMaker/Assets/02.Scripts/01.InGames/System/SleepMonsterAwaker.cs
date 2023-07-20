@@ -1,11 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class SleepMonsterAwaker : MonoBehaviour
 {
     [SerializeField]
     private BoxCollider2D boxCollider;
+
+    private void Awake()
+    {
+        var pixelPerfect = GetComponent<PixelPerfectCamera>();
+        boxCollider.size = new Vector2(pixelPerfect.refResolutionX / 16, pixelPerfect.refResolutionY / 16);
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
