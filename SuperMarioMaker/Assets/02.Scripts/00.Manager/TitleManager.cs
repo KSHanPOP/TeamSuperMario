@@ -27,6 +27,15 @@ public class TitleManager : MonoBehaviour
         {
             //Destroy(gameObject);
         }
+
+        if (SaveLoadManager.Instance != null)
+        {
+            loadPopup = SaveLoadManager.Instance.PopUp;
+        }
+        else
+        {
+            Debug.LogError("SaveLoadManager instance not found");
+        }
     }
     void Start()
     {
@@ -54,9 +63,10 @@ public class TitleManager : MonoBehaviour
         }
     }
 
+    [SerializeField] private GameObject loadPopup;
     public void OnGameStart()
     {
-
+        loadPopup.SetActive(true);
     }
 
     public void ToolStart()

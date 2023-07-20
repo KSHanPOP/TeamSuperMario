@@ -35,6 +35,8 @@ public class CameraMover : MonoBehaviour
 
             // Update the camera position
             Camera.main.transform.position = pos;
+
+            ToolManager.Instance.gridMaker.SetFrame();
         }
     }
 

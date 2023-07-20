@@ -1,0 +1,142 @@
+{
+  "mapname": "07:34:55",
+  "time": 500.0,
+  "life": 3,
+  "BackGroundName": "Background Ground",
+  "MapRowLength": 5,
+  "MapColLength": 1,
+  "Tiles": [
+    {
+      "x": 0,
+      "y": 0,
+      "tileType": "Default",
+      "tileName": "Platform"
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "tileType": "Default",
+      "tileName": "Platform"
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "tileType": "Default",
+      "tileName": "Platform"
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "tileType": "Default",
+      "tileName": "Platform"
+    },
+    {
+      "x": 4,
+      "y": 0,
+      "tileType": "Default",
+      "tileName": "Platform"
+    },
+    {
+      "x": 5,
+      "y": 0,
+      "tileType": "Default",
+      "tileName": "Platform"
+    },
+    {
+      "x": 6,
+      "y": 0,
+      "tileType": "Default",
+      "tileName": "Platform"
+    },
+    {
+      "x": 110,
+      "y": 0,
+      "tileType": "Default",
+      "tileName": "Platform"
+    },
+    {
+      "x": 111,
+      "y": 0,
+      "tileType": "Default",
+      "tileName": "Platform"
+    },
+    {
+      "x": 112,
+      "y": 0,
+      "tileType": "Default",
+      "tileName": "Platform"
+    },
+    {
+      "x": 113,
+      "y": 0,
+      "tileType": "Default",
+      "tileName": "Platform"
+    },
+    {
+      "x": 114,
+      "y": 0,
+      "tileType": "Default",
+      "tileName": "Platform"
+    },
+    {
+      "x": 115,
+      "y": 0,
+      "tileType": "Default",
+      "tileName": "Platform"
+    },
+    {
+      "x": 116,
+      "y": 0,
+      "tileType": "Default",
+      "tileName": "Platform"
+    },
+    {
+      "x": 117,
+      "y": 0,
+      "tileType": "Default",
+      "tileName": "Platform"
+    },
+    {
+      "x": 118,
+      "y": 0,
+      "tileType": "Default",
+      "tileName": "Platform"
+    },
+    {
+      "x": 119,
+      "y": 0,
+      "tileType": "Default",
+      "tileName": "Platform"
+    },
+    {
+      "x": 110,
+      "y": 1,
+      "tileType": "Default",
+      "tileName": "Goal"
+    },
+    {
+      "x": 117,
+      "y": 1,
+      "tileType": "Default",
+      "tileName": "Castle"
+    },
+    {
+      "x": 19,
+      "y": 7,
+      "tileType": "None",
+      "tileName": "Coin"
+    },
+    {
+      "x": 10,
+      "y": 7,
+      "tileType": "None",
+      "tileName": "Coin"
+    },
+    {
+      "x": 6,
+      "y": 7,
+      "tileType": "None",
+      "tileName": "Coin"
+    }
+  ]
+}

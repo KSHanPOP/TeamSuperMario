@@ -1619,7 +1619,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 1025
+    m_Bits: 131073
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 9fa99a3934bb0714cae577c62ef7a965, type: 2}
   m_TargetDisplay: 1
@@ -10436,7 +10436,7 @@ MonoBehaviour:
   CClickMode: {fileID: 532670459}
   scrollingBackground: {fileID: 1746608102}
   iconManager: {fileID: 1235723532}
-  Background: {fileID: 1746608102}
+  gridMaker: {fileID: 532670460}
   playTime: 500
   playerLife: 3
   background: Background Ground
