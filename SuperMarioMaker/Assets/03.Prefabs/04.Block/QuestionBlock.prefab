@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -4452496503412889562}
   m_Layer: 10
   m_Name: QuestionBlock
-  m_TagString: Platform
+  m_TagString: Block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
