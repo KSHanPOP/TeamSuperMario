@@ -10478,6 +10478,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfdcf1f518458d349b76696685edfa03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CJsonTest: {fileID: 112174522}
   CClickMode: {fileID: 532670459}
   scrollingBackground: {fileID: 1746608102}
   iconManager: {fileID: 1235723532}

@@ -159,4 +159,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dynamicObject: {fileID: 5036898980640264324, guid: 40b8497c696f082428bf5346b6494137, type: 3}
-  IsPoped: 0
+  prefapInfo: {fileID: -7708307327048197670}

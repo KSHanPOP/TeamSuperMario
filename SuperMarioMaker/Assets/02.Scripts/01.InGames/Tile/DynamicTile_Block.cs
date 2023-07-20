@@ -5,6 +5,9 @@ using UnityEngine;
 public class DynamicTile_Block : DynamicTile
 {
     [SerializeField]
+    protected PrefapInfo prefapInfo;
+
+    [SerializeField]
     protected EnumItems itemType;
 
     [SerializeField]
@@ -14,6 +17,12 @@ public class DynamicTile_Block : DynamicTile
     protected bool isTransparent;
 
     protected Block block;
+
+    public void SetValue(int info1, int info2)
+    {
+        SetItemType((EnumItems)info1);
+        SetItemCount((int)info2);
+    }
 
     private void SetBlockValue()
     {   
@@ -29,9 +38,17 @@ public class DynamicTile_Block : DynamicTile
         gameObject.SetActive(false);
     }
     public Sprite[] GetSprites() => ItemSpawnManagers.Instance.Sprites;
-    public void SetItemType(EnumItems items) => itemType = items;
+    public void SetItemType(EnumItems items)
+    {
+        prefapInfo.TileInfo1 = (int)items;
+        itemType = items;
+    }
     public EnumItems GetItemType() => itemType;
-    public void SetItemCount(float count) => itemCount = (int)count;
+    public void SetItemCount(float count)
+    {
+        prefapInfo.TileInfo2 = (int)count;
+        itemCount = (int)count;
+    }
     public int GetItemCount() => itemCount;
 
 }

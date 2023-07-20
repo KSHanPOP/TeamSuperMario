@@ -5,6 +5,9 @@ using UnityEngine;
 public class Pipe : MonoBehaviour
 {
     [SerializeField]
+    private PrefapInfo prefapInfo;
+
+    [SerializeField]
     private EnumPipeEntrancePos pipeEntrancePos;
 
     public EnumPipeEntrancePos PipeEntrancePos { get { return pipeEntrancePos; } }
@@ -44,6 +47,7 @@ public class Pipe : MonoBehaviour
         get { return banPlant; }
         set
         {
+            prefapInfo.TileInfo1 = value ? 1 : 0;
             banPlant = value;
             plant.SetActive(!banPlant);
         }
@@ -57,6 +61,12 @@ public class Pipe : MonoBehaviour
 
     private int length;
     public int Length { get { return length; } }
+
+    public void SetValue(int info1, int info2)
+    {
+        BanPlant = info1 == 1;
+        Setlength(info2);
+    }
 
     private void Awake()
     {
@@ -195,6 +205,7 @@ public class Pipe : MonoBehaviour
     }
     public void Setlength(float value)
     {
+        prefapInfo.TileInfo2 = (int)value;
         SetPillarLength((int)value);
         SetCollider();
         SetHighlight();
@@ -206,6 +217,9 @@ public class Pipe : MonoBehaviour
             return;
 
         if (!IsUpward)
+            return;
+
+        if (plant.GetComponent<DynamicTile>().Instantiated == null)
             return;
 
         plant.GetComponent<DynamicTile>().Instantiated

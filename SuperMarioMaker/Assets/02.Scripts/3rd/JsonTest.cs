@@ -141,7 +141,7 @@ public class JsonTest : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            GameComplete();
+            //GameComplete();
         }
     }
 }

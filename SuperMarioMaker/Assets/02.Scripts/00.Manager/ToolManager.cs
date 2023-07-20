@@ -10,6 +10,9 @@ public class ToolManager : MonoBehaviour
 {
     public static ToolManager Instance { get; private set; }
 
+
+    public JsonTest CJsonTest;
+
     void Awake()
     {
         if (Instance == null)

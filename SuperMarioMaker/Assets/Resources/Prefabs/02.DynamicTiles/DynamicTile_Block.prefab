@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dynamicObject: {fileID: 6089242038705633981, guid: d438db25b5418a74b8cb0cadb6c7451d, type: 3}
-  IsPoped: 0
+  prefapInfo: {fileID: -1312829161906989609}
   itemType: 0
   itemCount: 0
   isTransparent: 0

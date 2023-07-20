@@ -36,7 +36,15 @@ public class Castle : MonoBehaviour
     public void ResetGame()
     {
         if (SceneLoader.Instance.State == SceneState.Tool)
-            ToolManager.Instance.GoTool();
+        {
+            var toolMgr = ToolManager.Instance;
+
+            if(toolMgr.ToolMode == ToolManager.ToolModeType.Save)
+            {
+                toolMgr.CJsonTest.GameComplete();
+            }
+            toolMgr.GoTool();
+        }
         else
         {
 

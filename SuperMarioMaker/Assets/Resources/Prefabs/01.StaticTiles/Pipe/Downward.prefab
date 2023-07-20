@@ -53,6 +53,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d00471c75ec587e4a9ef7c6f58c5a568, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefapInfo: {fileID: 5491106917308363493}
   pipeEntrancePos: 2
   maxLength: 10
   verticalEntrance:
