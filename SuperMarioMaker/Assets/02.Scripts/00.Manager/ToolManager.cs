@@ -72,7 +72,7 @@ public class ToolManager : MonoBehaviour
                     if (RightOnOffButtonState.IsOnOff)
                         RightOnOffButton.onClick.Invoke();
                     scrollingBackground.StopBackground();
-                    TileManager.Instance.StopTest();
+                    TileManager.Instance.StopGame();
 
                     iconManager.NowTag = "None";
 
@@ -278,7 +278,7 @@ public class ToolManager : MonoBehaviour
         testModeUi.SetActive(true);
         timeCoroutine = StartCoroutine(TimeUpdateCoroutine());
         scrollingBackground.MoveBackground();
-        TileManager.Instance.StartTest();
+        TileManager.Instance.StartGame();
         BgNameToSound(BackgroundName);
     }
     private IEnumerator TimeUpdateCoroutine()

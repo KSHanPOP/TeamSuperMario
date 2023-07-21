@@ -33,14 +33,14 @@ public class SpeedTracker : MonoBehaviour
 
             isStarted = true;
             
-            tileManager.StartTest();
+            tileManager.StartGame();
         }
 
         if(Input.GetKeyDown(exitKey))
         {
             speedGraphDrawer.StopTrackSpeed();
 
-            tileManager.StopTest();
+            tileManager.StopGame();
         }
 
         if(Input.GetKeyDown(startTrackingKey))

@@ -18,7 +18,7 @@ public abstract class BaseTile : MonoBehaviour
         IsListed = true;
     }
 
-    public static void StartTest()
+    public static void StartGame()
     {
         foreach (var tile in Tiles)
         {
@@ -35,7 +35,7 @@ public abstract class BaseTile : MonoBehaviour
             Buffer.AddLast(tile);
         }
     }
-    public static void StopTest()
+    public static void StopGame()
     {
         SwapBuffer();
 

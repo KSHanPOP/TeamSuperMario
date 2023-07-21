@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FallTileHandler : MonoBehaviour
+public class FallTileHandler : MonoBehaviour, IGameSessionListener
 {
     private float startPoint;
     private float endPoint;
@@ -29,7 +29,7 @@ public class FallTileHandler : MonoBehaviour
         else if (SceneLoader.Instance.State == SceneState.MainGame)
         {
             gameData = InGameManager.Instance.GameData;
-        }
+        }        
 
         startPoint = 0f;
         endPoint = 24 * gameData.MapRowLength;
@@ -59,5 +59,15 @@ public class FallTileHandler : MonoBehaviour
     private void GameOver()
     {
         PlayerState.Instance.CurrState.Die();
+    }
+
+    public void GameStart()
+    {
+        StartTest();
+    }
+
+    public void GameStop()
+    {
+        StopTest();
     }
 }

@@ -17,11 +17,15 @@ public class TileManager : MonoBehaviour
     [SerializeField]
     private BoxCollider2D monsterAwaker;
 
+    private IGameSessionListener[] gameSessionsListeners;
+
     private void Awake()
     {
         Instance = this;
+
+        gameSessionsListeners = GetComponents<IGameSessionListener>();
     }
-    public void StartTest()
+    public void StartGame()
     {
         if (IsPlaying)
             return;
@@ -30,16 +34,19 @@ public class TileManager : MonoBehaviour
         MovementLimmiter.instance.CharacterCanMove = true;
 
         dynamicObjHolder = new GameObject("DynamicObjHolder").transform;
-        BaseTile.StartTest();
-        PipeWarpConnector.StartTest();
-        fallTileHandler.StartTest();
+        BaseTile.StartGame();
+        PipeWarpConnector.StartGame();
+        foreach (var listener in gameSessionsListeners)
+        {
+            listener.GameStart();
+        }
 
         if (SceneLoader.Instance.State == SceneState.Tool)
             PopupManager.Instance.OffPopups();
 
         monsterAwaker.enabled = true;
     }
-    public void StopTest()
+    public void StopGame()
     {
         if (!IsPlaying)
             return;
@@ -47,9 +54,12 @@ public class TileManager : MonoBehaviour
         IsPlaying = false;
 
         Destroy(dynamicObjHolder.gameObject);
-        BaseTile.StopTest();
-        PipeWarpConnector.StopTest();
-        fallTileHandler.StopTest();
+        BaseTile.StopGame();
+        PipeWarpConnector.StopGame();
+        foreach (var listener in gameSessionsListeners)
+        {
+            listener.GameStop();
+        }
 
         monsterAwaker.enabled = false;
         Camera.main.GetComponent<SleepMonsterAwaker>().enabled = false;
@@ -57,7 +67,7 @@ public class TileManager : MonoBehaviour
 
     public void Restart()
     {
-        StopTest();
-        StartTest();
+        StopGame();
+        StartGame();
     }
 }

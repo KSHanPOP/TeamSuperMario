@@ -31,7 +31,7 @@ public class ClearAnimationSequence : MonoBehaviour
 
         this.player = player;
 
-        offset = offset / 16;
+        offset /= 16;
 
         MovementLimmiter.instance.CharacterCanMove = false;
         playerRb = player.GetComponent<Rigidbody2D>();

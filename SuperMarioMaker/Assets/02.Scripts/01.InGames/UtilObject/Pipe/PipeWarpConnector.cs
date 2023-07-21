@@ -65,7 +65,7 @@ public class PipeWarpConnector : MonoBehaviour, ICommandStackAble
         cam = Camera.main;
         startPos = transform.position + (controller.IsVertical ? Vector3.right : Vector3.down) * 0.5f;        
     }
-    public static void StartTest()
+    public static void StartGame()
     {
         IsPlaying = true;
 
@@ -80,7 +80,7 @@ public class PipeWarpConnector : MonoBehaviour, ICommandStackAble
             }
         }
     }
-    public static void StopTest()
+    public static void StopGame()
     {
         IsPlaying = false;
 

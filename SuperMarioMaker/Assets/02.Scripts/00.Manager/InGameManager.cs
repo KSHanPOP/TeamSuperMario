@@ -87,7 +87,7 @@ public class InGameManager : MonoBehaviour
         string[] words = gameData.BackGround.Split(' ');
 
         SoundManager.Instance.PlayBGM(words[1]);
-        TileManager.Instance.StartTest();
+        TileManager.Instance.StartGame();
         StartCoroutine(TimeCounter());
     }
     public void Die()
@@ -160,7 +160,7 @@ public class InGameManager : MonoBehaviour
 
     IEnumerator FadeBlackOut()
     {
-        TileManager.Instance.StopTest();
+        TileManager.Instance.StopGame();
         blackOut.color = new Color(blackOut.color.r, blackOut.color.g, blackOut.color.b, 1);
         yield return new WaitForSeconds(blackOutTime);
 
