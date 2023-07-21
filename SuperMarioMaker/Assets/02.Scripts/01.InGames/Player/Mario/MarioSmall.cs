@@ -105,11 +105,13 @@ public class MarioSmall : DefaultMario
     public void ResetGame()
     {
         if (SceneLoader.Instance.State == SceneState.Tool)
-            ToolManager.Instance.GoTool();
-        else
         {
-
+            ToolManager.Instance.GoTool();
         }
+        //else if(SceneLoader.Instance.State == SceneState.MainGame)
+        //{
+            
+        //}
     }
 
     public override void OnTransformationComplete()

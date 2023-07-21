@@ -14,6 +14,7 @@ public class InGameManager : MonoBehaviour
     private List<TileData> Tiles { get; set; }
 
     private GameData gameData;
+    public GameData GameData { get { return gameData; } }
 
     [SerializeField] private TextMeshProUGUI count;
     [SerializeField] private TextMeshProUGUI time;

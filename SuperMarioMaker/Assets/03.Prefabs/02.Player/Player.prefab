@@ -277,7 +277,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43f9490c7a8be8e4a84e468cf499325d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minDistanceToPress: 0.9
+  minDistanceToPress: 0.7
   invincibleLayer: 12
 --- !u!114 &6417868108031928266
 MonoBehaviour:
