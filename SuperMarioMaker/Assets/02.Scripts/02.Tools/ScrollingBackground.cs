@@ -122,7 +122,6 @@ public class ScrollingBackground : MonoBehaviour
             {
                 if (backgrounds2D[i, j] != null)
                 {
-                    // À¯´ÏÆ¼ °´Ã¼ ÆÄ±«
                     Destroy(backgrounds2D[i, j].gameObject);
                 }
             }
@@ -134,8 +133,7 @@ public class ScrollingBackground : MonoBehaviour
     }
     private void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //    BackgroundImageUp();
+
     }
     public void MoveBackground()
     {

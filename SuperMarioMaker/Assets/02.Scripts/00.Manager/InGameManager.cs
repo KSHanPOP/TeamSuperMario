@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.UI;
+using static UnityEditor.Timeline.Actions.MenuPriority;
 
 public class InGameManager : MonoBehaviour
 {
@@ -97,15 +99,16 @@ public class InGameManager : MonoBehaviour
     }
     public void Die()
     {
-        if (gameData.Time <= 0)
-            PlayerState.Instance.CurrState.Die();
-
         AddLife(false);
 
         if (gameData.Life == 0)
         {
             CourseFail();
+            return;
         }
+
+        if (gameData.Time <= 0)
+            PlayerState.Instance.CurrState.Die();
 
         SoundManager.Instance.StopAll();
         StartCoroutine(FadeBlackOut());
@@ -117,10 +120,10 @@ public class InGameManager : MonoBehaviour
         courseClearOrFail.gameObject.SetActive(true);
         courseClearOrFail.text = "Course Clear";
         StartCoroutine(FadeBlackOut(3f));
-
     }
     private void CourseFail()
     {
+        SoundManager.Instance.PlaySFX("gameover");
         courseClearOrFail.gameObject.SetActive(true);
         courseClearOrFail.text = "GameOver";
 
@@ -189,6 +192,28 @@ public class InGameManager : MonoBehaviour
         SceneLoader.Instance.LoadTitleScene();
     }
 
+    public void PointCalculate() => StartCoroutine(AddRemainingTimeAsPoints());
+    IEnumerator AddRemainingTimeAsPoints()
+    {
+        float delay = 2f / gameData.Time; // Delay for each point increment.
+        float temp = 0f;
+
+        while (gameData.Time > 0)
+        {
+            AddTime(-1);
+            AddPoint(100);
+
+            temp += delay;
+            if (temp > 0.05f)
+            {
+                SoundManager.Instance.PlaySFX("Coin");
+                temp = 0f;
+            }
+
+            yield return new WaitForSeconds(delay);
+        }
+    }
+
     public void AddCoin(int addCoin)
     {
         if (iCoin == 99)
@@ -219,7 +244,12 @@ public class InGameManager : MonoBehaviour
         }
         life.text = gameData.Life.ToString("00");
     }
+    public void AddTime(float addTime)
+    {
+        gameData.Time += addTime;
 
+        time.text = gameData.Time.ToString("000");
+    }
     public void TimeStop()
     {
         isStart = false;
