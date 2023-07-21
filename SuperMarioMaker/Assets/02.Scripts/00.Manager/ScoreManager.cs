@@ -41,6 +41,12 @@ public class ScoreManager : MonoBehaviour
         {   
             ToolManager.Instance.AddScore(score);
         }
+        else if(SceneLoader.Instance.State == SceneState.MainGame)
+        {
+            
+
+        }
+
     }
 
     public void GetCoin(int count)
