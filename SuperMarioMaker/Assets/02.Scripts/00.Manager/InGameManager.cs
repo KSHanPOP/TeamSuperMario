@@ -82,14 +82,17 @@ public class InGameManager : MonoBehaviour
     }
     private void GameStart()
     {
+
         string[] words = gameData.BackGround.Split(' ');
 
         SoundManager.Instance.PlayBGM(words[1]);
-
+        TileManager.Instance.StartTest();
         TimeCounter();
     }
     private void Die()
     {
+        PlayerState.Instance.CurrState.Die();
+
         AddLife(false);
 
         if (gameData.Life == 0)
@@ -123,6 +126,9 @@ public class InGameManager : MonoBehaviour
 
     IEnumerator CountDown()
     {
+        count.gameObject.SetActive(true);
+        SoundManager.Instance.PlayBGM("CountDown");
+
         for (int i = 3; i > 0; i--)
         {
             count.text = i.ToString();
@@ -160,8 +166,6 @@ public class InGameManager : MonoBehaviour
             blackOut.color = new Color(blackOut.color.r, blackOut.color.g, blackOut.color.b, t);
             yield return null;
         }
-
-
     }
 
     IEnumerator FadeBlackOut(float blackOutTime)

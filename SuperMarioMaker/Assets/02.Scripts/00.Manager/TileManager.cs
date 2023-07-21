@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TileManager : MonoBehaviour
-{   
+{
     public static TileManager Instance { get; private set; }
 
     private Transform dynamicObjHolder;
@@ -25,16 +25,17 @@ public class TileManager : MonoBehaviour
     {
         if (IsPlaying)
             return;
-        
+
         IsPlaying = true;
         MovementLimmiter.instance.CharacterCanMove = true;
-        
+
         dynamicObjHolder = new GameObject("DynamicObjHolder").transform;
         BaseTile.StartTest();
         PipeWarpConnector.StartTest();
         fallTileHandler.StartTest();
 
-        PopupManager.Instance.OffPopups();
+        if (SceneLoader.Instance.State == SceneState.Tool)
+            PopupManager.Instance.OffPopups();
 
         monsterAwaker.enabled = true;
     }
@@ -44,9 +45,9 @@ public class TileManager : MonoBehaviour
             return;
 
         IsPlaying = false;
-        
+
         Destroy(dynamicObjHolder.gameObject);
-        BaseTile.StopTest();        
+        BaseTile.StopTest();
         PipeWarpConnector.StopTest();
         fallTileHandler.StopTest();
 
