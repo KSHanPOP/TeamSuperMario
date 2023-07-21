@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CameraFollowPlayer : MonoBehaviour
 {
+    public bool UseCustomPoint = false;
+
     [SerializeField]
     private float customHeightValue;
 
@@ -25,24 +27,36 @@ public class CameraFollowPlayer : MonoBehaviour
 
     private void Start()
     {
-        cam = Camera.main;        
+        cam = Camera.main;
 
-        if(GameManager.instance == null)
+        if (UseCustomPoint)
         {
             minX = customStartValue;
             maxX = customEndValue;
             maxY = customHeightValue;
             minY = customHeightValue;
+
+            Update();
+            cam.GetComponent<SleepMonsterAwaker>().enabled = true;
+
+            return;
+        }
+
+        GameData gameData;
+
+        if (SceneLoader.Instance.State == SceneState.Tool)
+        {
+            gameData = GameManager.instance.gameData;
         }
         else
         {
-            var gameData = GameManager.instance.gameData;
+            gameData = InGameManager.Instance.GameData;
+        }        
 
-            minX = gameData.TileX / 2;
-            maxX = gameData.TileX * gameData.MapRowLength - minX;
-            minY = gameData.TileY / 2;
-            maxY = gameData.TileY * gameData.MapRowLength - minY;
-        }
+        minX = gameData.TileX / 2;
+        maxX = gameData.TileX * gameData.MapRowLength - minX;
+        minY = gameData.TileY / 2;
+        maxY = gameData.TileY * gameData.MapRowLength - minY;
 
         Update();
         cam.GetComponent<SleepMonsterAwaker>().enabled = true;

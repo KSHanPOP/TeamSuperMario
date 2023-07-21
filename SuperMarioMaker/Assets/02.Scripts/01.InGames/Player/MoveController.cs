@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Playables;
 
 public class MoveController : MonoBehaviour
 {
@@ -41,7 +40,10 @@ public class MoveController : MonoBehaviour
     private bool isSitting = false;
 
     [SerializeField]
-    private float runSpeedMultiplier = 2f;
+    private float runMaxSpeedMultiplier = 2f;
+
+    [SerializeField]
+    private float runAccelMultiplier = 1.5f;
 
     [SerializeField]
     private float rapidAcceleraton = 2f;
@@ -85,7 +87,7 @@ public class MoveController : MonoBehaviour
         desiredVelocity = new Vector2(directionX, 0f) * maxSpeed;
 
         if (isTryRun)
-            desiredVelocity *= runSpeedMultiplier;
+            desiredVelocity *= runMaxSpeedMultiplier;
 
         isGround = ground.IsGround();
 
@@ -148,6 +150,9 @@ public class MoveController : MonoBehaviour
         deceleration = isGround ? maxDecceleration : maxAirDeceleration;
         turnSpeed = isGround ? maxTurnSpeed : maxAirTurnSpeed;
 
+        if (isTryRun)
+            acceleration *= runAccelMultiplier;
+
         if (isPressingMoveKey)
         {
             maxSpeedChange = directionX * velocity.x < 0 ?
@@ -162,4 +167,6 @@ public class MoveController : MonoBehaviour
 
         body.velocity = velocity;
     }
+
+    public float GetMaxSpeed() => maxSpeed * runMaxSpeedMultiplier;
 }

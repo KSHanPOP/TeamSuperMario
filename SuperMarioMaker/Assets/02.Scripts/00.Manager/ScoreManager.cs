@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -41,6 +42,11 @@ public class ScoreManager : MonoBehaviour
         {   
             ToolManager.Instance.AddScore(score);
         }
+        else if(SceneLoader.Instance.State == SceneState.MainGame)
+        {
+            InGameManager.Instance.AddPoint(score);
+        }
+
     }
 
     public void GetCoin(int count)
@@ -49,6 +55,10 @@ public class ScoreManager : MonoBehaviour
         {
             ToolManager.Instance.AddCoin(count);
             ToolManager.Instance.AddScore(count * 200);
+        }
+        else if (SceneLoader.Instance.State == SceneState.MainGame)
+        {
+            InGameManager.Instance.AddCoin(count);
         }
     }
 }
