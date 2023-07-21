@@ -16,6 +16,9 @@ public class InGameManager : MonoBehaviour
     private GameData gameData;
     public GameData GameData { get { return gameData; } }
 
+    private bool isStart = false;
+
+
     [SerializeField] private TextMeshProUGUI count;
     [SerializeField] private TextMeshProUGUI time;
     [SerializeField] private TextMeshProUGUI life;
@@ -71,11 +74,13 @@ public class InGameManager : MonoBehaviour
     {
         MapData mapData = SaveLoadManager.Instance.SaveFiles[fileName].mapData;
 
-        time.text = mapData.Time.ToString("000");
         life.text = mapData.Life.ToString("00");
     }
     private void ResetGameDataInfo()
     {
+        MapData mapData = SaveLoadManager.Instance.SaveFiles[fileName].mapData;
+
+        time.text = mapData.Time.ToString("000");
         count.text = "3";
         coin.text = "00";
         iCoin = 0;
@@ -83,7 +88,7 @@ public class InGameManager : MonoBehaviour
     }
     private void GameStart()
     {
-
+        isStart = true;
         string[] words = gameData.BackGround.Split(' ');
 
         SoundManager.Instance.PlayBGM(words[1]);
@@ -118,6 +123,7 @@ public class InGameManager : MonoBehaviour
     {
         courseClearOrFail.gameObject.SetActive(true);
         courseClearOrFail.text = "GameOver";
+
         StartCoroutine(FadeBlackOut(3f));
     }
 
@@ -148,6 +154,9 @@ public class InGameManager : MonoBehaviour
     {
         while (gameData.Time > 0)
         {
+            if (!isStart)
+                yield break;
+
             gameData.Time--;
             time.text = gameData.Time.ToString("000");
             yield return new WaitForSeconds(1);
@@ -209,5 +218,10 @@ public class InGameManager : MonoBehaviour
             gameData.Life -= 1;
         }
         life.text = gameData.Life.ToString("00");
+    }
+
+    public void TimeStop()
+    {
+        isStart = false;
     }
 }

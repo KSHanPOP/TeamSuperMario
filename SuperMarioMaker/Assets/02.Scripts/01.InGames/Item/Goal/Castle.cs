@@ -6,9 +6,9 @@ public class Castle : MonoBehaviour
 {
     [SerializeField]
     private SpriteRenderer rightSprite;
-    public static Castle Instance { get; private set; }    
+    public static Castle Instance { get; private set; }
 
-    private bool isClear = false;    
+    private bool isClear = false;
 
     private void Awake()
     {
@@ -27,10 +27,11 @@ public class Castle : MonoBehaviour
 
         if (!isClear)
             return;
-        
+
         SoundManager.Instance.PlaySFX("Clear");
         collision.gameObject.SetActive(false);
-        Invoke(nameof(ResetGame), 7f);        
+
+        Invoke(nameof(ResetGame), 6f);
     }
 
     public void ResetGame()
@@ -39,13 +40,13 @@ public class Castle : MonoBehaviour
         {
             var toolMgr = ToolManager.Instance;
 
-            if(toolMgr.ToolMode == ToolManager.ToolModeType.Save)
+            if (toolMgr.ToolMode == ToolManager.ToolModeType.Save)
             {
                 toolMgr.CJsonTest.GameComplete();
             }
             toolMgr.GoTool();
         }
-        else if(SceneLoader.Instance.State == SceneState.MainGame)
+        else if (SceneLoader.Instance.State == SceneState.MainGame)
         {
             InGameManager.Instance.CourseClear();
         }

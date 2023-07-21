@@ -94,6 +94,11 @@ public class MarioSmall : DefaultMario
 
         playerState.SetFallingLayer();
 
+        if (SceneLoader.Instance.State == SceneState.MainGame)
+        {
+            InGameManager.Instance.TimeStop();
+        }
+
         Invoke(nameof(ResetGame), 3f);
     }
 
