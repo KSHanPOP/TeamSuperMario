@@ -19,11 +19,20 @@ public class SpeedTracker : MonoBehaviour
     [SerializeField]
     private SpeedGraphDrawer speedGraphDrawer;
 
+    private bool isStarted = false;
+
     // Update is called once per frame
     void Update()
     {
         if(Input.GetKeyDown(enterKey))
         {
+            if(!isStarted)
+            {
+                SoundManager.Instance.PlayBGM("SMB2GROUND");
+            }
+
+            isStarted = true;
+            
             tileManager.StartTest();
         }
 

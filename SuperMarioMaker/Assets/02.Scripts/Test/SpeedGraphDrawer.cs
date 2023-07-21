@@ -62,9 +62,12 @@ public class SpeedGraphDrawer : MonoBehaviour
                 break;
             }
             yield return null;
-        }        
-        
-        Rigidbody2D playerBody = PlayerState.Instance.transform.parent.GetComponent<Rigidbody2D>();
+        }
+
+        var player = PlayerState.Instance.transform.parent;
+
+        Rigidbody2D playerBody = player.GetComponent<Rigidbody2D>();
+        float maxSpeed = player.GetComponent<MoveController>().GetMaxSpeed();
 
         var speedTextAbovePlayer = Instantiate(textMesh, playerBody.transform);
         speedTextAbovePlayer.transform.localPosition = Vector2.up;
@@ -84,6 +87,9 @@ public class SpeedGraphDrawer : MonoBehaviour
 
         while (true)
         {
+            if (playerBody == null)
+                yield break;
+
             speed = playerBody.velocity.x;
 
             speedTextAbovePlayer.text = speed.ToString("F2");
@@ -91,7 +97,7 @@ public class SpeedGraphDrawer : MonoBehaviour
             Vector3 pos = startPos + new Vector3(timer * graphWidthMult, speed * graphHeightAdjust);   
             positions.Add(pos);
 
-            if (!maxSpeedTimeChecked && speed == 10f)
+            if (!maxSpeedTimeChecked && speed == maxSpeed)
             {
                 var text = Instantiate(textMesh);
                 textMeshes.Add(text);
