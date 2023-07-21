@@ -11,6 +11,10 @@ public class SaveLoadManager : MonoBehaviour
     public static SaveLoadManager Instance { get; private set; }
 
     private Dictionary<string, SaveFile> saveFiles = new Dictionary<string, SaveFile>();
+   public Dictionary<string, SaveFile> SaveFiles
+    {
+        get { return saveFiles; }
+    }
     void Awake()
     {
         if (Instance == null)
@@ -108,7 +112,8 @@ public class SaveLoadManager : MonoBehaviour
     }
     public void LoadGame(string name)
     {
-
+        SceneLoader.Instance.LoadMainGameScene(name);
+        popUp.SetActive(false);
     }
     public void Delete(string name)
     {

@@ -10,6 +10,13 @@ public class SceneLoader : MonoBehaviour
     [SerializeField] private GameObject loadingBG;
     [SerializeField] private Button exitButton;
 
+    private string nowGameName;
+    public string NowGameName
+    {
+        get { return nowGameName; }
+        private set { nowGameName = value; }
+    }
+
     void Awake()
     {
         if (Instance == null)
@@ -66,14 +73,16 @@ public class SceneLoader : MonoBehaviour
         StartCoroutine(LoadSceneAndInit("Title"));
     }
 
+
     public void LoadToolScene()
     {
         StartCoroutine(LoadSceneAndInit("Tool"));
     }
 
-    public void LoadMainGameScene()
+    public void LoadMainGameScene(string gameName)
     {
-        SceneManager.LoadScene("MainGame");
+        NowGameName = gameName;
+        StartCoroutine(LoadSceneAndInit("MainGame"));
     }
 
     private IEnumerator LoadSceneAndInit(string sceneName)
@@ -116,7 +125,7 @@ public class SceneLoader : MonoBehaviour
                 SoundManager.Instance.PlayBGM("Tool");
                 break;
             case "MainGame":
-
+                InGameManager.Instance.StartCountDown();
                 break;
         }
     }

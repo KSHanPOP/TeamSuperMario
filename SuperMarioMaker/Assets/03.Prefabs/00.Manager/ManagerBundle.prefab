@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 4697711168128502146}
   - component: {fileID: 564761577897604413}
   m_Layer: 0
-  m_Name: IngameManagers
+  m_Name: ManagerBundle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
