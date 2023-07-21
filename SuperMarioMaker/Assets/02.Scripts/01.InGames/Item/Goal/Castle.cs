@@ -45,9 +45,9 @@ public class Castle : MonoBehaviour
             }
             toolMgr.GoTool();
         }
-        else
+        else if(SceneLoader.Instance.State == SceneState.MainGame)
         {
-
+            InGameManager.Instance.CourseClear();
         }
     }
 }

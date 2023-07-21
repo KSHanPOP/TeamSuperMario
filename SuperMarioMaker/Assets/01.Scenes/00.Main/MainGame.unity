@@ -268,7 +268,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 126560647475009931, guid: 0fe9aaac9f20e4240b90322cf253a1fc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 126560647475009931, guid: 0fe9aaac9f20e4240b90322cf253a1fc, type: 3}
       propertyPath: m_LocalPosition.z
@@ -306,6 +306,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: ManagerBundle
       objectReference: {fileID: 0}
+    - target: {fileID: 2155222892565808119, guid: 0fe9aaac9f20e4240b90322cf253a1fc, type: 3}
+      propertyPath: posY
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4697711168128502146, guid: 0fe9aaac9f20e4240b90322cf253a1fc, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6151051732478867965, guid: 0fe9aaac9f20e4240b90322cf253a1fc, type: 3}
       propertyPath: monsterAwaker
       value: 
@@ -325,7 +333,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8762912046500020475, guid: 185668a99d35bf54bac295905221d98f, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8762912046500020475, guid: 185668a99d35bf54bac295905221d98f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -507,7 +515,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1986820314
 MonoBehaviour:

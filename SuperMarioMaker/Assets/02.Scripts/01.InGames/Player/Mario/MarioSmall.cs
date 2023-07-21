@@ -94,7 +94,7 @@ public class MarioSmall : DefaultMario
 
         playerState.SetFallingLayer();
 
-        Invoke(nameof(ResetGame), 2f);
+        Invoke(nameof(ResetGame), 3f);
     }
 
     public override void PlayJumpSound()
@@ -108,10 +108,10 @@ public class MarioSmall : DefaultMario
         {
             ToolManager.Instance.GoTool();
         }
-        //else if(SceneLoader.Instance.State == SceneState.MainGame)
-        //{
-            
-        //}
+        else if (SceneLoader.Instance.State == SceneState.MainGame)
+        {
+            InGameManager.Instance.Die();
+        }
     }
 
     public override void OnTransformationComplete()

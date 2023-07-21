@@ -20,14 +20,23 @@ public class FallTileHandler : MonoBehaviour
         if (GameManager.instance == null)
             return;
 
-        var gameData = GameManager.instance.gameData;        
+        GameData gameData = new GameData();
+
+        if (SceneLoader.Instance.State == SceneState.Tool)
+        {
+            gameData = GameManager.instance.gameData;
+        }
+        else if (SceneLoader.Instance.State == SceneState.MainGame)
+        {
+            gameData = InGameManager.Instance.GameData;
+        }
 
         startPoint = 0f;
-        endPoint = gameData.TileX * gameData.MapRowLength;
+        endPoint = 24 * gameData.MapRowLength;
 
         transform.position = new Vector3((startPoint + endPoint) * 0.5f, posY, 0f);
         trigger.size = new Vector2(endPoint - startPoint, trigger.size.y);
-    }    
+    }
 
     public void StopTest()
     {
@@ -36,23 +45,19 @@ public class FallTileHandler : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Player"))
+        if (collision.CompareTag("Player"))
         {
-            SoundManager.Instance.StopAll();
-            SoundManager.Instance.PlaySFX("Die");
-            Invoke(nameof(GameOver), 3f);
+            GameOver();
+
+            trigger.enabled = false;
+            return;
         }
 
-        Destroy(collision.gameObject);        
+        Destroy(collision.gameObject);
     }
 
     private void GameOver()
     {
-        if (SceneLoader.Instance.State == SceneState.Tool)
-            ToolManager.Instance.GoTool();
-        else
-        {
-
-        }
+        PlayerState.Instance.CurrState.Die();
     }
 }

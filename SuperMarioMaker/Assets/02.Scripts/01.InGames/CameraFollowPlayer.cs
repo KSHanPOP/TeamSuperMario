@@ -53,10 +53,10 @@ public class CameraFollowPlayer : MonoBehaviour
             gameData = InGameManager.Instance.GameData;
         }        
 
-        minX = gameData.TileX / 2;
-        maxX = gameData.TileX * gameData.MapRowLength - minX;
-        minY = gameData.TileY / 2;
-        maxY = gameData.TileY * gameData.MapRowLength - minY;
+        minX = 24 / 2;
+        maxX = 24 * gameData.MapRowLength - minX;
+        minY = 13.5f / 2;
+        maxY = 13.5f * gameData.MapRowLength - minY;
 
         Update();
         cam.GetComponent<SleepMonsterAwaker>().enabled = true;

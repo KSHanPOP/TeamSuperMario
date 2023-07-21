@@ -88,11 +88,12 @@ public class InGameManager : MonoBehaviour
 
         SoundManager.Instance.PlayBGM(words[1]);
         TileManager.Instance.StartTest();
-        TimeCounter();
+        StartCoroutine(TimeCounter());
     }
-    private void Die()
+    public void Die()
     {
-        PlayerState.Instance.CurrState.Die();
+        if (gameData.Time <= 0)
+            PlayerState.Instance.CurrState.Die();
 
         AddLife(false);
 
@@ -106,7 +107,7 @@ public class InGameManager : MonoBehaviour
 
         ResetGameDataInfo();
     }
-    private void CourseClear()
+    public void CourseClear()
     {
         courseClearOrFail.gameObject.SetActive(true);
         courseClearOrFail.text = "Course Clear";
@@ -116,7 +117,7 @@ public class InGameManager : MonoBehaviour
     private void CourseFail()
     {
         courseClearOrFail.gameObject.SetActive(true);
-        courseClearOrFail.text = "Fail";
+        courseClearOrFail.text = "GameOver";
         StartCoroutine(FadeBlackOut(3f));
     }
 
@@ -159,6 +160,7 @@ public class InGameManager : MonoBehaviour
 
     IEnumerator FadeBlackOut()
     {
+        TileManager.Instance.StopTest();
         blackOut.color = new Color(blackOut.color.r, blackOut.color.g, blackOut.color.b, 1);
         yield return new WaitForSeconds(blackOutTime);
 
@@ -167,6 +169,7 @@ public class InGameManager : MonoBehaviour
             blackOut.color = new Color(blackOut.color.r, blackOut.color.g, blackOut.color.b, t);
             yield return null;
         }
+        StartCountDown();
     }
 
     IEnumerator FadeBlackOut(float blackOutTime)
@@ -205,6 +208,6 @@ public class InGameManager : MonoBehaviour
         {
             gameData.Life -= 1;
         }
-        coin.text = gameData.Life.ToString("00");
+        life.text = gameData.Life.ToString("00");
     }
 }
