@@ -26737,7 +26737,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 501901093}
         m_TargetAssemblyTypeName: TileManager, Assembly-CSharp
-        m_MethodName: StopTest
+        m_MethodName: StopGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -50298,7 +50298,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 501901093}
         m_TargetAssemblyTypeName: TileManager, Assembly-CSharp
-        m_MethodName: StartTest
+        m_MethodName: StartGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

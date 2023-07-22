@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4565958494713679290}
   - component: {fileID: -5137558059347104211}
   - component: {fileID: 6487808276532913508}
+  - component: {fileID: 1851764999529219730}
   m_Layer: 10
   m_Name: Needle
   m_TagString: Gimmik
@@ -121,7 +122,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c3657adf6eb04448b0c54ada7758d91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsListed: 0
   animator: {fileID: -9197835490613512011}
 --- !u!61 &-5137558059347104211
 BoxCollider2D:
@@ -133,7 +133,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -147,7 +147,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.8, y: 0.8}
   m_EdgeRadius: 0
 --- !u!114 &6487808276532913508
 MonoBehaviour:
@@ -164,3 +164,28 @@ MonoBehaviour:
   IsDynamic: 0
   iconSpritePath: Sprite/Icon/DynamicTileIcon/TileIcon_07
   typeName: 0
+--- !u!68 &1851764999529219730
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3214633841771168652}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: -0.5, y: 0.5}
+  - {x: 0.5, y: 0.5}
+  - {x: 0.5, y: -0.5}
+  - {x: -0.5, y: -0.5}
+  - {x: -0.5, y: 0.5}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
