@@ -34,11 +34,11 @@ public abstract class BaseTile : MonoBehaviour
             tile.Play();
             Buffer.AddLast(tile);
         }
+
+        SwapBuffer();
     }
     public static void StopGame()
     {
-        SwapBuffer();
-
         foreach (var tile in Tiles)
         {
             tile.Stop();
