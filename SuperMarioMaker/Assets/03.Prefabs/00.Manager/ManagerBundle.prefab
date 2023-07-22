@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 2155222892565808119}
   - component: {fileID: 4697711168128502146}
   - component: {fileID: 564761577897604413}
+  - component: {fileID: -813208843206052203}
   m_Layer: 0
   m_Name: ManagerBundle
   m_TagString: Untagged
@@ -64,7 +65,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caddc0f2c6b168145926ef0aea3c022f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fallTileHandler: {fileID: 2155222892565808119}
+  monsterAwaker: {fileID: 0}
 --- !u!114 &1217746430011427846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,3 +155,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 6442509724708913028, guid: 38ec287f3fd2a5945b322a36f0a882e7, type: 3}
+--- !u!114 &-813208843206052203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 126560647475009932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb3d3178ce15f5145a8d7cfe01080dfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layer:
+    serializedVersion: 2
+    m_Bits: 1024

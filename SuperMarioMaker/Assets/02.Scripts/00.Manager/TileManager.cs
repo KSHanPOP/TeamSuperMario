@@ -12,9 +12,6 @@ public class TileManager : MonoBehaviour
     public bool IsPlaying { get; private set; } = false;
 
     [SerializeField]
-    FallTileHandler fallTileHandler;
-
-    [SerializeField]
     private BoxCollider2D monsterAwaker;
 
     private IGameSessionListener[] gameSessionsListeners;

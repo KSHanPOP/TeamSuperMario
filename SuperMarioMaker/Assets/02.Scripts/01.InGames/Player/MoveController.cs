@@ -89,17 +89,17 @@ public class MoveController : MonoBehaviour
         if (isTryRun)
             desiredVelocity *= runMaxSpeedMultiplier;
 
+        //isGround = ground.IsGround();
+
+        //Move();
+    }
+
+    private void FixedUpdate()
+    {
         isGround = ground.IsGround();
 
         Move();
     }
-
-    //private void FixedUpdate()
-    //{
-    //    isGround = ground.IsGround();
-
-    //    Move();
-    //}
 
     private void CheckSitting()
     {

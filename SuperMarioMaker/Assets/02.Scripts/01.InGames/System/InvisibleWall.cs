@@ -4,16 +4,22 @@ using UnityEngine;
 
 public class InvisibleWall : MonoBehaviour, IGameSessionListener
 {
-    private BoxCollider2D leftWall;
+    private EdgeCollider2D leftWall;
 
-    private BoxCollider2D rightWall;
+    private EdgeCollider2D rightWall;
 
     private void Awake()
     {
-        leftWall = gameObject.AddComponent<BoxCollider2D>();
+        var walls = new GameObject("Wall");
+
+        walls.layer = LayerMask.NameToLayer("Platform");
+
+        walls.transform.position = Vector3.zero;
+
+        leftWall = walls.AddComponent<EdgeCollider2D>();
         leftWall.enabled = false;
 
-        rightWall = gameObject.AddComponent<BoxCollider2D>();
+        rightWall = walls.AddComponent<EdgeCollider2D>();
         rightWall.enabled = false;
     }
 
@@ -36,11 +42,23 @@ public class InvisibleWall : MonoBehaviour, IGameSessionListener
             gameData = InGameManager.Instance.GameData;
         }
 
-        var startPoint = 0f;
-        var endPoint = 24 * gameData.MapRowLength;
+        var startX = 0f;
+        var endX = 24 * gameData.MapRowLength;
 
-        //transform.position = new Vector3((startPoint + endPoint) * 0.5f, posY, 0f);
-        //trigger.size = new Vector2(endPoint - startPoint, trigger.size.y);
+        var startY = -5f;
+        var endY = 13.5f * gameData.MapColLength;     
+
+        List<Vector2> leftPoints = new(2);
+        leftPoints.Add(new Vector2(startX, startY));
+        leftPoints.Add(new Vector2(startX, endY));
+
+        leftWall.SetPoints(leftPoints);
+
+        List<Vector2> rightPoints = new(2);
+        rightPoints.Add(new Vector2(endX, startY));
+        rightPoints.Add(new Vector2(endX, endY));
+
+        rightWall.SetPoints(rightPoints);
     }
 
     public void GameStop()
