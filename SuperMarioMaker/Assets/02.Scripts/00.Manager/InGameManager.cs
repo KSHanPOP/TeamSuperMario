@@ -32,6 +32,8 @@ public class InGameManager : MonoBehaviour
     [SerializeField] private Image blackOut;
     [SerializeField] private TextMeshProUGUI courseClearOrFail;
 
+    [SerializeField] private MoveBackGround backGround;
+
     private void Awake()
     {
         if (Instance == null)
@@ -96,6 +98,8 @@ public class InGameManager : MonoBehaviour
         SoundManager.Instance.PlayBGM(words[1]);
         TileManager.Instance.StartTest();
         StartCoroutine(TimeCounter());
+
+        backGround.StartMove();
     }
     public void Die()
     {
@@ -111,6 +115,8 @@ public class InGameManager : MonoBehaviour
             PlayerState.Instance.CurrState.Die();
 
         SoundManager.Instance.StopAll();
+
+        backGround.StopMove();
         StartCoroutine(FadeBlackOut());
 
         ResetGameDataInfo();
