@@ -100,13 +100,13 @@ public class MoveBackGround : MonoBehaviour
                         if (i == 0)
                         {
                             backgroundImages[i, j].transform.position
-                   = new Vector3(backgroundImages[x - 1, j].transform.position.x + spriteWidth, 0f);
+                   = new Vector3(backgroundImages[x - 1, j].transform.position.x + spriteWidth, backgroundImages[x - 1, j].transform.position.y);
                             backgroundImages[i, j].transform.Translate(new Vector3(-scrollSpeed * Time.deltaTime, 0, 0));
                         }
                         else
                         {
                             backgroundImages[i, j].transform.position
-                   = new Vector3(backgroundImages[i - 1, j].transform.position.x + spriteWidth, 0f);
+                   = new Vector3(backgroundImages[i - 1, j].transform.position.x + spriteWidth, backgroundImages[x - 1, j].transform.position.y);
                         }
 
                     }
