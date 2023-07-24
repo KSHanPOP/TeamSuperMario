@@ -190,6 +190,8 @@ public class IconManager : MonoBehaviour
 
     public void SetIconPopup(string iconTag)
     {
+        PopupManager.Instance.OffPopups();
+
         iconPopup.SetActive(true);
 
         SetActivePopupButtons(iconTag);

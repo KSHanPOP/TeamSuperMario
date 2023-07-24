@@ -2,7 +2,6 @@ using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -29,9 +28,15 @@ public class SaveLoadManager : MonoBehaviour
 
         LoadAllMapDataAndSprites();
     }
+
+    private string GetPath()
+    {
+        return Path.Combine(Directory.GetCurrentDirectory(), "SaveData");
+    }
+
     public void LoadAllMapDataAndSprites()
     {
-        string folderPath = Path.Combine(Directory.GetCurrentDirectory(), "SaveData");
+        string folderPath = GetPath();
 
         // Check if the directory exists
         if (Directory.Exists(folderPath))
@@ -82,6 +87,11 @@ public class SaveLoadManager : MonoBehaviour
 
     public void SetLoadList()
     {
+        for(int i = 0; i < scrollViewContent.childCount; i++)
+        {
+            Destroy(scrollViewContent.GetChild(0).gameObject);
+        }
+
         foreach (var saveFile in saveFiles)
         {
             var loadIcon = Instantiate(buttonPrefab, scrollViewContent);
@@ -117,8 +127,7 @@ public class SaveLoadManager : MonoBehaviour
     }
     public void Delete(string name)
     {
-
-        string folderPath = Path.Combine(Directory.GetCurrentDirectory(), "SaveData");
+        string folderPath = GetPath();
 
         string jsonFilePath = Path.Combine(folderPath, name + ".json");
         if (File.Exists(jsonFilePath))
@@ -168,6 +177,12 @@ public class SaveLoadManager : MonoBehaviour
     }
     void OnEnable()
     {
+        SetLoadList();
+    }
+
+    public void ReloadMapList()
+    {
+        LoadAllMapDataAndSprites();
         SetLoadList();
     }
 

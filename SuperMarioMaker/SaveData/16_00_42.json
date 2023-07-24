@@ -1,5 +1,5 @@
 {
-  "mapname": "07:34:40",
+  "mapname": "16:00:42",
   "time": 500.0,
   "life": 3,
   "BackGroundName": "Background Ground",
@@ -119,24 +119,6 @@
       "y": 1,
       "tileType": "Default",
       "tileName": "Castle"
-    },
-    {
-      "x": 19,
-      "y": 7,
-      "tileType": "None",
-      "tileName": "Coin"
-    },
-    {
-      "x": 10,
-      "y": 7,
-      "tileType": "None",
-      "tileName": "Coin"
-    },
-    {
-      "x": 6,
-      "y": 7,
-      "tileType": "None",
-      "tileName": "Coin"
     }
   ]
 }

@@ -95,9 +95,15 @@ public class JsonTest : MonoBehaviour
         SaveMapData(ToolManager.Instance.SetMapData());
     }
 
+    private string GetPath()
+    {
+        return Path.Combine(Directory.GetCurrentDirectory(), "SaveData");
+    }
+
+
     public void SaveMapData(MapData mapData)
     {
-        string folderPath = Path.Combine(Directory.GetCurrentDirectory(), "SaveData");
+        string folderPath = GetPath();
         string fileName = mapData.MapName.Replace(":", "_") + ".json";
         string filePath = Path.Combine(folderPath, fileName);
 

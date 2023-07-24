@@ -75,9 +75,9 @@ public class MarioSmall : DefaultMario
 
     public override void Die()
     {
-        base.Die();
+        if (isDead) return;
 
-        if(isDead) return;
+        isDead = true;
 
         cameraFollowPlayer.enabled = false;
 

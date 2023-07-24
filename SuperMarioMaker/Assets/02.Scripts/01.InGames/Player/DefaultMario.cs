@@ -82,7 +82,7 @@ public abstract class DefaultMario : MonoBehaviour
     }
     public virtual void Die()
     {
-        isDead = true;
+        
     }
     public virtual void DoAction()
     {

@@ -66,6 +66,11 @@ public class SceneLoader : MonoBehaviour
 
     public void LoadTitleScene()
     {
+        //
+        SaveLoadManager.Instance.ReloadMapList();
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);        
+        //
+
         StartCoroutine(LoadSceneAndInit("Title"));
     }
 
