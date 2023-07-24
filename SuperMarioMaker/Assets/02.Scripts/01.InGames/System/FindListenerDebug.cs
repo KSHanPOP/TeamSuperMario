@@ -14,10 +14,11 @@ public class FindListenerDebug : MonoBehaviour
 
     public void FindListeners()
     {
-        Logger.Debug("searching listneres");
+        Logger.Debug("searching listeneres");
         // 연결된 모든 리스너들의 정보 출력
         UnityEngine.Events.UnityEvent onClickEvent = targetButton.onClick;
         int listenerCount = onClickEvent.GetPersistentEventCount();
+
         for (int i = 0; i < listenerCount; i++)
         {
             Object targetObject = onClickEvent.GetPersistentTarget(i);

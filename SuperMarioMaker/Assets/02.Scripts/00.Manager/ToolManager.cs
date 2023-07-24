@@ -321,6 +321,8 @@ public class ToolManager : MonoBehaviour
 
     public MapData SetMapData()
     {
+        TileManager.Instance.StopGame();
+
         MapData data = new MapData();
 
         data.MapName = DateTime.Now.ToString("HH:mm:ss");

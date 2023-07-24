@@ -1,5 +1,5 @@
 {
-  "mapname": "17:36:11",
+  "mapname": "20:29:09",
   "time": 500.0,
   "life": 3,
   "BackGroundName": "Background Ground",
@@ -121,62 +121,50 @@
       "tileName": "Castle"
     },
     {
-      "x": 20,
-      "y": 7,
+      "x": 10,
+      "y": 1,
+      "tileType": "unSelected",
+      "tileName": "Goomba"
+    },
+    {
+      "x": 9,
+      "y": 1,
+      "tileType": "unSelected",
+      "tileName": "Goomba"
+    },
+    {
+      "x": 13,
+      "y": 1,
       "tileType": "unSelected",
       "tileName": "HardPlatform"
     },
     {
-      "x": 17,
-      "y": 9,
+      "x": 13,
+      "y": 0,
       "tileType": "unSelected",
       "tileName": "HardPlatform"
     },
     {
-      "x": 19,
-      "y": 8,
-      "tileType": "unSelected",
-      "tileName": "HardPlatform"
-    },
-    {
-      "x": 17,
-      "y": 7,
-      "tileType": "unSelected",
-      "tileName": "HardPlatform"
-    },
-    {
-      "x": 16,
-      "y": 4,
-      "tileType": "unSelected",
-      "tileName": "HardPlatform"
-    },
-    {
-      "x": 18,
-      "y": 5,
+      "x": 12,
+      "y": 0,
       "tileType": "unSelected",
       "tileName": "HardPlatform"
     },
     {
       "x": 11,
-      "y": 3,
+      "y": 0,
       "tileType": "unSelected",
       "tileName": "HardPlatform"
     },
     {
       "x": 10,
-      "y": 2,
-      "tileType": "unSelected",
-      "tileName": "HardPlatform"
-    },
-    {
-      "x": 11,
-      "y": 2,
+      "y": 0,
       "tileType": "unSelected",
       "tileName": "HardPlatform"
     },
     {
       "x": 9,
-      "y": 1,
+      "y": 0,
       "tileType": "unSelected",
       "tileName": "HardPlatform"
     },
@@ -189,6 +177,12 @@
     {
       "x": 7,
       "y": 0,
+      "tileType": "unSelected",
+      "tileName": "HardPlatform"
+    },
+    {
+      "x": 7,
+      "y": 1,
       "tileType": "unSelected",
       "tileName": "HardPlatform"
     }
