@@ -185,7 +185,7 @@ public class SaveLoadManager : MonoBehaviour
         LoadAllMapDataAndSprites();
         SetLoadList();
     }
-
+     
     // Update is called once per frame
     void Update()
     {

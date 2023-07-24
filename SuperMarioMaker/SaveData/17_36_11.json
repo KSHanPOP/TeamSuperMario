@@ -1,5 +1,5 @@
 {
-  "mapname": "16:00:42",
+  "mapname": "17:36:11",
   "time": 500.0,
   "life": 3,
   "BackGroundName": "Background Ground",
@@ -119,6 +119,78 @@
       "y": 1,
       "tileType": "Default",
       "tileName": "Castle"
+    },
+    {
+      "x": 20,
+      "y": 7,
+      "tileType": "unSelected",
+      "tileName": "HardPlatform"
+    },
+    {
+      "x": 17,
+      "y": 9,
+      "tileType": "unSelected",
+      "tileName": "HardPlatform"
+    },
+    {
+      "x": 19,
+      "y": 8,
+      "tileType": "unSelected",
+      "tileName": "HardPlatform"
+    },
+    {
+      "x": 17,
+      "y": 7,
+      "tileType": "unSelected",
+      "tileName": "HardPlatform"
+    },
+    {
+      "x": 16,
+      "y": 4,
+      "tileType": "unSelected",
+      "tileName": "HardPlatform"
+    },
+    {
+      "x": 18,
+      "y": 5,
+      "tileType": "unSelected",
+      "tileName": "HardPlatform"
+    },
+    {
+      "x": 11,
+      "y": 3,
+      "tileType": "unSelected",
+      "tileName": "HardPlatform"
+    },
+    {
+      "x": 10,
+      "y": 2,
+      "tileType": "unSelected",
+      "tileName": "HardPlatform"
+    },
+    {
+      "x": 11,
+      "y": 2,
+      "tileType": "unSelected",
+      "tileName": "HardPlatform"
+    },
+    {
+      "x": 9,
+      "y": 1,
+      "tileType": "unSelected",
+      "tileName": "HardPlatform"
+    },
+    {
+      "x": 8,
+      "y": 0,
+      "tileType": "unSelected",
+      "tileName": "HardPlatform"
+    },
+    {
+      "x": 7,
+      "y": 0,
+      "tileType": "unSelected",
+      "tileName": "HardPlatform"
     }
   ]
 }
