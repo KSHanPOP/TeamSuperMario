@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.UI;
+using static UnityEditor.Timeline.Actions.MenuPriority;
 
 public class InGameManager : MonoBehaviour
 {
@@ -16,6 +18,9 @@ public class InGameManager : MonoBehaviour
     private GameData gameData;
     public GameData GameData { get { return gameData; } }
 
+    private bool isStart = false;
+
+
     [SerializeField] private TextMeshProUGUI count;
     [SerializeField] private TextMeshProUGUI time;
     [SerializeField] private TextMeshProUGUI life;
@@ -26,6 +31,8 @@ public class InGameManager : MonoBehaviour
 
     [SerializeField] private Image blackOut;
     [SerializeField] private TextMeshProUGUI courseClearOrFail;
+
+    [SerializeField] private MoveBackGround backGround;
 
     private void Awake()
     {
@@ -71,11 +78,13 @@ public class InGameManager : MonoBehaviour
     {
         MapData mapData = SaveLoadManager.Instance.SaveFiles[fileName].mapData;
 
-        time.text = mapData.Time.ToString("000");
         life.text = mapData.Life.ToString("00");
     }
     private void ResetGameDataInfo()
     {
+        MapData mapData = SaveLoadManager.Instance.SaveFiles[fileName].mapData;
+
+        time.text = mapData.Time.ToString("000");
         count.text = "3";
         coin.text = "00";
         iCoin = 0;
@@ -83,26 +92,31 @@ public class InGameManager : MonoBehaviour
     }
     private void GameStart()
     {
-
+        isStart = true;
         string[] words = gameData.BackGround.Split(' ');
 
         SoundManager.Instance.PlayBGM(words[1]);
         TileManager.Instance.StartGame();
         StartCoroutine(TimeCounter());
+
+        backGround.StartMove();
     }
     public void Die()
     {
-        if (gameData.Time <= 0)
-            PlayerState.Instance.CurrState.Die();
-
         AddLife(false);
 
         if (gameData.Life == 0)
         {
             CourseFail();
+            return;
         }
 
+        if (gameData.Time <= 0)
+            PlayerState.Instance.CurrState.Die();
+
         SoundManager.Instance.StopAll();
+
+        backGround.StopMove();
         StartCoroutine(FadeBlackOut());
 
         ResetGameDataInfo();
@@ -112,12 +126,13 @@ public class InGameManager : MonoBehaviour
         courseClearOrFail.gameObject.SetActive(true);
         courseClearOrFail.text = "Course Clear";
         StartCoroutine(FadeBlackOut(3f));
-
     }
     private void CourseFail()
     {
+        SoundManager.Instance.PlaySFX("gameover");
         courseClearOrFail.gameObject.SetActive(true);
         courseClearOrFail.text = "GameOver";
+
         StartCoroutine(FadeBlackOut(3f));
     }
 
@@ -148,6 +163,9 @@ public class InGameManager : MonoBehaviour
     {
         while (gameData.Time > 0)
         {
+            if (!isStart)
+                yield break;
+
             gameData.Time--;
             time.text = gameData.Time.ToString("000");
             yield return new WaitForSeconds(1);
@@ -180,6 +198,28 @@ public class InGameManager : MonoBehaviour
         SceneLoader.Instance.LoadTitleScene();
     }
 
+    public void PointCalculate() => StartCoroutine(AddRemainingTimeAsPoints());
+    IEnumerator AddRemainingTimeAsPoints()
+    {
+        float delay = 2f / gameData.Time; // Delay for each point increment.
+        float temp = 0f;
+
+        while (gameData.Time > 0)
+        {
+            AddTime(-1);
+            AddPoint(100);
+
+            temp += delay;
+            if (temp > 0.05f)
+            {
+                SoundManager.Instance.PlaySFX("Coin");
+                temp = 0f;
+            }
+
+            yield return new WaitForSeconds(delay);
+        }
+    }
+
     public void AddCoin(int addCoin)
     {
         if (iCoin == 99)
@@ -209,5 +249,15 @@ public class InGameManager : MonoBehaviour
             gameData.Life -= 1;
         }
         life.text = gameData.Life.ToString("00");
+    }
+    public void AddTime(float addTime)
+    {
+        gameData.Time += addTime;
+
+        time.text = gameData.Time.ToString("000");
+    }
+    public void TimeStop()
+    {
+        isStart = false;
     }
 }

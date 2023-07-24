@@ -16,6 +16,12 @@ public class Flag : MonoBehaviour
 
     public void GetScore()
     {
+
+        if (SceneLoader.Instance.State == SceneState.MainGame)
+        {
+            InGameManager.Instance.TimeStop();
+        }
+
         animator.SetTrigger(hashGetScore);
     }
 
@@ -23,6 +29,7 @@ public class Flag : MonoBehaviour
     {
         ScoreManager.Instance.GetScore(Score, transform.position);
         sequence.NextSequnce();
+
     }
 
 }
