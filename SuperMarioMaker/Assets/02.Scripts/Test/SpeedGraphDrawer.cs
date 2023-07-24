@@ -91,7 +91,7 @@ public class SpeedGraphDrawer : MonoBehaviour
 
             speed = playerBody.velocity.x;
 
-            speedTextAbovePlayer.text = speed.ToString("F2");
+            speedTextAbovePlayer.text = "Veolocity.X : " + speed.ToString("F2");
 
             Vector3 pos = startPos + new Vector3(timer * graphWidthMult, speed * graphHeightAdjust);   
             positions.Add(pos);

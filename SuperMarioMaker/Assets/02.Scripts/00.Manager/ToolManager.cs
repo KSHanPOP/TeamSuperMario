@@ -155,6 +155,7 @@ public class ToolManager : MonoBehaviour
         data.Time = playTime;
         data.Life = playerLife;
         data.BackGround = background;
+        data.MapColLength = MapColLength;
         data.MapRowLength = MapRowLength;
         data.TileX = TilemapX; data.TileY = TilemapY;
     }

@@ -2096,6 +2096,34 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 727399132964544251, guid: e6ed4abe650f69b43bdec086a24d026c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 727399132964544251, guid: e6ed4abe650f69b43bdec086a24d026c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 727399132964544251, guid: e6ed4abe650f69b43bdec086a24d026c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1218465265}
+    - target: {fileID: 727399132964544251, guid: e6ed4abe650f69b43bdec086a24d026c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 727399132964544251, guid: e6ed4abe650f69b43bdec086a24d026c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadTitleScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 727399132964544251, guid: e6ed4abe650f69b43bdec086a24d026c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SceneLoader, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 727399132964544251, guid: e6ed4abe650f69b43bdec086a24d026c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 980845431190314594, guid: e6ed4abe650f69b43bdec086a24d026c, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -3132,7 +3160,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 331.20718, y: -160}
+  m_AnchoredPosition: {x: 274.0899, y: -160}
   m_SizeDelta: {x: 431.0834, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1368649669
@@ -3584,7 +3612,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1759493006
 RectTransform:
   m_ObjectHideFlags: 0

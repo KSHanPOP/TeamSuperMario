@@ -1,11 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Data;
-using UnityEditor.ShaderGraph;
 using UnityEngine;
-using static UnityEngine.Mesh;
-using UnityEngine.Playables;
+
 
 public class DataTableMgr
 {

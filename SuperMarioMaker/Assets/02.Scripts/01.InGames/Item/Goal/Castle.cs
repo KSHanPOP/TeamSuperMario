@@ -31,8 +31,8 @@ public class Castle : MonoBehaviour
         SoundManager.Instance.PlaySFX("Clear");
         collision.gameObject.SetActive(false);
 
-        InGameManager.Instance.PointCalculate();
-       Invoke(nameof(ResetGame), 6f);
+        InGameManager.Instance?.PointCalculate();
+        Invoke(nameof(ResetGame), 6f);
 
     }
 
