@@ -39,11 +39,6 @@ public class SceneLoader : MonoBehaviour
     //    SoundManager.Instance.PlayBGM("Title");
     //}
 
-    //public void GoToTitle()
-    //{
-    //    State = SceneState.Title;
-    //}
-
     private SceneState state = SceneState.Title;
     public SceneState State
     {

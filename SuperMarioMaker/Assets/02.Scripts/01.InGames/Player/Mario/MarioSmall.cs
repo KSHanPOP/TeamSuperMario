@@ -75,6 +75,10 @@ public class MarioSmall : DefaultMario
 
     public override void Die()
     {
+        base.Die();
+
+        if(isDead) return;
+
         cameraFollowPlayer.enabled = false;
 
         playerState.Animator.SetTrigger(hashDie);

@@ -2,6 +2,8 @@ using UnityEngine;
 
 public abstract class DefaultMario : MonoBehaviour
 {
+    protected bool isDead = false;
+
     protected PlayerState playerState;
 
     protected BlockDetector detector;
@@ -80,7 +82,7 @@ public abstract class DefaultMario : MonoBehaviour
     }
     public virtual void Die()
     {
-
+        isDead = true;
     }
     public virtual void DoAction()
     {
