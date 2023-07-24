@@ -39,6 +39,7 @@ public class SoundManager : MonoBehaviour
 
     private void Start()
     {
+        PlayBGM("Title");
     }
     public void AllPopUpOff()
     {
@@ -60,8 +61,7 @@ public class SoundManager : MonoBehaviour
             }
             else
             {
-                PlaySFX("Pause");
-                popUp.SetActive(true);
+                OnSoundPopup();
 
                 if (SceneLoader.Instance.State != SceneState.Title)
                 {
@@ -74,6 +74,12 @@ public class SoundManager : MonoBehaviour
         //{
         //    PlaySFX("Test");
         //}
+    }
+
+    public void OnSoundPopup()
+    {
+        PlaySFX("Pause");        
+        popUp.SetActive(true);
     }
     void Awake()
     {

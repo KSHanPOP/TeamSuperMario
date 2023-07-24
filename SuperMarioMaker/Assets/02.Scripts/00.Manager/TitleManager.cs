@@ -75,6 +75,6 @@ public class TitleManager : MonoBehaviour
     }
     public void OnSound()
     {
-        SoundManager.Instance.PopUp.SetActive(true);
+        SoundManager.Instance.OnSoundPopup();
     }
 }

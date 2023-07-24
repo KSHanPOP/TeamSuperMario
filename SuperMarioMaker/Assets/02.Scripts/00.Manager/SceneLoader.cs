@@ -29,21 +29,22 @@ public class SceneLoader : MonoBehaviour
             Destroy(gameObject);
         }
 
-        SoundManager.Instance.PlayBGM("Title");
+        //SoundManager.Instance.PlayBGM("Title");
     }
-    private void Start()
-    {
-        exitButton.onClick.AddListener(LoadTitleScene);
-        state = SceneState.Title;
-        SoundManager.Instance.PlayBGM("Title");
-    }
+
+    //private void Start()
+    //{
+    //    exitButton.onClick.AddListener(LoadTitleScene);
+    //    state = SceneState.Title;
+    //    SoundManager.Instance.PlayBGM("Title");
+    //}
 
     //public void GoToTitle()
     //{
     //    State = SceneState.Title;
     //}
 
-    private SceneState state;
+    private SceneState state = SceneState.Title;
     public SceneState State
     {
         get { return state; }
