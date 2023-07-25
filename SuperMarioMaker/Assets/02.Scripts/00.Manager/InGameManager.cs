@@ -159,7 +159,7 @@ public class InGameManager : MonoBehaviour
     IEnumerator CountDown()
     {
         count.gameObject.SetActive(true);
-        SoundManager.Instance.PlayBGM("CountDown");
+        SoundManager.Instance.PlayBGM("CountDown", 0.45f);
 
         for (int i = 3; i > 0; i--)
         {
@@ -216,8 +216,12 @@ public class InGameManager : MonoBehaviour
     public void PointCalculate() => StartCoroutine(AddRemainingTimeAsPoints());
     IEnumerator AddRemainingTimeAsPoints()
     {
-        float delay = 2f / gameData.Time; // Delay for each point increment.
+        float delay = 1.8f / gameData.Time; // Delay for each point increment.        
         float temp = 0f;
+        
+        float clearBgmStartTime = Time.time;    
+
+        WaitForSeconds waitDelay = new WaitForSeconds(delay);        
 
         while (gameData.Time > 0)
         {
@@ -226,13 +230,25 @@ public class InGameManager : MonoBehaviour
 
             temp += delay;
             if (temp > 0.05f)
-            {
+            {            
                 SoundManager.Instance.PlaySFX("Coin");
+
                 temp = 0f;
             }
 
-            yield return new WaitForSeconds(delay);
+            yield return waitDelay;
         }
+
+        
+
+        float clearBgmRemainTime = 6f - (Time.time - clearBgmStartTime);
+        
+        if (clearBgmRemainTime > 0f)
+            yield return new WaitForSeconds(clearBgmRemainTime);
+
+        yield return new WaitForSeconds(1f);
+
+        CourseClear();
     }
 
     public void AddCoin(int addCoin)

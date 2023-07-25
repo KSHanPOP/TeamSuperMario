@@ -34,26 +34,18 @@ public class Castle : MonoBehaviour
         if(InGameManager.Instance != null)
             InGameManager.Instance?.PointCalculate();
 
-        Invoke(nameof(ResetGame), 6f);
-
-    }
-
-    public void ResetGame()
-    {
         if (SceneLoader.Instance.State == SceneState.Tool)
-        {
-            var toolMgr = ToolManager.Instance;
+            Invoke(nameof(ToolSceneClear), 6f);
+    }   
 
-            if (toolMgr.ToolMode == ToolManager.ToolModeType.Save)
-            {
-                toolMgr.CJsonTest.GameComplete();
-            }
-            toolMgr.GoTool();
-        }
+    private void ToolSceneClear()
+    {
+        var toolMgr = ToolManager.Instance;
 
-        if (SceneLoader.Instance.State == SceneState.MainGame)
+        if (toolMgr.ToolMode == ToolManager.ToolModeType.Save)
         {
-            InGameManager.Instance.CourseClear();
+            toolMgr.CJsonTest.GameComplete();
         }
+        toolMgr.GoTool();
     }
 }

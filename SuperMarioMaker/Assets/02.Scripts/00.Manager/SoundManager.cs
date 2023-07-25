@@ -137,7 +137,7 @@ public class SoundManager : MonoBehaviour
     }
 
     // BGM Àç»ý
-    public void PlayBGM(string clipName)
+    public void PlayBGM(string clipName, float startTime = 0)
     {
         // Play the new BGM
         if (bgmClips.ContainsKey(clipName))
@@ -145,6 +145,7 @@ public class SoundManager : MonoBehaviour
             bgmSource.clip = bgmClips[clipName];
             bgmSource.volume = bgmVolume * allVolume;
             bgmSource.loop = true;
+            bgmSource.time = startTime;            
             bgmSource.Play();
         }
         else
