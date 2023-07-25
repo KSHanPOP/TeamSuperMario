@@ -65,8 +65,8 @@ MonoBehaviour:
   maxAirTurnSpeed: 10.2
   directionX: 0
   runMaxSpeedMultiplier: 2
-  runAccelMultiplier: 1.3
-  rapidAcceleraton: 1.5
+  runAccelMultiplier: 1
+  rapidAcceleraton: 2
   playerState: {fileID: 2082444697104009540}
 --- !u!114 &4930648494648828084
 MonoBehaviour:

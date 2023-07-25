@@ -87,11 +87,6 @@ public class SaveLoadManager : MonoBehaviour
 
     public void SetLoadList()
     {
-        for(int i = 0; i < scrollViewContent.childCount; i++)
-        {
-            Destroy(scrollViewContent.GetChild(0).gameObject);
-        }
-
         foreach (var saveFile in saveFiles)
         {
             var loadIcon = Instantiate(buttonPrefab, scrollViewContent);
@@ -180,17 +175,26 @@ public class SaveLoadManager : MonoBehaviour
         SetLoadList();
     }
 
+    private void ClearLoadList()
+    {
+        foreach (Transform child in scrollViewContent)
+        {
+            Destroy(child.gameObject);
+        }
+    }
+
     public void ReloadMapList()
     {
         LoadAllMapDataAndSprites();
+        ClearLoadList();
         SetLoadList();
     }
      
     // Update is called once per frame
-    void Update()
-    {
+    //void Update()
+    //{
 
-    }
+    //}
 }
 
 public class SaveFile
