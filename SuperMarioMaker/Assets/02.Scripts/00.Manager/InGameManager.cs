@@ -68,7 +68,24 @@ public class InGameManager : MonoBehaviour
         foreach (var tile in Tiles)
         {
             var pos = new Vector3(tile.X, tile.Y, 0f);
-            ResourceManager.instance.SpawnPrefabByName(tile.TileName, pos);
+            var obj = ResourceManager.instance.GetSpawnPrefabByName(tile.TileName, pos);
+
+            switch (tile.TileName)
+            {
+                case "Upward":
+                case "Leftward":
+                case "Rightward":
+                case "Downward":
+                    obj.GetComponent<Pipe>().SetValue(tile.TileValue1, tile.TileValue2);
+                    break;
+                case "Thwomp":
+                    obj.GetComponent<DynamicTile_Thwomp>().SetValue(tile.TileValue1);
+                    break;
+                case "DynamicTile_Block":
+                case "Question_Block":
+                    obj.GetComponent<DynamicTile_Block>().SetValue(tile.TileValue1, tile.TileValue2);
+                    break;
+            }            
         }
     }
 

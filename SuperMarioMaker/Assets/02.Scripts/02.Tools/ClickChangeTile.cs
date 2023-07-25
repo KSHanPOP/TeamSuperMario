@@ -455,6 +455,9 @@ public class ClickChangeTile : MonoBehaviour, ICommand
             {
                 if (item.gameObject.activeSelf)
                 {
+                    var info = item.gameObject.GetComponent<PrefapInfo>();
+                    item.tileData.TileValue1 = info.TileValue1;
+                    item.tileData.TileValue2 = info.TileValue2;
                     data.Add(item.tileData);
                 }
             }

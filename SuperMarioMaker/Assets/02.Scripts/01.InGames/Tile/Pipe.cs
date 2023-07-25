@@ -15,7 +15,7 @@ public class Pipe : MonoBehaviour
     [SerializeField]
     private int maxLength = 10;
 
-    private int minLength = 2;
+    private int startLength = 2;
 
     [SerializeField]
     private GameObject[] verticalEntrance;
@@ -47,6 +47,9 @@ public class Pipe : MonoBehaviour
         get { return banPlant; }
         set
         {
+            if (plant == null)
+                return;
+
             prefapInfo.TileValue1 = value ? 1 : 0;
             banPlant = value;
             plant.SetActive(!banPlant);
@@ -65,7 +68,8 @@ public class Pipe : MonoBehaviour
     public void SetValue(int info1, int info2)
     {
         BanPlant = info1 == 1;
-        Setlength(info2);
+
+        startLength = info2 < 2 ? 2 : info2;
     }
 
     private void Awake()
@@ -80,7 +84,7 @@ public class Pipe : MonoBehaviour
     {
         MakeEntrance();
         MakePillar();
-        SetPillarLength(minLength);
+        SetPillarLength(startLength);
         SetCollider();
         SetHighlight();
     }
