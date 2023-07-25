@@ -85,7 +85,7 @@ public class InGameManager : MonoBehaviour
                 case "Question_Block":
                     obj.GetComponent<DynamicTile_Block>().SetValue(tile.TileValue1, tile.TileValue2);
                     break;
-            }            
+            }
         }
     }
 
@@ -216,33 +216,66 @@ public class InGameManager : MonoBehaviour
     public void PointCalculate() => StartCoroutine(AddRemainingTimeAsPoints());
     IEnumerator AddRemainingTimeAsPoints()
     {
-        float delay = 1.8f / gameData.Time; // Delay for each point increment.        
-        float temp = 0f;
-        
-        float clearBgmStartTime = Time.time;    
+        //float delay = 1.8f / gameData.Time; // Delay for each point increment.        
+        //float temp = 0f;
 
-        WaitForSeconds waitDelay = new WaitForSeconds(delay);        
+        //float clearBgmStartTime = Time.time;    
+
+        //WaitForSeconds waitDelay = new WaitForSeconds(delay);        
+
+        //while (gameData.Time > 0)
+        //{
+        //    AddTime(-1);
+        //    AddPoint(100);
+
+        //    temp += delay;
+        //    if (temp > 0.05f)
+        //    {            
+        //        SoundManager.Instance.PlaySFX("Coin");
+
+        //        temp = 0f;
+        //    }
+
+        //    yield return waitDelay;
+        //}
+
+        float clearBgmStartTime = Time.time;
+        float temp = 0f;
+
+        // Set the delay for each decrement.
+        float delay = 0.03f;
+        // WaitForSeconds object for the delay.
+        WaitForSeconds waitDelay = new WaitForSeconds(delay);
 
         while (gameData.Time > 0)
         {
-            AddTime(-1);
-            AddPoint(100);
+            // If the time is more than 6, subtract 10.
+            if (gameData.Time > 10)
+            {
+                AddTime(-10);
+                AddPoint(1000);
+            }
+            // If the time is 6 or less, subtract 1.
+            else
+            {
+                AddTime(-1);
+                AddPoint(100);
+            }
 
             temp += delay;
             if (temp > 0.05f)
-            {            
+            {
                 SoundManager.Instance.PlaySFX("Coin");
 
                 temp = 0f;
             }
 
+            // Wait for the delay.
             yield return waitDelay;
         }
 
-        
-
         float clearBgmRemainTime = 6f - (Time.time - clearBgmStartTime);
-        
+
         if (clearBgmRemainTime > 0f)
             yield return new WaitForSeconds(clearBgmRemainTime);
 
