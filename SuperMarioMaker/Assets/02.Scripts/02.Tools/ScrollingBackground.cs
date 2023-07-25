@@ -8,23 +8,41 @@ using UnityEngine.UI;
 public class ScrollingBackground : MonoBehaviour
 {
     [SerializeField] private GameObject icon;
-    [SerializeField] public float backgroundSpeed;
-    public Tilemap levelTilemap; // 레벨의 Tilemap
-    public GameObject backgroundPrefab; // 배경 이미지의 프리팹
-    public Transform backgroundParent; // 배경 이미지들의 부모 객체
-
-    private Transform[] backgrounds;
-    private Transform[,] backgrounds2D;
 
     private Coroutine backgroundCoroutine;
-    private Dictionary<Transform, Vector2> initialPositions = new Dictionary<Transform, Vector2>();
 
     [SerializeField]
     private Button upButton;
     [SerializeField]
     private Button downButton;
 
+    [SerializeField] private GameObject tempObject;
+    GameObject[,] backgroundImages;
 
+    private float mapRowLength;
+    private float mapColLength;
+    private string backGroundName;
+    private string backGroundName1;
+
+    private float spriteWidth;
+
+    public float scrollSpeed;
+    private int x;
+    private int y;
+
+    private void Awake()
+    {
+        spriteWidth = Resources.Load<Sprite>("Sprite/Backgrounds/Background Ground").bounds.size.x;
+    }
+    void Start()
+    {
+        Logger.CheckNullObject(this);
+
+        LoadBackgroundSprites();
+        InitializeBackgrounds();
+        Init();
+        SetImages();
+    }
     private void Init()
     {
         //foreach (Transform background in backgrounds)
@@ -39,52 +57,31 @@ public class ScrollingBackground : MonoBehaviour
     }
     void SaveBackgroundPositions()
     {
-        for (int i = 0; i < backgrounds2D.GetLength(0); i++)
+        backgroundImages = new GameObject[x, y];
+        for (int i = 0; i < x; i++)
         {
-            for (int j = 0; j < backgrounds2D.GetLength(1); j++)
+            for (int j = 0; j < y; j++)
             {
-                initialPositions[backgrounds2D[i, j]] = backgrounds2D[i, j].position;
+                backgroundImages[i, j] = Instantiate(tempObject);
+                backgroundImages[i, j].transform.position
+                    = new Vector3(spriteWidth * i, spriteWidth * j, 0f);
             }
         }
     }
     void InitializeBackgrounds()
     {
-        //float worldWidth = ToolManager.Instance.TilemapX - 1;
-        //float hightWidth = ToolManager.Instance.TilemapY - 1;
-        //float backgroundWidth = backgroundPrefab.GetComponent<SpriteRenderer>().bounds.size.x;
-        //float backgroundHight = backgroundPrefab.GetComponent<SpriteRenderer>().bounds.size.x;
+        mapRowLength = ToolManager.Instance.MapRowLength * 24;
+        mapColLength = ToolManager.Instance.MapColLength * 13.5f;
 
-        //int backgroundCount = Mathf.CeilToInt(worldWidth / backgroundWidth) + 2;
+        backGroundName = ToolManager.Instance.BackgroundName;
+        backGroundName1 = backGroundName + "1";
 
-        //backgrounds = new Transform[backgroundCount];
-
-        //for (int i = 0; i < backgroundCount; i++)
-        //{
-        //    GameObject newBackground = Instantiate(backgroundPrefab, backgroundParent);
-        //    newBackground.transform.position = new Vector2(i * backgroundWidth, 0);
-        //    backgrounds[i] = newBackground.transform;
-        //}
-
-        float worldWidth = ToolManager.Instance.TilemapX * ToolManager.Instance.MapRowLength - 1;
-        float worldHeight = ToolManager.Instance.TilemapY * ToolManager.Instance.MapColLength - 1;
-        float backgroundWidth = backgroundPrefab.GetComponent<SpriteRenderer>().bounds.size.x;
-        float backgroundHeight = backgroundPrefab.GetComponent<SpriteRenderer>().bounds.size.y;
-
-        int backgroundCountX = Mathf.CeilToInt(worldWidth / backgroundWidth) + 2;
-        int backgroundCountY = Mathf.CeilToInt(worldHeight / backgroundHeight);
-
-        backgrounds2D = new Transform[backgroundCountX, backgroundCountY];
-
-        for (int i = 0; i < backgroundCountX; i++)
-        {
-            for (int j = 0; j < backgroundCountY; j++)
-            {
-                GameObject newBackground = Instantiate(backgroundPrefab, backgroundParent);
-                newBackground.transform.position = new Vector2(i * backgroundWidth, j * backgroundHeight);
-                backgrounds2D[i, j] = newBackground.transform;
-            }
-        }
-
+        CalculateNumberOfBackgroundImages();
+    }
+    private void CalculateNumberOfBackgroundImages()
+    {
+        x = Mathf.CeilToInt(mapRowLength / spriteWidth) + 1;
+        y = Mathf.CeilToInt(mapColLength / spriteWidth);
     }
 
     private List<Sprite> backgroundSprites;
@@ -101,33 +98,24 @@ public class ScrollingBackground : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        Logger.CheckNullObject(this);
 
-        InitializeBackgrounds();
-        Init();
-        LoadBackgroundSprites();
-        //MoveBackground();
-        ChangeBackgroundImage();
-    }
 
     public void SetSizeChange()
     {
-        for (int i = 0; i < backgrounds2D.GetLength(0); i++)
+        for (int i = 0; i < x; i++)
         {
-            for (int j = 0; j < backgrounds2D.GetLength(1); j++)
+            for (int j = 0; j < y; j++)
             {
-                if (backgrounds2D[i, j] != null)
+                if (backgroundImages[i, j] != null)
                 {
-                    Destroy(backgrounds2D[i, j].gameObject);
+                    Destroy(backgroundImages[i, j].gameObject);
                 }
             }
         }
 
         InitializeBackgrounds();
         SaveBackgroundPositions();
-        ChangeBackgroundImage();
+        SetImages();
     }
     private void Update()
     {
@@ -152,104 +140,63 @@ public class ScrollingBackground : MonoBehaviour
     }
     private void ResetBackgroundPositions()
     {
-        if (backgrounds == null)
+        if (backgroundImages == null)
             return;
 
-        foreach (Transform background in backgrounds)
+        for (int i = 0; i < x; i++)
         {
-            if (initialPositions.ContainsKey(background))
+            for (int j = 0; j < y; j++)
             {
-                background.position = initialPositions[background];
+                backgroundImages[i, j].transform.position
+                    = new Vector3(spriteWidth * i, spriteWidth * j, 0f);
             }
         }
+
+        //foreach (Transform background in backgrounds)
+        //{
+        //    if (initialPositions.ContainsKey(background))
+        //    {
+        //        background.position = initialPositions[background];
+        //    }
+        //}
     }
     IEnumerator ScrollBackground()
     {
         while (true)
         {
-            for (int i = 0; i < backgrounds2D.GetLength(0); i++)
+            for (int i = 0; i < x; i++)
             {
-                for (int j = 0; j < backgrounds2D.GetLength(1); j++)
+                for (int j = 0; j < y; j++)
                 {
-                    Transform background = backgrounds2D[i, j];
+                    var rightEdgeOfImage = backgroundImages[i, j].transform.position.x + spriteWidth;
 
-                    // 배경 이미지의 오른쪽 경계를 계산합니다.
-                    float backgroundRightBoundary = background.position.x + background.localScale.x / 2;
-                    float backgroundWidth = background.GetComponent<SpriteRenderer>().bounds.size.x;
-
-                    // 배경 이미지의 오른쪽 경계가 타일맵의 왼쪽 경계를 넘어갔다면,
-                    if (backgroundRightBoundary <= -backgroundWidth)
+                    if (rightEdgeOfImage <= 0)
                     {
-                        float maxBackgroundPosX = Mathf.NegativeInfinity;
-                        for (int a = 0; a < backgrounds2D.GetLength(0); a++)
+                        if (i == 0)
                         {
-                            for (int b = 0; b < backgrounds2D.GetLength(1); b++)
-                            {
-                                Transform bg = backgrounds2D[a, b];
-                                if (bg != null && bg.position.x > maxBackgroundPosX)
-                                {
-                                    maxBackgroundPosX = bg.position.x;
-                                }
-                            }
+                            backgroundImages[i, j].transform.position
+                   = new Vector3(backgroundImages[x - 1, j].transform.position.x + spriteWidth, backgroundImages[x - 1, j].transform.position.y);
+                            backgroundImages[i, j].transform.Translate(new Vector3(-scrollSpeed * Time.deltaTime, 0, 0));
                         }
-                        background.position = new Vector2(maxBackgroundPosX + backgroundWidth, background.position.y);
-                    }
+                        else
+                        {
+                            backgroundImages[i, j].transform.position
+                   = new Vector3(backgroundImages[i - 1, j].transform.position.x + spriteWidth, backgroundImages[i - 1, j].transform.position.y);
+                        }
 
-                    // 배경 이미지를 왼쪽으로 이동시킵니다.
-                    background.position = new Vector2(background.position.x - backgroundSpeed, background.position.y);
+                    }
+                    else
+                    {
+                        backgroundImages[i, j].transform.Translate(new Vector3(-scrollSpeed * Time.deltaTime, 0, 0));
+                    }
                 }
             }
             yield return null;
         }
-
-
-        //while (true)
-        //{
-
-
-        //    float maxBackgroundPosX = float.MinValue;
-
-        //    for (int a = 0; a < backgrounds2D.GetLength(0); a++)
-        //    {
-        //        for (int b = 0; b < backgrounds2D.GetLength(1); b++)
-        //        {
-        //            var bg = backgrounds2D[a, b];
-        //            if (bg != null && bg.position.x > maxBackgroundPosX)
-        //            {
-        //                maxBackgroundPosX = bg.position.x;
-        //            }
-        //            backgrounds2D[a, b].transform.position = new Vector2(backgrounds2D[a, b].transform.position.x - backgroundSpeed, backgrounds2D[a, b].transform.position.y);
-        //        }
-        //    }
-
-        //    yield return null;
-        //}
-
-
-
-        //while (true)
-        //{
-        //    foreach (Transform background in backgrounds)
-        //    {
-        //        // 배경 이미지의 오른쪽 경계를 계산합니다.
-        //        float backgroundRightBoundary = background.position.x + background.localScale.x / 2;
-        //        float backgroundWidth = background.GetComponent<SpriteRenderer>().bounds.size.x;
-        //        // 배경 이미지의 오른쪽 경계가 타일맵의 왼쪽 경계를 넘어갔다면,
-        //        if (backgroundRightBoundary <= -backgroundWidth)
-        //        {
-        //            float maxBackgroundPosX = Mathf.Max(Array.ConvertAll(backgrounds, b => b.position.x));
-        //            background.position = new Vector2(maxBackgroundPosX + backgroundWidth, background.position.y);
-        //        }
-
-        //        // 배경 이미지를 왼쪽으로 이동시킵니다.
-        //        background.position = new Vector2(background.position.x - backgroundSpeed, background.position.y);
-        //    }
-        //    yield return null;
-        //}
     }
 
     private int currentBackgroundIndex = 0;
-    private void ChangeBackgroundImage()
+    private void SetImages()
     {
         if (backgroundSprites == null || backgroundSprites.Count == 0)
         {
@@ -257,22 +204,28 @@ public class ScrollingBackground : MonoBehaviour
             return;
         }
 
-        // 각 배경 오브젝트의 스프라이트를 변경합니다.
-        //foreach (Transform background in backgrounds)
-        //{
-        //    background.GetComponent<SpriteRenderer>().sprite = backgroundSprites[currentBackgroundIndex];
-        //}
-        for (int i = 0; i < backgrounds2D.GetLength(0); i++)
-        {
-            for (int j = 0; j < backgrounds2D.GetLength(1); j++)
-            {
-                backgrounds2D[i, j].GetComponent<SpriteRenderer>().sprite = backgroundSprites[currentBackgroundIndex];
-            }
-        }
-
-
         icon.GetComponent<Image>().sprite = backgroundSprites[currentBackgroundIndex];
         ToolManager.Instance.BackgroundName = backgroundSprites[currentBackgroundIndex].name;
+
+        backGroundName = ToolManager.Instance.BackgroundName;
+        backGroundName1 = backGroundName + "1";
+
+        for (int i = 0; i < x; i++)
+        {
+            for (int j = 0; j < y; j++)
+            {
+                backgroundImages[i, j].name = "BackgroundTile_" + i + "_" + j;
+
+                Sprite sprite;
+
+                if (j == 0)
+                    sprite = Resources.Load<Sprite>("Sprite/Backgrounds/" + backGroundName);
+                else
+                    sprite = Resources.Load<Sprite>("Sprite/Backgrounds/" + backGroundName1);
+
+                backgroundImages[i, j].GetComponent<SpriteRenderer>().sprite = sprite;
+            }
+        }
     }
 
     public void BackgroundImageUp()
@@ -282,7 +235,7 @@ public class ScrollingBackground : MonoBehaviour
         {
             currentBackgroundIndex = 0; // 리스트의 처음으로 롤오버합니다.
         }
-        ChangeBackgroundImage();
+        SetImages();
     }
 
     public void BackgroundImageDown()
@@ -292,6 +245,6 @@ public class ScrollingBackground : MonoBehaviour
         {
             currentBackgroundIndex = backgroundSprites.Count - 1; // 리스트의 마지막으로 롤오버합니다.
         }
-        ChangeBackgroundImage();
+        SetImages();
     }
 }

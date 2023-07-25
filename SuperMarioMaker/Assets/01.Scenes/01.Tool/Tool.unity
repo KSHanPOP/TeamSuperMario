@@ -8738,12 +8738,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 548514093}
-  backgroundSpeed: 0.02
+  backgroundSpeed: 5
   levelTilemap: {fileID: 0}
   backgroundPrefab: {fileID: 8584874382772022061, guid: 08336e7bf21846443a93fddf1fd4f88b, type: 3}
   backgroundParent: {fileID: 1746608103}
   upButton: {fileID: 508076031}
   downButton: {fileID: 1507995680}
+  tempObject: {fileID: 8584874382772022061, guid: 08336e7bf21846443a93fddf1fd4f88b, type: 3}
+  scrollSpeed: 5
 --- !u!224 &1746608103
 RectTransform:
   m_ObjectHideFlags: 0
