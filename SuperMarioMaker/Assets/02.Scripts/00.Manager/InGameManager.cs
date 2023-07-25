@@ -240,12 +240,16 @@ public class InGameManager : MonoBehaviour
         //}
 
         float clearBgmStartTime = Time.time;
-        float temp = 0f;
+        //float temp = 0f;
 
         // Set the delay for each decrement.
         float delay = 0.03f;
         // WaitForSeconds object for the delay.
         WaitForSeconds waitDelay = new WaitForSeconds(delay);
+
+        float sfxStartTime = SoundManager.Instance.GetSFXLength("ScoreCount3") - delay * ((gameData.Time * 0.1f) + (gameData.Time * 0.01f));        
+        
+        SoundManager.Instance.PlaySFX("ScoreCount3", sfxStartTime);        
 
         while (gameData.Time > 0)
         {
@@ -261,12 +265,11 @@ public class InGameManager : MonoBehaviour
                 AddTime(-1);
                 AddPoint(100);
             }
-
-            SoundManager.Instance.PlaySFX("ScoreCount3");
+            
             //temp += delay;
-            //if (temp > 0.05f)
+            //if (temp > 0.1f)
             //{
-            //    SoundManager.Instance.PlaySFX("ScoreCount3");
+            //    SoundManager.Instance.PlaySFX("Coin");
 
             //    temp = 0f;
             //}
@@ -274,9 +277,6 @@ public class InGameManager : MonoBehaviour
             // Wait for the delay.
             yield return waitDelay;
         }
-
-        SoundManager.Instance.SFXStop();
-        SoundManager.Instance.PlaySFX("Coin");
 
         float clearBgmRemainTime = 6f - (Time.time - clearBgmStartTime);
 
@@ -287,6 +287,11 @@ public class InGameManager : MonoBehaviour
 
         CourseClear();
     }
+
+    //private void PlayCoinSound()
+    //{
+    //    SoundManager.Instance.PlaySFX("Coin");
+    //}
 
     public void AddCoin(int addCoin)
     {

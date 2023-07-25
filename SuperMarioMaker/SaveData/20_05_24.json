@@ -1,0 +1,266 @@
+{
+  "mapname": "20:05:24",
+  "time": 500.0,
+  "life": 3,
+  "BackGroundName": "Background Ground",
+  "MapRowLength": 1,
+  "MapColLength": 1,
+  "Tiles": [
+    {
+      "x": 0,
+      "y": 0,
+      "tileType": "Default",
+      "tileName": "Platform",
+      "tileValue1": 0,
+      "tileValue2": 0
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "tileType": "Default",
+      "tileName": "Platform",
+      "tileValue1": 0,
+      "tileValue2": 0
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "tileType": "Default",
+      "tileName": "Platform",
+      "tileValue1": 0,
+      "tileValue2": 0
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "tileType": "Default",
+      "tileName": "Platform",
+      "tileValue1": 0,
+      "tileValue2": 0
+    },
+    {
+      "x": 4,
+      "y": 0,
+      "tileType": "Default",
+      "tileName": "Platform",
+      "tileValue1": 0,
+      "tileValue2": 0
+    },
+    {
+      "x": 5,
+      "y": 0,
+      "tileType": "Default",
+      "tileName": "Platform",
+      "tileValue1": 0,
+      "tileValue2": 0
+    },
+    {
+      "x": 6,
+      "y": 0,
+      "tileType": "Default",
+      "tileName": "Platform",
+      "tileValue1": 0,
+      "tileValue2": 0
+    },
+    {
+      "x": 14,
+      "y": 0,
+      "tileType": "Default",
+      "tileName": "Platform",
+      "tileValue1": 0,
+      "tileValue2": 0
+    },
+    {
+      "x": 15,
+      "y": 0,
+      "tileType": "Default",
+      "tileName": "Platform",
+      "tileValue1": 0,
+      "tileValue2": 0
+    },
+    {
+      "x": 16,
+      "y": 0,
+      "tileType": "Default",
+      "tileName": "Platform",
+      "tileValue1": 0,
+      "tileValue2": 0
+    },
+    {
+      "x": 17,
+      "y": 0,
+      "tileType": "Default",
+      "tileName": "Platform",
+      "tileValue1": 0,
+      "tileValue2": 0
+    },
+    {
+      "x": 18,
+      "y": 0,
+      "tileType": "Default",
+      "tileName": "Platform",
+      "tileValue1": 0,
+      "tileValue2": 0
+    },
+    {
+      "x": 19,
+      "y": 0,
+      "tileType": "Default",
+      "tileName": "Platform",
+      "tileValue1": 0,
+      "tileValue2": 0
+    },
+    {
+      "x": 20,
+      "y": 0,
+      "tileType": "Default",
+      "tileName": "Platform",
+      "tileValue1": 0,
+      "tileValue2": 0
+    },
+    {
+      "x": 21,
+      "y": 0,
+      "tileType": "Default",
+      "tileName": "Platform",
+      "tileValue1": 0,
+      "tileValue2": 0
+    },
+    {
+      "x": 22,
+      "y": 0,
+      "tileType": "Default",
+      "tileName": "Platform",
+      "tileValue1": 0,
+      "tileValue2": 0
+    },
+    {
+      "x": 23,
+      "y": 0,
+      "tileType": "Default",
+      "tileName": "Platform",
+      "tileValue1": 0,
+      "tileValue2": 0
+    },
+    {
+      "x": 14,
+      "y": 1,
+      "tileType": "Default",
+      "tileName": "Goal",
+      "tileValue1": 0,
+      "tileValue2": 0
+    },
+    {
+      "x": 21,
+      "y": 1,
+      "tileType": "Default",
+      "tileName": "Castle",
+      "tileValue1": 0,
+      "tileValue2": 0
+    },
+    {
+      "x": 12,
+      "y": 3,
+      "tileType": "None",
+      "tileName": "Coin",
+      "tileValue1": 0,
+      "tileValue2": 0
+    },
+    {
+      "x": 11,
+      "y": 3,
+      "tileType": "None",
+      "tileName": "Coin",
+      "tileValue1": 0,
+      "tileValue2": 0
+    },
+    {
+      "x": 10,
+      "y": 3,
+      "tileType": "None",
+      "tileName": "Coin",
+      "tileValue1": 0,
+      "tileValue2": 0
+    },
+    {
+      "x": 9,
+      "y": 3,
+      "tileType": "None",
+      "tileName": "Coin",
+      "tileValue1": 0,
+      "tileValue2": 0
+    },
+    {
+      "x": 8,
+      "y": 3,
+      "tileType": "None",
+      "tileName": "Coin",
+      "tileValue1": 0,
+      "tileValue2": 0
+    },
+    {
+      "x": 8,
+      "y": 4,
+      "tileType": "Selected",
+      "tileName": "DynamicTile_Block",
+      "tileValue1": 0,
+      "tileValue2": 0
+    },
+    {
+      "x": 13,
+      "y": 0,
+      "tileType": "None",
+      "tileName": "Platform 2",
+      "tileValue1": 0,
+      "tileValue2": 0
+    },
+    {
+      "x": 12,
+      "y": 0,
+      "tileType": "None",
+      "tileName": "Platform 2",
+      "tileValue1": 0,
+      "tileValue2": 0
+    },
+    {
+      "x": 11,
+      "y": 0,
+      "tileType": "None",
+      "tileName": "Platform 2",
+      "tileValue1": 0,
+      "tileValue2": 0
+    },
+    {
+      "x": 10,
+      "y": 0,
+      "tileType": "None",
+      "tileName": "Platform 2",
+      "tileValue1": 0,
+      "tileValue2": 0
+    },
+    {
+      "x": 9,
+      "y": 0,
+      "tileType": "None",
+      "tileName": "Platform 2",
+      "tileValue1": 0,
+      "tileValue2": 0
+    },
+    {
+      "x": 8,
+      "y": 0,
+      "tileType": "None",
+      "tileName": "Platform 2",
+      "tileValue1": 0,
+      "tileValue2": 0
+    },
+    {
+      "x": 7,
+      "y": 0,
+      "tileType": "None",
+      "tileName": "Platform 2",
+      "tileValue1": 0,
+      "tileValue2": 0
+    }
+  ]
+}

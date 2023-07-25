@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Purchasing;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -137,14 +138,14 @@ public class SoundManager : MonoBehaviour
     }
 
     // BGM Àç»ý
-    public void PlayBGM(string clipName, float startTime = 0)
+    public void PlayBGM(string clipName, float startTime = 0, bool loop = true)
     {
         // Play the new BGM
         if (bgmClips.ContainsKey(clipName))
         {
             bgmSource.clip = bgmClips[clipName];
             bgmSource.volume = bgmVolume * allVolume;
-            bgmSource.loop = true;
+            bgmSource.loop = loop;
             bgmSource.time = startTime;            
             bgmSource.Play();
         }
@@ -154,15 +155,17 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void PlaySFX(string clipName)
-    {
-
+    public void PlaySFX(string clipName, float startTime = 0)
+    {        
         if (sfxClips.ContainsKey(clipName))
         {
             AudioSource audioSource = GetAvailableAudioSource(clipName);
-
             audioSource.clip = sfxClips[clipName];
             audioSource.volume = sfxVolume * allVolume;
+
+            if (startTime != 0)
+                audioSource.time = startTime;            
+
             audioSource.Play();
 
             StartCoroutine(ReturnToPool(clipName, audioSource));
@@ -170,6 +173,19 @@ public class SoundManager : MonoBehaviour
         else
         {
             Debug.LogError("SFX clip not found: " + clipName);
+        }
+    }
+
+    public float GetSFXLength(string clipName)
+    {
+        if (sfxClips.ContainsKey(clipName))
+        {
+            return sfxClips[clipName].length;
+        }
+        else
+        {
+            Debug.LogError("SFX clip not found: " + clipName);
+            return 0f; // return 0 if clip not found
         }
     }
 
