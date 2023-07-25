@@ -53,6 +53,11 @@ public class TileData
     [JsonProperty("tileName")]
     public string TileName { get; set; }
 
+    [JsonProperty("tileValue1")]
+    public int TileValue1 { get; set; }
+
+    [JsonProperty("tileValue2")]
+    public int TileValue2 { get; set; }
 
     public override bool Equals(object obj)
     {

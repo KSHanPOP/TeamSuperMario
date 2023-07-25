@@ -29,7 +29,7 @@ public class DynamicTile_Thwomp : DynamicTile
         set 
         { 
             dir = value;
-            prefapInfo.TileInfo1 = value;
+            prefapInfo.TileValue1 = value;
         } 
     }
 

@@ -47,7 +47,7 @@ public class Pipe : MonoBehaviour
         get { return banPlant; }
         set
         {
-            prefapInfo.TileInfo1 = value ? 1 : 0;
+            prefapInfo.TileValue1 = value ? 1 : 0;
             banPlant = value;
             plant.SetActive(!banPlant);
         }
@@ -205,7 +205,7 @@ public class Pipe : MonoBehaviour
     }
     public void Setlength(float value)
     {
-        prefapInfo.TileInfo2 = (int)value;
+        prefapInfo.TileValue2 = (int)value;
         SetPillarLength((int)value);
         SetCollider();
         SetHighlight();

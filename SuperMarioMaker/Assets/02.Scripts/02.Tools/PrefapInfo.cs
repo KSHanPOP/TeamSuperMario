@@ -12,8 +12,8 @@ public class PrefapInfo : MonoBehaviour
     public bool IsDynamic;
     // [SerializeField] String iconPath;
 
-    public int TileInfo1 { get; set; } = 0;
-    public int TileInfo2 { get; set; } = 0;
+    public int TileValue1 { get; set; } = 0;
+    public int TileValue2 { get; set; } = 0;
 
     [SerializeField] private String iconSpritePath;
     [SerializeField] private ETileType typeName;

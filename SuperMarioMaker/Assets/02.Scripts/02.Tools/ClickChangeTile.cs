@@ -310,6 +310,7 @@ public class ClickChangeTile : MonoBehaviour, ICommand
                 // GameObjectTileData 인스턴스를 만듭니다.
                 GameObjectTileData data = new GameObjectTileData();
                 data.gameObject = hitCollider.gameObject;  // 게임 오브젝트 설정
+                
                 gameObjectTileDatas.Add(data);
             }
         }

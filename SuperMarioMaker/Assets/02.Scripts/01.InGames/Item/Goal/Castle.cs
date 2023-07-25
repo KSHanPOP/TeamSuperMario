@@ -31,7 +31,9 @@ public class Castle : MonoBehaviour
         SoundManager.Instance.PlaySFX("Clear");
         collision.gameObject.SetActive(false);
 
-        InGameManager.Instance?.PointCalculate();
+        if(InGameManager.Instance != null)
+            InGameManager.Instance?.PointCalculate();
+
         Invoke(nameof(ResetGame), 6f);
 
     }
@@ -48,7 +50,8 @@ public class Castle : MonoBehaviour
             }
             toolMgr.GoTool();
         }
-        else if (SceneLoader.Instance.State == SceneState.MainGame)
+
+        if (SceneLoader.Instance.State == SceneState.MainGame)
         {
             InGameManager.Instance.CourseClear();
         }

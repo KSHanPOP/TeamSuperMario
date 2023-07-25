@@ -40,13 +40,13 @@ public class DynamicTile_Block : DynamicTile
     public Sprite[] GetSprites() => ItemSpawnManagers.Instance.Sprites;
     public void SetItemType(EnumItems items)
     {
-        prefapInfo.TileInfo1 = (int)items;
+        prefapInfo.TileValue1 = (int)items;
         itemType = items;
     }
     public EnumItems GetItemType() => itemType;
     public void SetItemCount(float count)
     {
-        prefapInfo.TileInfo2 = (int)count;
+        prefapInfo.TileValue2 = (int)count;
         itemCount = (int)count;
     }
     public int GetItemCount() => itemCount;

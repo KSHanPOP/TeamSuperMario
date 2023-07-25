@@ -6169,7 +6169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -8738,10 +8738,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 548514093}
-  backgroundSpeed: 5
-  levelTilemap: {fileID: 0}
-  backgroundPrefab: {fileID: 8584874382772022061, guid: 08336e7bf21846443a93fddf1fd4f88b, type: 3}
-  backgroundParent: {fileID: 1746608103}
   upButton: {fileID: 508076031}
   downButton: {fileID: 1507995680}
   tempObject: {fileID: 8584874382772022061, guid: 08336e7bf21846443a93fddf1fd4f88b, type: 3}
