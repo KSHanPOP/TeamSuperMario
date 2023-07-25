@@ -262,17 +262,21 @@ public class InGameManager : MonoBehaviour
                 AddPoint(100);
             }
 
-            temp += delay;
-            if (temp > 0.05f)
-            {
-                SoundManager.Instance.PlaySFX("Coin");
+            SoundManager.Instance.PlaySFX("ScoreCount3");
+            //temp += delay;
+            //if (temp > 0.05f)
+            //{
+            //    SoundManager.Instance.PlaySFX("ScoreCount3");
 
-                temp = 0f;
-            }
+            //    temp = 0f;
+            //}
 
             // Wait for the delay.
             yield return waitDelay;
         }
+
+        SoundManager.Instance.SFXStop();
+        SoundManager.Instance.PlaySFX("Coin");
 
         float clearBgmRemainTime = 6f - (Time.time - clearBgmStartTime);
 
