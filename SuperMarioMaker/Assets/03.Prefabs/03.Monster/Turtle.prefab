@@ -229,6 +229,7 @@ MonoBehaviour:
   speedMultiplier: 1.5
   shakeForce: 0.5
   fallingLayer: 13
+  turtle: {fileID: 4496085742309706703}
 --- !u!114 &7755061913477079647
 MonoBehaviour:
   m_ObjectHideFlags: 0

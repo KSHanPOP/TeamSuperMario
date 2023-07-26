@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Purchasing;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SoundManager : MonoBehaviour
@@ -70,11 +68,6 @@ public class SoundManager : MonoBehaviour
                 }
             }
         }
-
-        //if (Input.GetKeyDown(KeyCode.C))
-        //{
-        //    PlaySFX("Test");
-        //}
     }
 
     public void OnSoundPopup()
@@ -408,4 +401,6 @@ public class SoundManager : MonoBehaviour
         // Re-enable the toggle's onValueChanged event
         sfxToggle.onValueChanged.AddListener(OnSFXToggleValueChanged);
     }
+
+
 }
