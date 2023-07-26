@@ -197,6 +197,9 @@ public class InGameManager : MonoBehaviour
         blackOut.color = new Color(blackOut.color.r, blackOut.color.g, blackOut.color.b, 1);
         yield return new WaitForSeconds(blackOutTime);
 
+        Vector3 startpos = new Vector3(12f, 6.75f, -10);
+        Camera.main.transform.position = startpos;
+
         for (float t = fadeTime; t >= 0; t -= Time.deltaTime)
         {
             blackOut.color = new Color(blackOut.color.r, blackOut.color.g, blackOut.color.b, t);
