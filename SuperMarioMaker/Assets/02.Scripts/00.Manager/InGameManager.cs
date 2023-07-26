@@ -82,9 +82,11 @@ public class InGameManager : MonoBehaviour
                     obj.GetComponent<DynamicTile_Thwomp>().SetValue(tile.TileValue1);
                     break;
                 case "DynamicTile_Block":
+                case "Z Blank Block":
                 case "Question_Block":
                     obj.GetComponent<DynamicTile_Block>().SetValue(tile.TileValue1, tile.TileValue2);
                     break;
+
             }
         }
     }
@@ -225,7 +227,7 @@ public class InGameManager : MonoBehaviour
         // Set the delay for each decrement.
         float delay = 0.03f;
         // WaitForSeconds object for the delay.
-        WaitForSeconds waitDelay = new WaitForSeconds(delay);     
+        WaitForSeconds waitDelay = new WaitForSeconds(delay);
 
         while (gameData.Time > 0)
         {
@@ -246,12 +248,12 @@ public class InGameManager : MonoBehaviour
             yield return waitDelay;
         }
 
-        if(soundCoroutine != null)
+        if (soundCoroutine != null)
             StopCoroutine(soundCoroutine);
 
         SoundManager.Instance.PlaySFX("CoinShort");
 
-        float clearBgmRemainTime = 6f + clearBgmStartTime - Time.time; 
+        float clearBgmRemainTime = 6f + clearBgmStartTime - Time.time;
 
         yield return new WaitForSeconds(1 + (clearBgmRemainTime > 0f ? clearBgmRemainTime : 0f));
 
@@ -265,7 +267,7 @@ public class InGameManager : MonoBehaviour
 
         WaitForSeconds period = new WaitForSeconds(0.1f);
 
-        while(Time.time - startTime < maxTime)
+        while (Time.time - startTime < maxTime)
         {
             SoundManager.Instance.PlaySFX("CoinShortCut");
             yield return period;
