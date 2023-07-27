@@ -114,6 +114,9 @@ public class Block : MonoBehaviour
 
     protected virtual void CheckItemRemainCount()
     {
+        if (isCrahsed)
+            return;
+
         switch (itemType)
         { 
             case EnumItems.Blank:

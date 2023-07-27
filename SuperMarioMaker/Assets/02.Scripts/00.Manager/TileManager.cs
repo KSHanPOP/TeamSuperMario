@@ -59,7 +59,7 @@ public class TileManager : MonoBehaviour
         }
 
         monsterAwaker.enabled = false;
-        Camera.main.GetComponent<SleepMonsterAwaker>().enabled = false;
+        Camera.main.GetComponent<SleepObjectAwaker>().enabled = false;
     }
 
     public void Restart()

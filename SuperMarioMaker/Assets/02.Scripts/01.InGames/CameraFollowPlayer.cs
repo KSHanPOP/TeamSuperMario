@@ -38,7 +38,7 @@ public class CameraFollowPlayer : MonoBehaviour
             minY = customHeightValue;
 
             Update();
-            cam.GetComponent<SleepMonsterAwaker>().enabled = true;
+            cam.GetComponent<SleepObjectAwaker>().enabled = true;
 
             return;
         }
@@ -60,7 +60,7 @@ public class CameraFollowPlayer : MonoBehaviour
         maxY = 13.5f * gameData.MapColLength - minY;
 
         Update();
-        cam.GetComponent<SleepMonsterAwaker>().enabled = true;
+        cam.GetComponent<SleepObjectAwaker>().enabled = true;
     }
 
     private void Update()

@@ -24,7 +24,7 @@ public class Pole : MonoBehaviour
         if(collision.CompareTag("Player"))
         {
             isStageClear = true;
-            Camera.main.GetComponent<SleepMonsterAwaker>().ClearMonsters();
+            Camera.main.GetComponent<SleepObjectAwaker>().ClearMonsters();
             Castle.Instance.StageClear();
 
             SetScore(collision.transform.position.y);

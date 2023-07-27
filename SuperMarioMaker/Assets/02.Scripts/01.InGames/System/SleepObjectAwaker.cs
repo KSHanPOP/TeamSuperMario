@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 
-public class SleepMonsterAwaker : MonoBehaviour
+public class SleepObjectAwaker : MonoBehaviour
 {
     [SerializeField]
     private BoxCollider2D boxCollider;

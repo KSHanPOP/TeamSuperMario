@@ -1,5 +1,5 @@
 using UnityEngine;
-public class Mushroom : ItemBase
+public class Mushroom : ItemBase, IAwake
 {
     private bool isAte;
 
@@ -13,6 +13,11 @@ public class Mushroom : ItemBase
 
     [SerializeField]
     private MoveColliderDetect moveColliderDetect;
+
+    public void OnAwake()
+    {
+        StartAction();
+    }
 
     protected override void Awake()
     {
