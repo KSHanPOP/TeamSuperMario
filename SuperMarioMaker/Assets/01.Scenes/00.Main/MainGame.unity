@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbec2ab9f24b27744a592f872b8e99e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollSpeed: 5
+  scrollSpeed: 0
   tempObject: {fileID: 8584874382772022061, guid: 08336e7bf21846443a93fddf1fd4f88b, type: 3}
 --- !u!4 &55991028
 Transform:
